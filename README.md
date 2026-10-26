@@ -15,9 +15,10 @@ that stands beside it.
 
 ## Status
 
-**Phase 0, 2026-10-26.** No library code yet. This commit is the scaffold:
-harness and board maps, the kickoff record, agent notes. The study (SF-0, the
-plan of record) comes next, then P0 (the shared seam), then parcel waves.
+**SF-0 approved, 2026-10-26; P0 next.** No library code yet. Phase 0 and
+the survey are closed in the record below, and [SF-0](docs/studies/SF-0.md)
+is the approved plan of record. P0 (the shared seam) comes next, then
+parcel waves.
 
 There is **no front door yet** — no single command answers "does it still hold?"
 P0 writes it. Until then, no command's green should be read as a verdict about
@@ -30,8 +31,8 @@ this project.
 | `docs/KICKOFF.md` | the owner's words verbatim, the lead's readings, open questions |
 | `docs/HARNESS.md` | how the methods' mechanisms map onto Muse, measured |
 | `docs/BOARD.md` | the Pico: protocol and filled details |
-| `docs/studies/` | SF-0, the plan of record (to come) |
-| `docs/RECORD.md` | dated run entries, the project's record (to come with SF-0) |
+| `docs/studies/` | SF-0, the approved plan of record |
+| `docs/RECORD.md` | dated run entries, the project's record |
 | `AGENTS.md` | notes for agents: the front door (when it exists), the authority, what bites |
 
 The working ledger, briefs and per-agent scratch live outside this repository
@@ -47,14 +48,15 @@ The working ledger, briefs and per-agent scratch live outside this repository
   stands between each parcel (and each of the lead's own commits) and the
   push to this public remote — local commits may be restated in place until
   then.
-- Nothing is committed or pushed without the owner's word. The words, with
-  the lead's reading of what they authorize (owner confirmation pending),
-  are in `docs/KICKOFF.md`.
+- Git operations run under the owner's standing permission (2026-10-26);
+  his words and the lead's readings are in `docs/KICKOFF.md`. Commits carry
+  detailed bodies with verification and ledger references, and AI-authored
+  commits carry the committing model's Co-Authored-By trailer.
 - Developed clean-room from the standard and public third-party sources; each
   source's licence is recorded before anything is copied from it.
 
 ## Licence
 
-Not set yet — the owner's decision, recorded in `docs/KICKOFF.md` when made.
-Third-party code keeps its own licence; REBOUND is GPL and will appear, if at
-all, only as a separately-licensed demo workload, never inside the library.
+MIT — see [LICENSE](LICENSE) (Copyright (c) 2026 Logan W.). Third-party
+code keeps its own licence; REBOUND is GPL and will appear, if at all, only
+as a separately-licensed demo workload, never inside the library.

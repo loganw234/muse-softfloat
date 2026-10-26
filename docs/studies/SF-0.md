@@ -1,7 +1,7 @@
 # SF-0: The plan of record for Muse-Softfloat
 
-Status: **draft for independent verification, then owner approval. No P0 work
-starts on this document until Logan approves it.**
+Status: **approved by Logan on 2026-10-26 (approval recorded in Section
+14). P0 may begin on this document.**
 
 Date: 2026-10-26. Author: the lead (Muse Code, muse-wonder-full-1.0).
 Evidence: the bootstrap kit's WORKFLOW/PROJECT, the owner's words in
@@ -31,8 +31,9 @@ READ / MEASURED / COMPUTED / BELIEVED where the distinction matters. IEEE
 
 ## 0. The short answers
 
-The lead's proposals. Each is argued in the section named; Logan approves or
-corrects them at the end of this study (Section 12).
+The lead's proposals, approved by Logan on 2026-10-26. Each is argued in
+the section named; Section 12 keeps the questions as put, and Section 14
+records the approval.
 
 1. **Edition (Section 2.1): IEEE 754-2019.** The owner's PDF is the 2019
    revision (MEASURED: its metadata during Phase 0). No 2008-only operation
@@ -74,8 +75,9 @@ corrects them at the end of this study (Section 12).
    fetched by pinned hash into scratch, never vendored as library source.
    Toolchain pins: Arm GNU Toolchain 14.2.1, pico-sdk 2.3.1, CMake 4.4.4,
    host oracle compiler only through the pinned x86-64 MinGW path. The
-   library's own licence is Logan's decision (recommendation in Q12.8);
-   REBOUND stays a GPL-3.0-or-later demo workload outside the library.
+   library's own licence is the MIT License (approved 2026-10-26; see
+   `LICENSE` at the repository root, copyright Logan W.); REBOUND stays
+   a GPL-3.0-or-later demo workload outside the library.
 9. **Authority (Section 4): three authorities with a stated order when they
    disagree** — the standard for meaning, pinned Berkeley SoftFloat 3e as
    the executable semantic authority for what it covers, MPFR (with exact
@@ -814,6 +816,22 @@ claimed no substance changed is replaced; the Sections 0/8 citation,
 SDK-baseline production task, decimal-design proposal tag, and READ tag
 on the published ROM averages are corrected. No conformance proposal
 changed in this pass.
+
+Approval (2026-10-26, after rechecker2-sf0 READY on draft 3 and push of
+828b8f1): Logan replied "Everything looks good with the recommendations,
+go with MIT for the license." Asked only for the exact copyright-holder
+string, he then confirmed "Logan W. works fine." The lead reads the first
+message as approval of all nine Section 12 recommendations, including
+Q12.8's standing-rule/cap defaults as amended and Q12.9's settled-in-body
+package; that reading is recorded in the ledger at 2026-10-26 13:57:41
+-0700 and stands open to his correction. Not settled by those words, and
+still open by name: the kit-zip builder-hash confirmation, any clean-room
+fencing beyond rule + disclosure + owner's audit, and whether a Debug
+Probe is attached (SF-0's BOOTSEL/USB route does not need it to begin P0).
+This entry, the status line, the MIT `LICENSE` file, and the dated
+appendices in `docs/KICKOFF.md` and `docs/RECORD.md` are the approval
+recording; Section 12's questions stay as put. From here this file
+changes only by a new dated entry in this section or a successor study.
 
 
 

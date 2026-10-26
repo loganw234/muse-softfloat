@@ -180,3 +180,40 @@ sessions arrived tool-less); survey reports in `scratch/S1..S4/report.md`
 with probes beside them; verifier verdicts in their ledger files; the QRO
 reference clone in `reading-scratch/qro`. None of that scratch is in this
 repository.
+
+## 2026-10-26 - SF-0 verified, approved, and licensed MIT; P0 gate open
+
+**What the owner asked**, verbatim: "Go ahead with SF-0"; then "Looks
+good, go ahead. The only slight change is more IEEE 754 compliance if time
+allows it"; after the study was pushed for approval, "Everything looks
+good with the recommendations, go with MIT for the license."; asked only
+for the copyright holder, "Logan W. works fine".
+
+**The lead's reading, beside it:** the approval covers all nine SF-0
+Section 12 recommendations, including Q12.8's standing-rule/cap defaults
+as amended and Q12.9's settled-in-body package. It does not confirm the
+kit-zip builder hash, choose extra clean-room fencing, or state whether a
+Debug Probe is attached; all three stay open by name and none blocks P0.
+
+**The chain** (READ, ledger verdict entries; (a), (b) per pass):
+
+| work | author | verifier's passes | sent back |
+|---|---|---|---|
+| SF-0 study (draft 1 `33c59f9`; draft 2 `4f7f870`; draft 3 pushed `828b8f1`) | the lead | verifier-sf0 0, 6 - 15 notes; rechecker-sf0 0, 2 - 4 notes; rechecker2-sf0 0, 0 - 1 note (all muse-spark-1.3) | twice — restated in place before push; READY at the study cap (3 drafts + 2 re-checks) |
+| this approval-recording change (LICENSE, approval entries, status lines) | the lead | Spark verifier named in its commit message | no (at writing) |
+
+**Measured:** the approved study is `docs/studies/SF-0.md` at
+`828b8f1`, confirmed on `origin/main` by the remote's own answer before
+approval. The independent SF-0 evidence audit's open holes that draft 1
+had not yet dispositioned (decimal authority design, per-instantiation
+coverage, oracle bring-up, board sample scope, Tier 2 entry criteria)
+were dispositioned in draft 2 and checked in both re-checks. Approval and
+licence are recorded here, in SF-0 Section 14, in the KICKOFF appendix,
+and in the ledger at 2026-10-26 13:57:41 -0700; the licence file itself
+is `LICENSE` (MIT, Copyright (c) 2026 Logan W.).
+
+**Known limits:** SF-0's approval approves a plan, not an implementation:
+no library code, runner, oracle build, or board proof exists yet, and the
+unproven board serial channel remains P0's top named risk. Metrics for
+agents after the Wave 0 cutoff (SF-0's verifiers included) are counted in
+the next entry, not restated into Wave 0's snapshot.

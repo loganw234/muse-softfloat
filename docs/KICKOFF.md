@@ -142,3 +142,23 @@ verifier or the owner sends something back, the date moves and the record
 says so. Waves 2–3, integration + board conformance, IAS15 proof runs, video
 production, close (keys, metrics tables, summary with cost) follow inside
 the hackathon window (ends 2026-11-04).
+
+## Later owner words — SF-0 approval and licence (2026-10-26, appended)
+
+After SF-0 was pushed for approval at `828b8f1`:
+
+> Everything looks good with the recommendations, go with MIT for the license.
+
+Asked only for the exact copyright-holder string:
+
+> Logan W. works fine
+
+Lead reading (marked): the first message approves all nine recommendations
+in SF-0 Section 12, including the standing-rule/cap defaults as amended in
+Q12.8 and the settled-in-body package in Q12.9; the second fixes the
+`LICENSE` holder as **Logan W.** Not settled by those words: open questions
+1's zip-hash confirmation and clean-room fencing choice, and open question
+4's Debug Probe presence. The IAS15 strict-flags definition in SF-0
+Section 9 is approved as part of the study. Open question 3 is therefore
+answered by SF-0 as approved, including the library licence: **MIT**.
+P0 may begin.
