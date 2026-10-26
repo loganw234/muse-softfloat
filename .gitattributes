@@ -1,0 +1,3 @@
+# Line endings are part of the bytes: git converts nothing, on any host.
+# Write LF. A CR in a file is a fact to be seen, not a conversion to be hidden.
+* -text

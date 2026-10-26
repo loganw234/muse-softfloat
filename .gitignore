@@ -1,0 +1,19 @@
+# Environments and build output
+.venv/
+build/
+build-*/
+__pycache__/
+*.pyc
+
+# Board artifacts: recorded by hash in the record, shipped as release assets, not source
+*.elf
+*.uf2
+*.bin
+*.hex
+
+# The IEEE 754 standard is licensed to the owner. It is never committed, in any form.
+*.pdf
+
+# Scratch that must never be staged by accident
+probe-tmp/
+*-tmp/
