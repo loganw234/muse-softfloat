@@ -612,6 +612,10 @@ int main(int argc, char **argv)
         printf("VERDICT: FAIL (no vectors ran)\n");
         return 1;
     }
+    if (st.passed == 0u) {
+        printf("VERDICT: FAIL (no vectors passed; skips are not passes)\n");
+        return 1;
+    }
     printf("VERDICT: PASS\n");
     return 0;
 }
