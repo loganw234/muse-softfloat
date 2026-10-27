@@ -606,6 +606,14 @@ def directed_arith(prov):
                                 r, f = ref_fma(fa, a, fb, b, fc, c, rm)
                                 out.append(line("msf64_fma" + suf, rm,
                                                 [a, b, c], r, f, prov))
+    # Clause 7.5 second shape: exact product below 2^emin whose
+    # unbounded rounding reaches 2^emin (not tiny after rounding,
+    # tiny before it); distinguishes the tininess definitions.
+    for a, b in ((0x000FFFFFFFFFFFFF, 0x3FF0000000000001),
+                 (0x000FFFFFFFFFFFFF, 0xBFF0000000000001)):
+        for rm in ("te", "ta"):
+            r, f = ref_mul("f64", a, "f64", b, rm)
+            out.append(line("msf64_mul", rm, [a, b], r, f, prov))
     return out
 
 

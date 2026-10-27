@@ -3979,3 +3979,7 @@ msf64_fma te bff0000000000001 bff0000000000001 bff8000000000000 -> bfdffffffffff
 msf64_fma tn bff0000000000001 bff0000000000001 bff8000000000000 -> bfdffffffffffff8 10 exact-f64:directed-arith
 msf64_fma te bff0000000000001 bff0000000000001 b9b0000000000000 -> 3ff0000000000002 10 exact-f64:directed-arith
 msf64_fma tn bff0000000000001 bff0000000000001 b9b0000000000000 -> 3ff0000000000001 10 exact-f64:directed-arith
+msf64_mul te fffffffffffff 3ff0000000000001 -> 10000000000000 10 exact-f64:directed-arith
+msf64_mul ta fffffffffffff 3ff0000000000001 -> 10000000000000 10 exact-f64:directed-arith
+msf64_mul te fffffffffffff bff0000000000001 -> 8010000000000000 10 exact-f64:directed-arith
+msf64_mul ta fffffffffffff bff0000000000001 -> 8010000000000000 10 exact-f64:directed-arith
