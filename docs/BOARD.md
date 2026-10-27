@@ -36,3 +36,45 @@ name its artifact is not evidence.
 | how the board is reset to a known state | Reflashing via the row above is the reset: `load -f -x` reboots into BOOTSEL, loads, and starts the application (MEASURED hands-free across harness→hello→bench cycles, 2026-10-26). |
 | what the lock file's path is | `<ledger>/board.lock` (ledger root is defined in docs/HARNESS.md) |
 | who may hold it besides the lead, if anyone | nobody yet; a parcel may be granted a named slot by the lead, recorded in the ledger |
+
+## IAS15 demo firmware (SF-0 Sec.9)
+
+Two further targets beside the P0 harness/hello/bench, both lead-run
+under the same lock and protocol above:
+
+- `msf_aeabi_selftest` (no workload): validates the AEABI binary64
+  compat surface (`compat/msf_aeabi.c`) on silicon before any board
+  hash is trusted. Banner `MSF-AEABI-SELFTEST 1`, verdict line
+  `AEABI-RESULT PASS/FAIL checks=... failures=...`.
+- `msf_ias15` (figure-8 demo): needs the GPL REBOUND extraction at
+  build time via `-DIAS15_EXTRACT_DIR=<workspace>/scratch/ias15/extract`
+  (the repo holds only glue, the opaque `board/ias15_api.h`, and the
+  coefficient/IC bit-pattern data). At startup it runs the directed
+  AEABI subset (`AEABI-LITE PASS`) and cross-checks the workload's
+  table bits against `board/ias15_tables.h` (`TABLES PASS`), then
+  refuses run commands unless `IAS15-READY 1`.
+  - `I` prints the banner (`MSF-IAS15 1 ID ... NMAX 16 clk_sys_hz ...`)
+    plus the readiness line.
+  - `R <nsteps> <kevery>` resets to the figure-8 ICs and streams
+    IAS15FH1 hash rows (same field shapes as the desktop reference
+    file) for step 0, every kevery steps, and the final step, then
+    `# END nonfinite_hashed_fields=... steps_done_field=...
+    warnings=... errors=...` and `IAS15-DONE`. The non-finite count
+    covers hashed steps, so the equality run uses kevery=1.
+  - `T <nsteps>` is the step-rate apparatus: per 1000-accepted-step
+    block it prints `RATE block_steps=1000 elapsed_us=...
+    clk_sys_hz=...` (interval measured with the RP2040 1 MHz timer
+    via `time_us_64()`, stepping only) plus that block's hash row.
+    A rate claim names these lines, the UF2 hash, and the clock;
+    the firmware prints integers and bit patterns only, never a
+    formatted double.
+- Host side: `board/ias15_host.py` captures by VID with
+  inactivity timeouts (a 2000-step run is minutes-scale at kevery=1;
+  `board/read_until.py`'s 60 s window is too short for it) and
+  writes hash rows verbatim for the desktop comparator.
+  `board/ias15_run.sh` is the whole lead sequence (selftest, flash,
+  `R 2000 1`, compare, `T 2000`); its header names the environment
+  variables. Expected-output spec: selftest PASS with 0 failures;
+  run capture compares equal for all 2001 records against the
+  reference hashes (first divergence: none) with
+  `nonfinite_hashed_fields=0`.
