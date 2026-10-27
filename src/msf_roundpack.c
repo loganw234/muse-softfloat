@@ -1,7 +1,12 @@
-/* msf_roundpack.c - binary64 round-and-pack exemplar (SF-0 6 item 4).
+/* msf_roundpack.c - the shared round-and-pack kernel.
  *
- * The single rounding event every binary64 operation funnels into:
- * exact magnitude (sig + f) * 2^exp2, f in [0,1) recorded only as
+ * P0 built this as the binary64 exemplar (SF-0 6 item 4); the Wave 1
+ * lead prep generalized it over generated format parameters so both
+ * format parcels share ONE rounding event implementation and cannot
+ * drift on Clause 7 boundary behaviour. The binary64 behaviour is
+ * unchanged (the P0 vector gates are the evidence, re-run).
+ *
+ * Exact magnitude (sig + f) * 2^exp2, f in [0,1) recorded only as
  * "nonzero" by sticky, is rounded once and packed. Flags follow
  * Clause 7 with tininess after rounding (SF-0 2.5): underflow needs
  * the ROUNDED result tiny (zero or subnormal) and inexact; the exact
@@ -15,10 +20,17 @@
  */
 #include "msf_internal.h"
 
-#define P MSF_F64_PRECISION
-#define EMIN MSF_F64_EMIN
-#define EMAX MSF_F64_EMAX
-#define BIAS MSF_F64_BIAS
+#define FMT_ROW(P) \
+    { MSF_##P##_PRECISION, MSF_##P##_FRAC_BITS, MSF_##P##_EMIN, \
+      MSF_##P##_EMAX, MSF_##P##_BIAS, (uint32_t)MSF_##P##_EXP_MAX, \
+      MSF_##P##_SIGN_MASK, MSF_##P##_INFINITY, MSF_##P##_FRAC_MASK, \
+      MSF_##P##_QUIET_BIT, MSF_##P##_DEFAULT_QNAN }
+
+const msf_fmt_params_t MSF_FMT_PARAMS[3] = {
+    FMT_ROW(F16),
+    FMT_ROW(F32),
+    FMT_ROW(F64)
+};
 
 static int any_bits_below(msf_u128_t a, int32_t n)
 {
@@ -31,21 +43,23 @@ static int any_bits_below(msf_u128_t a, int32_t n)
     return !msf_u128_is_zero(msf_u128_shl(a, (unsigned)(128 - n)));
 }
 
-msf64_t msf_pack_f64(int sign, int32_t exp2, msf_u128_t sig, int sticky,
-                     int rm, msf_flags_t *flags)
+uint64_t msf_pack_generic(const msf_fmt_params_t *fp, int sign, int32_t exp2,
+                          msf_u128_t sig, int sticky, int rm,
+                          msf_flags_t *flags)
 {
-    uint64_t sign_bit = sign ? MSF_F64_SIGN_MASK : 0u;
+    const int p = fp->precision;
+    uint64_t sign_bit = sign ? fp->sign_mask : 0u;
     int32_t l, e_bits, e, sh;
     uint64_t k2, cand;
     int guard, round_bit, stick, inexact, inc;
 
     if (msf_u128_is_zero(sig)) {
-        return (msf64_t)sign_bit;
+        return sign_bit;
     }
     l = 128 - msf_u128_clz(sig);          /* significand bit length */
     e_bits = exp2 + l - 1;                /* exponent of the top bit */
-    e = e_bits < EMIN ? EMIN : e_bits;    /* subnormal clamp */
-    sh = (e - (P + 1)) - exp2;            /* bits dropped below round */
+    e = e_bits < fp->emin ? fp->emin : e_bits;    /* subnormal clamp */
+    sh = (e - (p + 1)) - exp2;            /* bits dropped below round */
 
     if (sh <= 0) {
         k2 = msf_u128_to_u64_trunc(msf_u128_shl(sig, (unsigned)-sh));
@@ -81,38 +95,59 @@ msf64_t msf_pack_f64(int sign, int32_t exp2, msf_u128_t sig, int sticky,
         break;
     }
     cand += (uint64_t)inc;
-    if ((cand >> P) != 0u) {
+    if ((cand >> p) != 0u) {
         cand >>= 1;
         e += 1;
     }
 
-    if (e > EMAX) {
+    if (e > fp->emax) {
         int to_inf = (rm == MSF_IROUND_TIES_TO_EVEN)
                   || (rm == MSF_IROUND_TIES_TO_AWAY)
                   || (rm == MSF_IROUND_TOWARD_POSITIVE && !sign)
                   || (rm == MSF_IROUND_TOWARD_NEGATIVE && sign);
         *flags |= MSF_FLAG_OVERFLOW | MSF_FLAG_INEXACT;
         if (to_inf) {
-            return (msf64_t)(sign_bit | MSF_F64_INFINITY);
+            return sign_bit | fp->infinity;
         }
-        return (msf64_t)(sign_bit
-                         | ((uint64_t)(MSF_F64_EXP_MAX - 1u) << MSF_F64_FRAC_BITS)
-                         | MSF_F64_FRAC_MASK);
+        return sign_bit
+               | ((uint64_t)(fp->exp_max - 1u) << fp->frac_bits)
+               | fp->frac_mask;
     }
 
     if (inexact) {
-        int tiny_after = cand < (1ULL << (P - 1));
-        int tiny_before = e_bits < EMIN;
+        int tiny_after = cand < (1ULL << (p - 1));
+        int tiny_before = e_bits < fp->emin;
         *flags |= MSF_FLAG_INEXACT;
         if (MSF_TININESS_AFTER_ROUNDING ? tiny_after : tiny_before) {
             *flags |= MSF_FLAG_UNDERFLOW;
         }
     }
 
-    if (cand >= (1ULL << (P - 1))) {
-        return (msf64_t)(sign_bit
-                         | ((uint64_t)(e + BIAS) << MSF_F64_FRAC_BITS)
-                         | (cand - (1ULL << (P - 1))));
+    if (cand >= (1ULL << (p - 1))) {
+        return sign_bit
+               | ((uint64_t)(e + fp->bias) << fp->frac_bits)
+               | (cand - (1ULL << (p - 1)));
     }
-    return (msf64_t)(sign_bit | cand);
+    return sign_bit | cand;
+}
+
+msf16_t msf_pack_f16(int sign, int32_t exp2, msf_u128_t sig, int sticky,
+                     int rm, msf_flags_t *flags)
+{
+    return (msf16_t)msf_pack_generic(&MSF_FMT_PARAMS[MSF_FMT_F16], sign, exp2,
+                                     sig, sticky, rm, flags);
+}
+
+msf32_t msf_pack_f32(int sign, int32_t exp2, msf_u128_t sig, int sticky,
+                     int rm, msf_flags_t *flags)
+{
+    return (msf32_t)msf_pack_generic(&MSF_FMT_PARAMS[MSF_FMT_F32], sign, exp2,
+                                     sig, sticky, rm, flags);
+}
+
+msf64_t msf_pack_f64(int sign, int32_t exp2, msf_u128_t sig, int sticky,
+                     int rm, msf_flags_t *flags)
+{
+    return (msf64_t)msf_pack_generic(&MSF_FMT_PARAMS[MSF_FMT_F64], sign, exp2,
+                                     sig, sticky, rm, flags);
 }

@@ -27,15 +27,24 @@ Example:
 msf16_class - 7e01 -> 1 -- exact-py:f16-exhaustive
 ```
 
-## The round-and-pack exemplar (internal, P0)
+## The round-and-pack kernel (internal)
 
 ```
-internal.pack64 <rm> <sign> <exp2> <sig128> <sticky> -> <result> <flags> <provenance>
+internal.pack16|pack32|pack64 <rm> <sign> <exp2> <sig128> <sticky> -> <result> <flags> <provenance>
 ```
 
 `sign` and `sticky` are `0|1`, `exp2` is a signed decimal exponent,
-`sig128` is up to 32 hex digits. Semantics: `msf_pack_f64` in
+`sig128` is up to 32 hex digits. Semantics: `msf_pack_generic` in
 `src/msf_roundpack.c`. `<rm>` may also be `ta` (ties-to-away).
+
+## Comparison directives
+
+A `# compare=<mode>` comment line sets the comparison rule for the
+rest of the file (the runner prints it in the file summary; default
+`exact`): `nan-class` requires only a quiet NaN where a NaN is
+expected; `berkeley-int` skips the delivered integer where invalid
+is signaled. See runner.c for the exact rules. Masking is always
+printed, never silent (SF-0 §4.3).
 
 ## Provenance tags in use
 
@@ -45,6 +54,7 @@ internal.pack64 <rm> <sign> <exp2> <sig128> <sticky> -> <result> <flags> <proven
 | `exact-py:directed-encodings` | hand-directed exponent/payload edge sets per format, same reference |
 | `exact-py:copysign-sample` | seeded sample of binary16 pairs (seed in the generator) |
 | `exact-py:pack64-directed` | directed round/pack boundaries, expectations from the independent rational reference in `tests/gen_vectors.py` |
+| `exact-py:pack32-directed`, `exact-py:pack16-directed` | same reference at binary32/binary16 parameters |
 | `exact-py:pack64-sweep` | seeded random round/pack sweep, same reference |
 | `berkeley:testfloat_gen-*` | streamed `testfloat_gen` output (from the P0 oracle bring-up onward; the runner inventory prints the oracle hash from the fetch record) |
 

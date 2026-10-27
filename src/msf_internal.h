@@ -46,12 +46,39 @@ msf_u128_t msf_u128_shr(msf_u128_t a, unsigned n);
 msf_u128_t msf_u128_shr_jam(msf_u128_t a, unsigned n, int sticky_in);
 int msf_u128_clz(msf_u128_t a);
 
-/* The binary64 round-and-pack exemplar (SF-0 6 item 4).
+/* Format parameters for the generic round-and-pack, one row per
+ * format, values taken only from the generated msf_formats.h. */
+enum { MSF_FMT_F16 = 0, MSF_FMT_F32 = 1, MSF_FMT_F64 = 2 };
+typedef struct msf_fmt_params {
+    int precision;
+    int frac_bits;
+    int32_t emin;
+    int32_t emax;
+    int32_t bias;
+    uint32_t exp_max;
+    uint64_t sign_mask;
+    uint64_t infinity;
+    uint64_t frac_mask;
+    uint64_t quiet_bit;
+    uint64_t default_qnan;
+} msf_fmt_params_t;
+extern const msf_fmt_params_t MSF_FMT_PARAMS[3];
+
+/* The round-and-pack kernel (P0 exemplar, generalized in the Wave 1
+ * lead prep so both format parcels share one rounding event).
  * Exact magnitude = (sig + f) * 2^exp2, where f = 0 when sticky is 0
  * and 0 < f < 1 when sticky is nonzero. Rounds once per rm (internal
- * enum), packs binary64, and ORs Clause 7 flags into *flags with
- * tininess after rounding. Domain: finite numeric intermediates;
- * sig == 0 delivers a signed zero and signals nothing. */
+ * enum), packs the destination format, and ORs Clause 7 flags into
+ * *flags with tininess after rounding. Domain: finite numeric
+ * intermediates; sig == 0 delivers a signed zero and signals nothing;
+ * sig == 0 with sticky set is outside the domain (callers jam). */
+uint64_t msf_pack_generic(const msf_fmt_params_t *fp, int sign, int32_t exp2,
+                          msf_u128_t sig, int sticky, int rm,
+                          msf_flags_t *flags);
+msf16_t msf_pack_f16(int sign, int32_t exp2, msf_u128_t sig, int sticky,
+                     int rm, msf_flags_t *flags);
+msf32_t msf_pack_f32(int sign, int32_t exp2, msf_u128_t sig, int sticky,
+                     int rm, msf_flags_t *flags);
 msf64_t msf_pack_f64(int sign, int32_t exp2, msf_u128_t sig, int sticky,
                      int rm, msf_flags_t *flags);
 

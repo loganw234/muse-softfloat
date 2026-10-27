@@ -1,0 +1,71 @@
+# implemented.tsv - per-instantiation implementation status.
+# One row per instantiation the core provides today (name, claiming
+# wave). tools/gen_tables.py reads ONLY this file for status: an
+# instantiation not listed is planned (declared, dispatch NULL,
+# runner reports it not-implemented by name). A parcel appends its
+# own rows as its operations land; the lead merges serially.
+# Claiming conformance additionally needs the wave gate to close.
+name	wave
+msf16_copy	0
+msf32_copy	0
+msf64_copy	0
+msf16_negate	0
+msf32_negate	0
+msf64_negate	0
+msf16_abs	0
+msf32_abs	0
+msf64_abs	0
+msf16_copy_sign	0
+msf32_copy_sign	0
+msf64_copy_sign	0
+msf16_class	0
+msf32_class	0
+msf64_class	0
+msf16_is_sign_minus	0
+msf32_is_sign_minus	0
+msf64_is_sign_minus	0
+msf16_is_normal	0
+msf32_is_normal	0
+msf64_is_normal	0
+msf16_is_finite	0
+msf32_is_finite	0
+msf64_is_finite	0
+msf16_is_zero	0
+msf32_is_zero	0
+msf64_is_zero	0
+msf16_is_subnormal	0
+msf32_is_subnormal	0
+msf64_is_subnormal	0
+msf16_is_infinite	0
+msf32_is_infinite	0
+msf64_is_infinite	0
+msf16_is_nan	0
+msf32_is_nan	0
+msf64_is_nan	0
+msf16_is_signaling	0
+msf32_is_signaling	0
+msf64_is_signaling	0
+msf16_is_canonical	0
+msf32_is_canonical	0
+msf64_is_canonical	0
+msf16_radix	0
+msf32_radix	0
+msf64_radix	0
+msf_is754version1985	0
+msf16_is754version1985	0
+msf32_is754version1985	0
+msf64_is754version1985	0
+msf_is754version2008	0
+msf16_is754version2008	0
+msf32_is754version2008	0
+msf64_is754version2008	0
+msf_is754version2019	0
+msf16_is754version2019	0
+msf32_is754version2019	0
+msf64_is754version2019	0
+msf_lower_flags	0
+msf_raise_flags	0
+msf_test_flags	0
+msf_test_saved_flags	0
+msf_restore_flags	0
+msf_save_all_flags	0

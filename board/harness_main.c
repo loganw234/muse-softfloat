@@ -20,17 +20,6 @@
 static msf_sha256_t g_hash;
 static unsigned long g_count = 0;
 
-typedef uint64_t (*fn_un_u)(uint64_t);
-typedef uint32_t (*fn_un_u32)(uint32_t);
-typedef uint16_t (*fn_un_u16)(uint16_t);
-typedef int (*fn_un_i)(uint64_t);
-typedef int (*fn_un_i32)(uint32_t);
-typedef int (*fn_un_i16)(uint16_t);
-typedef uint64_t (*fn_bin_u)(uint64_t, uint64_t);
-typedef uint32_t (*fn_bin_u32)(uint32_t, uint32_t);
-typedef uint16_t (*fn_bin_u16)(uint16_t, uint16_t);
-typedef int (*fn_null_i)(void);
-
 static int kind_width(uint8_t kind)
 {
     switch (kind) {
@@ -50,35 +39,6 @@ static const msf_op_desc_t *find_op(const char *name)
         }
     }
     return NULL;
-}
-
-static int call_op(const msf_op_desc_t *op, const uint64_t *args, uint64_t *result)
-{
-    int w = op->nargs > 0 ? kind_width(op->argkinds[0]) : 64;
-    if (op->sig == MSF_SIG_VERSION_OP) {
-        *result = (uint64_t)((fn_null_i)op->fn)();
-        return 0;
-    }
-    if (op->nargs == 1 && op->retkind == op->argkinds[0]) {
-        if (w == 16) { *result = ((fn_un_u16)op->fn)((uint16_t)args[0]); return 0; }
-        if (w == 32) { *result = ((fn_un_u32)op->fn)((uint32_t)args[0]); return 0; }
-        *result = ((fn_un_u)op->fn)(args[0]);
-        return 0;
-    }
-    if (op->nargs == 1 && (op->sig == MSF_SIG_CLASSIFY || op->sig == MSF_SIG_CLASS_OP
-                           || op->sig == MSF_SIG_RADIX_OP)) {
-        if (w == 16) { *result = (uint64_t)((fn_un_i16)op->fn)((uint16_t)args[0]); return 0; }
-        if (w == 32) { *result = (uint64_t)((fn_un_i32)op->fn)((uint32_t)args[0]); return 0; }
-        *result = (uint64_t)((fn_un_i)op->fn)(args[0]);
-        return 0;
-    }
-    if (op->nargs == 2 && op->sig == MSF_SIG_SIGN_BIN) {
-        if (w == 16) { *result = ((fn_bin_u16)op->fn)((uint16_t)args[0], (uint16_t)args[1]); return 0; }
-        if (w == 32) { *result = ((fn_bin_u32)op->fn)((uint32_t)args[0], (uint32_t)args[1]); return 0; }
-        *result = ((fn_bin_u)op->fn)(args[0], args[1]);
-        return 0;
-    }
-    return -1;
 }
 
 static int parse_rm(const char *tok, int *rm)
@@ -167,12 +127,14 @@ static void handle_line(char *line)
         printf(" COUNT %lu\n", g_count);
         return;
     }
-    if (strcmp(tok[0], "internal.pack64") == 0) {
-        int rm, sign, sticky;
+    if (strncmp(tok[0], "internal.pack", 13) == 0) {
+        int rm, sign, sticky, fmt;
         long exp2;
         msf_u128_t sig;
         msf_flags_t flags = 0u;
         uint64_t got, args[3];
+        fmt = strcmp(tok[0], "internal.pack16") == 0 ? MSF_FMT_F16
+            : strcmp(tok[0], "internal.pack32") == 0 ? MSF_FMT_F32 : MSF_FMT_F64;
         if (ntok != 10 || strcmp(tok[6], "->") != 0
             || parse_rm(tok[1], &rm) != 0 || rm < 0 || hex_u128(tok[4], &sig) != 0) {
             printf("E malformed\n");
@@ -181,7 +143,8 @@ static void handle_line(char *line)
         sign = atoi(tok[2]);
         exp2 = atol(tok[3]);
         sticky = atoi(tok[5]);
-        got = msf_pack_f64(sign, (int32_t)exp2, sig, sticky, rm, &flags);
+        got = msf_pack_generic(&MSF_FMT_PARAMS[fmt], sign, (int32_t)exp2, sig,
+                               sticky, rm, &flags);
         args[0] = msf_u128_to_u64_trunc(sig);
         args[1] = msf_u128_to_u64_trunc(msf_u128_shr(sig, 64u));
         args[2] = (uint64_t)(uint32_t)exp2;
@@ -193,6 +156,7 @@ static void handle_line(char *line)
         const msf_op_desc_t *op = find_op(tok[0]);
         uint64_t args[3] = {0u, 0u, 0u};
         uint64_t got = 0u;
+        msf_flags_t flags = 0u;
         int arrow = -1, i, rm = -2;
         if (op == NULL) { printf("E unknown\n"); return; }
         if (op->status == 0) { printf("E planned\n"); return; }
@@ -203,26 +167,26 @@ static void handle_line(char *line)
         }
         if (arrow != 2 + op->nargs || ntok != 2 + op->nargs + 1 + 3
             || parse_rm(tok[1], &rm) != 0
-            || (op->has_rm && rm < 0) || (!op->has_rm && rm != -1)
-            || op->has_flags) {
+            || (op->has_rm && rm < 0) || (!op->has_rm && rm != -1)) {
             printf("E malformed\n");
             return;
         }
         for (i = 0; i < op->nargs; i++) {
             args[i] = strtoull(tok[2 + i], NULL, 16);
         }
-        if (call_op(op, args, &got) != 0) {
+        if (op->call == NULL) {
             printf("E noshape\n");
             return;
         }
+        got = op->call(args, rm, &flags);
         {
             int w = kind_width((uint8_t)op->retkind);
             if (w < 64) {
                 got &= (1ULL << w) - 1u;
             }
         }
-        hash_result(op->name, args, op->nargs, got, 0u);
-        printf("R %016llx 00\n", (unsigned long long)got);
+        hash_result(op->name, args, op->nargs, got, flags);
+        printf("R %016llx %02x\n", (unsigned long long)got, (unsigned)flags);
     }
 }
 

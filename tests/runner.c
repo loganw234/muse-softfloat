@@ -51,47 +51,35 @@ static int kind_width(uint8_t kind)
     }
 }
 
-typedef uint64_t (*fn_un_u)(uint64_t);
-typedef uint32_t (*fn_un_u32)(uint32_t);
-typedef uint16_t (*fn_un_u16)(uint16_t);
-typedef int (*fn_un_i)(uint64_t);
-typedef int (*fn_un_i32)(uint32_t);
-typedef int (*fn_un_i16)(uint16_t);
-typedef uint64_t (*fn_bin_u)(uint64_t, uint64_t);
-typedef uint32_t (*fn_bin_u32)(uint32_t, uint32_t);
-typedef uint16_t (*fn_bin_u16)(uint16_t, uint16_t);
-typedef int (*fn_null_i)(void);
+/* Per-file comparison mode (SF-0 4.3: masking is stated, never
+ * silent). Set by a "# compare=<mode>" directive in the file:
+ *   exact        result bits and flags exact (default)
+ *   nan-class    a NaN expectation requires only a quiet NaN result
+ *                (payload/sign differ across specializations)
+ *   berkeley-int where invalid is signaled, the delivered integer
+ *                is the project rule, not Berkeley's indefinite
+ *                pattern, so only flags compare there */
+enum { CMP_EXACT = 0, CMP_NAN_CLASS = 1, CMP_BERKELEY_INT = 2 };
+static int g_compare = CMP_EXACT;
 
-/* P0-implemented signature shapes only. A vector naming another shape
- * is a hard error (counted, never skipped silently). */
-static int call_op(const msf_op_desc_t *op, const uint64_t *args,
-                   uint64_t *result)
+static const char *compare_name(void)
 {
-    int w = op->nargs > 0 ? kind_width(op->argkinds[0]) : 64;
-    if (op->sig == MSF_SIG_VERSION_OP) {
-        *result = (uint64_t)((fn_null_i)op->fn)();
+    return g_compare == CMP_NAN_CLASS ? "nan-class"
+         : g_compare == CMP_BERKELEY_INT ? "berkeley-int" : "exact";
+}
+
+/* 1 if bits are a quiet NaN in the retkind's format; -1 for any NaN
+ * expectation check helper below uses same decode. */
+static int nan_class_of(uint8_t retkind, uint64_t bits)
+{
+    int w = kind_width(retkind);
+    int t = (w == 16) ? 10 : (w == 32) ? 23 : 52;
+    uint64_t expmax = (w == 16) ? 0x1fu : (w == 32) ? 0xffu : 0x7ffu;
+    uint64_t frac = bits & ((1ULL << t) - 1u);
+    if (((bits >> t) & expmax) != expmax || frac == 0u) {
         return 0;
     }
-    if (op->nargs == 1 && op->retkind == op->argkinds[0]) {
-        if (w == 16) { *result = ((fn_un_u16)op->fn)((uint16_t)args[0]); return 0; }
-        if (w == 32) { *result = ((fn_un_u32)op->fn)((uint32_t)args[0]); return 0; }
-        *result = ((fn_un_u)op->fn)(args[0]);
-        return 0;
-    }
-    if (op->nargs == 1 && (op->sig == MSF_SIG_CLASSIFY || op->sig == MSF_SIG_CLASS_OP
-                           || op->sig == MSF_SIG_RADIX_OP)) {
-        if (w == 16) { *result = (uint64_t)((fn_un_i16)op->fn)((uint16_t)args[0]); return 0; }
-        if (w == 32) { *result = (uint64_t)((fn_un_i32)op->fn)((uint32_t)args[0]); return 0; }
-        *result = (uint64_t)((fn_un_i)op->fn)(args[0]);
-        return 0;
-    }
-    if (op->nargs == 2 && op->sig == MSF_SIG_SIGN_BIN) {
-        if (w == 16) { *result = ((fn_bin_u16)op->fn)((uint16_t)args[0], (uint16_t)args[1]); return 0; }
-        if (w == 32) { *result = ((fn_bin_u32)op->fn)((uint32_t)args[0], (uint32_t)args[1]); return 0; }
-        *result = ((fn_bin_u)op->fn)(args[0], args[1]);
-        return 0;
-    }
-    return -1;
+    return (frac & (1ULL << (t - 1))) != 0u ? 1 : -1;
 }
 
 static int parse_rm(const char *tok, int *rm)
@@ -178,17 +166,19 @@ static void process_pack_line(char **tok, int ntok, const char *file,
                               unsigned long lno, const char *raw,
                               struct stats *st)
 {
-    /* internal.pack64 rm sign exp2 sig128 sticky -> result flags prov */
-    int rm, sign, sticky;
+    /* internal.packNN rm sign exp2 sig128 sticky -> result flags prov */
+    int rm, sign, sticky, fmt;
     long exp2;
     msf_u128_t sig;
     msf_flags_t flags = 0u, expect_flags;
     uint64_t expect, got;
+    fmt = strcmp(tok[0], "internal.pack16") == 0 ? MSF_FMT_F16
+        : strcmp(tok[0], "internal.pack32") == 0 ? MSF_FMT_F32 : MSF_FMT_F64;
     if (ntok != 10 || strcmp(tok[6], "->") != 0
         || parse_rm(tok[1], &rm) != 0 || rm < 0
         || hex_u128(tok[4], &sig) != 0) {
         st->malformed++;
-        fail_line(file, lno, raw, "malformed pack64 line", st);
+        fail_line(file, lno, raw, "malformed pack line", st);
         return;
     }
     sign = atoi(tok[2]);
@@ -196,7 +186,8 @@ static void process_pack_line(char **tok, int ntok, const char *file,
     sticky = atoi(tok[5]);
     expect = strtoull(tok[7], NULL, 16);
     expect_flags = (msf_flags_t)strtoul(tok[8], NULL, 16);
-    got = msf_pack_f64(sign, (int32_t)exp2, sig, sticky, rm, &flags);
+    got = msf_pack_generic(&MSF_FMT_PARAMS[fmt], sign, (int32_t)exp2, sig,
+                           sticky, rm, &flags);
     st->total++;
     count_prov(tok[9]);
     if (g_hash_mode) {
@@ -234,10 +225,20 @@ static void process_line(char *line, const char *file, unsigned long lno,
     for (p = strtok(line, " \t\r\n"); p && ntok < 16; p = strtok(NULL, " \t\r\n")) {
         tok[ntok++] = p;
     }
-    if (ntok == 0 || tok[0][0] == '#') {
+    if (ntok == 0) {
         return;
     }
-    if (strcmp(tok[0], "internal.pack64") == 0) {
+    if (tok[0][0] == '#') {
+        if (ntok >= 2 && strcmp(tok[1], "compare=nan-class") == 0) {
+            g_compare = CMP_NAN_CLASS;
+        } else if (ntok >= 2 && strcmp(tok[1], "compare=berkeley-int") == 0) {
+            g_compare = CMP_BERKELEY_INT;
+        } else if (ntok >= 2 && strcmp(tok[1], "compare=exact") == 0) {
+            g_compare = CMP_EXACT;
+        }
+        return;
+    }
+    if (strncmp(tok[0], "internal.pack", 13) == 0) {
         process_pack_line(tok, ntok, file, lno, raw, st);
         return;
     }
@@ -267,44 +268,65 @@ static void process_line(char *line, const char *file, unsigned long lno,
     }
     {
         int rm = -2;
+        msf_flags_t flags = 0u, expect_flags = 0u;
+        int result_ok;
         if (parse_rm(tok[1], &rm) != 0
             || (op->has_rm && rm < 0) || (!op->has_rm && rm != -1)) {
             st->malformed++;
             fail_line(file, lno, raw, "rounding token mismatch", st);
             return;
         }
-    }
-    for (i = 0; i < op->nargs; i++) {
-        args[i] = strtoull(tok[2 + i], NULL, 16);
-    }
-    expect = strtoull(tok[arrow + 1], NULL, 16);
-    if (!op->has_flags && strcmp(tok[arrow + 2], "--") != 0) {
-        st->malformed++;
-        fail_line(file, lno, raw, "flags given for flagless op", st);
-        return;
-    }
-    if (call_op(op, args, &got) != 0) {
-        fail_line(file, lno, raw, "runner has no call shape for this op yet", st);
+        for (i = 0; i < op->nargs; i++) {
+            args[i] = strtoull(tok[2 + i], NULL, 16);
+        }
+        expect = strtoull(tok[arrow + 1], NULL, 16);
+        if (op->has_flags) {
+            if (strcmp(tok[arrow + 2], "--") == 0) {
+                st->malformed++;
+                fail_line(file, lno, raw, "flags missing for flag-bearing op", st);
+                return;
+            }
+            expect_flags = (msf_flags_t)strtoul(tok[arrow + 2], NULL, 16);
+        } else if (strcmp(tok[arrow + 2], "--") != 0) {
+            st->malformed++;
+            fail_line(file, lno, raw, "flags given for flagless op", st);
+            return;
+        }
+        if (op->call == NULL) {
+            fail_line(file, lno, raw, "implemented but not vector-replayable here", st);
+            st->total++;
+            return;
+        }
+        got = op->call(args, rm, &flags);
+        {
+            int w = kind_width((uint8_t)op->retkind);
+            uint64_t mask = w >= 64 ? ~0ULL : ((1ULL << w) - 1u);
+            got &= mask;
+            expect &= mask;
+        }
         st->total++;
-        return;
-    }
-    {
-        int w = kind_width((uint8_t)op->retkind);
-        uint64_t mask = w >= 64 ? ~0ULL : ((1ULL << w) - 1u);
-        got &= mask;
-        expect &= mask;
-    }
-    st->total++;
-    count_prov(tok[arrow + 3]);
-    if (g_hash_mode) {
-        hash_result(op->name, args, op->nargs, got, 0u);
-    }
-    if (got != expect) {
-        char why[128];
-        snprintf(why, sizeof(why), "got %016llx want %016llx",
-                 (unsigned long long)got, (unsigned long long)expect);
-        fail_line(file, lno, raw, why, st);
-        return;
+        count_prov(tok[arrow + 3]);
+        if (g_hash_mode) {
+            hash_result(op->name, args, op->nargs, got, flags);
+        }
+        result_ok = (got == expect);
+        if (!result_ok && g_compare == CMP_NAN_CLASS
+            && nan_class_of(op->retkind, expect) != 0) {
+            result_ok = nan_class_of(op->retkind, got) == 1;
+        }
+        if (!result_ok && g_compare == CMP_BERKELEY_INT
+            && (expect_flags & MSF_FLAG_INVALID) != 0u) {
+            result_ok = 1;
+        }
+        if (!result_ok || flags != expect_flags) {
+            char why[160];
+            snprintf(why, sizeof(why), "got %016llx/%02x want %016llx/%02x compare=%s",
+                     (unsigned long long)got, (unsigned)flags,
+                     (unsigned long long)expect, (unsigned)expect_flags,
+                     compare_name());
+            fail_line(file, lno, raw, why, st);
+            return;
+        }
     }
     st->passed++;
 }
@@ -319,12 +341,14 @@ static void process_file(const char *path, struct stats *st)
         st->failed++;
         return;
     }
+    g_compare = CMP_EXACT;
     while (fgets(buf, sizeof(buf), f)) {
         lno++;
         process_line(buf, path, lno, st);
     }
     fclose(f);
-    printf("file %s: %lu vectors\n", path, st->total - before);
+    printf("file %s: %lu vectors compare=%s\n", path, st->total - before,
+           compare_name());
 }
 
 static void sha256_file_hex(const char *path, char out[65])

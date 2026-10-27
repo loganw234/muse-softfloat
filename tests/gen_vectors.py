@@ -123,11 +123,14 @@ def round_int(x, rm, sign):
     return fl + (1 if inc else 0), inexact
 
 
-def pack_ref(sign, m, rm):
-    """Exact binary64 pack of magnitude Fraction m, tininess AFTER."""
+def pack_ref(sign, m, rm, fmt="f64"):
+    """Exact pack of magnitude Fraction m into fmt, tininess AFTER."""
+    bits_w, p, w = FMTS[fmt]
+    t = p - 1
+    emax = (1 << (w - 1)) - 1
+    emin = 1 - emax
     if m == 0:
-        return (sign << 63), 0
-    emin, emax, p = -1022, 1023, 53
+        return (sign << (bits_w - 1)), 0
     e = m.numerator.bit_length() - m.denominator.bit_length()
     while Fraction(2) ** (e + 1) <= m:
         e += 1
@@ -142,41 +145,42 @@ def pack_ref(sign, m, rm):
     maxfinite = (2 - Fraction(1, 2 ** (p - 1))) * Fraction(2) ** emax
     if v > maxfinite:
         to_inf = rm in ("te", "ta") or (rm == "tp" and not sign) or (rm == "tn" and sign)
-        enc = (0x7FF << 52) if to_inf else ((0x7FE << 52) | (2 ** 52 - 1))
-        return (sign << 63) | enc, FLAG_OVF | FLAG_INX
+        expmax = (1 << w) - 1
+        enc = (expmax << t) if to_inf else (((expmax - 1) << t) | (2 ** t - 1))
+        return (sign << (bits_w - 1)) | enc, FLAG_OVF | FLAG_INX
     flags = 0
     if inexact:
         flags |= FLAG_INX
         if v < Fraction(2) ** emin:
             flags |= FLAG_UNF
     if q >= 2 ** (p - 1):
-        return (sign << 63) | ((scale + (p - 1) + 1023) << 52) | (q - 2 ** (p - 1)), flags
-    return (sign << 63) | q, flags
+        return (sign << (bits_w - 1)) | ((scale + (p - 1) + emax) << t) | (q - 2 ** (p - 1)), flags
+    return (sign << (bits_w - 1)) | q, flags
 
 
-def pack_line(sign, sig, exp2, sticky, rm, prov):
+def pack_line(sign, sig, exp2, sticky, rm, prov, fmt="f64"):
     """Return the vector line, or None when not sticky-invariant."""
     if sig == 0:
         if sticky:
             return None  # outside kernel domain (callers jam into sig)
-        results = {pack_ref(sign, Fraction(0), rm)}
+        results = {pack_ref(sign, Fraction(0), rm, fmt)}
     else:
         results = set()
         for fnum, fden in ((0, 1),) if not sticky else ((1, 4), (1, 2), (3, 4)):
             m = (sig + Fraction(fnum, fden)) * Fraction(2) ** exp2
-            results.add(pack_ref(sign, m, rm))
+            results.add(pack_ref(sign, m, rm, fmt))
     if len(results) != 1:
         return None
     (bits, flags), = results
-    return ("internal.pack64 %s %d %d %032x %d -> %016x %02x %s"
-            % (rm, sign, exp2, sig, 1 if sticky else 0, bits, flags, prov))
+    return ("internal.pack%s %s %d %d %032x %d -> %016x %02x %s"
+            % (fmt[1:], rm, sign, exp2, sig, 1 if sticky else 0, bits, flags, prov))
 
 
-def pack_cases_from_scaled(sign, scale, q, tail, rm, prov, out, stats):
+def pack_cases_from_scaled(sign, scale, q, tail, rm, prov, out, stats, fmt="f64"):
     """Exact value (q + tail) * 2^scale, tail a Fraction in [0,1)."""
     m = (q + tail) * Fraction(2) ** scale
     if m == 0:
-        ln = pack_line(sign, 0, 0, False, rm, prov)
+        ln = pack_line(sign, 0, 0, False, rm, prov, fmt)
     else:
         # choose exp2 so sig fills the top of the 128-bit window
         e = m.numerator.bit_length() - m.denominator.bit_length()
@@ -188,42 +192,48 @@ def pack_cases_from_scaled(sign, scale, q, tail, rm, prov, out, stats):
         scaled = m / Fraction(2) ** exp2
         sig = scaled.numerator // scaled.denominator
         sticky = (scaled - sig) != 0
-        ln = pack_line(sign, sig, exp2, sticky, rm, prov)
+        ln = pack_line(sign, sig, exp2, sticky, rm, prov, fmt)
     if ln is None:
         stats[0] += 1
     else:
         out.append(ln)
 
 
-def pack_directed(prov):
+def pack_directed(prov, fmt="f64"):
     out, stats = [], [0]
+    bits_w, p, w = FMTS[fmt]
+    emax = (1 << (w - 1)) - 1
+    emin = 1 - emax
     tails = [Fraction(0), Fraction(1, 4), Fraction(1, 2), Fraction(3, 4),
              Fraction(1, 2) - Fraction(1, 2 ** 40),
              Fraction(1, 2) + Fraction(1, 2 ** 40),
              Fraction(1, 2 ** 40), 1 - Fraction(1, 2 ** 40)]
-    qs = [0, 1, 2, 3, 2 ** 51, 2 ** 52 - 2, 2 ** 52 - 1, 2 ** 52,
-          2 ** 52 + 1, 2 ** 53 - 2, 2 ** 53 - 1]
-    scales = [-1074, -1022 - 52, -52, -1, 0, 1023 - 52, 1023 - 51]
+    qs = [0, 1, 2, 3, 2 ** (p - 2), 2 ** (p - 1) - 2, 2 ** (p - 1) - 1,
+          2 ** (p - 1), 2 ** (p - 1) + 1, 2 ** p - 2, 2 ** p - 1]
+    s_sub = emin - (p - 1)
+    scales = [s_sub, s_sub, -(p - 1), -1, 0, emax - (p - 1), emax - (p - 2)]
     for scale in scales:
         for q in qs:
             for tail in tails:
                 for rm in RMS:
                     for sign in (0, 1):
-                        pack_cases_from_scaled(sign, scale, q, tail, rm, prov, out, stats)
-    # exponent extremes straight through the (sig, exp2) door
-    for sig, exp2, sticky in [(1, -1074, False), (1, -1075, False),
-                              (3, -1075, False), (1, -2000, False),
-                              (2 ** 127, 896, False), (2 ** 127, 897, False),
-                              (2 ** 128 - 1, 896, False), (2 ** 127, 2000, False),
-                              (2 ** 127, -1149, True), (2 ** 128 - 1, -1150, False),
-                              (0, 0, False)]:
-        for rm in RMS:
-            for sign in (0, 1):
-                ln = pack_line(sign, sig, exp2, sticky, rm, prov)
-                if ln is None:
-                    stats[0] += 1
-                else:
-                    out.append(ln)
+                        pack_cases_from_scaled(sign, scale, q, tail, rm, prov,
+                                               out, stats, fmt)
+    if fmt == "f64":
+        # exponent extremes straight through the (sig, exp2) door
+        for sig, exp2, sticky in [(1, -1074, False), (1, -1075, False),
+                                  (3, -1075, False), (1, -2000, False),
+                                  (2 ** 127, 896, False), (2 ** 127, 897, False),
+                                  (2 ** 128 - 1, 896, False), (2 ** 127, 2000, False),
+                                  (2 ** 127, -1149, True), (2 ** 128 - 1, -1150, False),
+                                  (0, 0, False)]:
+            for rm in RMS:
+                for sign in (0, 1):
+                    ln = pack_line(sign, sig, exp2, sticky, rm, prov)
+                    if ln is None:
+                        stats[0] += 1
+                    else:
+                        out.append(ln)
     return out, stats[0]
 
 
@@ -285,6 +295,10 @@ def main(argv):
         lines, dropped = pack_directed("exact-py:pack64-directed")
         write(outdir / "pack64.vec", HDR, lines)
         print("pack64 directed: dropped %d non-invariant cases" % dropped)
+        for fmt in ("f32", "f16"):
+            lines, dropped = pack_directed("exact-py:pack%s-directed" % fmt[1:], fmt)
+            write(outdir / ("pack%s.vec" % fmt[1:]), HDR, lines)
+            print("pack%s directed: dropped %d non-invariant cases" % (fmt[1:], dropped))
     elif mode == "f16-exhaustive":
         lines = []
         for x in range(65536):
