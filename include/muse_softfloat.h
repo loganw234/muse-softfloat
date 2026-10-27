@@ -107,89 +107,89 @@ typedef struct msf_hex_spec {
 #define MSF_DECIMAL_H 20
 
 
-/* roundToIntegralTiesToEven (754-2019 5.3.1,5.9), wave 2, planned */
+/* roundToIntegralTiesToEven (754-2019 5.3.1,5.9), wave 2, implemented */
 msf16_t msf16_round_to_integral_ties_to_even(msf16_t a, msf_flags_t *flags);
 /* roundToIntegralTiesToEven (754-2019 5.3.1,5.9), wave 1, implemented */
 msf32_t msf32_round_to_integral_ties_to_even(msf32_t a, msf_flags_t *flags);
 /* roundToIntegralTiesToEven (754-2019 5.3.1,5.9), wave 1, implemented */
 msf64_t msf64_round_to_integral_ties_to_even(msf64_t a, msf_flags_t *flags);
-/* roundToIntegralTiesToAway (754-2019 5.3.1,5.9), wave 2, planned */
+/* roundToIntegralTiesToAway (754-2019 5.3.1,5.9), wave 2, implemented */
 msf16_t msf16_round_to_integral_ties_to_away(msf16_t a, msf_flags_t *flags);
 /* roundToIntegralTiesToAway (754-2019 5.3.1,5.9), wave 1, implemented */
 msf32_t msf32_round_to_integral_ties_to_away(msf32_t a, msf_flags_t *flags);
 /* roundToIntegralTiesToAway (754-2019 5.3.1,5.9), wave 1, implemented */
 msf64_t msf64_round_to_integral_ties_to_away(msf64_t a, msf_flags_t *flags);
-/* roundToIntegralTowardZero (754-2019 5.3.1,5.9), wave 2, planned */
+/* roundToIntegralTowardZero (754-2019 5.3.1,5.9), wave 2, implemented */
 msf16_t msf16_round_to_integral_toward_zero(msf16_t a, msf_flags_t *flags);
 /* roundToIntegralTowardZero (754-2019 5.3.1,5.9), wave 1, implemented */
 msf32_t msf32_round_to_integral_toward_zero(msf32_t a, msf_flags_t *flags);
 /* roundToIntegralTowardZero (754-2019 5.3.1,5.9), wave 1, implemented */
 msf64_t msf64_round_to_integral_toward_zero(msf64_t a, msf_flags_t *flags);
-/* roundToIntegralTowardPositive (754-2019 5.3.1,5.9), wave 2, planned */
+/* roundToIntegralTowardPositive (754-2019 5.3.1,5.9), wave 2, implemented */
 msf16_t msf16_round_to_integral_toward_positive(msf16_t a, msf_flags_t *flags);
 /* roundToIntegralTowardPositive (754-2019 5.3.1,5.9), wave 1, implemented */
 msf32_t msf32_round_to_integral_toward_positive(msf32_t a, msf_flags_t *flags);
 /* roundToIntegralTowardPositive (754-2019 5.3.1,5.9), wave 1, implemented */
 msf64_t msf64_round_to_integral_toward_positive(msf64_t a, msf_flags_t *flags);
-/* roundToIntegralTowardNegative (754-2019 5.3.1,5.9), wave 2, planned */
+/* roundToIntegralTowardNegative (754-2019 5.3.1,5.9), wave 2, implemented */
 msf16_t msf16_round_to_integral_toward_negative(msf16_t a, msf_flags_t *flags);
 /* roundToIntegralTowardNegative (754-2019 5.3.1,5.9), wave 1, implemented */
 msf32_t msf32_round_to_integral_toward_negative(msf32_t a, msf_flags_t *flags);
 /* roundToIntegralTowardNegative (754-2019 5.3.1,5.9), wave 1, implemented */
 msf64_t msf64_round_to_integral_toward_negative(msf64_t a, msf_flags_t *flags);
-/* roundToIntegralExact (754-2019 5.3.1,5.9), wave 2, planned */
+/* roundToIntegralExact (754-2019 5.3.1,5.9), wave 2, implemented */
 msf16_t msf16_round_to_integral_exact(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* roundToIntegralExact (754-2019 5.3.1,5.9), wave 1, implemented */
 msf32_t msf32_round_to_integral_exact(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* roundToIntegralExact (754-2019 5.3.1,5.9), wave 1, implemented */
 msf64_t msf64_round_to_integral_exact(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* nextUp (754-2019 5.3.1), wave 2, planned */
+/* nextUp (754-2019 5.3.1), wave 2, implemented */
 msf16_t msf16_next_up(msf16_t a, msf_flags_t *flags);
 /* nextUp (754-2019 5.3.1), wave 1, implemented */
 msf32_t msf32_next_up(msf32_t a, msf_flags_t *flags);
 /* nextUp (754-2019 5.3.1), wave 1, implemented */
 msf64_t msf64_next_up(msf64_t a, msf_flags_t *flags);
-/* nextDown (754-2019 5.3.1), wave 2, planned */
+/* nextDown (754-2019 5.3.1), wave 2, implemented */
 msf16_t msf16_next_down(msf16_t a, msf_flags_t *flags);
 /* nextDown (754-2019 5.3.1), wave 1, implemented */
 msf32_t msf32_next_down(msf32_t a, msf_flags_t *flags);
 /* nextDown (754-2019 5.3.1), wave 1, implemented */
 msf64_t msf64_next_down(msf64_t a, msf_flags_t *flags);
-/* remainder (754-2019 5.3.1), wave 2, planned */
+/* remainder (754-2019 5.3.1), wave 2, implemented */
 msf16_t msf16_remainder(msf16_t a, msf16_t b, msf_flags_t *flags);
 /* remainder (754-2019 5.3.1), wave 1, implemented */
 msf32_t msf32_remainder(msf32_t a, msf32_t b, msf_flags_t *flags);
 /* remainder (754-2019 5.3.1), wave 1, implemented */
 msf64_t msf64_remainder(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* scaleB (754-2019 5.3.3), wave 2, planned */
+/* scaleB (754-2019 5.3.3), wave 2, implemented */
 msf16_t msf16_scale_b(msf16_t a, msf64_t n, msf_rounding_t rm, msf_flags_t *flags);
 /* scaleB (754-2019 5.3.3), wave 1, implemented */
 msf32_t msf32_scale_b(msf32_t a, msf64_t n, msf_rounding_t rm, msf_flags_t *flags);
 /* scaleB (754-2019 5.3.3), wave 1, implemented */
 msf64_t msf64_scale_b(msf64_t a, msf64_t n, msf_rounding_t rm, msf_flags_t *flags);
-/* logB (754-2019 5.3.3), wave 2, planned */
+/* logB (754-2019 5.3.3), wave 2, implemented */
 msf64_t msf16_log_b(msf16_t a, msf_flags_t *flags);
 /* logB (754-2019 5.3.3), wave 1, implemented */
 msf64_t msf32_log_b(msf32_t a, msf_flags_t *flags);
 /* logB (754-2019 5.3.3), wave 1, implemented */
 msf64_t msf64_log_b(msf64_t a, msf_flags_t *flags);
-/* addition (754-2019 5.4.1), wave 2, planned */
+/* addition (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_add(msf16_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* addition (754-2019 5.4.1), wave 2, planned */
+/* addition (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_add_f16_f32(msf16_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* addition (754-2019 5.4.1), wave 2, planned */
+/* addition (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_add_f16_f64(msf16_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* addition (754-2019 5.4.1), wave 2, planned */
+/* addition (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_add_f32_f16(msf32_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* addition (754-2019 5.4.1), wave 2, planned */
+/* addition (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_add_f32_f32(msf32_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* addition (754-2019 5.4.1), wave 2, planned */
+/* addition (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_add_f32_f64(msf32_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* addition (754-2019 5.4.1), wave 2, planned */
+/* addition (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_add_f64_f16(msf64_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* addition (754-2019 5.4.1), wave 2, planned */
+/* addition (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_add_f64_f32(msf64_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* addition (754-2019 5.4.1), wave 2, planned */
+/* addition (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_add_f64_f64(msf64_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
 /* addition (754-2019 5.4.1), wave 2, planned */
 msf32_t msf32_add_f16_f16(msf16_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
@@ -227,23 +227,23 @@ msf64_t msf64_add_f64_f16(msf64_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *
 msf64_t msf64_add_f64_f32(msf64_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
 /* addition (754-2019 5.4.1), wave 1, implemented */
 msf64_t msf64_add(msf64_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* subtraction (754-2019 5.4.1), wave 2, planned */
+/* subtraction (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sub(msf16_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* subtraction (754-2019 5.4.1), wave 2, planned */
+/* subtraction (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sub_f16_f32(msf16_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* subtraction (754-2019 5.4.1), wave 2, planned */
+/* subtraction (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sub_f16_f64(msf16_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* subtraction (754-2019 5.4.1), wave 2, planned */
+/* subtraction (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sub_f32_f16(msf32_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* subtraction (754-2019 5.4.1), wave 2, planned */
+/* subtraction (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sub_f32_f32(msf32_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* subtraction (754-2019 5.4.1), wave 2, planned */
+/* subtraction (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sub_f32_f64(msf32_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* subtraction (754-2019 5.4.1), wave 2, planned */
+/* subtraction (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sub_f64_f16(msf64_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* subtraction (754-2019 5.4.1), wave 2, planned */
+/* subtraction (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sub_f64_f32(msf64_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* subtraction (754-2019 5.4.1), wave 2, planned */
+/* subtraction (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sub_f64_f64(msf64_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
 /* subtraction (754-2019 5.4.1), wave 2, planned */
 msf32_t msf32_sub_f16_f16(msf16_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
@@ -281,23 +281,23 @@ msf64_t msf64_sub_f64_f16(msf64_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *
 msf64_t msf64_sub_f64_f32(msf64_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
 /* subtraction (754-2019 5.4.1), wave 1, implemented */
 msf64_t msf64_sub(msf64_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* multiplication (754-2019 5.4.1), wave 2, planned */
+/* multiplication (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_mul(msf16_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* multiplication (754-2019 5.4.1), wave 2, planned */
+/* multiplication (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_mul_f16_f32(msf16_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* multiplication (754-2019 5.4.1), wave 2, planned */
+/* multiplication (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_mul_f16_f64(msf16_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* multiplication (754-2019 5.4.1), wave 2, planned */
+/* multiplication (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_mul_f32_f16(msf32_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* multiplication (754-2019 5.4.1), wave 2, planned */
+/* multiplication (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_mul_f32_f32(msf32_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* multiplication (754-2019 5.4.1), wave 2, planned */
+/* multiplication (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_mul_f32_f64(msf32_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* multiplication (754-2019 5.4.1), wave 2, planned */
+/* multiplication (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_mul_f64_f16(msf64_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* multiplication (754-2019 5.4.1), wave 2, planned */
+/* multiplication (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_mul_f64_f32(msf64_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* multiplication (754-2019 5.4.1), wave 2, planned */
+/* multiplication (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_mul_f64_f64(msf64_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
 /* multiplication (754-2019 5.4.1), wave 2, planned */
 msf32_t msf32_mul_f16_f16(msf16_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
@@ -335,23 +335,23 @@ msf64_t msf64_mul_f64_f16(msf64_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *
 msf64_t msf64_mul_f64_f32(msf64_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
 /* multiplication (754-2019 5.4.1), wave 1, implemented */
 msf64_t msf64_mul(msf64_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* division (754-2019 5.4.1), wave 2, planned */
+/* division (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_div(msf16_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* division (754-2019 5.4.1), wave 2, planned */
+/* division (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_div_f16_f32(msf16_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* division (754-2019 5.4.1), wave 2, planned */
+/* division (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_div_f16_f64(msf16_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* division (754-2019 5.4.1), wave 2, planned */
+/* division (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_div_f32_f16(msf32_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* division (754-2019 5.4.1), wave 2, planned */
+/* division (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_div_f32_f32(msf32_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* division (754-2019 5.4.1), wave 2, planned */
+/* division (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_div_f32_f64(msf32_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* division (754-2019 5.4.1), wave 2, planned */
+/* division (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_div_f64_f16(msf64_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* division (754-2019 5.4.1), wave 2, planned */
+/* division (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_div_f64_f32(msf64_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* division (754-2019 5.4.1), wave 2, planned */
+/* division (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_div_f64_f64(msf64_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
 /* division (754-2019 5.4.1), wave 2, planned */
 msf32_t msf32_div_f16_f16(msf16_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
@@ -389,11 +389,11 @@ msf64_t msf64_div_f64_f16(msf64_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *
 msf64_t msf64_div_f64_f32(msf64_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
 /* division (754-2019 5.4.1), wave 1, implemented */
 msf64_t msf64_div(msf64_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* squareRoot (754-2019 5.4.1), wave 2, planned */
+/* squareRoot (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sqrt(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* squareRoot (754-2019 5.4.1), wave 2, planned */
+/* squareRoot (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sqrt_f32(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* squareRoot (754-2019 5.4.1), wave 2, planned */
+/* squareRoot (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_sqrt_f64(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* squareRoot (754-2019 5.4.1), wave 2, planned */
 msf32_t msf32_sqrt_f16(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
@@ -407,59 +407,59 @@ msf64_t msf64_sqrt_f16(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
 msf64_t msf64_sqrt_f32(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* squareRoot (754-2019 5.4.1), wave 1, implemented */
 msf64_t msf64_sqrt(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma(msf16_t a, msf16_t b, msf16_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f16_f16_f32(msf16_t a, msf16_t b, msf32_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f16_f16_f64(msf16_t a, msf16_t b, msf64_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f16_f32_f16(msf16_t a, msf32_t b, msf16_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f16_f32_f32(msf16_t a, msf32_t b, msf32_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f16_f32_f64(msf16_t a, msf32_t b, msf64_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f16_f64_f16(msf16_t a, msf64_t b, msf16_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f16_f64_f32(msf16_t a, msf64_t b, msf32_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f16_f64_f64(msf16_t a, msf64_t b, msf64_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f32_f16_f16(msf32_t a, msf16_t b, msf16_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f32_f16_f32(msf32_t a, msf16_t b, msf32_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f32_f16_f64(msf32_t a, msf16_t b, msf64_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f32_f32_f16(msf32_t a, msf32_t b, msf16_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f32_f32_f32(msf32_t a, msf32_t b, msf32_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f32_f32_f64(msf32_t a, msf32_t b, msf64_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f32_f64_f16(msf32_t a, msf64_t b, msf16_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f32_f64_f32(msf32_t a, msf64_t b, msf32_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f32_f64_f64(msf32_t a, msf64_t b, msf64_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f64_f16_f16(msf64_t a, msf16_t b, msf16_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f64_f16_f32(msf64_t a, msf16_t b, msf32_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f64_f16_f64(msf64_t a, msf16_t b, msf64_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f64_f32_f16(msf64_t a, msf32_t b, msf16_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f64_f32_f32(msf64_t a, msf32_t b, msf32_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f64_f32_f64(msf64_t a, msf32_t b, msf64_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f64_f64_f16(msf64_t a, msf64_t b, msf16_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f64_f64_f32(msf64_t a, msf64_t b, msf32_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
+/* fusedMultiplyAdd (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_fma_f64_f64_f64(msf64_t a, msf64_t b, msf64_t c, msf_rounding_t rm, msf_flags_t *flags);
 /* fusedMultiplyAdd (754-2019 5.4.1), wave 2, planned */
 msf32_t msf32_fma_f16_f16_f16(msf16_t a, msf16_t b, msf16_t c, msf_rounding_t rm, msf_flags_t *flags);
@@ -569,21 +569,21 @@ msf64_t msf64_fma_f64_f64_f16(msf64_t a, msf64_t b, msf16_t c, msf_rounding_t rm
 msf64_t msf64_fma_f64_f64_f32(msf64_t a, msf64_t b, msf32_t c, msf_rounding_t rm, msf_flags_t *flags);
 /* fusedMultiplyAdd (754-2019 5.4.1), wave 1, implemented */
 msf64_t msf64_fma(msf64_t a, msf64_t b, msf64_t c, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromInt (754-2019 5.4.1), wave 2, planned */
+/* convertFromInt (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_from_i8(int8_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromInt (754-2019 5.4.1), wave 2, planned */
+/* convertFromInt (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_from_u8(uint8_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromInt (754-2019 5.4.1), wave 2, planned */
+/* convertFromInt (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_from_i16(int16_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromInt (754-2019 5.4.1), wave 2, planned */
+/* convertFromInt (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_from_u16(uint16_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromInt (754-2019 5.4.1), wave 2, planned */
+/* convertFromInt (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_from_i32(int32_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromInt (754-2019 5.4.1), wave 2, planned */
+/* convertFromInt (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_from_u32(uint32_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromInt (754-2019 5.4.1), wave 2, planned */
+/* convertFromInt (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_from_i64(int64_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromInt (754-2019 5.4.1), wave 2, planned */
+/* convertFromInt (754-2019 5.4.1), wave 2, implemented */
 msf16_t msf16_from_u64(uint64_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* convertFromInt (754-2019 5.4.1), wave 1, implemented */
 msf32_t msf32_from_i8(int8_t a, msf_rounding_t rm, msf_flags_t *flags);
@@ -617,21 +617,21 @@ msf64_t msf64_from_u32(uint32_t a, msf_rounding_t rm, msf_flags_t *flags);
 msf64_t msf64_from_i64(int64_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* convertFromInt (754-2019 5.4.1), wave 1, implemented */
 msf64_t msf64_from_u64(uint64_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 int8_t msf16_to_i8_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 uint8_t msf16_to_u8_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 int16_t msf16_to_i16_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 uint16_t msf16_to_u16_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 int32_t msf16_to_i32_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 uint32_t msf16_to_u32_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 int64_t msf16_to_i64_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 uint64_t msf16_to_u64_ties_to_even(msf16_t a, msf_flags_t *flags);
 /* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 1, implemented */
 int8_t msf32_to_i8_ties_to_even(msf32_t a, msf_flags_t *flags);
@@ -665,21 +665,21 @@ uint32_t msf64_to_u32_ties_to_even(msf64_t a, msf_flags_t *flags);
 int64_t msf64_to_i64_ties_to_even(msf64_t a, msf_flags_t *flags);
 /* convertToIntegerTiesToEven (754-2019 5.4.1,5.8), wave 1, implemented */
 uint64_t msf64_to_u64_ties_to_even(msf64_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 int8_t msf16_to_i8_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 uint8_t msf16_to_u8_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 int16_t msf16_to_i16_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 uint16_t msf16_to_u16_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 int32_t msf16_to_i32_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 uint32_t msf16_to_u32_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 int64_t msf16_to_i64_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 uint64_t msf16_to_u64_ties_to_away(msf16_t a, msf_flags_t *flags);
 /* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 1, implemented */
 int8_t msf32_to_i8_ties_to_away(msf32_t a, msf_flags_t *flags);
@@ -713,21 +713,21 @@ uint32_t msf64_to_u32_ties_to_away(msf64_t a, msf_flags_t *flags);
 int64_t msf64_to_i64_ties_to_away(msf64_t a, msf_flags_t *flags);
 /* convertToIntegerTiesToAway (754-2019 5.4.1,5.8), wave 1, implemented */
 uint64_t msf64_to_u64_ties_to_away(msf64_t a, msf_flags_t *flags);
-/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 int8_t msf16_to_i8_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 uint8_t msf16_to_u8_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 int16_t msf16_to_i16_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 uint16_t msf16_to_u16_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 int32_t msf16_to_i32_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 uint32_t msf16_to_u32_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 int64_t msf16_to_i64_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 uint64_t msf16_to_u64_toward_zero(msf16_t a, msf_flags_t *flags);
 /* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 1, implemented */
 int8_t msf32_to_i8_toward_zero(msf32_t a, msf_flags_t *flags);
@@ -761,21 +761,21 @@ uint32_t msf64_to_u32_toward_zero(msf64_t a, msf_flags_t *flags);
 int64_t msf64_to_i64_toward_zero(msf64_t a, msf_flags_t *flags);
 /* convertToIntegerTowardZero (754-2019 5.4.1,5.8), wave 1, implemented */
 uint64_t msf64_to_u64_toward_zero(msf64_t a, msf_flags_t *flags);
-/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 int8_t msf16_to_i8_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 uint8_t msf16_to_u8_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 int16_t msf16_to_i16_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 uint16_t msf16_to_u16_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 int32_t msf16_to_i32_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 uint32_t msf16_to_u32_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 int64_t msf16_to_i64_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 uint64_t msf16_to_u64_toward_positive(msf16_t a, msf_flags_t *flags);
 /* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 1, implemented */
 int8_t msf32_to_i8_toward_positive(msf32_t a, msf_flags_t *flags);
@@ -809,21 +809,21 @@ uint32_t msf64_to_u32_toward_positive(msf64_t a, msf_flags_t *flags);
 int64_t msf64_to_i64_toward_positive(msf64_t a, msf_flags_t *flags);
 /* convertToIntegerTowardPositive (754-2019 5.4.1,5.8), wave 1, implemented */
 uint64_t msf64_to_u64_toward_positive(msf64_t a, msf_flags_t *flags);
-/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 int8_t msf16_to_i8_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 uint8_t msf16_to_u8_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 int16_t msf16_to_i16_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 uint16_t msf16_to_u16_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 int32_t msf16_to_i32_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 uint32_t msf16_to_u32_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 int64_t msf16_to_i64_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 uint64_t msf16_to_u64_toward_negative(msf16_t a, msf_flags_t *flags);
 /* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 1, implemented */
 int8_t msf32_to_i8_toward_negative(msf32_t a, msf_flags_t *flags);
@@ -857,21 +857,21 @@ uint32_t msf64_to_u32_toward_negative(msf64_t a, msf_flags_t *flags);
 int64_t msf64_to_i64_toward_negative(msf64_t a, msf_flags_t *flags);
 /* convertToIntegerTowardNegative (754-2019 5.4.1,5.8), wave 1, implemented */
 uint64_t msf64_to_u64_toward_negative(msf64_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 int8_t msf16_to_i8_exact_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 uint8_t msf16_to_u8_exact_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 int16_t msf16_to_i16_exact_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 uint16_t msf16_to_u16_exact_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 int32_t msf16_to_i32_exact_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 uint32_t msf16_to_u32_exact_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 int64_t msf16_to_i64_exact_ties_to_even(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 2, implemented */
 uint64_t msf16_to_u64_exact_ties_to_even(msf16_t a, msf_flags_t *flags);
 /* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 1, implemented */
 int8_t msf32_to_i8_exact_ties_to_even(msf32_t a, msf_flags_t *flags);
@@ -905,21 +905,21 @@ uint32_t msf64_to_u32_exact_ties_to_even(msf64_t a, msf_flags_t *flags);
 int64_t msf64_to_i64_exact_ties_to_even(msf64_t a, msf_flags_t *flags);
 /* convertToIntegerExactTiesToEven (754-2019 5.4.1,5.8), wave 1, implemented */
 uint64_t msf64_to_u64_exact_ties_to_even(msf64_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 int8_t msf16_to_i8_exact_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 uint8_t msf16_to_u8_exact_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 int16_t msf16_to_i16_exact_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 uint16_t msf16_to_u16_exact_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 int32_t msf16_to_i32_exact_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 uint32_t msf16_to_u32_exact_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 int64_t msf16_to_i64_exact_ties_to_away(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 2, implemented */
 uint64_t msf16_to_u64_exact_ties_to_away(msf16_t a, msf_flags_t *flags);
 /* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 1, implemented */
 int8_t msf32_to_i8_exact_ties_to_away(msf32_t a, msf_flags_t *flags);
@@ -953,21 +953,21 @@ uint32_t msf64_to_u32_exact_ties_to_away(msf64_t a, msf_flags_t *flags);
 int64_t msf64_to_i64_exact_ties_to_away(msf64_t a, msf_flags_t *flags);
 /* convertToIntegerExactTiesToAway (754-2019 5.4.1,5.8), wave 1, implemented */
 uint64_t msf64_to_u64_exact_ties_to_away(msf64_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 int8_t msf16_to_i8_exact_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 uint8_t msf16_to_u8_exact_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 int16_t msf16_to_i16_exact_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 uint16_t msf16_to_u16_exact_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 int32_t msf16_to_i32_exact_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 uint32_t msf16_to_u32_exact_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 int64_t msf16_to_i64_exact_toward_zero(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 2, implemented */
 uint64_t msf16_to_u64_exact_toward_zero(msf16_t a, msf_flags_t *flags);
 /* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 1, implemented */
 int8_t msf32_to_i8_exact_toward_zero(msf32_t a, msf_flags_t *flags);
@@ -1001,21 +1001,21 @@ uint32_t msf64_to_u32_exact_toward_zero(msf64_t a, msf_flags_t *flags);
 int64_t msf64_to_i64_exact_toward_zero(msf64_t a, msf_flags_t *flags);
 /* convertToIntegerExactTowardZero (754-2019 5.4.1,5.8), wave 1, implemented */
 uint64_t msf64_to_u64_exact_toward_zero(msf64_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 int8_t msf16_to_i8_exact_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 uint8_t msf16_to_u8_exact_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 int16_t msf16_to_i16_exact_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 uint16_t msf16_to_u16_exact_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 int32_t msf16_to_i32_exact_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 uint32_t msf16_to_u32_exact_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 int64_t msf16_to_i64_exact_toward_positive(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 2, implemented */
 uint64_t msf16_to_u64_exact_toward_positive(msf16_t a, msf_flags_t *flags);
 /* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 1, implemented */
 int8_t msf32_to_i8_exact_toward_positive(msf32_t a, msf_flags_t *flags);
@@ -1049,21 +1049,21 @@ uint32_t msf64_to_u32_exact_toward_positive(msf64_t a, msf_flags_t *flags);
 int64_t msf64_to_i64_exact_toward_positive(msf64_t a, msf_flags_t *flags);
 /* convertToIntegerExactTowardPositive (754-2019 5.4.1,5.8), wave 1, implemented */
 uint64_t msf64_to_u64_exact_toward_positive(msf64_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 int8_t msf16_to_i8_exact_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 uint8_t msf16_to_u8_exact_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 int16_t msf16_to_i16_exact_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 uint16_t msf16_to_u16_exact_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 int32_t msf16_to_i32_exact_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 uint32_t msf16_to_u32_exact_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 int64_t msf16_to_i64_exact_toward_negative(msf16_t a, msf_flags_t *flags);
-/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, planned */
+/* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 2, implemented */
 uint64_t msf16_to_u64_exact_toward_negative(msf16_t a, msf_flags_t *flags);
 /* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 1, implemented */
 int8_t msf32_to_i8_exact_toward_negative(msf32_t a, msf_flags_t *flags);
@@ -1097,11 +1097,11 @@ uint32_t msf64_to_u32_exact_toward_negative(msf64_t a, msf_flags_t *flags);
 int64_t msf64_to_i64_exact_toward_negative(msf64_t a, msf_flags_t *flags);
 /* convertToIntegerExactTowardNegative (754-2019 5.4.1,5.8), wave 1, implemented */
 uint64_t msf64_to_u64_exact_toward_negative(msf64_t a, msf_flags_t *flags);
-/* convertFormat (754-2019 5.4.2), wave 2, planned */
+/* convertFormat (754-2019 5.4.2), wave 2, implemented */
 msf16_t msf16_from_f16(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFormat (754-2019 5.4.2), wave 2, planned */
+/* convertFormat (754-2019 5.4.2), wave 2, implemented */
 msf16_t msf16_from_f32(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFormat (754-2019 5.4.2), wave 2, planned */
+/* convertFormat (754-2019 5.4.2), wave 2, implemented */
 msf16_t msf16_from_f64(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* convertFormat (754-2019 5.4.2), wave 2, planned */
 msf32_t msf32_from_f16(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
@@ -1163,11 +1163,11 @@ msf16_t msf16_copy_sign(msf16_t a, msf16_t b);
 msf32_t msf32_copy_sign(msf32_t a, msf32_t b);
 /* copySign (754-2019 5.5.1), wave 0, implemented */
 msf64_t msf64_copy_sign(msf64_t a, msf64_t b);
-/* compareQuietEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_equal(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_equal_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_equal_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietEqual (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_equal_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1181,11 +1181,11 @@ int msf64_compare_quiet_equal_f16(msf64_t a, msf16_t b, msf_flags_t *flags);
 int msf64_compare_quiet_equal_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietEqual (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_equal(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareQuietNotEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietNotEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_not_equal(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietNotEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietNotEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_not_equal_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietNotEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietNotEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_not_equal_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietNotEqual (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_not_equal_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1199,11 +1199,11 @@ int msf64_compare_quiet_not_equal_f16(msf64_t a, msf16_t b, msf_flags_t *flags);
 int msf64_compare_quiet_not_equal_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietNotEqual (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_not_equal(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareSignalingEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_equal(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareSignalingEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_equal_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareSignalingEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_equal_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareSignalingEqual (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_signaling_equal_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1217,11 +1217,11 @@ int msf64_compare_signaling_equal_f16(msf64_t a, msf16_t b, msf_flags_t *flags);
 int msf64_compare_signaling_equal_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareSignalingEqual (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_signaling_equal(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareSignalingNotEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingNotEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_not_equal(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareSignalingNotEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingNotEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_not_equal_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareSignalingNotEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingNotEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_not_equal_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareSignalingNotEqual (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_signaling_not_equal_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1235,11 +1235,11 @@ int msf64_compare_signaling_not_equal_f16(msf64_t a, msf16_t b, msf_flags_t *fla
 int msf64_compare_signaling_not_equal_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareSignalingNotEqual (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_signaling_not_equal(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareQuietGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_greater(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_greater_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_greater_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietGreater (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_greater_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1253,11 +1253,11 @@ int msf64_compare_quiet_greater_f16(msf64_t a, msf16_t b, msf_flags_t *flags);
 int msf64_compare_quiet_greater_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietGreater (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_greater(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareQuietGreaterEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietGreaterEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_greater_equal(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietGreaterEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietGreaterEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_greater_equal_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietGreaterEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietGreaterEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_greater_equal_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietGreaterEqual (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_greater_equal_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1271,11 +1271,11 @@ int msf64_compare_quiet_greater_equal_f16(msf64_t a, msf16_t b, msf_flags_t *fla
 int msf64_compare_quiet_greater_equal_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietGreaterEqual (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_greater_equal(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareQuietLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_less(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_less_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_less_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietLess (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_less_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1289,11 +1289,11 @@ int msf64_compare_quiet_less_f16(msf64_t a, msf16_t b, msf_flags_t *flags);
 int msf64_compare_quiet_less_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietLess (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_less(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareQuietLessEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietLessEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_less_equal(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietLessEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietLessEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_less_equal_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietLessEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietLessEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_less_equal_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietLessEqual (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_less_equal_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1307,11 +1307,11 @@ int msf64_compare_quiet_less_equal_f16(msf64_t a, msf16_t b, msf_flags_t *flags)
 int msf64_compare_quiet_less_equal_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietLessEqual (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_less_equal(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareQuietNotGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietNotGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_not_greater(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietNotGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietNotGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_not_greater_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietNotGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietNotGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_not_greater_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietNotGreater (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_not_greater_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1325,11 +1325,11 @@ int msf64_compare_quiet_not_greater_f16(msf64_t a, msf16_t b, msf_flags_t *flags
 int msf64_compare_quiet_not_greater_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietNotGreater (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_not_greater(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareQuietNotLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietNotLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_not_less(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietNotLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietNotLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_not_less_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietNotLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietNotLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_not_less_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietNotLess (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_not_less_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1343,11 +1343,11 @@ int msf64_compare_quiet_not_less_f16(msf64_t a, msf16_t b, msf_flags_t *flags);
 int msf64_compare_quiet_not_less_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietNotLess (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_not_less(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareQuietLessUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietLessUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_less_unordered(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietLessUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietLessUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_less_unordered_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietLessUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietLessUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_less_unordered_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietLessUnordered (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_less_unordered_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1361,11 +1361,11 @@ int msf64_compare_quiet_less_unordered_f16(msf64_t a, msf16_t b, msf_flags_t *fl
 int msf64_compare_quiet_less_unordered_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietLessUnordered (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_less_unordered(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareQuietGreaterUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietGreaterUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_greater_unordered(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietGreaterUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietGreaterUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_greater_unordered_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietGreaterUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietGreaterUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_greater_unordered_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietGreaterUnordered (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_greater_unordered_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1379,11 +1379,11 @@ int msf64_compare_quiet_greater_unordered_f16(msf64_t a, msf16_t b, msf_flags_t 
 int msf64_compare_quiet_greater_unordered_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietGreaterUnordered (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_greater_unordered(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareQuietUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_unordered(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_unordered_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_unordered_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietUnordered (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_unordered_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1397,11 +1397,11 @@ int msf64_compare_quiet_unordered_f16(msf64_t a, msf16_t b, msf_flags_t *flags);
 int msf64_compare_quiet_unordered_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietUnordered (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_unordered(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareQuietOrdered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietOrdered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_ordered(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareQuietOrdered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietOrdered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_ordered_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareQuietOrdered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareQuietOrdered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_quiet_ordered_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareQuietOrdered (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_quiet_ordered_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1415,11 +1415,11 @@ int msf64_compare_quiet_ordered_f16(msf64_t a, msf16_t b, msf_flags_t *flags);
 int msf64_compare_quiet_ordered_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareQuietOrdered (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_quiet_ordered(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareSignalingGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_greater(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareSignalingGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_greater_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareSignalingGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_greater_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareSignalingGreater (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_signaling_greater_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1433,11 +1433,11 @@ int msf64_compare_signaling_greater_f16(msf64_t a, msf16_t b, msf_flags_t *flags
 int msf64_compare_signaling_greater_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareSignalingGreater (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_signaling_greater(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareSignalingGreaterEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingGreaterEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_greater_equal(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareSignalingGreaterEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingGreaterEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_greater_equal_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareSignalingGreaterEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingGreaterEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_greater_equal_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareSignalingGreaterEqual (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_signaling_greater_equal_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1451,11 +1451,11 @@ int msf64_compare_signaling_greater_equal_f16(msf64_t a, msf16_t b, msf_flags_t 
 int msf64_compare_signaling_greater_equal_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareSignalingGreaterEqual (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_signaling_greater_equal(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareSignalingLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_less(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareSignalingLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_less_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareSignalingLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_less_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareSignalingLess (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_signaling_less_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1469,11 +1469,11 @@ int msf64_compare_signaling_less_f16(msf64_t a, msf16_t b, msf_flags_t *flags);
 int msf64_compare_signaling_less_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareSignalingLess (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_signaling_less(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareSignalingLessEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingLessEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_less_equal(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareSignalingLessEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingLessEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_less_equal_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareSignalingLessEqual (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingLessEqual (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_less_equal_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareSignalingLessEqual (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_signaling_less_equal_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1487,11 +1487,11 @@ int msf64_compare_signaling_less_equal_f16(msf64_t a, msf16_t b, msf_flags_t *fl
 int msf64_compare_signaling_less_equal_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareSignalingLessEqual (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_signaling_less_equal(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareSignalingNotGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingNotGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_not_greater(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareSignalingNotGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingNotGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_not_greater_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareSignalingNotGreater (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingNotGreater (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_not_greater_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareSignalingNotGreater (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_signaling_not_greater_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1505,11 +1505,11 @@ int msf64_compare_signaling_not_greater_f16(msf64_t a, msf16_t b, msf_flags_t *f
 int msf64_compare_signaling_not_greater_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareSignalingNotGreater (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_signaling_not_greater(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareSignalingNotLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingNotLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_not_less(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareSignalingNotLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingNotLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_not_less_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareSignalingNotLess (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingNotLess (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_not_less_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareSignalingNotLess (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_signaling_not_less_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1523,11 +1523,11 @@ int msf64_compare_signaling_not_less_f16(msf64_t a, msf16_t b, msf_flags_t *flag
 int msf64_compare_signaling_not_less_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareSignalingNotLess (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_signaling_not_less(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareSignalingLessUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingLessUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_less_unordered(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareSignalingLessUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingLessUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_less_unordered_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareSignalingLessUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingLessUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_less_unordered_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareSignalingLessUnordered (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_signaling_less_unordered_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1541,11 +1541,11 @@ int msf64_compare_signaling_less_unordered_f16(msf64_t a, msf16_t b, msf_flags_t
 int msf64_compare_signaling_less_unordered_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareSignalingLessUnordered (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_signaling_less_unordered(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* compareSignalingGreaterUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingGreaterUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_greater_unordered(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* compareSignalingGreaterUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingGreaterUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_greater_unordered_f32(msf16_t a, msf32_t b, msf_flags_t *flags);
-/* compareSignalingGreaterUnordered (754-2019 5.6.1,5.11), wave 2, planned */
+/* compareSignalingGreaterUnordered (754-2019 5.6.1,5.11), wave 2, implemented */
 int msf16_compare_signaling_greater_unordered_f64(msf16_t a, msf64_t b, msf_flags_t *flags);
 /* compareSignalingGreaterUnordered (754-2019 5.6.1,5.11), wave 2, planned */
 int msf32_compare_signaling_greater_unordered_f16(msf32_t a, msf16_t b, msf_flags_t *flags);
@@ -1559,13 +1559,13 @@ int msf64_compare_signaling_greater_unordered_f16(msf64_t a, msf16_t b, msf_flag
 int msf64_compare_signaling_greater_unordered_f32(msf64_t a, msf32_t b, msf_flags_t *flags);
 /* compareSignalingGreaterUnordered (754-2019 5.6.1,5.11), wave 1, implemented */
 int msf64_compare_signaling_greater_unordered(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* totalOrder (754-2019 5.10), wave 2, planned */
+/* totalOrder (754-2019 5.10), wave 2, implemented */
 int msf16_total_order(msf16_t a, msf16_t b);
 /* totalOrder (754-2019 5.10), wave 1, implemented */
 int msf32_total_order(msf32_t a, msf32_t b);
 /* totalOrder (754-2019 5.10), wave 1, implemented */
 int msf64_total_order(msf64_t a, msf64_t b);
-/* totalOrderMag (754-2019 5.10), wave 2, planned */
+/* totalOrderMag (754-2019 5.10), wave 2, implemented */
 int msf16_total_order_mag(msf16_t a, msf16_t b);
 /* totalOrderMag (754-2019 5.10), wave 1, implemented */
 int msf32_total_order_mag(msf32_t a, msf32_t b);
