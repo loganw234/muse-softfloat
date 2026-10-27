@@ -586,3 +586,17 @@ expansion only if time allows before 2026-11-04; the owner's
 clean-room fingerprint audit remains the control, not yet
 exercised. Two decision items sit with the owner: brief shape
 for feasibility/tooling agents, and music/VO for the video.
+
+**Closing decisions (appended 2026-10-27):** the integration
+merge-tree re-make is closed (four merges identical; the two
+conflict-resolved merges are exact status-row unions). The
+3-minute video is rendered and verified silent, and the owner
+directed that its pipeline be published with the project
+(`b64ec93`); he will supply the music himself. The clean-room
+fingerprint audit is **waived** by the owner because that
+tooling was not finished before the hackathon began. Brief
+shape is settled as risk-tiered leaning strict, in the owner's
+words and with the accepted operational threshold in
+`docs/KICKOFF.md`. Those owner calls supersede the "open at this
+close" list immediately above; Tier-2 expansion remains the only
+optional work named there.

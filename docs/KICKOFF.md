@@ -162,3 +162,37 @@ Q12.8 and the settled-in-body package in Q12.9; the second fixes the
 Section 9 is approved as part of the study. Open question 3 is therefore
 answered by SF-0 as approved, including the library licence: **MIT**.
 P0 may begin.
+
+## Later owner words — closing decisions (2026-10-27, appended)
+
+The owner took the four closing items individually. His words:
+
+> Lets go over each individually. For 2, Ill find something myself and let you know once I have. For 3, yes publish along with it, its part of the process
+
+> Waive fingerprint audit, the tooling wasnt finished in time before the hackathon began.
+> Risk-tiered leaning more toward strict.
+
+Lead reading (marked):
+
+1. **Brief shape for feasibility/tooling work — settled.** The policy is
+   risk-tiered and leans strict:
+   - read-only discovery may run from a spawn objective with a ledger and
+     report;
+   - any pass that creates an artifact or evidence the project later relies
+     on, affects hardware, or makes a public claim needs a written brief
+     file before work begins and an independent check before its output is
+     relied on or published;
+   - anything landing in this repository needs a written brief and
+     proportionate independent verification before merge, with planted
+     verification where it fits;
+   - when the tier is uncertain, use the stricter tier.
+
+   Asked whether he accepted that exact threshold, the owner answered:
+
+   > Yes, thats good.
+2. **Music/VO:** the owner will find the music himself and notify the lead.
+   The rendered video remains silent until then.
+3. **Video pipeline publication:** settled yes; published in `b64ec93`.
+4. **Clean-room fingerprint audit:** waived by the owner because the
+   fingerprint tooling was not finished before the hackathon began. This
+   is a waiver, not a completed audit; the record must keep saying so.
