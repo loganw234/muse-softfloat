@@ -151,7 +151,17 @@ def pack_ref(sign, m, rm, fmt="f64"):
     flags = 0
     if inexact:
         flags |= FLAG_INX
-        if v < Fraction(2) ** emin:
+        # Clause 7.5 after-rounding tininess: the result rounded to p
+        # bits AS THOUGH the exponent range were unbounded, judged
+        # against 2^emin. (Corrected 2026-10-26: the P0 reference
+        # judged the delivered value, which is neither this nor
+        # before-rounding; parcel-f32 escalation, ledger/lead.md.)
+        scale_u = e - (p - 1)
+        q_u, _ = round_int(m / Fraction(2) ** scale_u, rm, sign)
+        if q_u == 2 ** p:
+            q_u >>= 1
+            scale_u += 1
+        if q_u * Fraction(2) ** scale_u < Fraction(2) ** emin:
             flags |= FLAG_UNF
     if q >= 2 ** (p - 1):
         return (sign << (bits_w - 1)) | ((scale + (p - 1) + emax) << t) | (q - 2 ** (p - 1)), flags
