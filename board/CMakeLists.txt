@@ -55,6 +55,84 @@ pico_enable_stdio_usb(msf_hello 1)
 pico_enable_stdio_uart(msf_hello 0)
 pico_add_extra_outputs(msf_hello)
 
+# ---- AEABI compat surface + IAS15 workload firmware ----------------
+# SF-0 Sec.3.4 layer 1 over the gated core (compat/msf_aeabi.c),
+# selected the same way as the P0 hello: empty "compiler" flavour so
+# no SDK double body is present, then our --wrap for every binary64
+# helper the compiler emits. The IAS15 workload itself is GPL and
+# lives outside this repository; point IAS15_EXTRACT_DIR at its
+# extract tree (scratch/ias15/extract in the workspace) to build
+# msf_ias15. msf_aeabi_selftest has no workload dependency and
+# always builds.
+set(MSF_AEABI_WRAP_SYMBOLS
+    __aeabi_dadd __aeabi_dsub __aeabi_drsub __aeabi_dmul __aeabi_ddiv
+    __aeabi_dneg __aeabi_dcmpeq __aeabi_dcmplt __aeabi_dcmple
+    __aeabi_dcmpgt __aeabi_dcmpge __aeabi_dcmpun
+    __aeabi_i2d __aeabi_ui2d __aeabi_l2d __aeabi_ul2d
+    __aeabi_d2iz __aeabi_d2uiz __aeabi_d2lz __aeabi_d2ulz
+    __aeabi_f2d __aeabi_d2f
+    sqrt fabs fma copysignf copysign
+    # named traps (compat/msf_aeabi.c): the upstream tree's
+    # never-executed libm surface; any call stops loudly.
+    acos acosh asin atan cbrt cos cosh exp floor log log10
+    sin sinh tan tanh atan2 pow fmod)
+set(MSF_AEABI_SRC
+    ${MSF_ROOT}/compat/msf_aeabi.c
+    ${MSF_ROOT}/compat/msf_wrap.c
+    ${MSF_ROOT}/board/ias15_trap.c)
+
+function(msf_aeabi_target_wraps tgt)
+    pico_set_float_implementation(${tgt} compiler)
+    pico_set_double_implementation(${tgt} compiler)
+    foreach(sym IN LISTS MSF_AEABI_WRAP_SYMBOLS)
+        target_link_options(${tgt} PRIVATE "LINKER:--wrap=${sym}")
+    endforeach()
+endfunction()
+
+add_executable(msf_aeabi_selftest aeabi_selftest_main.c ias15_selftest.c
+               ${MSF_AEABI_SRC})
+msf_aeabi_target_wraps(msf_aeabi_selftest)
+target_compile_definitions(msf_aeabi_selftest PRIVATE PICO_STACK_SIZE=0x1000)
+target_include_directories(msf_aeabi_selftest PRIVATE ${CMAKE_CURRENT_LIST_DIR} ${MSF_ROOT} ${MSF_ROOT}/compat)
+target_compile_options(msf_aeabi_selftest PRIVATE -ffp-contract=off -fno-fast-math)
+set_source_files_properties(${MSF_AEABI_SRC} PROPERTIES
+    COMPILE_OPTIONS "-ffp-contract=off")
+set_source_files_properties(ias15_selftest.c PROPERTIES COMPILE_OPTIONS
+    "-fno-builtin-sqrt;-fno-builtin-fabs;-fno-builtin-copysign")
+target_link_libraries(msf_aeabi_selftest msf_core pico_stdlib pico_unique_id)
+pico_enable_stdio_usb(msf_aeabi_selftest 1)
+pico_enable_stdio_uart(msf_aeabi_selftest 0)
+pico_add_extra_outputs(msf_aeabi_selftest)
+
+if(DEFINED IAS15_EXTRACT_DIR)
+    set(IAS15X_SRC
+        ${IAS15_EXTRACT_DIR}/integrator_ias15_min.c
+        ${IAS15_EXTRACT_DIR}/gravity_basic_min.c
+        ${IAS15_EXTRACT_DIR}/sim_min.c
+        ${IAS15_EXTRACT_DIR}/ias15x.c)
+    add_executable(msf_ias15 ias15_main.c ias15_selftest.c ias15_hash.c
+                   ${MSF_ROOT}/tests/sha256.c ${MSF_AEABI_SRC} ${IAS15X_SRC})
+    msf_aeabi_target_wraps(msf_ias15)
+    # Stack measured with -fstack-usage: ias15 step 816 B + gravity
+    # 288 B + core/IRQ depth exceeds comfort on the 2 KiB default.
+    target_compile_definitions(msf_ias15 PRIVATE PICO_STACK_SIZE=0x1000)
+    target_include_directories(msf_ias15 PRIVATE ${CMAKE_CURRENT_LIST_DIR}
+                               ${MSF_ROOT} ${MSF_ROOT}/compat
+                               ${IAS15_EXTRACT_DIR})
+    target_compile_options(msf_ias15 PRIVATE -ffp-contract=off -fno-fast-math)
+    # Workload TUs: pinned like the desktop reference in every flag
+    # that exists on both sides (SF-0 Sec.9). No fast-math family,
+    # no contraction, sqrt stays a call to the wrapped helper.
+    set_source_files_properties(${IAS15X_SRC} PROPERTIES COMPILE_OPTIONS
+        "-std=c99;-O2;-ffp-contract=off;-fno-fast-math;-fno-unsafe-math-optimizations;-fno-builtin-sqrt;-DREB_MIN_NMAX=16;-DREB_MIN_NO_MALLOC")
+    target_link_libraries(msf_ias15 msf_core pico_stdlib pico_unique_id)
+    pico_enable_stdio_usb(msf_ias15 1)
+    pico_enable_stdio_uart(msf_ias15 0)
+    pico_add_extra_outputs(msf_ias15)
+else()
+    message(STATUS "msf_ias15 skipped: -DIAS15_EXTRACT_DIR=<extract tree> not given")
+endif()
+
 add_executable(msf_bench bench_main.c)
 target_include_directories(msf_bench PRIVATE ${MSF_ROOT})
 target_compile_options(msf_bench PRIVATE -ffp-contract=off)
