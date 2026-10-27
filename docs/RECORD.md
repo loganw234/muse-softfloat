@@ -317,3 +317,103 @@ covers the 968-vector smoke sample, not full-volume replay. Metrics
 tables extend at the next record close; the extractor still needs
 its wave-split and label updates for that, named here so it is not
 discovered then.
+
+## 2026-10-27 - Wave 1: binary32 and binary64 arithmetic, verified under plants
+
+Two format parcels (ParcelRound, 300-minute boxes, 3,000 hand-written
+line ceilings, `ledger/briefs/w1-f32.md` / `w1-f64.md`) implemented the
+full homogeneous Clause 5 core for binary32 and binary64: 173
+instantiations each, taking the project to 409 of 783 implemented
+(63 P0 + 173 + 173), with 0 instantiations at `authority=unconfirmed`.
+Parcels owned only `src/msf32.c` / `src/msf64.c`, their vector
+generators and sets, and status-row appends; the shared kernels
+(`msf_pack_generic`, `msf_decode.h`) stayed lead-owned, and anything
+inadequate there was an escalation, not an edit. That fence is what
+caught the wave's largest defect (below).
+
+- Checkpoints `6c1bc01` (f32) and `5153324` (f64) stopped correctly
+  on lead-owned defects: the P0 pack kernel implemented tininess on
+  the delivered value, not Clause 7.5's unbounded-exponent rounding,
+  and the Python reference implemented the same wrong reading, so
+  every self-consistent gate passed. Berkeley disagreed; parcel-f32
+  escalated with a repro and was upheld. Both parcels independently
+  found the ingest tool mapping Berkeley's quiet `eq` to signaling
+  (f64 with a 46,464-case proof). Lead fixes `53acb1a` (kernel +
+  reference + vector regeneration; the corrected reference failed
+  the old kernel first) and `b37fb12` (smoke control 9 named a
+  now-implemented op; LF normalisation) were Spark-rechecked READY
+  (rechecker-tininess, oracle differential 2400/2400) and pushed.
+  Fresh regater agents then closed both parcels READY (`26c76aa`,
+  `cb10ee2`); combined post-fix Berkeley evidence exceeds 37M cases.
+- Verification: planted copies (kit `plant.py`, first use) at
+  `1779df0` (f32) / `d1e9442` (f64), five plants each spanning code
+  semantics, flags, committed vectors, and generator constants; key
+  SHA-256s `71ef8ff1...` / `e6bbc65c...` were ledgered before the
+  verifiers ran and never disclosed to them. Both Spark verifiers
+  returned NOT READY on the copies, as constructed. Graded against
+  the keys: **9 of 10 plants caught** (f64 5/5; f32 4/5). The one
+  miss is the instructive one: a weakened boundary value in the f32
+  generator pool was observed as 16-line regeneration drift but
+  filed benign because expectations were arithmetically correct on
+  both sides - detection without the project's byte-identity norm.
+  No non-plant defect stands: the f32 verifier's (a) findings
+  (shared-file changes vs base; parcel vectors unwired from `run.sh`
+  in the copy) are copy artifacts - the shared files carry the lead
+  fixes the parcel branch merged, and the wiring landed on main in
+  `704cf0c` / `8d8219c`. Grades in `docs/metrics/plants.jsonl`.
+- Merged serially onto main (`2843792` f32, `06fdec8` f64;
+  `implemented.tsv` union to 409 rows, tables regenerated).
+  `tools/run.sh standard` PASS after each merge; final state: smoke
+  52,168 committed vectors and 9/9 negative controls refused,
+  standard adds 1,117,504 (timings under known machine load, never
+  performance claims). Board: 2,767 sampled committed binary32/64
+  vectors replayed on the RP2040 (ID `e66440a2cb6f5c2b`, under
+  `board.lock`), whole-run SHA-256
+  `4d7c2a28581a36381d4ccf5084f3e909b68e186a763d45341c48ced427b329af`
+  identical on host and board; harness UF2 `3c7f66a1...`, ELF
+  `5de04aab...` (per-build hashes).
+- Metrics (`round_metrics.py --wave wave1`, kit tool, repo counted):
+  Wonder parcels+regaters 272,858 output / 77,372,569 input tokens,
+  503 tool uses, ~129 minutes; Spark verifiers+rechecker+auditor
+  371,597 output / 93,246,932 input, 568 tool uses, ~61 minutes.
+  Parcels used 48 and 56 of 300 boxed minutes; regaters 12 and 13
+  of 120. Escalations: 3 real (median 2 minutes to ruling, longest
+  41) plus 2 first-minutes tests answered in ~20 seconds. Brief
+  corrections: 7 offered, 7 accepted. Note `round_metrics` counts
+  all changed lines including generated vectors (14,219 / 14,301)
+  against a ceiling the briefs define as hand-written lines
+  (1,788 / 1,814 of 3,000); `ceiling_text` in `briefs.jsonl` says
+  which is which. The lead's own session is cumulative across waves
+  and is not delta-extracted; that remains owed tooling.
+
+**Deviations, named:** the local merges onto main preceded the
+planted verifiers' reports, against the kit's verify-then-merge
+sequence; nothing was pushed between, and the push gate held until
+grading left no genuine send-back. The lead ledger was silent from
+22:14 to 05:23 across checkpoints, fixes, regates, and merges; the
+gap was caught by the owner and backfilled as a marked backfill,
+and from here every commit or merge gets a ledger entry in the
+same step. Verifier tasking lived in Workflow prompts rather than
+brief files; briefs become files from Wave 2. A mid-project
+adherence audit (auditor-wave1, Spark, disconfirm-only) confirmed
+the above independently and added the re-check list this entry's
+close-out worked through; such an audit now runs at the end of
+each significant wave, by owner request.
+
+**Slips, attributed:** the tininess defect was the lead's, twice
+over (kernel and reference agreeing wrongly); the parcels' fence,
+not the lead's gates, caught it. The ingest `eq` mis-mapping was
+the lead's. Parcels initially ended at checkpoints rather than
+closing, because finished agents return tool-less on follow-up;
+fresh regaters are now the standing pattern for send-backs.
+
+**Known limits:** binary16 and the remaining cross-format rows are
+Wave 2; decimal/hex is Wave 3 and still the largest design risk.
+Berkeley level-2 slices were largely take-capped for wall-clock
+under load; the integration verifier's merge-tree re-make remains
+owed at final wave. Metrics: Spark Workflow sessions arrive
+labelled by session UUID and were relabelled by content/stamp
+attribution in the fold (noted per row); the extractor's role
+inference needed lead restatement for parcel/regater/verifier
+rows (also noted per row). Board evidence is a 2,767-vector
+sample, not full-volume replay.

@@ -15,14 +15,18 @@ that stands beside it.
 
 ## Status
 
-**P0 (the shared seam) landed, 2026-10-26; Wave 1 next.** [SF-0](docs/studies/SF-0.md)
-is the approved plan of record. The seam is in: the generated API over
-783 operation instantiations (63 implemented and gated — classification,
-sign-bit, flag and version operations for all three formats, plus the
-binary64 round-and-pack exemplar), the host runner, Berkeley/MPFR
-oracle bring-up, and the RP2040 board harness with on-silicon replay.
-No arithmetic operation is claimed yet; per-instantiation status lives
-in [docs/COVERAGE.tsv](docs/COVERAGE.tsv).
+**Wave 1 landed, 2026-10-27: binary32 and binary64 arithmetic.**
+[SF-0](docs/studies/SF-0.md) is the approved plan of record. The
+generated API spans 783 operation instantiations, 409 implemented and
+gated — the P0 classification/flag set (63) plus the full homogeneous
+Clause 5 core for binary32 and binary64 (173 each: arithmetic, FMA,
+remainder, conversions, comparisons, totalOrder), each gated against
+Berkeley TestFloat 3e or an exact reference at the volume its
+authority row names, and verified on planted copies by independent
+Spark verifiers (9 of 10 plants caught). A 2,767-vector sample
+replays bit-identically on the RP2040. binary16 and the remaining
+cross-format rows are Wave 2; per-instantiation status lives in
+[docs/COVERAGE.tsv](docs/COVERAGE.tsv).
 
 The front door is `tools/run.sh <smoke|standard|board|bench>` under
 Git Bash: it prints its inventory before any verdict, refuses drift
