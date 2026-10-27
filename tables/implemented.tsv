@@ -777,3 +777,15 @@ msf32_compare_signaling_less_unordered_f16	2
 msf64_compare_signaling_less_unordered_f16	2
 msf32_compare_signaling_greater_unordered_f16	2
 msf64_compare_signaling_greater_unordered_f16	2
+msf16_from_decimal	3
+msf16_to_decimal	3
+msf16_from_hex	3
+msf16_to_hex	3
+msf32_from_decimal	3
+msf32_to_decimal	3
+msf32_from_hex	3
+msf32_to_hex	3
+msf64_from_decimal	3
+msf64_to_decimal	3
+msf64_from_hex	3
+msf64_to_hex	3
