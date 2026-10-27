@@ -116,7 +116,7 @@ struct stats {
     unsigned long total, passed, failed, skipped_planned, malformed;
 };
 
-#define MAX_PROV 32
+#define MAX_PROV 128
 static char prov_names[MAX_PROV][64];
 static unsigned long prov_counts[MAX_PROV];
 static int prov_n = 0;
@@ -134,6 +134,8 @@ static void count_prov(const char *prov)
         strncpy(prov_names[prov_n], prov, 63);
         prov_counts[prov_n] = 1u;
         prov_n++;
+    } else {
+        die("provenance tag table full (MAX_PROV); refusing to undercount");
     }
 }
 

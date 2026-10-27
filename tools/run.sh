@@ -167,16 +167,21 @@ controls() {
     else
         echo "control x87-compiler-refusal: SKIP-BY-NAME /c/msys64/mingw32 absent on this host"
     fi
-    # 9. planned-only replay must not verdict PASS (verifier-p0 note i;
-    # op must stay planned - msf16_from_decimal until Wave 3 lands)
-    printf 'msf16_from_decimal te 1.0 -> 3c00 00 control:planned\n' > "$C/planned.vec"
-    "$R" verify "$C/planned.vec" > "$C/planned.log" 2>&1
-    [ $? -ne 0 ] && grep -q 'SKIP.*not implemented' "$C/planned.log" && grep -q 'VERDICT: FAIL' "$C/planned.log" && control_ok planned-only-verdict || control_bad planned-only-verdict
+    # 9. full-surface inventory (retired planned-only control at the
+    # Wave 3 merge: 783 of 783, no planned op remains to name; the
+    # zero-pass protection it demonstrated lives in the runner's
+    # verdict rule and control history). Refuses if any coverage row
+    # falls back to planned without a table change saying so.
+    impl=$(grep -c '^msf' tables/implemented.tsv)
+    total=$(grep -vc '^#' docs/COVERAGE.tsv)
+    total=$((total - 1))
+    if [ "$impl" -eq "$total" ]; then control_ok full-surface-inventory; else control_bad full-surface-inventory; fi
+    echo "inventory: implemented $impl of $total instantiations"
     [ "$CTRL_FAIL" -eq 0 ] || fail "a negative control was not refused"
     echo "negative controls: all refused"
 }
 
-VECS="tests/vectors/encodings-f16.vec tests/vectors/encodings-f32.vec tests/vectors/encodings-f64.vec tests/vectors/copysign.vec tests/vectors/pack64.vec tests/vectors/pack32.vec tests/vectors/pack16.vec tests/vectors/arith-f32.vec tests/vectors/fma-sqrt-f32.vec tests/vectors/conv-int-f32.vec tests/vectors/toint-f32.vec tests/vectors/rint-misc-f32.vec tests/vectors/compare-f32.vec tests/vectors/arith-f64.vec tests/vectors/conv-f64.vec tests/vectors/misc-f64.vec tests/vectors/compare-f64.vec tests/vectors/nan-f64.vec tests/vectors/arith-f16.vec tests/vectors/fma-sqrt-f16.vec tests/vectors/conv-int-f16.vec tests/vectors/toint-f16.vec tests/vectors/rint-misc-f16.vec tests/vectors/compare-f16.vec tests/vectors/arith-xf.vec tests/vectors/fma-sqrt-xf.vec tests/vectors/conv-xf.vec tests/vectors/compare-xf.vec tests/vectors/traps-xf.vec"
+VECS="tests/vectors/encodings-f16.vec tests/vectors/encodings-f32.vec tests/vectors/encodings-f64.vec tests/vectors/copysign.vec tests/vectors/pack64.vec tests/vectors/pack32.vec tests/vectors/pack16.vec tests/vectors/arith-f32.vec tests/vectors/fma-sqrt-f32.vec tests/vectors/conv-int-f32.vec tests/vectors/toint-f32.vec tests/vectors/rint-misc-f32.vec tests/vectors/compare-f32.vec tests/vectors/arith-f64.vec tests/vectors/conv-f64.vec tests/vectors/misc-f64.vec tests/vectors/compare-f64.vec tests/vectors/nan-f64.vec tests/vectors/arith-f16.vec tests/vectors/fma-sqrt-f16.vec tests/vectors/conv-int-f16.vec tests/vectors/toint-f16.vec tests/vectors/rint-misc-f16.vec tests/vectors/compare-f16.vec tests/vectors/arith-xf.vec tests/vectors/fma-sqrt-xf.vec tests/vectors/conv-xf.vec tests/vectors/compare-xf.vec tests/vectors/traps-xf.vec tests/vectors/from-decimal-str.vec tests/vectors/from-hex-str.vec tests/vectors/to-decimal-str.vec tests/vectors/to-hex-str.vec"
 
 smoke() {
     check_host_compiler "$HOST_CC" || fail "host compiler refused"
