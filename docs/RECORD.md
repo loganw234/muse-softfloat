@@ -499,3 +499,22 @@ engineering remaining, not a research question â€” extraction +
 AEABI wrappers + on-silicon hash run. Final video render waits on
 that board footage. Native (non-fenced) Berkeley level-2 slices
 remain take-capped under load.
+
+**Erratum (appended 2026-10-27, auditor-wave2 SEV-1):** the Wave 2
+entry above claims "every commit and merge has a same-step lead
+ledger entry." That is overstated. The merges and wiring commits
+(`e393bb0`, `a05412f`, `6720f9a`, `71fbd53`, `e905868`, `548a1b9`)
+are covered by two batched entries (grading 08:11:57, record
+08:18:23), not per-commit entries; `8a8021c` (the AGENTS.md sqrt
+note) and the Wave 2 push itself had no entries until a marked
+backfill (`ledger/lead.md` 2026-10-27 08:27:00). What held this
+wave is the narrower claim: grading, dispatch, audit, and record
+events were ledgered at the event, and nothing merged before its
+verifier reported. Merge-time `standard` logs live in
+`build/standard/` (budget dir; each run overwrites, so the final
+tree's logs are the last merge's run). The auditor's other open
+items stand as written: integration merge-tree re-make owed at
+final wave; the parallel ias15-port/video-tools passes ran
+without brief files or verifier passes (owner decision pending);
+the owner's clean-room fingerprint audit remains the control, not
+yet exercised.
