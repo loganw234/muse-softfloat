@@ -217,3 +217,103 @@ no library code, runner, oracle build, or board proof exists yet, and the
 unproven board serial channel remains P0's top named risk. Metrics for
 agents after the Wave 0 cutoff (SF-0's verifiers included) are counted in
 the next entry, not restated into Wave 0's snapshot.
+
+## 2026-10-26 - P0: the shared seam, gated on host and on silicon
+
+**What the owner asked**, verbatim: "Go ahead and proceed. Good work so
+far"; during the run, "*Other work is also in progress on this machine,
+as such your runs may face slow downs from resource contention. No need
+to adjust for it, simply notifying you".
+
+**The lead's reading, beside it:** proceed means P0 exactly as SF-0
+Section 6 enumerates it, lead-authored, Spark-verified before push.
+Timings measured today were made under load and are recorded as such,
+never as performance evidence.
+
+**The chain** (READ, ledger verdict entries; (a), (b) per pass):
+
+| work | author | verifier's passes | sent back |
+|---|---|---|---|
+| approval-recording change pushed at `0bfa964` | the lead | verifier-approval 0, 0 - 3 notes (muse-spark-1.3) | no |
+| P0 shared seam (this commit) | the lead | Spark verifier named in its commit message (P0 acceptance, SF-0 §6) | no (at writing) |
+
+**Measured** (host x86_64-w64-mingw32 gcc 16.1.0, `FLT_EVAL_METHOD=0`
+probed; Arm GNU Toolchain 14.2.1 for target objects; all under load):
+
+- Tables and generation: `tables/` expands to **783 instantiations**
+  across S1's 81 families (comparison names re-measured), 63
+  implemented, 0 with unconfirmed authority; the four generated files
+  regenerate byte-identically (drift check in every budget).
+- Gates: `smoke` PASS with 17,662 committed vectors; `standard` PASS
+  adding 917,504 exhaustive-binary16 and 200,000 seeded pack64-sweep
+  vectors against the independent exact-rational reference (37,821
+  sticky-non-invariant sweep cases dropped by construction, counted).
+  Flag operations are gated by a 32x32 exhaustive state machine in the
+  runner's unit mode. Target symbol scan clean (undefined: only
+  `__aeabi_lmul`, a switch helper, and the library's own symbols).
+  Eight negative controls each refused: corrupted expected bit, wrong
+  NaN expectation, wrong rounding mode, wrong flag bit, stale
+  manifest, count mismatch, wrong-tininess-polarity build, x87
+  compiler path. Remaining §5.2 controls arm with their surfaces
+  (bootrom cases and wrong-board-identity with board budgets in later
+  waves; decimal-oracle range in Wave 3; the wrapper-state leak is
+  exercised as contract-observed sharing in the hello below).
+- Oracle bring-up: Berkeley SoftFloat 3e + TestFloat 3e fetched from
+  jhauser.us (SHA-256s and licence hashes in
+  `docs/metrics/fetches.jsonl`), built in scratch (8086-SSE,
+  tininess after rounding read in its `specialize.h` and echoed by
+  `testsoftfloat`), self-check clean on 10 sampled functions.
+  Header-measured coverage matches the authority map in
+  `docs/COVERAGE.tsv` (no nextUp/scaleB/logB/totalOrder/class/decimal;
+  integer conversions 32/64-bit only). Berkeley's invalid integer
+  deliveries are the indefinite patterns (signed-min/unsigned-all-ones),
+  differing from the project saturation rule in the header — hence the
+  `exact-invalid-project-rule` comparison on those rows. Its flag bit
+  order differs from ours; translation at ingest is specified in
+  `tests/VECTORS.md`. Vector pricing per rounding slice, seed 1:
+  binary ops level 1 = 46,464 cases, level 2 = 40,284,288 (81-97 s to
+  generate); mulAdd level 1 = 6,133,248; unary/conversion slices
+  408-768. A first cross-check agrees: our `is_signaling` vs Berkeley
+  `isSignalingNaN`, 65,728 encodings, 0 disagreements. MPFR 4.2.2
+  re-measured live through the pinned path.
+- Board (RP2040 rev B2, unique ID `e66440a2cb6f5c2b`, COM8, under
+  `board.lock`): 968 board-smoke vectors replayed over USB CDC,
+  whole-run SHA-256 `4573ac098f2f8a5bf8c6b09fb9746ee206e24a3870c19b4b07f3dd3fee5f28a7`
+  identical on host and board; harness UF2 `987bb37b...`, ELF
+  `020de7f9...` (per-build hashes, printed each run). Interposition
+  hello PASS (12/12): `--wrap=copysignf/copysign` over the core,
+  cross-core state isolation, same-core IRQ sharing observed as the
+  §3.4 contract states (flags `0x12` after IRQ), save/restore
+  round-trip. Reflash cycles are hands-free via `picotool load -f -x`.
+  Bench skeleton runs under both SDK flavours with placement/clock
+  labels and identical sinks; per §6 item 9 no number from it is
+  quoted as a performance claim.
+- Metrics: transcript extraction at cutoff 2026-10-26T17:31:58-07:00
+  (scratch output; committed `usage.jsonl`/`passes.jsonl` still end at
+  the Wave 0 cutoff by design): 26 work sessions, 848,844 output /
+  143,025,602 input tokens (Wonder 646,782 / 122,367,746; Spark
+  202,062 / 20,657,856), 1,568 tool uses, 28 internal reminder
+  sessions excluded and counted. New shapes `briefs/corrections/
+  escalations/plants/fetches` JSONL exist beside them; rows begin
+  with Wave 1 (plants at their reveal).
+
+**Slips, attributed:** the lead's own wide-integer spot-check had two
+wrong expectations (code was right; test fixed); the first board
+budget printed PASS over a failed second flash because `run.sh` did
+not propagate the sub-script's exit (fixed in the same commit, and
+the failure itself — picotool needing `-f` — is now BOARD.md/AGENTS
+text); an oracle pricing probe wrote 3.4 GB of vector files before
+being stopped and replaced by streaming counts (SF-0's rule); a
+per-file `>>` manifest loop hit a measured offset-0 append quirk,
+fixed by single-stream writes.
+
+**Known limits:** no arithmetic operation is implemented or claimed;
+the 63 gated operations are the P0 set of SF-0 §6 item 4 only, and
+the round-and-pack exemplar is gated as an internal operation
+against the project-exact reference, not yet through a public
+operation. Berkeley vectors are priced but not yet wired into the
+runner (Wave 1 owns the ingest + flag translation). Board evidence
+covers the 968-vector smoke sample, not full-volume replay. Metrics
+tables extend at the next record close; the extractor still needs
+its wave-split and label updates for that, named here so it is not
+discovered then.

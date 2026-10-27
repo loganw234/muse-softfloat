@@ -1,0 +1,14 @@
+# formats.tsv - the one format table (SF-0 Sections 2.2, 6 item 3).
+# Every derived constant (masks, bias, emin, default quiet NaN, Pmin) is
+# computed from these columns by tools/gen_tables.py; no per-format file
+# hand-types a duplicate. Columns (tab-separated):
+#   name    short token used in API names (msf16_t comes from f16 -> 16)
+#   bits    interchange width k
+#   p       precision (significand bits incl. hidden bit)
+#   w       exponent field width
+#   pmin    decimal round-trip minimum digits (754-2019 5.12 via S1)
+#   type    C bit-container type for the public API (SF-0 Section 3.3)
+name	bits	p	w	pmin	type
+f16	16	11	5	5	uint16_t
+f32	32	24	8	9	uint32_t
+f64	64	53	11	17	uint64_t

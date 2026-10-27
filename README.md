@@ -15,14 +15,19 @@ that stands beside it.
 
 ## Status
 
-**SF-0 approved, 2026-10-26; P0 next.** No library code yet. Phase 0 and
-the survey are closed in the record below, and [SF-0](docs/studies/SF-0.md)
-is the approved plan of record. P0 (the shared seam) comes next, then
-parcel waves.
+**P0 (the shared seam) landed, 2026-10-26; Wave 1 next.** [SF-0](docs/studies/SF-0.md)
+is the approved plan of record. The seam is in: the generated API over
+783 operation instantiations (63 implemented and gated — classification,
+sign-bit, flag and version operations for all three formats, plus the
+binary64 round-and-pack exemplar), the host runner, Berkeley/MPFR
+oracle bring-up, and the RP2040 board harness with on-silicon replay.
+No arithmetic operation is claimed yet; per-instantiation status lives
+in [docs/COVERAGE.tsv](docs/COVERAGE.tsv).
 
-There is **no front door yet** — no single command answers "does it still hold?"
-P0 writes it. Until then, no command's green should be read as a verdict about
-this project.
+The front door is `tools/run.sh <smoke|standard|board|bench>` under
+Git Bash: it prints its inventory before any verdict, refuses drift
+and each named negative control, and `standard` is the merge gate
+(AGENTS.md has the budgets and their measured costs).
 
 ## Where things live
 
@@ -33,7 +38,16 @@ this project.
 | `docs/BOARD.md` | the Pico: protocol and filled details |
 | `docs/studies/` | SF-0, the approved plan of record |
 | `docs/RECORD.md` | dated run entries, the project's record |
-| `AGENTS.md` | notes for agents: the front door (when it exists), the authority, what bites |
+| `docs/COVERAGE.tsv` | per-instantiation coverage ledger: status, deciding authority, vector set (generated) |
+| `docs/WIDTHS.md` | internal exact-integer widths, with proof notes |
+| `tables/` | the format + operation tables everything else is generated from |
+| `include/`, `src/` | the library: generated public header, exact-integer core |
+| `compat/` | AEABI/toolchain compatibility layer (per-core wrapper state) |
+| `tests/` | host runner, exact-reference vector generation, committed vector sets |
+| `board/` | RP2040 firmware: CDC replay harness, interposition hello, bench skeleton |
+| `tools/` | the front door (`run.sh`), table generator, metrics extractor |
+| `docs/metrics/` | the metrics inputs (usage, passes, briefs, fetches, …) |
+| `AGENTS.md` | notes for agents: the front door, the authority, what bites |
 
 The working ledger, briefs and per-agent scratch live outside this repository
 (ParcelRound §4) and are archived with timestamps at the round's close.
@@ -52,8 +66,9 @@ The working ledger, briefs and per-agent scratch live outside this repository
   his words and the lead's readings are in `docs/KICKOFF.md`. Commits carry
   detailed bodies with verification and ledger references, and AI-authored
   commits carry the committing model's Co-Authored-By trailer.
-- Developed clean-room from the standard and public third-party sources; each
-  source's licence is recorded before anything is copied from it.
+- Developed clean-room from the standard: no third-party softfloat source is
+  copied into the library, even where licences allow (SF-0 §4.5). Oracles are
+  fetched by recorded hash and only executed.
 
 ## Licence
 
