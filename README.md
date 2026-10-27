@@ -15,18 +15,21 @@ that stands beside it.
 
 ## Status
 
-**Wave 1 landed, 2026-10-27: binary32 and binary64 arithmetic.**
+**Wave 2 landed, 2026-10-27: 771 of 783 instantiations.**
 [SF-0](docs/studies/SF-0.md) is the approved plan of record. The
-generated API spans 783 operation instantiations, 409 implemented and
-gated — the P0 classification/flag set (63) plus the full homogeneous
-Clause 5 core for binary32 and binary64 (173 each: arithmetic, FMA,
-remainder, conversions, comparisons, totalOrder), each gated against
-Berkeley TestFloat 3e or an exact reference at the volume its
-authority row names, and verified on planted copies by independent
-Spark verifiers (9 of 10 plants caught). A 2,767-vector sample
-replays bit-identically on the RP2040. binary16 and the remaining
-cross-format rows are Wave 2; per-instantiation status lives in
-[docs/COVERAGE.tsv](docs/COVERAGE.tsv).
+generated API's implemented set now adds the full binary16 core
+(236) and every cross-format binary32/64 row with a binary16
+source (126) to Wave 1's 409 — each gated against Berkeley
+TestFloat 3e or an exact reference at the volume its authority
+row names, verified on planted copies by independent Spark
+verifiers (10 of 10 plants caught in Wave 2; 19 of 20 across both
+waves), and replayed on the RP2040 (2,489-vector Wave 2 sample,
+host/board whole-run hashes identical). Only the 12 Wave 3
+decimal/hex string rows remain planned. The IAS15 impact
+workload is host-proven bit-identical through this library
+(20,001 field-hashed records vs the unmodified desktop build);
+the Pico firmware port is next. Per-instantiation status lives
+in [docs/COVERAGE.tsv](docs/COVERAGE.tsv).
 
 The front door is `tools/run.sh <smoke|standard|board|bench>` under
 Git Bash: it prints its inventory before any verdict, refuses drift

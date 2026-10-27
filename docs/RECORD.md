@@ -417,3 +417,85 @@ attribution in the fold (noted per row); the extractor's role
 inference needed lead restatement for parcel/regater/verifier
 rows (also noted per row). Board evidence is a 2,767-vector
 sample, not full-volume replay.
+
+## 2026-10-27 - Wave 2: binary16 + cross-format (771 of 783), IAS15 host proof, video tooling
+
+Two parcels from base `dd48b08`: parcel-f16 (236 binary16 rows,
+360-minute box) and parcel-xf (126 cross-format rows in
+`src/msf32.c`/`src/msf64.c`, 300-minute box), briefs
+`ledger/briefs/w2-f16.md` / `w2-xf.md`. Two further agents ran in
+parallel by owner direction: ias15-port (host feasibility proof)
+and video-tools (demo pipeline). Implemented: **771 of 783**; the
+12 remaining rows are the Wave 3 decimal/hex string conversions.
+
+- parcel-f16 READY `44c770c`: structural mirror of the f32 kernel at
+  f16 widths (866-line `src/msf16.c`, 2,122 hand-written lines of
+  3,500), 12,765 committed directed vectors, exhaustive
+  65,536-encoding unary sweeps, Berkeley level 1 complete.
+- parcel-xf READY `7935fab`: wrappers only over the landed
+  format-generic kernels (msf32.c +83/-0 lines, msf64.c +77/-1), so
+  Wave 1 behavior is bit-identical by construction and by smoke
+  replay. It objected, correctly, that the brief's convert-first
+  trap demand is vacuous for dest-f64 (conversion is exact); ruled
+  for the parcel in ~1 minute, substitution = unfused-FMA and
+  via-binary32 traps plus a counted zero-difference convert-first
+  proof (4,500 cases, 0 diffs). parcel-f16 caught a second brief
+  fault (authority split summing to 240); both in
+  `corrections.jsonl`, accepted.
+- Verification, sequenced correctly this wave (nothing merged
+  before verdicts): planted copies `9a414ec` / `5f41c0c`, five
+  plants each, key hashes ledgered pre-dispatch; verifier briefs
+  as files (`ledger/briefs/verify-w2f16.md` / `verify-w2xf.md`).
+  Both Spark verifiers NOT READY on the copies; graded **10 of 10
+  plants caught**, including both generator-drift plants â€” filed
+  as (a) findings this time because the briefs name the
+  byte-identity norm for committed generated sets (Wave 1's one
+  miss was the same shape filed benign). No non-plant defect
+  stands. Evidence at volume: Berkeley L1 complete both parcels
+  (f16 fma 6.1M Ã— 5 modes), xf 1.1M comparison differential,
+  traps 114/114 discriminate with 13/13 mutants refused.
+- Merged serially (`a05412f` f16, `71fbd53` xf; `implemented.tsv`
+  union to 771 rows + regeneration), vectors wired into smoke,
+  `standard` PASS after each merge. Board: 2,489 sampled f16/xf
+  vectors on the RP2040 under `board.lock`, whole-run SHA-256
+  `729f495d3e92bcd82931bd42b237705ad5333fe3ffeba4f5e3b39b0b2583f2b9`
+  host == board; harness UF2 `ebb43328...`, ELF `2c921f81...`.
+- IAS15 (scratch-only; REBOUND 5.2.2 pinned, GPL, fetch row in
+  `fetches.jsonl`): the host de-risk PASSED â€” unmodified REBOUND
+  with every binary64 operation interposed to muse-softfloat
+  `dd48b08` is field-hash identical (IAS15FH1 spec) to the strict
+  SSE2 desktop reference for 20,001 consecutive records plus 2,001
+  in each of four more configurations; an FMA-contracting control
+  diverges at step 1. Semantic gaps: none â€” every executed op maps
+  to a Wave 1 msf64 instantiation (~13,100 binary64 ops/step at
+  N=3; N=100 fits the 264 KB SRAM budget). Remaining: extraction
+  with a host equivalence gate, AEABI compat wrappers, board run
+  (plan in `scratch/ias15/report.md` Â§8). Landmine recorded in
+  AGENTS.md: mingw64's library `sqrt` is 1-ulp wrong on rare
+  operands, so the reference's `-O3` (inline `sqrtsd`) is
+  load-bearing.
+- Video tooling READY (`video/` at the workspace root, outside this
+  repo for now): data-driven timeline â†’ Python frames â†’ ffmpeg,
+  kinetic type, charts read live from `docs/metrics/`, git ticker,
+  orbit-trail placeholder scene, a verified 20-30 s proof clip,
+  and a 3-minute storyboard whose on-screen numbers each name
+  their repo source. Music licence / VO remain owner decisions.
+- Metrics (`round_metrics.py --wave wave2`): Wonder 288,213 output
+  / 59,685,484 input tokens, 467 tool uses, ~122 min (parcels 34
+  and 42 min of 360/300 boxes; ias15-port 36; video-tools 10);
+  Spark verifiers 197,243 / 44,748,398, 318 tool uses, ~46 min.
+  Plants 10/10; escalations 1 real (1 minute to ruling) + 2 tests;
+  corrections 2/2 accepted. Changed-line counts vs ceilings carry
+  the same generated-vector caveat as Wave 1 (`ceiling_text`).
+
+**Deviations, named:** none new in sequence â€” verify-then-merge
+held; every commit and merge has a same-step lead ledger entry.
+Two lead brief faults (above) were caught by parcels before coding
+around them, which is the fence working as designed.
+
+**Known limits:** Wave 3 (decimal/hex, 12 rows) not started; the
+Tier-2 expansion remains gated on time. IAS15 Pico firmware is
+engineering remaining, not a research question â€” extraction +
+AEABI wrappers + on-silicon hash run. Final video render waits on
+that board footage. Native (non-fenced) Berkeley level-2 slices
+remain take-capped under load.
