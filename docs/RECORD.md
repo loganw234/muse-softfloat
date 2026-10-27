@@ -600,3 +600,50 @@ words and with the accepted operational threshold in
 `docs/KICKOFF.md`. Those owner calls supersede the "open at this
 close" list immediately above; Tier-2 expansion remains the only
 optional work named there.
+
+## 2026-10-27 - Wave 4 opens: SF-1 approved, Step 0a seam landed
+
+Tier 2 is now planned, not improvised. Four read-only surveys
+(KissFFT, interval geometry, the Clause 9 surface, and the
+architecture) were synthesised into **SF-1**
+(`docs/studies/SF-1.md`, approved `fe213fd`): a stoppable prefix
+in which a scientific workload must *earn* each addition, and -
+by the owner's format-parity rule, given while the first SF-1
+verification was running and applied by stopping and re-verifying
+that draft - every family ships at binary16, binary32, and
+binary64 alike or not at all. Interval geometry earns Clause 9.6
+minimum/maximum only in the semantics-owning sense; KissFFT earns
+a binary64 trig pair only under runtime twiddle generation, with
+Fork B (`sinPi`/`cosPi`) adopted and the other two formats
+carried as parity-mandated rows. The authorised prefix is 39 of
+the 180 homogeneous Tier 2 rows; the other 141 are deferred by
+name. SF-1's own verification was an independent two-lens Spark
+pass (PASS, no regression or wrong answer; six suggestions
+dispositioned at approval).
+
+Step 0a, the lead seam, has landed (`722172e`, merged
+`b576c13`): tables carry `tier`/`claim` columns with a closed
+admission set (Tier 1 `required`, Tier 2 `C-754`; reserved claim
+tokens refuse generation), the 33 Step 1 rows are registered as
+planned wave-4 surface at all three formats, and the old
+full-surface inventory is split - Tier 1 pinned at **783 of
+783**, registered Tier 2 frozen at 33 with planned rows named in
+every budget. No semantics changed. Verification: planted copy
+`0b2bdc9`, Spark verifier NOT READY as constructed and graded
+**5 of 5 plants caught** (29 of 30 cumulative), including an
+inventory-weakening plant caught by a mutant the verifier
+invented itself; no non-plant defect stands. `standard` PASS on
+both the branch and the merge tree (85,148 committed + 1,117,504
+generated vectors; all controls refused). Step 0 still owes its
+oracle half (MPFR binary16/32 probes and the CORE-MATH
+pin/smoke) before any Tier 2 vector is trusted; Step 1 parcels
+follow that.
+
+Hardware note from the same day: a six-board IAS15 cross-chip
+sweep tested the genuine board and the two clone boards that
+enumerated - all three PASS the AEABI selftest and match the
+desktop hashes for 201/201 records at 200 steps (~1.5003
+steps/s each at 125 MHz). The other three clones did not
+enumerate on power-only cables; the full six-board run is
+deferred until data cables arrive and no claim is made for
+those boards.
