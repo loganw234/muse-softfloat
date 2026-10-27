@@ -88,10 +88,11 @@ static inline uint64_t msf_nan_to_dest(int dfmt, int sfmt, const msf_decoded_t *
     } else {
         dpayload = payload >> (sf->frac_bits - df->frac_bits);
     }
-    dpayload |= df->quiet_bit;
-    if ((dpayload & df->frac_mask) == 0u) {
+    if (dpayload == 0u) {
+        /* payload truncated away entirely: default quiet NaN (2.5) */
         return df->default_qnan;
     }
+    dpayload |= df->quiet_bit;
     return (src->sign ? df->sign_mask : 0u) | df->infinity | dpayload;
 }
 
