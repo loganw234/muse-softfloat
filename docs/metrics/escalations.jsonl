@@ -3,3 +3,6 @@
 {"wave": "wave1", "from": "parcel-f32", "to": "lead", "sent": "2026-10-26T22:11:37-07:00", "means": "file", "test": false, "answered": "2026-10-26T22:14:00-07:00", "note": "pack tininess definition + ingest eq; ruled for the parcel, lead fixed on main"}
 {"wave": "wave1", "from": "parcel-f64", "to": "lead", "sent": "2026-10-26T22:13:22-07:00", "means": "file", "test": false, "answered": "2026-10-26T22:14:00-07:00", "note": "ingest eq, independent find; same ruling"}
 {"wave": "wave1", "from": "parcel-f64", "to": "lead", "sent": "2026-10-26T22:18:55-07:00", "means": "file", "test": false, "answered": "2026-10-26T23:00:00-07:00", "note": "smoke control 9 names a now-implemented op; control moved to msf16_add in b37fb12"}
+{"wave": "wave2", "from": "parcel-xf", "to": "lead", "sent": "2026-10-27T07:02:23-07:00", "means": "file", "test": true, "answered": "2026-10-27T07:09:41-07:00"}
+{"wave": "wave2", "from": "parcel-f16", "to": "lead", "sent": "2026-10-27T07:07:55-07:00", "means": "file", "test": true, "answered": "2026-10-27T07:09:41-07:00"}
+{"wave": "wave2", "from": "parcel-xf", "to": "lead", "sent": "2026-10-27T07:08:30-07:00", "means": "file", "test": false, "answered": "2026-10-27T07:09:41-07:00", "note": "dest-f64 trap objection; ruled for the parcel"}
