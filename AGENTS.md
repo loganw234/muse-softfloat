@@ -61,6 +61,12 @@ Layout (all under the workspace root `Muse-Softfloat/`):
 
 ## What bites on this host (measured 2026-10-26 unless dated otherwise)
 
+- **mingw64 libmingwex `sqrt` is not correctly rounded** (measured
+  2026-10-27, ias15-port): 1-ulp errors on rare operands (largest double
+  below 1 → 1.0). Oracle/reference builds must execute inline `sqrtsd`
+  (i.e. -O3 without -fno-builtin-sqrt), never the library body; an -O0
+  strict build silently swaps sqrt implementations and diverges.
+
 1. **Run builds and kit tools via Git Bash, not the sandboxed PowerShell.**
    Its working directory carries a `\\?\` prefix: the compilers then fail with
    "Permission denied" on paths that exist, and the kit gate's git clone of
