@@ -10,8 +10,8 @@ Meta Global AI Developer Hackathon, 2026-10-26 to 2026-11-04.
 The workload that proves it in public: **REBOUND's IAS15 integrator running on a
 Raspberry Pi Pico through this library, bit-identical to the unmodified desktop
 run** — same integrator source, same bits out, on a chip with no FPU. The demo
-is a 3-minute programmatic video; this repository is the library and the record
-that stands beside it.
+is a 3-minute programmatic video; this repository is the library, the video
+pipeline and rendered cut, and the record that stands beside them.
 
 ## Status
 
@@ -38,6 +38,14 @@ Git Bash: it prints its inventory before any verdict, refuses drift
 and each named negative control, and `standard` is the merge gate
 (AGENTS.md has the budgets and their measured costs).
 
+## Demo video
+
+The silent 180-second cut is
+[video/out/final.mp4](video/out/final.mp4). Its frame-rendering
+pipeline, data loaders, timelines, and source-traced storyboard live in
+[video/](video/README.md). Music remains an owner decision; the timeline
+is built on a 120 BPM grid so a licensed track can be dropped in later.
+
 ## Where things live
 
 | path | what |
@@ -55,6 +63,7 @@ and each named negative control, and `standard` is the merge gate
 | `tests/` | host runner, exact-reference vector generation, committed vector sets |
 | `board/` | RP2040 firmware: CDC replay harness, interposition hello, bench skeleton |
 | `tools/` | the front door (`run.sh`), table generator, metrics extractor |
+| `video/` | programmatic demo-video pipeline, IAS15 hash captures, storyboard, rendered cuts |
 | `docs/metrics/` | the metrics inputs (usage, passes, briefs, fetches, …) |
 | `AGENTS.md` | notes for agents: the front door, the authority, what bites |
 

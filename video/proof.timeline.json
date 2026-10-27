@@ -1,0 +1,200 @@
+[
+  {
+    "kind": "kinetic",
+    "t0": 0.0,
+    "t1": 3.0,
+    "accent": [
+      34,
+      211,
+      238
+    ],
+    "zoom": true,
+    "kicker": "muse-softfloat // proof cut",
+    "lines": [
+      {
+        "text": "NO *FPU.*",
+        "at": 0.15,
+        "size": 150
+      },
+      {
+        "text": "NO *EXCUSES.*",
+        "at": 0.75,
+        "size": 150
+      }
+    ],
+    "sub": "IEEE 754 softfloat for the RP2040 - built by Muse models, verified in public",
+    "sub_at": 1.5,
+    "source": "muse-softfloat/README.md"
+  },
+  {
+    "kind": "counter",
+    "t0": 3.0,
+    "t1": 6.0,
+    "accent": [
+      251,
+      191,
+      36
+    ],
+    "kicker": "committed test vectors // smoke gate",
+    "target": 52168,
+    "count_dur": 1.7,
+    "size": 210,
+    "label": "VECTORS. EVERY COMMIT.",
+    "sub": "plus 1,117,504 more in the standard merge gate",
+    "source": "docs/RECORD.md - Wave 1 entry"
+  },
+  {
+    "kind": "barchart",
+    "t0": 6.0,
+    "t1": 8.5,
+    "accent": [
+      34,
+      211,
+      238
+    ],
+    "kicker": "real data // docs/metrics/passes.jsonl",
+    "title": "WHO DID THE WORK",
+    "series": "tool_uses_by_agent",
+    "sub": "tool uses per agent, summed live from passes.jsonl at render time",
+    "source": "docs/metrics/passes.jsonl (27 rows)"
+  },
+  {
+    "kind": "linechart",
+    "t0": 8.5,
+    "t1": 11.0,
+    "accent": [
+      52,
+      211,
+      153
+    ],
+    "kicker": "real data // passes in time order",
+    "title": "THE WORK, ACCUMULATING",
+    "sub": "cumulative tool uses across every recorded agent pass",
+    "source": "docs/metrics/passes.jsonl"
+  },
+  {
+    "kind": "ticker",
+    "t0": 11.0,
+    "t1": 13.5,
+    "accent": [
+      167,
+      139,
+      250
+    ],
+    "kicker": "git log // muse-softfloat",
+    "title": "EVERY COMMIT. VERIFIED.",
+    "source": "git -C muse-softfloat log (live at render)"
+  },
+  {
+    "kind": "orbit",
+    "t0": 13.5,
+    "t1": 19.5,
+    "accent": [
+      34,
+      211,
+      238
+    ],
+    "kicker": "the workload // REBOUND IAS15",
+    "lines_rgb": [
+      [
+        "IAS15",
+        120,
+        [
+          240,
+          244,
+          255
+        ]
+      ],
+      [
+        "ON AN RP2040",
+        84,
+        [
+          34,
+          211,
+          238
+        ]
+      ],
+      [
+        "WITH NO FPU",
+        84,
+        [
+          251,
+          191,
+          36
+        ]
+      ]
+    ],
+    "sub": "same integrator source - same bits out",
+    "source": "muse-softfloat/README.md - the public proof"
+  },
+  {
+    "kind": "stat",
+    "t0": 19.5,
+    "t1": 22.5,
+    "accent": [
+      244,
+      114,
+      182
+    ],
+    "kicker": "the method, in numbers",
+    "stats": [
+      {
+        "value": "9/10",
+        "label": "PLANTS CAUGHT",
+        "sub": "independent Spark verifiers"
+      },
+      {
+        "value": "37M+",
+        "label": "BERKELEY CASES",
+        "sub": "TestFloat 3e, post-fix"
+      },
+      {
+        "value": "409",
+        "label": "OF 783 GATED",
+        "sub": "operation instantiations"
+      }
+    ],
+    "plant_dots": true,
+    "source": "docs/metrics/plants.jsonl + docs/RECORD.md"
+  },
+  {
+    "kind": "hash",
+    "t0": 22.5,
+    "t1": 24.5,
+    "accent": [
+      52,
+      211,
+      153
+    ],
+    "kicker": "board proof // 2,767 vectors on RP2040",
+    "title": "SAME HASH. BOTH MACHINES.",
+    "source": "docs/RECORD.md - Wave 1 board run"
+  },
+  {
+    "kind": "kinetic",
+    "t0": 24.5,
+    "t1": 26.5,
+    "accent": [
+      251,
+      191,
+      36
+    ],
+    "zoom": true,
+    "kicker": "muse-softfloat",
+    "lines": [
+      {
+        "text": "IEEE 754,",
+        "at": 0.1,
+        "size": 140
+      },
+      {
+        "text": "*HONESTLY.*",
+        "at": 0.6,
+        "size": 140
+      }
+    ],
+    "sub": "full 3-minute cut: STORYBOARD.md",
+    "sub_at": 1.2,
+    "source": "github.com/loganw234 (see repo README)"
+  }
+]
