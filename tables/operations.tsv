@@ -34,85 +34,102 @@
 #               signaled the delivered integer follows the project rule
 #               fixed in the header (saturation; NaN delivers zero),
 #               which 5.8 leaves implementation-defined
-op	std_name	clause	sig	rounding	flags	wave	authority	vectors	comparison
-round_to_integral_ties_to_even	roundToIntegralTiesToEven	5.3.1,5.9	rint_named	named	yes	1	berkeley	testfloat-l2	exact
-round_to_integral_ties_to_away	roundToIntegralTiesToAway	5.3.1,5.9	rint_named	named	yes	1	berkeley	testfloat-l2	exact
-round_to_integral_toward_zero	roundToIntegralTowardZero	5.3.1,5.9	rint_named	named	yes	1	berkeley	testfloat-l2	exact
-round_to_integral_toward_positive	roundToIntegralTowardPositive	5.3.1,5.9	rint_named	named	yes	1	berkeley	testfloat-l2	exact
-round_to_integral_toward_negative	roundToIntegralTowardNegative	5.3.1,5.9	rint_named	named	yes	1	berkeley	testfloat-l2	exact
-round_to_integral_exact	roundToIntegralExact	5.3.1,5.9	rint_exact	attr	yes	1	mpfr-exact	testfloat-l2	exact
-next_up	nextUp	5.3.1	next	none	yes	1	project-exact	exhaustive-f16;directed-boundary	exact
-next_down	nextDown	5.3.1	next	none	yes	1	project-exact	exhaustive-f16;directed-boundary	exact
-remainder	remainder	5.3.1	remainder	none	yes	1	berkeley	testfloat-l2	exact
-scale_b	scaleB	5.3.3	scaleb	attr	yes	1	mpfr-exact	mpfr-directed-scaleb	exact
-log_b	logB	5.3.3	logb	none	yes	1	project-exact	exhaustive-f16;directed-boundary	exact
-add	addition	5.4.1	arith_bin	attr	yes	1	auto-arith	testfloat-l2;mpfr-directed-cross	exact
-sub	subtraction	5.4.1	arith_bin	attr	yes	1	auto-arith	testfloat-l2;mpfr-directed-cross	exact
-mul	multiplication	5.4.1	arith_bin	attr	yes	1	auto-arith	testfloat-l2;mpfr-directed-cross	exact
-div	division	5.4.1	arith_bin	attr	yes	1	auto-arith	testfloat-l2;mpfr-hardest-div	exact
-sqrt	squareRoot	5.4.1	arith_un	attr	yes	1	auto-arith	testfloat-l2;mpfr-hardest-sqrt	exact
-fma	fusedMultiplyAdd	5.4.1	fma	attr	yes	1	auto-arith	testfloat-l2;mpfr-hardest-fma	exact
-from_<int>	convertFromInt	5.4.1	from_int	attr	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact
-to_<int>_ties_to_even	convertToIntegerTiesToEven	5.4.1,5.8	to_int	named	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact-invalid-project-rule
-to_<int>_ties_to_away	convertToIntegerTiesToAway	5.4.1,5.8	to_int	named	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact-invalid-project-rule
-to_<int>_toward_zero	convertToIntegerTowardZero	5.4.1,5.8	to_int	named	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact-invalid-project-rule
-to_<int>_toward_positive	convertToIntegerTowardPositive	5.4.1,5.8	to_int	named	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact-invalid-project-rule
-to_<int>_toward_negative	convertToIntegerTowardNegative	5.4.1,5.8	to_int	named	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact-invalid-project-rule
-to_<int>_exact_ties_to_even	convertToIntegerExactTiesToEven	5.4.1,5.8	to_int	named	yes	1	mpfr-exact	testfloat-l2;exact-int-sweep	exact-invalid-project-rule
-to_<int>_exact_ties_to_away	convertToIntegerExactTiesToAway	5.4.1,5.8	to_int	named	yes	1	mpfr-exact	testfloat-l2;exact-int-sweep	exact-invalid-project-rule
-to_<int>_exact_toward_zero	convertToIntegerExactTowardZero	5.4.1,5.8	to_int	named	yes	1	mpfr-exact	testfloat-l2;exact-int-sweep	exact-invalid-project-rule
-to_<int>_exact_toward_positive	convertToIntegerExactTowardPositive	5.4.1,5.8	to_int	named	yes	1	mpfr-exact	testfloat-l2;exact-int-sweep	exact-invalid-project-rule
-to_<int>_exact_toward_negative	convertToIntegerExactTowardNegative	5.4.1,5.8	to_int	named	yes	1	mpfr-exact	testfloat-l2;exact-int-sweep	exact-invalid-project-rule
-from_<fmt>	convertFormat	5.4.2	conv_fmt	attr	yes	1	berkeley	testfloat-l2	exact
-from_decimal	convertFromDecimalCharacter	5.4.2,5.12	char_from	attr	yes	3	mpfr-exact	mpfr-decimal-grammar;exact-decimal-sweep	exact
-to_decimal	convertToDecimalCharacter	5.4.2,5.12	char_to_dec	attr	yes	3	mpfr-exact	mpfr-decimal-grammar;exact-decimal-sweep	exact
-from_hex	convertFromHexCharacter	5.4.3,5.12	char_from	attr	yes	3	mpfr-exact	mpfr-hex-grammar	exact
-to_hex	convertToHexCharacter	5.4.3,5.12	char_to_hex	attr	yes	3	mpfr-exact	mpfr-hex-grammar	exact
-copy	copy	5.5.1	sign_un	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-negate	negate	5.5.1	sign_un	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-abs	abs	5.5.1	sign_un	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-copy_sign	copySign	5.5.1	sign_bin	none	no	0	project-exact	exhaustive-f16-pairs;directed-encodings	exact
-compare_quiet_equal	compareQuietEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_quiet_not_equal	compareQuietNotEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_signaling_equal	compareSignalingEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_signaling_not_equal	compareSignalingNotEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_quiet_greater	compareQuietGreater	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_quiet_greater_equal	compareQuietGreaterEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_quiet_less	compareQuietLess	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_quiet_less_equal	compareQuietLessEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_quiet_not_greater	compareQuietNotGreater	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact
-compare_quiet_not_less	compareQuietNotLess	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact
-compare_quiet_less_unordered	compareQuietLessUnordered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact
-compare_quiet_greater_unordered	compareQuietGreaterUnordered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact
-compare_quiet_unordered	compareQuietUnordered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact
-compare_quiet_ordered	compareQuietOrdered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact
-compare_signaling_greater	compareSignalingGreater	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_signaling_greater_equal	compareSignalingGreaterEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_signaling_less	compareSignalingLess	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_signaling_less_equal	compareSignalingLessEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact
-compare_signaling_not_greater	compareSignalingNotGreater	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact
-compare_signaling_not_less	compareSignalingNotLess	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact
-compare_signaling_less_unordered	compareSignalingLessUnordered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact
-compare_signaling_greater_unordered	compareSignalingGreaterUnordered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact
-total_order	totalOrder	5.10	totalorder	none	no	1	project-exact	directed-relations;exhaustive-f16-pairs	exact
-total_order_mag	totalOrderMag	5.10	totalorder	none	no	1	project-exact	directed-relations;exhaustive-f16-pairs	exact
-class	class	5.7.2	class_op	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-is_sign_minus	isSignMinus	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-is_normal	isNormal	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-is_finite	isFinite	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-is_zero	isZero	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-is_subnormal	isSubnormal	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-is_infinite	isInfinite	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-is_nan	isNaN	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-is_signaling	isSignaling	5.7.2	classify	none	no	0	project-exact+berkeley-check	exhaustive-f16;directed-encodings	exact
-is_canonical	isCanonical	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact
-radix	radix	5.7.2	radix_op	none	no	0	project-exact	project-unit	exact
-is754version1985	is754version1985	5.7.1	version_op	none	no	0	project-exact	project-unit	exact
-is754version2008	is754version2008	5.7.1	version_op	none	no	0	project-exact	project-unit	exact
-is754version2019	is754version2019	5.7.1	version_op	none	no	0	project-exact	project-unit	exact
-lower_flags	lowerFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact
-raise_flags	raiseFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact
-test_flags	testFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact
-test_saved_flags	testSavedFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact
-restore_flags	restoreFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact
-save_all_flags	saveAllFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact
+#   tier        1 = SF-0 required surface; 2 = SF-1 recommended
+#               surface. Tier 2 families register only as
+#               binary16/32/64 bundles (SF-1 format parity).
+#   claim       closed claim token (gen_tables.py refuses others):
+#               required (tier 1) or C-754 (tier 2 at this step);
+#               reserved SF-1 tokens join only with their gates
+op	std_name	clause	sig	rounding	flags	wave	authority	vectors	comparison	tier	claim
+round_to_integral_ties_to_even	roundToIntegralTiesToEven	5.3.1,5.9	rint_named	named	yes	1	berkeley	testfloat-l2	exact	1	required
+round_to_integral_ties_to_away	roundToIntegralTiesToAway	5.3.1,5.9	rint_named	named	yes	1	berkeley	testfloat-l2	exact	1	required
+round_to_integral_toward_zero	roundToIntegralTowardZero	5.3.1,5.9	rint_named	named	yes	1	berkeley	testfloat-l2	exact	1	required
+round_to_integral_toward_positive	roundToIntegralTowardPositive	5.3.1,5.9	rint_named	named	yes	1	berkeley	testfloat-l2	exact	1	required
+round_to_integral_toward_negative	roundToIntegralTowardNegative	5.3.1,5.9	rint_named	named	yes	1	berkeley	testfloat-l2	exact	1	required
+round_to_integral_exact	roundToIntegralExact	5.3.1,5.9	rint_exact	attr	yes	1	mpfr-exact	testfloat-l2	exact	1	required
+next_up	nextUp	5.3.1	next	none	yes	1	project-exact	exhaustive-f16;directed-boundary	exact	1	required
+next_down	nextDown	5.3.1	next	none	yes	1	project-exact	exhaustive-f16;directed-boundary	exact	1	required
+remainder	remainder	5.3.1	remainder	none	yes	1	berkeley	testfloat-l2	exact	1	required
+scale_b	scaleB	5.3.3	scaleb	attr	yes	1	mpfr-exact	mpfr-directed-scaleb	exact	1	required
+log_b	logB	5.3.3	logb	none	yes	1	project-exact	exhaustive-f16;directed-boundary	exact	1	required
+add	addition	5.4.1	arith_bin	attr	yes	1	auto-arith	testfloat-l2;mpfr-directed-cross	exact	1	required
+sub	subtraction	5.4.1	arith_bin	attr	yes	1	auto-arith	testfloat-l2;mpfr-directed-cross	exact	1	required
+mul	multiplication	5.4.1	arith_bin	attr	yes	1	auto-arith	testfloat-l2;mpfr-directed-cross	exact	1	required
+div	division	5.4.1	arith_bin	attr	yes	1	auto-arith	testfloat-l2;mpfr-hardest-div	exact	1	required
+sqrt	squareRoot	5.4.1	arith_un	attr	yes	1	auto-arith	testfloat-l2;mpfr-hardest-sqrt	exact	1	required
+fma	fusedMultiplyAdd	5.4.1	fma	attr	yes	1	auto-arith	testfloat-l2;mpfr-hardest-fma	exact	1	required
+from_<int>	convertFromInt	5.4.1	from_int	attr	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact	1	required
+to_<int>_ties_to_even	convertToIntegerTiesToEven	5.4.1,5.8	to_int	named	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact-invalid-project-rule	1	required
+to_<int>_ties_to_away	convertToIntegerTiesToAway	5.4.1,5.8	to_int	named	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact-invalid-project-rule	1	required
+to_<int>_toward_zero	convertToIntegerTowardZero	5.4.1,5.8	to_int	named	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact-invalid-project-rule	1	required
+to_<int>_toward_positive	convertToIntegerTowardPositive	5.4.1,5.8	to_int	named	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact-invalid-project-rule	1	required
+to_<int>_toward_negative	convertToIntegerTowardNegative	5.4.1,5.8	to_int	named	yes	1	auto-int	testfloat-l2;exact-int-sweep	exact-invalid-project-rule	1	required
+to_<int>_exact_ties_to_even	convertToIntegerExactTiesToEven	5.4.1,5.8	to_int	named	yes	1	mpfr-exact	testfloat-l2;exact-int-sweep	exact-invalid-project-rule	1	required
+to_<int>_exact_ties_to_away	convertToIntegerExactTiesToAway	5.4.1,5.8	to_int	named	yes	1	mpfr-exact	testfloat-l2;exact-int-sweep	exact-invalid-project-rule	1	required
+to_<int>_exact_toward_zero	convertToIntegerExactTowardZero	5.4.1,5.8	to_int	named	yes	1	mpfr-exact	testfloat-l2;exact-int-sweep	exact-invalid-project-rule	1	required
+to_<int>_exact_toward_positive	convertToIntegerExactTowardPositive	5.4.1,5.8	to_int	named	yes	1	mpfr-exact	testfloat-l2;exact-int-sweep	exact-invalid-project-rule	1	required
+to_<int>_exact_toward_negative	convertToIntegerExactTowardNegative	5.4.1,5.8	to_int	named	yes	1	mpfr-exact	testfloat-l2;exact-int-sweep	exact-invalid-project-rule	1	required
+from_<fmt>	convertFormat	5.4.2	conv_fmt	attr	yes	1	berkeley	testfloat-l2	exact	1	required
+from_decimal	convertFromDecimalCharacter	5.4.2,5.12	char_from	attr	yes	3	mpfr-exact	mpfr-decimal-grammar;exact-decimal-sweep	exact	1	required
+to_decimal	convertToDecimalCharacter	5.4.2,5.12	char_to_dec	attr	yes	3	mpfr-exact	mpfr-decimal-grammar;exact-decimal-sweep	exact	1	required
+from_hex	convertFromHexCharacter	5.4.3,5.12	char_from	attr	yes	3	mpfr-exact	mpfr-hex-grammar	exact	1	required
+to_hex	convertToHexCharacter	5.4.3,5.12	char_to_hex	attr	yes	3	mpfr-exact	mpfr-hex-grammar	exact	1	required
+copy	copy	5.5.1	sign_un	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+negate	negate	5.5.1	sign_un	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+abs	abs	5.5.1	sign_un	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+copy_sign	copySign	5.5.1	sign_bin	none	no	0	project-exact	exhaustive-f16-pairs;directed-encodings	exact	1	required
+compare_quiet_equal	compareQuietEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_quiet_not_equal	compareQuietNotEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_signaling_equal	compareSignalingEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_signaling_not_equal	compareSignalingNotEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_quiet_greater	compareQuietGreater	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_quiet_greater_equal	compareQuietGreaterEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_quiet_less	compareQuietLess	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_quiet_less_equal	compareQuietLessEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_quiet_not_greater	compareQuietNotGreater	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact	1	required
+compare_quiet_not_less	compareQuietNotLess	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact	1	required
+compare_quiet_less_unordered	compareQuietLessUnordered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact	1	required
+compare_quiet_greater_unordered	compareQuietGreaterUnordered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact	1	required
+compare_quiet_unordered	compareQuietUnordered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact	1	required
+compare_quiet_ordered	compareQuietOrdered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact	1	required
+compare_signaling_greater	compareSignalingGreater	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_signaling_greater_equal	compareSignalingGreaterEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_signaling_less	compareSignalingLess	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_signaling_less_equal	compareSignalingLessEqual	5.6.1,5.11	compare	none	yes	1	project-exact+berkeley-check	testfloat-l2;directed-relations	exact	1	required
+compare_signaling_not_greater	compareSignalingNotGreater	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact	1	required
+compare_signaling_not_less	compareSignalingNotLess	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact	1	required
+compare_signaling_less_unordered	compareSignalingLessUnordered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact	1	required
+compare_signaling_greater_unordered	compareSignalingGreaterUnordered	5.6.1,5.11	compare	none	yes	1	project-exact	testfloat-l2;directed-relations	exact	1	required
+total_order	totalOrder	5.10	totalorder	none	no	1	project-exact	directed-relations;exhaustive-f16-pairs	exact	1	required
+total_order_mag	totalOrderMag	5.10	totalorder	none	no	1	project-exact	directed-relations;exhaustive-f16-pairs	exact	1	required
+class	class	5.7.2	class_op	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+is_sign_minus	isSignMinus	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+is_normal	isNormal	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+is_finite	isFinite	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+is_zero	isZero	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+is_subnormal	isSubnormal	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+is_infinite	isInfinite	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+is_nan	isNaN	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+is_signaling	isSignaling	5.7.2	classify	none	no	0	project-exact+berkeley-check	exhaustive-f16;directed-encodings	exact	1	required
+is_canonical	isCanonical	5.7.2	classify	none	no	0	project-exact	exhaustive-f16;directed-encodings	exact	1	required
+radix	radix	5.7.2	radix_op	none	no	0	project-exact	project-unit	exact	1	required
+is754version1985	is754version1985	5.7.1	version_op	none	no	0	project-exact	project-unit	exact	1	required
+is754version2008	is754version2008	5.7.1	version_op	none	no	0	project-exact	project-unit	exact	1	required
+is754version2019	is754version2019	5.7.1	version_op	none	no	0	project-exact	project-unit	exact	1	required
+lower_flags	lowerFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact	1	required
+raise_flags	raiseFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact	1	required
+test_flags	testFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact	1	required
+test_saved_flags	testSavedFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact	1	required
+restore_flags	restoreFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact	1	required
+save_all_flags	saveAllFlags	5.7.4	flag_op	none	state	0	project-exact	unit-flags-state	exact	1	required
+minimum	minimum	9.6	minmax	none	yes	4	project-exact	directed-classes;exhaustive-f16-boundary	exact	2	C-754
+maximum	maximum	9.6	minmax	none	yes	4	project-exact	directed-classes;exhaustive-f16-boundary	exact	2	C-754
+minimum_number	minimumNumber	9.6	minmax	none	yes	4	project-exact	directed-classes;exhaustive-f16-boundary	exact	2	C-754
+maximum_number	maximumNumber	9.6	minmax	none	yes	4	project-exact	directed-classes;exhaustive-f16-boundary	exact	2	C-754
+minimum_magnitude	minimumMagnitude	9.6	minmax	none	yes	4	project-exact	directed-classes;exhaustive-f16-boundary	exact	2	C-754
+maximum_magnitude	maximumMagnitude	9.6	minmax	none	yes	4	project-exact	directed-classes;exhaustive-f16-boundary	exact	2	C-754
+minimum_magnitude_number	minimumMagnitudeNumber	9.6	minmax	none	yes	4	project-exact	directed-classes;exhaustive-f16-boundary	exact	2	C-754
+maximum_magnitude_number	maximumMagnitudeNumber	9.6	minmax	none	yes	4	project-exact	directed-classes;exhaustive-f16-boundary	exact	2	C-754
+get_payload	getPayload	9.7	payload_un	none	no	4	project-exact	exhaustive-f16;directed-encodings	exact	2	C-754
+set_payload	setPayload	9.7	payload_un	none	no	4	project-exact	exhaustive-f16;directed-encodings	exact	2	C-754
+set_payload_signaling	setPayloadSignaling	9.7	payload_un	none	no	4	project-exact	exhaustive-f16;directed-encodings	exact	2	C-754
