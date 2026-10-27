@@ -6,3 +6,8 @@
 {"wave": "wave2", "from": "parcel-xf", "to": "lead", "sent": "2026-10-27T07:02:23-07:00", "means": "file", "test": true, "answered": "2026-10-27T07:09:41-07:00"}
 {"wave": "wave2", "from": "parcel-f16", "to": "lead", "sent": "2026-10-27T07:07:55-07:00", "means": "file", "test": true, "answered": "2026-10-27T07:09:41-07:00"}
 {"wave": "wave2", "from": "parcel-xf", "to": "lead", "sent": "2026-10-27T07:08:30-07:00", "means": "file", "test": false, "answered": "2026-10-27T07:09:41-07:00", "note": "dest-f64 trap objection; ruled for the parcel"}
+{"wave": "wave3", "from": "ias15-pico", "to": "lead", "sent": "2026-10-27T08:25:13-07:00", "means": "file", "test": true, "answered": "2026-10-27T08:30:16-07:00"}
+{"wave": "wave3", "from": "parcel-str", "to": "lead", "sent": "2026-10-27T08:26:04-07:00", "means": "file", "test": true, "answered": "2026-10-27T08:30:16-07:00"}
+{"wave": "wave3", "from": "parcel-str", "to": "lead", "sent": "2026-10-27T08:28:15-07:00", "means": "file", "test": false, "answered": "2026-10-27T08:30:16-07:00", "note": "six ruling bundles (grammar, snan, hex p, beyond-H flags, spec freeze, build wiring); all recommendations accepted"}
+{"wave": "wave3", "from": "parcel-str", "to": "lead", "sent": "2026-10-27T08:34:47-07:00", "means": "file", "test": false, "answered": "2026-10-27T08:36:28-07:00", "note": "lead runner char-from flags token bug; fixed f3c48b8"}
+{"wave": "wave3", "from": "parcel-str", "to": "lead", "sent": "2026-10-27T08:45:48-07:00", "means": "file", "test": false, "answered": "2026-10-27T08:47:19-07:00", "note": "lead runner char-to width from retkind; fixed 83622cf"}

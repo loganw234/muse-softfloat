@@ -518,3 +518,71 @@ final wave; the parallel ias15-port/video-tools passes ran
 without brief files or verifier passes (owner decision pending);
 the owner's clean-room fingerprint audit remains the control, not
 yet exercised.
+
+## 2026-10-27 - Wave 3: 783 of 783, and IAS15 bit-identical on silicon
+
+The surface is complete. parcel-str (360-min box, brief
+`ledger/briefs/w3-str.md`) implemented the 12 decimal/hex
+character-conversion rows in a new TU (`src/msf_string.c`, own
+96-limb exact arithmetic, correct rounding decided exactly at
+H=20 per SF-0 Â§2.6), taking the project to **783 of 783
+instantiations implemented**. Six design questions SF-0 left
+open were escalated before coding and ruled in ~2 minutes
+(grammar longest-prefix, `snan` spelling semantics, mandatory hex
+`p`, beyond-H two-step flags, spec-struct freeze, build wiring);
+the parcel twice caught defects in the lead's own runner prep
+(flags token, operand width) by reading it before gating.
+Verification: planted copy `f58f299`, verifier brief as a file,
+Spark verifier NOT READY as constructed and graded **5 of 5
+plants caught** (24 of 25 across all waves), each finding
+isolated to its plant with scratch fixes collapsing every
+failure class to zero; MPFR within-H triangulation 1,146/1,146 +
+1,084/1,084; beyond-H inputs judged against a literal two-step
+reference, not single-rounding MPFR, by design. Merged
+`1357863`; lead wiring `6a5f95c` added the string sets to smoke
+(85,148 committed vectors), retired the planned-only control
+(no planned op remains to name) for a full-surface inventory
+assertion, and fixed a latent runner hazard the merge exposed
+(provenance tags silently dropped past 32; cap 128, overflow
+refuses). `standard` PASS. Board: the Wave 2 numeric sample
+re-replayed on the final tree, whole-run hash identical
+(`729f495d...`, harness UF2 `f592310c...`); the string rows are
+host-gated â€” the CDC harness protocol is numeric-only today.
+
+IAS15, the impact workload, is proven on silicon. ias15-pico
+extracted REBOUND's IAS15 core (GPL, scratch only), gated the
+extraction against the desktop reference hashes twice on host,
+wrote the AEABI binary64 compat surface (`compat/msf_aeabi.c`)
+and the demo firmware. Lead-run under `board.lock`: the AEABI
+selftest passes on the RP2040 (47,107 checks), and the figure-8
+run's 2,001 IAS15FH1 records **match the unmodified desktop
+build exactly** (`matched=2001 first_divergence=None`; step-2000
+`H_state 4d4530a6...f48abb`), independently re-compared by the
+lead. Firmware UF2 `e85fc01d...`; measured step rate 1.58
+accepted steps/s at 125 MHz (1,000-step block) â€” a full period
+is ~10 minutes, which the video treats as time-lapse with
+hash-lock beats, never a real-time claim. The scripted `T 2000`
+rate phase exceeded the host's 600 s idle timeout (firmware
+prints per 1,000-step block); the board kept computing and the
+queued follow-up collected the RATE line â€” the COMPARE evidence
+was complete before that and is unaffected.
+
+Metrics (`round_metrics.py --wave wave3`): Wonder 209,759 output
+/ 51,286,478 input tokens, 325 tool uses, ~86 min; Spark 221,695
+/ 64,317,674, 325 tool uses, ~82 min (verifier + auditor).
+Escalations 3 real, median 2 minutes to ruling. Corrections:
+ias15-pico's 4 brief items accepted (boolean-only AEABI
+comparisons measured, GPL reproducibility boundary, trap scope,
+shim pin). auditor-wave2 confirmed Wave 2's sequencing held and
+caught this record's own same-step-ledger overstatement
+(erratum above); standing rule now: no commit before its ledger
+entry exists (held for every commit in this entry's span, by the
+auditor's next check).
+
+**Open at this close:** final 3-minute video render from the
+`video/` pipeline against the storyboard; integration
+merge-tree re-make (auditor carry-over); Tier-2 surface
+expansion only if time allows before 2026-11-04; the owner's
+clean-room fingerprint audit remains the control, not yet
+exercised. Two decision items sit with the owner: brief shape
+for feasibility/tooling agents, and music/VO for the video.

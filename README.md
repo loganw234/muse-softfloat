@@ -15,21 +15,23 @@ that stands beside it.
 
 ## Status
 
-**Wave 2 landed, 2026-10-27: 771 of 783 instantiations.**
-[SF-0](docs/studies/SF-0.md) is the approved plan of record. The
-generated API's implemented set now adds the full binary16 core
-(236) and every cross-format binary32/64 row with a binary16
-source (126) to Wave 1's 409 — each gated against Berkeley
-TestFloat 3e or an exact reference at the volume its authority
-row names, verified on planted copies by independent Spark
-verifiers (10 of 10 plants caught in Wave 2; 19 of 20 across both
-waves), and replayed on the RP2040 (2,489-vector Wave 2 sample,
-host/board whole-run hashes identical). Only the 12 Wave 3
-decimal/hex string rows remain planned. The IAS15 impact
-workload is host-proven bit-identical through this library
-(20,001 field-hashed records vs the unmodified desktop build);
-the Pico firmware port is next. Per-instantiation status lives
-in [docs/COVERAGE.tsv](docs/COVERAGE.tsv).
+**Wave 3 landed, 2026-10-27: 783 of 783 instantiations, and
+IAS15 bit-identical on silicon.** [SF-0](docs/studies/SF-0.md)
+is the approved plan of record. The full Clause 5 surface for
+binary16/32/64 is implemented and gated — arithmetic, FMA,
+conversions, comparisons, totalOrder, and correctly rounded
+decimal/hex character conversions (H=20) — each row gated
+against Berkeley TestFloat 3e, MPFR, or an exact reference at
+the volume its authority names, and verified wave by wave on
+planted copies by independent Spark verifiers (24 of 25 plants
+caught across three waves). Board samples replay bit-identically
+on the RP2040. The impact workload runs there too: REBOUND's
+IAS15 integrator (extracted in scratch, GPL) over this library's
+AEABI compat surface reproduces the unmodified desktop build's
+state hashes exactly for 2,000 steps (2,001/2,001 records,
+1.58 steps/s at 125 MHz). Per-instantiation status lives in
+[docs/COVERAGE.tsv](docs/COVERAGE.tsv); the story, with its
+slips attributed, is [docs/RECORD.md](docs/RECORD.md).
 
 The front door is `tools/run.sh <smoke|standard|board|bench>` under
 Git Bash: it prints its inventory before any verdict, refuses drift
