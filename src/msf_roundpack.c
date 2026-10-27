@@ -9,8 +9,13 @@
  * Exact magnitude (sig + f) * 2^exp2, f in [0,1) recorded only as
  * "nonzero" by sticky, is rounded once and packed. Flags follow
  * Clause 7 with tininess after rounding (SF-0 2.5): underflow needs
- * the ROUNDED result tiny (zero or subnormal) and inexact; the exact
- * value crossing to the smallest normal is therefore not underflow.
+ * the result tiny and inexact, where tiny is judged on the result
+ * rounded to full precision AS THOUGH THE EXPONENT RANGE WERE
+ * UNBOUNDED (Clause 7.5): that value below 2^emin is tiny even when
+ * the delivered (subnormal-granularity) rounding reaches the
+ * smallest normal exactly, and an exact value below 2^emin whose
+ * unbounded rounding reaches 2^emin is not tiny. The unbounded
+ * rounding below is flags-only; delivered bits never depend on it.
  * Overflow delivery (infinity vs largest finite) follows the mode
  * and sign; overflow always carries inexact.
  *
@@ -43,6 +48,40 @@ static int any_bits_below(msf_u128_t a, int32_t n)
     return !msf_u128_is_zero(msf_u128_shl(a, (unsigned)(128 - n)));
 }
 
+static int round_inc(int rm, int sign, uint64_t cand, int guard,
+                     int round_bit, int stick)
+{
+    int inexact = guard || round_bit || stick;
+    switch (rm) {
+    case MSF_IROUND_TIES_TO_EVEN:
+        return guard && (round_bit || stick || (cand & 1u));
+    case MSF_IROUND_TIES_TO_AWAY:
+        return guard;
+    case MSF_IROUND_TOWARD_POSITIVE:
+        return !sign && inexact;
+    case MSF_IROUND_TOWARD_NEGATIVE:
+        return sign && inexact;
+    default: /* toward zero */
+        return 0;
+    }
+}
+
+/* Extract the (p+2)-bit window: result bits, guard, round; sticky
+ * summarizes everything below the round bit plus the input sticky. */
+static uint64_t extract_k2(msf_u128_t sig, int32_t sh, int sticky, int *stick_out)
+{
+    if (sh <= 0) {
+        *stick_out = sticky != 0;
+        return msf_u128_to_u64_trunc(msf_u128_shl(sig, (unsigned)-sh));
+    }
+    if (sh >= 128) {
+        *stick_out = 1;
+        return 0u;
+    }
+    *stick_out = (sticky != 0) || any_bits_below(sig, sh);
+    return msf_u128_to_u64_trunc(msf_u128_shr(sig, (unsigned)sh));
+}
+
 uint64_t msf_pack_generic(const msf_fmt_params_t *fp, int sign, int32_t exp2,
                           msf_u128_t sig, int sticky, int rm,
                           msf_flags_t *flags)
@@ -61,39 +100,13 @@ uint64_t msf_pack_generic(const msf_fmt_params_t *fp, int sign, int32_t exp2,
     e = e_bits < fp->emin ? fp->emin : e_bits;    /* subnormal clamp */
     sh = (e - (p + 1)) - exp2;            /* bits dropped below round */
 
-    if (sh <= 0) {
-        k2 = msf_u128_to_u64_trunc(msf_u128_shl(sig, (unsigned)-sh));
-        stick = sticky != 0;
-    } else if (sh >= 128) {
-        k2 = 0u;
-        stick = 1;
-    } else {
-        k2 = msf_u128_to_u64_trunc(msf_u128_shr(sig, (unsigned)sh));
-        stick = (sticky != 0) || any_bits_below(sig, sh);
-    }
+    k2 = extract_k2(sig, sh, sticky, &stick);
     guard = (int)((k2 >> 1) & 1u);
     round_bit = (int)(k2 & 1u);
     cand = k2 >> 2;
     inexact = guard || round_bit || stick;
 
-    inc = 0;
-    switch (rm) {
-    case MSF_IROUND_TIES_TO_EVEN:
-        inc = guard && (round_bit || stick || (cand & 1u));
-        break;
-    case MSF_IROUND_TIES_TO_AWAY:
-        inc = guard;
-        break;
-    case MSF_IROUND_TOWARD_POSITIVE:
-        inc = !sign && inexact;
-        break;
-    case MSF_IROUND_TOWARD_NEGATIVE:
-        inc = sign && inexact;
-        break;
-    default: /* toward zero */
-        inc = 0;
-        break;
-    }
+    inc = round_inc(rm, sign, cand, guard, round_bit, stick);
     cand += (uint64_t)inc;
     if ((cand >> p) != 0u) {
         cand >>= 1;
@@ -115,8 +128,25 @@ uint64_t msf_pack_generic(const msf_fmt_params_t *fp, int sign, int32_t exp2,
     }
 
     if (inexact) {
-        int tiny_after = cand < (1ULL << (p - 1));
-        int tiny_before = e_bits < fp->emin;
+        int tiny_after, tiny_before = e_bits < fp->emin;
+        if (!tiny_before) {
+            tiny_after = 0;
+        } else {
+            /* flags-only: round at the unclamped binade scale and
+             * ask whether that value reaches 2^emin (Clause 7.5) */
+            int32_t sh_u = (e_bits - (p + 1)) - exp2;
+            int stick_u;
+            uint64_t k2_u = extract_k2(sig, sh_u, sticky, &stick_u);
+            uint64_t cand_u = k2_u >> 2;
+            int32_t e_r = e_bits;
+            cand_u += (uint64_t)round_inc(rm, sign, cand_u,
+                                           (int)((k2_u >> 1) & 1u),
+                                           (int)(k2_u & 1u), stick_u);
+            if ((cand_u >> p) != 0u) {
+                e_r += 1;
+            }
+            tiny_after = e_r < fp->emin;
+        }
         *flags |= MSF_FLAG_INEXACT;
         if (MSF_TININESS_AFTER_ROUNDING ? tiny_after : tiny_before) {
             *flags |= MSF_FLAG_UNDERFLOW;

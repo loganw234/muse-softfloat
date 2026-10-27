@@ -69,8 +69,12 @@ def map_fn(fn, rm):
         return "msf%s_%s" % (fmt[1:], ours), ("-" if op == "rem" else rm), "nan-class"
     if op == "mulAdd":
         return "msf%s_fma" % fmt[1:], rm, "nan-class"
+    # Berkeley's historical set is asymmetric (measured by both Wave 1
+    # parcels independently): eq is the QUIET equality and the
+    # signaling spelling carries the suffix, while le/lt are the
+    # signaling forms with _quiet suffixed variants.
     cmp_map = {
-        "eq": "compare_signaling_equal", "eq_signaling": "compare_signaling_equal",
+        "eq": "compare_quiet_equal", "eq_signaling": "compare_signaling_equal",
         "le": "compare_signaling_less_equal", "lt": "compare_signaling_less",
         "le_quiet": "compare_quiet_less_equal", "lt_quiet": "compare_quiet_less",
     }
