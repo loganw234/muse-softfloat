@@ -208,10 +208,190 @@ static void process_pack_line(char **tok, int ntok, const char *file,
     st->passed++;
 }
 
+/* Character-conversion vectors (Wave 3; format ruled in
+ * ledger/lead.md 2026-10-27 08:30:16, proposed by parcel-str):
+ *   op rm IN=<s> -> <bits> <flags> C=<consumed> <prov>
+ *   op rm A=<hex> SPEC=<spec> [BUF=<n>] -> OUT=<s> LEN=<n> <flags> <prov>
+ * "~" spells the empty string. Without BUF= the runner supplies a
+ * 4096-byte buffer; with BUF=<n> exactly n and a canary fill proves
+ * the write-nothing-when-it-does-not-fit rule. */
+static void process_char_line(char **tok, int ntok, const msf_op_desc_t *op,
+                              const char *file, unsigned long lno,
+                              const char *raw, struct stats *st)
+{
+    int rm = -2, arrow = -1, i;
+    msf_flags_t flags = 0u, expect_flags = 0u;
+    const char *prov;
+    for (i = 0; i < ntok; i++) {
+        if (strcmp(tok[i], "->") == 0) {
+            arrow = i;
+        }
+    }
+    if (arrow < 3 || parse_rm(tok[1], &rm) != 0 || rm < 0) {
+        st->malformed++;
+        fail_line(file, lno, raw, "char vector shape/rounding", st);
+        return;
+    }
+    prov = tok[ntok - 1];
+    expect_flags = (msf_flags_t)strtoul(tok[ntok - 2], NULL, 16);
+    if (op->sig == MSF_SIG_CHAR_FROM) {
+        const char *in;
+        uint64_t expect, got = 0u, mask;
+        size_t consumed = 0u;
+        long want_c;
+        int w = kind_width((uint8_t)op->retkind);
+        if (ntok != 8 || arrow != 3 || strncmp(tok[2], "IN=", 3) != 0
+            || strncmp(tok[6], "C=", 2) != 0) {
+            st->malformed++;
+            fail_line(file, lno, raw, "char-from vector shape", st);
+            return;
+        }
+        in = tok[2] + 3;
+        if (strcmp(in, "~") == 0) {
+            in = "";
+        }
+        expect = strtoull(tok[4], NULL, 16);
+        want_c = strtol(tok[6] + 2, NULL, 10);
+        if (strstr(op->name, "from_decimal") != NULL) {
+            if (w == 16) { got = msf16_from_decimal(in, &consumed, (msf_rounding_t)rm, &flags); }
+            else if (w == 32) { got = msf32_from_decimal(in, &consumed, (msf_rounding_t)rm, &flags); }
+            else { got = msf64_from_decimal(in, &consumed, (msf_rounding_t)rm, &flags); }
+        } else {
+            if (w == 16) { got = msf16_from_hex(in, &consumed, (msf_rounding_t)rm, &flags); }
+            else if (w == 32) { got = msf32_from_hex(in, &consumed, (msf_rounding_t)rm, &flags); }
+            else { got = msf64_from_hex(in, &consumed, (msf_rounding_t)rm, &flags); }
+        }
+        mask = w >= 64 ? ~0ULL : ((1ULL << w) - 1u);
+        st->total++;
+        count_prov(prov);
+        if (g_hash_mode) {
+            uint64_t a1[1];
+            a1[0] = (uint64_t)consumed;
+            hash_result(op->name, a1, 1, got & mask, flags);
+        }
+        if ((got & mask) != (expect & mask) || flags != expect_flags
+            || (long)consumed != want_c) {
+            char why[200];
+            snprintf(why, sizeof(why),
+                     "got %016llx/%02x C=%lu want %016llx/%02x C=%ld",
+                     (unsigned long long)(got & mask), (unsigned)flags,
+                     (unsigned long)consumed,
+                     (unsigned long long)(expect & mask),
+                     (unsigned)expect_flags, want_c);
+            fail_line(file, lno, raw, why, st);
+            return;
+        }
+        st->passed++;
+        return;
+    }
+    {
+        /* to_decimal / to_hex */
+        static char buf[8192];
+        uint64_t abits;
+        size_t bufsize = 4096u, ret;
+        long want_len;
+        const char *want_out;
+        int spec_idx = 3, w = kind_width((uint8_t)op->retkind);
+        msf_decimal_spec_t dspec;
+        msf_hex_spec_t hspec;
+        int out_idx = arrow + 1;
+        if ((ntok != 9 && ntok != 10) || strncmp(tok[2], "A=", 2) != 0
+            || strncmp(tok[spec_idx], "SPEC=", 5) != 0
+            || strncmp(tok[out_idx], "OUT=", 4) != 0
+            || strncmp(tok[out_idx + 1], "LEN=", 4) != 0
+            || ntok - 2 != out_idx + 2) {
+            st->malformed++;
+            fail_line(file, lno, raw, "char-to vector shape", st);
+            return;
+        }
+        if (ntok == 10) {
+            if (strncmp(tok[4], "BUF=", 4) != 0 || arrow != 5) {
+                st->malformed++;
+                fail_line(file, lno, raw, "char-to BUF shape", st);
+                return;
+            }
+            bufsize = (size_t)strtoul(tok[4] + 4, NULL, 10);
+            if (bufsize > sizeof(buf)) {
+                st->malformed++;
+                fail_line(file, lno, raw, "BUF exceeds runner buffer", st);
+                return;
+            }
+        } else if (arrow != 4) {
+            st->malformed++;
+            fail_line(file, lno, raw, "char-to arrow position", st);
+            return;
+        }
+        abits = strtoull(tok[2] + 2, NULL, 16);
+        want_out = tok[out_idx] + 4;
+        want_len = strtol(tok[out_idx + 1] + 4, NULL, 10);
+        memset(buf, 0xA5, sizeof(buf));
+        if (op->sig == MSF_SIG_CHAR_TO_DEC) {
+            if (sscanf(tok[spec_idx] + 5, "%d,%d,%d", &dspec.precision,
+                       &dspec.style, &dspec.min_digits) != 3) {
+                st->malformed++;
+                fail_line(file, lno, raw, "decimal SPEC parse", st);
+                return;
+            }
+            if (w == 16) { ret = msf16_to_decimal((msf16_t)abits, &dspec, buf, bufsize, (msf_rounding_t)rm, &flags); }
+            else if (w == 32) { ret = msf32_to_decimal((msf32_t)abits, &dspec, buf, bufsize, (msf_rounding_t)rm, &flags); }
+            else { ret = msf64_to_decimal(abits, &dspec, buf, bufsize, (msf_rounding_t)rm, &flags); }
+        } else {
+            hspec.precision = (int)strtol(tok[spec_idx] + 5, NULL, 10);
+            if (w == 16) { ret = msf16_to_hex((msf16_t)abits, &hspec, buf, bufsize, (msf_rounding_t)rm, &flags); }
+            else if (w == 32) { ret = msf32_to_hex((msf32_t)abits, &hspec, buf, bufsize, (msf_rounding_t)rm, &flags); }
+            else { ret = msf64_to_hex(abits, &hspec, buf, bufsize, (msf_rounding_t)rm, &flags); }
+        }
+        st->total++;
+        count_prov(prov);
+        if (g_hash_mode) {
+            uint64_t h = 1469598103934665603ULL;
+            size_t k;
+            for (k = 0u; k < ret && k < sizeof(buf) && buf[k] != '\0'; k++) {
+                h = (h ^ (uint64_t)(uint8_t)buf[k]) * 1099511628211ULL;
+            }
+            hash_result(op->name, &abits, 1, h, flags);
+        }
+        if ((long)ret != want_len || flags != expect_flags) {
+            char why[160];
+            snprintf(why, sizeof(why), "got LEN=%lu/%02x want LEN=%ld/%02x",
+                     (unsigned long)ret, (unsigned)flags, want_len,
+                     (unsigned)expect_flags);
+            fail_line(file, lno, raw, why, st);
+            return;
+        }
+        if (strcmp(want_out, "~") == 0) {
+            size_t k;
+            if (ret + 1u <= bufsize) {
+                st->malformed++;
+                fail_line(file, lno, raw, "OUT=~ but result fits buffer", st);
+                return;
+            }
+            for (k = 0u; k < sizeof(buf); k++) {
+                if ((uint8_t)buf[k] != 0xA5u) {
+                    fail_line(file, lno, raw, "buffer written on no-fit result", st);
+                    return;
+                }
+            }
+        } else {
+            if (strlen(want_out) != ret || strncmp(buf, want_out, ret) != 0
+                || buf[ret] != '\0'
+                || (ret + 1u < sizeof(buf) && (uint8_t)buf[ret + 1u] != 0xA5u)) {
+                char why[200];
+                buf[sizeof(buf) - 1u] = '\0';
+                snprintf(why, sizeof(why), "got OUT=%.80s want OUT=%.80s",
+                         buf, want_out);
+                fail_line(file, lno, raw, why, st);
+                return;
+            }
+        }
+        st->passed++;
+    }
+}
+
 static void process_line(char *line, const char *file, unsigned long lno,
                          struct stats *st)
 {
-    char raw[512];
+    char raw[4096];
     char *tok[16];
     int ntok = 0;
     char *p;
@@ -253,6 +433,11 @@ static void process_line(char *line, const char *file, unsigned long lno,
         st->total++;
         printf("SKIP %s:%lu %s not implemented (planned wave %d)\n",
                file, lno, op->name, op->wave);
+        return;
+    }
+    if (op->sig == MSF_SIG_CHAR_FROM || op->sig == MSF_SIG_CHAR_TO_DEC
+        || op->sig == MSF_SIG_CHAR_TO_HEX) {
+        process_char_line(tok, ntok, op, file, lno, raw, st);
         return;
     }
     for (i = 0; i < ntok; i++) {
@@ -334,7 +519,7 @@ static void process_line(char *line, const char *file, unsigned long lno,
 static void process_file(const char *path, struct stats *st)
 {
     FILE *f = fopen(path, "r");
-    char buf[512];
+    char buf[4096];
     unsigned long lno = 0u, before = st->total;
     if (!f) {
         fprintf(stderr, "runner: cannot open %s\n", path);
