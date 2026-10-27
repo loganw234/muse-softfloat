@@ -341,7 +341,7 @@ msf32_add_f32_f64 tp 3f7fffff 3ff0000000000001 -> 40000000 10 exact-py-f32:direc
 msf32_add_f32_f64 tn 3f7fffff 3ff0000000000001 -> 3fffffff 10 exact-py-f32:directed-arith
 msf32_add_f32_f64 te 7fffff 1 -> 7fffff 18 exact-py-f32:directed-arith
 msf32_add_f32_f64 tz 7fffff 1 -> 7fffff 18 exact-py-f32:directed-arith
-msf32_add_f32_f64 tp 7fffff 1 -> 800000 10 exact-py-f32:directed-arith
+msf32_add_f32_f64 tp 7fffff 1 -> 800000 18 exact-py-f32:directed-arith
 msf32_add_f32_f64 tn 7fffff 1 -> 7fffff 18 exact-py-f32:directed-arith
 msf32_add_f32_f64 te 1 fffffffffffff -> 1 18 exact-py-f32:directed-arith
 msf32_add_f32_f64 tz 1 fffffffffffff -> 1 18 exact-py-f32:directed-arith
@@ -353,7 +353,7 @@ msf32_add_f32_f64 tp 800000 fffffffffffff -> 800001 10 exact-py-f32:directed-ari
 msf32_add_f32_f64 tn 800000 fffffffffffff -> 800000 10 exact-py-f32:directed-arith
 msf32_add_f32_f64 te 7fffff 10000000000000 -> 7fffff 18 exact-py-f32:directed-arith
 msf32_add_f32_f64 tz 7fffff 10000000000000 -> 7fffff 18 exact-py-f32:directed-arith
-msf32_add_f32_f64 tp 7fffff 10000000000000 -> 800000 10 exact-py-f32:directed-arith
+msf32_add_f32_f64 tp 7fffff 10000000000000 -> 800000 18 exact-py-f32:directed-arith
 msf32_add_f32_f64 tn 7fffff 10000000000000 -> 7fffff 18 exact-py-f32:directed-arith
 msf32_add_f32_f64 te 7f7fffff 7fefffffffffffff -> 7f800000 14 exact-py-f32:directed-arith
 msf32_add_f32_f64 tz 7f7fffff 7fefffffffffffff -> 7f7fffff 14 exact-py-f32:directed-arith
@@ -565,11 +565,11 @@ msf32_add_f64_f32 tp fffffffffffff 1 -> 2 18 exact-py-f32:directed-arith
 msf32_add_f64_f32 tn fffffffffffff 1 -> 1 18 exact-py-f32:directed-arith
 msf32_add_f64_f32 te 1 7fffff -> 7fffff 18 exact-py-f32:directed-arith
 msf32_add_f64_f32 tz 1 7fffff -> 7fffff 18 exact-py-f32:directed-arith
-msf32_add_f64_f32 tp 1 7fffff -> 800000 10 exact-py-f32:directed-arith
+msf32_add_f64_f32 tp 1 7fffff -> 800000 18 exact-py-f32:directed-arith
 msf32_add_f64_f32 tn 1 7fffff -> 7fffff 18 exact-py-f32:directed-arith
 msf32_add_f64_f32 te 10000000000000 7fffff -> 7fffff 18 exact-py-f32:directed-arith
 msf32_add_f64_f32 tz 10000000000000 7fffff -> 7fffff 18 exact-py-f32:directed-arith
-msf32_add_f64_f32 tp 10000000000000 7fffff -> 800000 10 exact-py-f32:directed-arith
+msf32_add_f64_f32 tp 10000000000000 7fffff -> 800000 18 exact-py-f32:directed-arith
 msf32_add_f64_f32 tn 10000000000000 7fffff -> 7fffff 18 exact-py-f32:directed-arith
 msf32_add_f64_f32 te fffffffffffff 800000 -> 800000 10 exact-py-f32:directed-arith
 msf32_add_f64_f32 tz fffffffffffff 800000 -> 800000 10 exact-py-f32:directed-arith

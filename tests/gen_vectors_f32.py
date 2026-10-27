@@ -156,6 +156,29 @@ def pack_mag(sign, mag, rm, fmt):
     if q == (1 << p):
         q >>= 1
         scale += 1
+    # Tininess after rounding (Clause 7.5, lead ruling 2026-10-26):
+    # judge the p-bit rounding at the value's own binade scale (as
+    # though the exponent range were unbounded) against 2^emin.
+    tiny_u = False
+    if e < emin:
+        scale_u = e - (p - 1)
+        numu, denu = mag.numerator, mag.denominator
+        if scale_u >= 0:
+            denu <<= scale_u
+        else:
+            numu <<= -scale_u
+        q_u, r_u = divmod(numu, denu)
+        if r_u:
+            twice_u = 2 * r_u
+            if rm == "te":
+                q_u += 1 if (twice_u > denu or (twice_u == denu and q_u % 2 == 1)) else 0
+            elif rm == "ta":
+                q_u += 1 if twice_u >= denu else 0
+            elif rm == "tp":
+                q_u += 0 if sign else 1
+            elif rm == "tn":
+                q_u += 1 if sign else 0
+        tiny_u = (e + 1 if q_u == (1 << p) else e) < emin
     signbit = c["signbit"] if sign else 0
     if q >= (1 << (p - 1)):
         big_e = scale + (p - 1)
@@ -164,9 +187,15 @@ def pack_mag(sign, mag, rm, fmt):
                 or (rm == "tn" and sign)
             enc = c["inf"] if to_inf else ((c["expmax"] - 1) << t) | c["fracmask"]
             return signbit | enc, FLAG_OVF | FLAG_INX
+        flags = 0
+        if inexact:
+            flags = FLAG_INX | (FLAG_UNF if tiny_u else 0)
         return (signbit | ((big_e + c["bias"]) << t) | (q - (1 << (p - 1))),
-                FLAG_INX if inexact else 0)
-    return signbit | q, (FLAG_INX | FLAG_UNF) if inexact else 0
+                flags)
+    flags = 0
+    if inexact:
+        flags = FLAG_INX | (FLAG_UNF if tiny_u else 0)
+    return signbit | q, flags
 
 
 def pack_signed(value, rm, fmt):
