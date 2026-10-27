@@ -7,6 +7,14 @@
  * msf_u128, then ONE rounding through msf_pack_f32 (the logB result
  * is the single exception, packed as binary64 because logBFormat
  * is binary64, SF-0 Section 2.2). No operation rounds twice.
+ *
+ * Wave 2 parcel-xf: the binary16-source instantiations (add/sub/
+ * mul/div/sqrt/fma with at least one binary16 source, from_f16,
+ * and the *_f16 comparisons) are additional wrappers over the same
+ * format-generic kernels below. Every source still decodes exactly
+ * in its own format and the exact result packs once; no source is
+ * converted to binary32 first (that would double-round the binary64
+ * sources). Landed Wave 1 wrappers are untouched.
  */
 #include "msf_internal.h"
 #include "msf_decode.h"
@@ -14,6 +22,7 @@
 #define MSF_PF 32
 #include "msf_performat.inc"
 
+#define FMT16 MSF_FMT_F16
 #define FMT32 MSF_FMT_F32
 #define FMT64 MSF_FMT_F64
 #define INF32(sign) ((msf32_t)(((sign) ? MSF_F32_SIGN_MASK : 0u) | MSF_F32_INFINITY))
@@ -693,6 +702,26 @@ DEF_DIV(msf32_div, msf32_t, FMT32, msf32_t, FMT32)
 DEF_DIV(msf32_div_f32_f64, msf32_t, FMT32, msf64_t, FMT64)
 DEF_DIV(msf32_div_f64_f32, msf64_t, FMT64, msf32_t, FMT32)
 DEF_DIV(msf32_div_f64_f64, msf64_t, FMT64, msf64_t, FMT64)
+DEF_ADD(msf32_add_f16_f16, msf16_t, FMT16, msf16_t, FMT16)
+DEF_ADD(msf32_add_f16_f32, msf16_t, FMT16, msf32_t, FMT32)
+DEF_ADD(msf32_add_f16_f64, msf16_t, FMT16, msf64_t, FMT64)
+DEF_ADD(msf32_add_f32_f16, msf32_t, FMT32, msf16_t, FMT16)
+DEF_ADD(msf32_add_f64_f16, msf64_t, FMT64, msf16_t, FMT16)
+DEF_SUB(msf32_sub_f16_f16, msf16_t, FMT16, msf16_t, FMT16)
+DEF_SUB(msf32_sub_f16_f32, msf16_t, FMT16, msf32_t, FMT32)
+DEF_SUB(msf32_sub_f16_f64, msf16_t, FMT16, msf64_t, FMT64)
+DEF_SUB(msf32_sub_f32_f16, msf32_t, FMT32, msf16_t, FMT16)
+DEF_SUB(msf32_sub_f64_f16, msf64_t, FMT64, msf16_t, FMT16)
+DEF_MUL(msf32_mul_f16_f16, msf16_t, FMT16, msf16_t, FMT16)
+DEF_MUL(msf32_mul_f16_f32, msf16_t, FMT16, msf32_t, FMT32)
+DEF_MUL(msf32_mul_f16_f64, msf16_t, FMT16, msf64_t, FMT64)
+DEF_MUL(msf32_mul_f32_f16, msf32_t, FMT32, msf16_t, FMT16)
+DEF_MUL(msf32_mul_f64_f16, msf64_t, FMT64, msf16_t, FMT16)
+DEF_DIV(msf32_div_f16_f16, msf16_t, FMT16, msf16_t, FMT16)
+DEF_DIV(msf32_div_f16_f32, msf16_t, FMT16, msf32_t, FMT32)
+DEF_DIV(msf32_div_f16_f64, msf16_t, FMT16, msf64_t, FMT64)
+DEF_DIV(msf32_div_f32_f16, msf32_t, FMT32, msf16_t, FMT16)
+DEF_DIV(msf32_div_f64_f16, msf64_t, FMT64, msf16_t, FMT16)
 #undef DEF_ADD
 #undef DEF_SUB
 #undef DEF_MUL
@@ -705,6 +734,10 @@ msf32_t msf32_sqrt(msf32_t a, msf_rounding_t rm, msf_flags_t *flags)
 msf32_t msf32_sqrt_f64(msf64_t a, msf_rounding_t rm, msf_flags_t *flags)
 {
     return sqrt_impl(FMT64, a, (int)rm, flags);
+}
+msf32_t msf32_sqrt_f16(msf16_t a, msf_rounding_t rm, msf_flags_t *flags)
+{
+    return sqrt_impl(FMT16, a, (int)rm, flags);
 }
 
 #define DEF_FMA(NAME, AT, AF, BT, BF, CT, CF) \
@@ -719,6 +752,25 @@ DEF_FMA(msf32_fma_f64_f32_f32, msf64_t, FMT64, msf32_t, FMT32, msf32_t, FMT32)
 DEF_FMA(msf32_fma_f64_f32_f64, msf64_t, FMT64, msf32_t, FMT32, msf64_t, FMT64)
 DEF_FMA(msf32_fma_f64_f64_f32, msf64_t, FMT64, msf64_t, FMT64, msf32_t, FMT32)
 DEF_FMA(msf32_fma_f64_f64_f64, msf64_t, FMT64, msf64_t, FMT64, msf64_t, FMT64)
+DEF_FMA(msf32_fma_f16_f16_f16, msf16_t, FMT16, msf16_t, FMT16, msf16_t, FMT16)
+DEF_FMA(msf32_fma_f16_f16_f32, msf16_t, FMT16, msf16_t, FMT16, msf32_t, FMT32)
+DEF_FMA(msf32_fma_f16_f16_f64, msf16_t, FMT16, msf16_t, FMT16, msf64_t, FMT64)
+DEF_FMA(msf32_fma_f16_f32_f16, msf16_t, FMT16, msf32_t, FMT32, msf16_t, FMT16)
+DEF_FMA(msf32_fma_f16_f32_f32, msf16_t, FMT16, msf32_t, FMT32, msf32_t, FMT32)
+DEF_FMA(msf32_fma_f16_f32_f64, msf16_t, FMT16, msf32_t, FMT32, msf64_t, FMT64)
+DEF_FMA(msf32_fma_f16_f64_f16, msf16_t, FMT16, msf64_t, FMT64, msf16_t, FMT16)
+DEF_FMA(msf32_fma_f16_f64_f32, msf16_t, FMT16, msf64_t, FMT64, msf32_t, FMT32)
+DEF_FMA(msf32_fma_f16_f64_f64, msf16_t, FMT16, msf64_t, FMT64, msf64_t, FMT64)
+DEF_FMA(msf32_fma_f32_f16_f16, msf32_t, FMT32, msf16_t, FMT16, msf16_t, FMT16)
+DEF_FMA(msf32_fma_f32_f16_f32, msf32_t, FMT32, msf16_t, FMT16, msf32_t, FMT32)
+DEF_FMA(msf32_fma_f32_f16_f64, msf32_t, FMT32, msf16_t, FMT16, msf64_t, FMT64)
+DEF_FMA(msf32_fma_f32_f32_f16, msf32_t, FMT32, msf32_t, FMT32, msf16_t, FMT16)
+DEF_FMA(msf32_fma_f32_f64_f16, msf32_t, FMT32, msf64_t, FMT64, msf16_t, FMT16)
+DEF_FMA(msf32_fma_f64_f16_f16, msf64_t, FMT64, msf16_t, FMT16, msf16_t, FMT16)
+DEF_FMA(msf32_fma_f64_f16_f32, msf64_t, FMT64, msf16_t, FMT16, msf32_t, FMT32)
+DEF_FMA(msf32_fma_f64_f16_f64, msf64_t, FMT64, msf16_t, FMT16, msf64_t, FMT64)
+DEF_FMA(msf32_fma_f64_f32_f16, msf64_t, FMT64, msf32_t, FMT32, msf16_t, FMT16)
+DEF_FMA(msf32_fma_f64_f64_f16, msf64_t, FMT64, msf64_t, FMT64, msf16_t, FMT16)
 #undef DEF_FMA
 
 msf32_t msf32_from_f32(msf32_t a, msf_rounding_t rm, msf_flags_t *flags)
@@ -728,6 +780,10 @@ msf32_t msf32_from_f32(msf32_t a, msf_rounding_t rm, msf_flags_t *flags)
 msf32_t msf32_from_f64(msf64_t a, msf_rounding_t rm, msf_flags_t *flags)
 {
     return conv_impl(FMT64, a, (int)rm, flags);
+}
+msf32_t msf32_from_f16(msf16_t a, msf_rounding_t rm, msf_flags_t *flags)
+{
+    return conv_impl(FMT16, a, (int)rm, flags);
 }
 
 #define DEF_RINT(NAME, MODE) \
@@ -826,6 +882,33 @@ DEF_CMP_PAIR(signaling_not_less, REL_GT | REL_EQ | REL_UN, 1)
 DEF_CMP_PAIR(signaling_less_unordered, REL_LT | REL_UN, 1)
 DEF_CMP_PAIR(signaling_greater_unordered, REL_GT | REL_UN, 1)
 #undef DEF_CMP_PAIR
+
+#define DEF_CMP_F16(PRED, MASK, SIG) \
+    int msf32_compare_##PRED##_f16(msf32_t a, msf16_t b, msf_flags_t *flags) \
+    { return cmp_impl(FMT32, a, FMT16, b, MASK, SIG, flags); }
+DEF_CMP_F16(quiet_equal, REL_EQ, 0)
+DEF_CMP_F16(quiet_not_equal, REL_LT | REL_GT | REL_UN, 0)
+DEF_CMP_F16(signaling_equal, REL_EQ, 1)
+DEF_CMP_F16(signaling_not_equal, REL_LT | REL_GT | REL_UN, 1)
+DEF_CMP_F16(quiet_greater, REL_GT, 0)
+DEF_CMP_F16(quiet_greater_equal, REL_GT | REL_EQ, 0)
+DEF_CMP_F16(quiet_less, REL_LT, 0)
+DEF_CMP_F16(quiet_less_equal, REL_LT | REL_EQ, 0)
+DEF_CMP_F16(quiet_not_greater, REL_LT | REL_EQ | REL_UN, 0)
+DEF_CMP_F16(quiet_not_less, REL_GT | REL_EQ | REL_UN, 0)
+DEF_CMP_F16(quiet_less_unordered, REL_LT | REL_UN, 0)
+DEF_CMP_F16(quiet_greater_unordered, REL_GT | REL_UN, 0)
+DEF_CMP_F16(quiet_unordered, REL_UN, 0)
+DEF_CMP_F16(quiet_ordered, REL_LT | REL_EQ | REL_GT, 0)
+DEF_CMP_F16(signaling_greater, REL_GT, 1)
+DEF_CMP_F16(signaling_greater_equal, REL_GT | REL_EQ, 1)
+DEF_CMP_F16(signaling_less, REL_LT, 1)
+DEF_CMP_F16(signaling_less_equal, REL_LT | REL_EQ, 1)
+DEF_CMP_F16(signaling_not_greater, REL_LT | REL_EQ | REL_UN, 1)
+DEF_CMP_F16(signaling_not_less, REL_GT | REL_EQ | REL_UN, 1)
+DEF_CMP_F16(signaling_less_unordered, REL_LT | REL_UN, 1)
+DEF_CMP_F16(signaling_greater_unordered, REL_GT | REL_UN, 1)
+#undef DEF_CMP_F16
 
 
 

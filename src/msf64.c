@@ -4,6 +4,12 @@
  * design entry). Every operation: decode, NaN delivery, special
  * cases, exact integer work over msf_u128, one rounding pack.
  * Clause citations are to IEEE 754-2019 by number only.
+ *
+ * Wave 2 parcel-xf: the binary16-source instantiations are
+ * additional wrappers over the same format-generic cores below.
+ * Sources decode exactly in their own format (binary16/binary32
+ * values are never materialized in an intermediate format) and the
+ * exact result packs once. Landed Wave 1 wrappers are untouched.
  */
 #include "msf_internal.h"
 #include "msf_decode.h"
@@ -710,7 +716,8 @@ static msf64_t from_mag(int sign, uint64_t mag, int rm, msf_flags_t *flags)
     return pk64(sign, 0, msf_u128_from_u64(mag), 0, rm, flags);
 }
 
-/* Public wrappers: arithmetic (dest f64, sources in {f32, f64}). */
+/* Public wrappers: arithmetic (dest f64; Wave 1 sources in
+ * {f32, f64}, Wave 2 parcel-xf adds the f16-source forms). */
 #define DEF_ADD(NAME, FA, TA, FB, TB) \
     msf64_t NAME(TA a, TB b, msf_rounding_t rm, msf_flags_t *fl) \
     { return addsub_core(FA, (uint64_t)a, FB, (uint64_t)b, 0, (int)rm, fl); }
@@ -740,12 +747,33 @@ DEF_DIV(msf64_div_f32_f32, MSF_FMT_F32, msf32_t, MSF_FMT_F32, msf32_t)
 DEF_DIV(msf64_div_f32_f64, MSF_FMT_F32, msf32_t, MSF_FMT_F64, msf64_t)
 DEF_DIV(msf64_div_f64_f32, MSF_FMT_F64, msf64_t, MSF_FMT_F32, msf32_t)
 DEF_DIV(msf64_div, MSF_FMT_F64, msf64_t, MSF_FMT_F64, msf64_t)
+DEF_ADD(msf64_add_f16_f16, MSF_FMT_F16, msf16_t, MSF_FMT_F16, msf16_t)
+DEF_ADD(msf64_add_f16_f32, MSF_FMT_F16, msf16_t, MSF_FMT_F32, msf32_t)
+DEF_ADD(msf64_add_f16_f64, MSF_FMT_F16, msf16_t, MSF_FMT_F64, msf64_t)
+DEF_ADD(msf64_add_f32_f16, MSF_FMT_F32, msf32_t, MSF_FMT_F16, msf16_t)
+DEF_ADD(msf64_add_f64_f16, MSF_FMT_F64, msf64_t, MSF_FMT_F16, msf16_t)
+DEF_SUB(msf64_sub_f16_f16, MSF_FMT_F16, msf16_t, MSF_FMT_F16, msf16_t)
+DEF_SUB(msf64_sub_f16_f32, MSF_FMT_F16, msf16_t, MSF_FMT_F32, msf32_t)
+DEF_SUB(msf64_sub_f16_f64, MSF_FMT_F16, msf16_t, MSF_FMT_F64, msf64_t)
+DEF_SUB(msf64_sub_f32_f16, MSF_FMT_F32, msf32_t, MSF_FMT_F16, msf16_t)
+DEF_SUB(msf64_sub_f64_f16, MSF_FMT_F64, msf64_t, MSF_FMT_F16, msf16_t)
+DEF_MUL(msf64_mul_f16_f16, MSF_FMT_F16, msf16_t, MSF_FMT_F16, msf16_t)
+DEF_MUL(msf64_mul_f16_f32, MSF_FMT_F16, msf16_t, MSF_FMT_F32, msf32_t)
+DEF_MUL(msf64_mul_f16_f64, MSF_FMT_F16, msf16_t, MSF_FMT_F64, msf64_t)
+DEF_MUL(msf64_mul_f32_f16, MSF_FMT_F32, msf32_t, MSF_FMT_F16, msf16_t)
+DEF_MUL(msf64_mul_f64_f16, MSF_FMT_F64, msf64_t, MSF_FMT_F16, msf16_t)
+DEF_DIV(msf64_div_f16_f16, MSF_FMT_F16, msf16_t, MSF_FMT_F16, msf16_t)
+DEF_DIV(msf64_div_f16_f32, MSF_FMT_F16, msf16_t, MSF_FMT_F32, msf32_t)
+DEF_DIV(msf64_div_f16_f64, MSF_FMT_F16, msf16_t, MSF_FMT_F64, msf64_t)
+DEF_DIV(msf64_div_f32_f16, MSF_FMT_F32, msf32_t, MSF_FMT_F16, msf16_t)
+DEF_DIV(msf64_div_f64_f16, MSF_FMT_F64, msf64_t, MSF_FMT_F16, msf16_t)
 
 #define DEF_SQRT(NAME, FA, TA) \
     msf64_t NAME(TA a, msf_rounding_t rm, msf_flags_t *fl) \
     { return sqrt_core(FA, (uint64_t)a, (int)rm, fl); }
 DEF_SQRT(msf64_sqrt_f32, MSF_FMT_F32, msf32_t)
 DEF_SQRT(msf64_sqrt, MSF_FMT_F64, msf64_t)
+DEF_SQRT(msf64_sqrt_f16, MSF_FMT_F16, msf16_t)
 
 #define DEF_FMA(NAME, FA, TA, FB, TB, FC, TC) \
     msf64_t NAME(TA a, TB b, TC c, msf_rounding_t rm, msf_flags_t *fl) \
@@ -759,6 +787,25 @@ DEF_FMA(msf64_fma_f64_f32_f32, MSF_FMT_F64, msf64_t, MSF_FMT_F32, msf32_t, MSF_F
 DEF_FMA(msf64_fma_f64_f32_f64, MSF_FMT_F64, msf64_t, MSF_FMT_F32, msf32_t, MSF_FMT_F64, msf64_t)
 DEF_FMA(msf64_fma_f64_f64_f32, MSF_FMT_F64, msf64_t, MSF_FMT_F64, msf64_t, MSF_FMT_F32, msf32_t)
 DEF_FMA(msf64_fma, MSF_FMT_F64, msf64_t, MSF_FMT_F64, msf64_t, MSF_FMT_F64, msf64_t)
+DEF_FMA(msf64_fma_f16_f16_f16, MSF_FMT_F16, msf16_t, MSF_FMT_F16, msf16_t, MSF_FMT_F16, msf16_t)
+DEF_FMA(msf64_fma_f16_f16_f32, MSF_FMT_F16, msf16_t, MSF_FMT_F16, msf16_t, MSF_FMT_F32, msf32_t)
+DEF_FMA(msf64_fma_f16_f16_f64, MSF_FMT_F16, msf16_t, MSF_FMT_F16, msf16_t, MSF_FMT_F64, msf64_t)
+DEF_FMA(msf64_fma_f16_f32_f16, MSF_FMT_F16, msf16_t, MSF_FMT_F32, msf32_t, MSF_FMT_F16, msf16_t)
+DEF_FMA(msf64_fma_f16_f32_f32, MSF_FMT_F16, msf16_t, MSF_FMT_F32, msf32_t, MSF_FMT_F32, msf32_t)
+DEF_FMA(msf64_fma_f16_f32_f64, MSF_FMT_F16, msf16_t, MSF_FMT_F32, msf32_t, MSF_FMT_F64, msf64_t)
+DEF_FMA(msf64_fma_f16_f64_f16, MSF_FMT_F16, msf16_t, MSF_FMT_F64, msf64_t, MSF_FMT_F16, msf16_t)
+DEF_FMA(msf64_fma_f16_f64_f32, MSF_FMT_F16, msf16_t, MSF_FMT_F64, msf64_t, MSF_FMT_F32, msf32_t)
+DEF_FMA(msf64_fma_f16_f64_f64, MSF_FMT_F16, msf16_t, MSF_FMT_F64, msf64_t, MSF_FMT_F64, msf64_t)
+DEF_FMA(msf64_fma_f32_f16_f16, MSF_FMT_F32, msf32_t, MSF_FMT_F16, msf16_t, MSF_FMT_F16, msf16_t)
+DEF_FMA(msf64_fma_f32_f16_f32, MSF_FMT_F32, msf32_t, MSF_FMT_F16, msf16_t, MSF_FMT_F32, msf32_t)
+DEF_FMA(msf64_fma_f32_f16_f64, MSF_FMT_F32, msf32_t, MSF_FMT_F16, msf16_t, MSF_FMT_F64, msf64_t)
+DEF_FMA(msf64_fma_f32_f32_f16, MSF_FMT_F32, msf32_t, MSF_FMT_F32, msf32_t, MSF_FMT_F16, msf16_t)
+DEF_FMA(msf64_fma_f32_f64_f16, MSF_FMT_F32, msf32_t, MSF_FMT_F64, msf64_t, MSF_FMT_F16, msf16_t)
+DEF_FMA(msf64_fma_f64_f16_f16, MSF_FMT_F64, msf64_t, MSF_FMT_F16, msf16_t, MSF_FMT_F16, msf16_t)
+DEF_FMA(msf64_fma_f64_f16_f32, MSF_FMT_F64, msf64_t, MSF_FMT_F16, msf16_t, MSF_FMT_F32, msf32_t)
+DEF_FMA(msf64_fma_f64_f16_f64, MSF_FMT_F64, msf64_t, MSF_FMT_F16, msf16_t, MSF_FMT_F64, msf64_t)
+DEF_FMA(msf64_fma_f64_f32_f16, MSF_FMT_F64, msf64_t, MSF_FMT_F32, msf32_t, MSF_FMT_F16, msf16_t)
+DEF_FMA(msf64_fma_f64_f64_f16, MSF_FMT_F64, msf64_t, MSF_FMT_F64, msf64_t, MSF_FMT_F16, msf16_t)
 
 msf64_t msf64_round_to_integral_ties_to_even(msf64_t a, msf_flags_t *fl)
 { return rint_core(a, MSF_IROUND_TIES_TO_EVEN, 0, fl); }
@@ -793,6 +840,8 @@ msf64_t msf64_from_f32(msf32_t a, msf_rounding_t rm, msf_flags_t *fl)
 { return conv_core(MSF_FMT_F32, (uint64_t)a, (int)rm, fl); }
 msf64_t msf64_from_f64(msf64_t a, msf_rounding_t rm, msf_flags_t *fl)
 { return conv_core(MSF_FMT_F64, (uint64_t)a, (int)rm, fl); }
+msf64_t msf64_from_f16(msf16_t a, msf_rounding_t rm, msf_flags_t *fl)
+{ return conv_core(MSF_FMT_F16, (uint64_t)a, (int)rm, fl); }
 
 #define DEF_FROM_S(NAME, TY) \
     msf64_t NAME(TY a, msf_rounding_t rm, msf_flags_t *fl) \
@@ -866,6 +915,33 @@ DEF_CMP(signaling_not_greater, PRED_NOTGT, 1)
 DEF_CMP(signaling_not_less, PRED_NOTLT, 1)
 DEF_CMP(signaling_less_unordered, PRED_LTUN, 1)
 DEF_CMP(signaling_greater_unordered, PRED_GTUN, 1)
+
+#define DEF_CMP_F16(SUF, PRED, SIG) \
+    int CAT(CMP_FN(SUF), _f16)(msf64_t a, msf16_t b, msf_flags_t *fl) \
+    { return compare_core(MSF_FMT_F64, a, MSF_FMT_F16, (uint64_t)b, \
+                          PRED, SIG, fl); }
+DEF_CMP_F16(quiet_equal, PRED_EQ, 0)
+DEF_CMP_F16(quiet_not_equal, PRED_NE, 0)
+DEF_CMP_F16(signaling_equal, PRED_EQ, 1)
+DEF_CMP_F16(signaling_not_equal, PRED_NE, 1)
+DEF_CMP_F16(quiet_greater, PRED_GT, 0)
+DEF_CMP_F16(quiet_greater_equal, PRED_GE, 0)
+DEF_CMP_F16(quiet_less, PRED_LT, 0)
+DEF_CMP_F16(quiet_less_equal, PRED_LE, 0)
+DEF_CMP_F16(quiet_not_greater, PRED_NOTGT, 0)
+DEF_CMP_F16(quiet_not_less, PRED_NOTLT, 0)
+DEF_CMP_F16(quiet_less_unordered, PRED_LTUN, 0)
+DEF_CMP_F16(quiet_greater_unordered, PRED_GTUN, 0)
+DEF_CMP_F16(quiet_unordered, PRED_UNORD, 0)
+DEF_CMP_F16(quiet_ordered, PRED_ORD, 0)
+DEF_CMP_F16(signaling_greater, PRED_GT, 1)
+DEF_CMP_F16(signaling_greater_equal, PRED_GE, 1)
+DEF_CMP_F16(signaling_less, PRED_LT, 1)
+DEF_CMP_F16(signaling_less_equal, PRED_LE, 1)
+DEF_CMP_F16(signaling_not_greater, PRED_NOTGT, 1)
+DEF_CMP_F16(signaling_not_less, PRED_NOTLT, 1)
+DEF_CMP_F16(signaling_less_unordered, PRED_LTUN, 1)
+DEF_CMP_F16(signaling_greater_unordered, PRED_GTUN, 1)
 
 int msf64_total_order(msf64_t a, msf64_t b)
 {
