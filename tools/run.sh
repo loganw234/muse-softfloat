@@ -167,8 +167,9 @@ controls() {
     else
         echo "control x87-compiler-refusal: SKIP-BY-NAME /c/msys64/mingw32 absent on this host"
     fi
-    # 9. planned-only replay must not verdict PASS (verifier-p0 note i)
-    printf 'msf64_add te 3ff0000000000000 3ff0000000000000 -> 4000000000000000 00 control:planned\n' > "$C/planned.vec"
+    # 9. planned-only replay must not verdict PASS (verifier-p0 note i;
+    # op must stay planned - msf16_add until Wave 2 lands: parcel-f64)
+    printf 'msf16_add te 3c00 3c00 -> 4000 00 control:planned\n' > "$C/planned.vec"
     "$R" verify "$C/planned.vec" > "$C/planned.log" 2>&1
     [ $? -ne 0 ] && grep -q 'SKIP.*not implemented' "$C/planned.log" && grep -q 'VERDICT: FAIL' "$C/planned.log" && control_ok planned-only-verdict || control_bad planned-only-verdict
     [ "$CTRL_FAIL" -eq 0 ] || fail "a negative control was not refused"
