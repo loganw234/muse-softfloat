@@ -233,7 +233,6 @@ static void process_char_line(char **tok, int ntok, const msf_op_desc_t *op,
         return;
     }
     prov = tok[ntok - 1];
-    expect_flags = (msf_flags_t)strtoul(tok[ntok - 2], NULL, 16);
     if (op->sig == MSF_SIG_CHAR_FROM) {
         const char *in;
         uint64_t expect, got = 0u, mask;
@@ -251,6 +250,7 @@ static void process_char_line(char **tok, int ntok, const msf_op_desc_t *op,
             in = "";
         }
         expect = strtoull(tok[4], NULL, 16);
+        expect_flags = (msf_flags_t)strtoul(tok[5], NULL, 16);
         want_c = strtol(tok[6] + 2, NULL, 10);
         if (strstr(op->name, "from_decimal") != NULL) {
             if (w == 16) { got = msf16_from_decimal(in, &consumed, (msf_rounding_t)rm, &flags); }
@@ -321,6 +321,7 @@ static void process_char_line(char **tok, int ntok, const msf_op_desc_t *op,
             fail_line(file, lno, raw, "char-to arrow position", st);
             return;
         }
+        expect_flags = (msf_flags_t)strtoul(tok[ntok - 2], NULL, 16);
         abits = strtoull(tok[2] + 2, NULL, 16);
         want_out = tok[out_idx] + 4;
         want_len = strtol(tok[out_idx + 1] + 4, NULL, 10);
