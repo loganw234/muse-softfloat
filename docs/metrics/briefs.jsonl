@@ -1,0 +1,2 @@
+{"wave": "wave1", "work": "binary64 homogeneous core (173 instantiations)", "author": "parcel-f64", "base": "4cdb912dbd5ebda4fa2bc29168883dc4527d4091", "time_box_min": 300, "ceiling_lines": 3000}
+{"wave": "wave1", "work": "binary32 homogeneous core (173 instantiations)", "author": "parcel-f32", "base": "4cdb912dbd5ebda4fa2bc29168883dc4527d4091", "time_box_min": 300, "ceiling_lines": 3000}
