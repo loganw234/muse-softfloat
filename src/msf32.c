@@ -13,8 +13,8 @@
  * and the *_f16 comparisons) are additional wrappers over the same
  * format-generic kernels below. Every source still decodes exactly
  * in its own format and the exact result packs once; no source is
- * converted to binary32 first (that would double-round the binary64
- * sources). Landed Wave 1 wrappers are untouched.
+ * converted to binary32 first (that would round the binary64
+ * sources twice). Landed Wave 1 wrappers are untouched.
  */
 #include "msf_internal.h"
 #include "msf_decode.h"
