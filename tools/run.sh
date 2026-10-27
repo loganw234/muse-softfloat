@@ -176,7 +176,7 @@ controls() {
     echo "negative controls: all refused"
 }
 
-VECS="tests/vectors/encodings-f16.vec tests/vectors/encodings-f32.vec tests/vectors/encodings-f64.vec tests/vectors/copysign.vec tests/vectors/pack64.vec tests/vectors/pack32.vec tests/vectors/pack16.vec tests/vectors/arith-f32.vec tests/vectors/fma-sqrt-f32.vec tests/vectors/conv-int-f32.vec tests/vectors/toint-f32.vec tests/vectors/rint-misc-f32.vec tests/vectors/compare-f32.vec tests/vectors/arith-f64.vec tests/vectors/conv-f64.vec tests/vectors/misc-f64.vec tests/vectors/compare-f64.vec tests/vectors/nan-f64.vec tests/vectors/arith-f16.vec tests/vectors/fma-sqrt-f16.vec tests/vectors/conv-int-f16.vec tests/vectors/toint-f16.vec tests/vectors/rint-misc-f16.vec tests/vectors/compare-f16.vec"
+VECS="tests/vectors/encodings-f16.vec tests/vectors/encodings-f32.vec tests/vectors/encodings-f64.vec tests/vectors/copysign.vec tests/vectors/pack64.vec tests/vectors/pack32.vec tests/vectors/pack16.vec tests/vectors/arith-f32.vec tests/vectors/fma-sqrt-f32.vec tests/vectors/conv-int-f32.vec tests/vectors/toint-f32.vec tests/vectors/rint-misc-f32.vec tests/vectors/compare-f32.vec tests/vectors/arith-f64.vec tests/vectors/conv-f64.vec tests/vectors/misc-f64.vec tests/vectors/compare-f64.vec tests/vectors/nan-f64.vec tests/vectors/arith-f16.vec tests/vectors/fma-sqrt-f16.vec tests/vectors/conv-int-f16.vec tests/vectors/toint-f16.vec tests/vectors/rint-misc-f16.vec tests/vectors/compare-f16.vec tests/vectors/arith-xf.vec tests/vectors/fma-sqrt-xf.vec tests/vectors/conv-xf.vec tests/vectors/compare-xf.vec tests/vectors/traps-xf.vec"
 
 smoke() {
     check_host_compiler "$HOST_CC" || fail "host compiler refused"
