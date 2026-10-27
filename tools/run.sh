@@ -126,6 +126,36 @@ CTRL_FAIL=0
 control_ok() { echo "control $1: refused as required"; }
 control_bad() { echo "control $1: NOT REFUSED"; CTRL_FAIL=1; }
 
+# SF-1 Step 0a registered-surface freeze: Tier 1 stays exactly the
+# SF-0 surface; the registered Tier 2 surface is the 33 planned
+# Step 1 rows. A lead table expansion updates TIER2 in the same
+# commit that registers more families - never silently.
+TIER1_TOTAL_EXPECTED=783
+TIER2_TOTAL_EXPECTED=33
+inventory_check() { # $1 = COVERAGE.tsv to judge; prints one summary line
+    local file="$1"
+    awk -F '\t' -v t1exp="$TIER1_TOTAL_EXPECTED" -v t2exp="$TIER2_TOTAL_EXPECTED" '
+        /^#/ { next }
+        !hdr { for (i = 1; i <= NF; i++) col[$i] = i; hdr = 1; next }
+        {
+            tier = $(col["tier"]); status = $(col["status"]); claim = $(col["claim"])
+            if (status != "implemented" && status != "planned") bad++
+            if (tier == "1") {
+                t1++; if (status == "implemented") t1i++
+                if (claim != "required") bad++
+            } else if (tier == "2") {
+                t2++
+                if (status == "implemented") t2i++
+                else if (status == "planned") t2p++
+                if (claim != "C-754") bad++
+            } else bad++
+        }
+        END {
+            printf "inventory: tier1 %d implemented of %d; tier2 %d implemented, %d planned, %d registered; bad rows %d\n", t1i, t1, t2i, t2p, t2, bad
+            exit !(hdr && t1 == t1exp && t1i == t1exp && t2 == t2exp && bad == 0)
+        }' "$file"
+}
+
 controls() {
     local R="$BUILD/msf_runner.exe" C="$BUILD/controls"
     mkdir -p "$C"
@@ -167,16 +197,20 @@ controls() {
     else
         echo "control x87-compiler-refusal: SKIP-BY-NAME /c/msys64/mingw32 absent on this host"
     fi
-    # 9. full-surface inventory (retired planned-only control at the
-    # Wave 3 merge: 783 of 783, no planned op remains to name; the
-    # zero-pass protection it demonstrated lives in the runner's
-    # verdict rule and control history). Refuses if any coverage row
-    # falls back to planned without a table change saying so.
-    impl=$(grep -c '^msf' tables/implemented.tsv)
-    total=$(grep -vc '^#' docs/COVERAGE.tsv)
-    total=$((total - 1))
-    if [ "$impl" -eq "$total" ]; then control_ok full-surface-inventory; else control_bad full-surface-inventory; fi
-    echo "inventory: implemented $impl of $total instantiations"
+    # 9. split inventory (SF-1 Step 0a successor to the Wave 3
+    # full-surface control): Tier 1 must stay exactly 783/783 while
+    # registered Tier 2 rows may be planned, named below. The two
+    # mutants are watched failing here so the split cannot rot into
+    # the old single equality in either direction.
+    if inventory_check docs/COVERAGE.tsv > "$C/inventory.log" 2>&1; then control_ok tier-inventory; else control_bad tier-inventory; fi
+    cat "$C/inventory.log"
+    awk -F '\t' '$13 == "2" && $9 == "planned" { print "tier2 planned: " $1 }' docs/COVERAGE.tsv
+    awk -F '\t' 'BEGIN { OFS = FS } /^#/ || $1 == "name" { print; next } !d && $13 == "1" && $9 == "implemented" { $9 = "planned"; d = 1 } { print }' \
+        docs/COVERAGE.tsv > "$C/coverage-tier1-flip.tsv"
+    if inventory_check "$C/coverage-tier1-flip.tsv" > "$C/inventory-flip.log" 2>&1; then control_bad tier1-planned-flip; else control_ok tier1-planned-flip; fi
+    awk -F '\t' '/^#/ || $1 == "name" { print; next } !d && $13 == "2" { d = 1; next } { print }' \
+        docs/COVERAGE.tsv > "$C/coverage-tier2-delete.tsv"
+    if inventory_check "$C/coverage-tier2-delete.tsv" > "$C/inventory-delete.log" 2>&1; then control_bad tier2-row-deleted; else control_ok tier2-row-deleted; fi
     [ "$CTRL_FAIL" -eq 0 ] || fail "a negative control was not refused"
     echo "negative controls: all refused"
 }

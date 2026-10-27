@@ -37,7 +37,9 @@ enum msf_sig {
     MSF_SIG_CLASS_OP = 20,
     MSF_SIG_RADIX_OP = 21,
     MSF_SIG_VERSION_OP = 22,
-    MSF_SIG_FLAG_OP = 23
+    MSF_SIG_FLAG_OP = 23,
+    MSF_SIG_MINMAX = 24,
+    MSF_SIG_PAYLOAD_UN = 25
 };
 enum msf_kind {
     MSF_AK_NONE = 0,
@@ -1623,7 +1625,40 @@ static const msf_op_desc_t MSF_OPS[] = {
     { "msf_test_saved_flags", "testSavedFlags", MSF_SIG_FLAG_OP, MSF_RK_SPECIAL, { MSF_AK_NONE, MSF_AK_NONE, MSF_AK_NONE }, 0, 0, 0, 1, 0, 0 },
     { "msf_restore_flags", "restoreFlags", MSF_SIG_FLAG_OP, MSF_RK_SPECIAL, { MSF_AK_NONE, MSF_AK_NONE, MSF_AK_NONE }, 0, 0, 0, 1, 0, 0 },
     { "msf_save_all_flags", "saveAllFlags", MSF_SIG_FLAG_OP, MSF_RK_SPECIAL, { MSF_AK_NONE, MSF_AK_NONE, MSF_AK_NONE }, 0, 0, 0, 1, 0, 0 },
+    { "msf16_minimum", "minimum", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf32_minimum", "minimum", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf64_minimum", "minimum", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf16_maximum", "maximum", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf32_maximum", "maximum", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf64_maximum", "maximum", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf16_minimum_number", "minimumNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf32_minimum_number", "minimumNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf64_minimum_number", "minimumNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf16_maximum_number", "maximumNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf32_maximum_number", "maximumNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf64_maximum_number", "maximumNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf16_minimum_magnitude", "minimumMagnitude", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf32_minimum_magnitude", "minimumMagnitude", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf64_minimum_magnitude", "minimumMagnitude", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf16_maximum_magnitude", "maximumMagnitude", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf32_maximum_magnitude", "maximumMagnitude", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf64_maximum_magnitude", "maximumMagnitude", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf16_minimum_magnitude_number", "minimumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf32_minimum_magnitude_number", "minimumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf64_minimum_magnitude_number", "minimumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf16_maximum_magnitude_number", "maximumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf32_maximum_magnitude_number", "maximumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf64_maximum_magnitude_number", "maximumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
+    { "msf16_get_payload", "getPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
+    { "msf32_get_payload", "getPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
+    { "msf64_get_payload", "getPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
+    { "msf16_set_payload", "setPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
+    { "msf32_set_payload", "setPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
+    { "msf64_set_payload", "setPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
+    { "msf16_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
+    { "msf32_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
+    { "msf64_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
 };
-#define MSF_OP_COUNT 783
+#define MSF_OP_COUNT 816
 
 #endif /* MSF_DISPATCH_H */

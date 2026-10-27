@@ -5,6 +5,13 @@ are ignored. Every counted line carries a provenance tag as its last
 field; a vector whose provenance the runner cannot print does not
 count toward a gate (SF-0 Section 4.3).
 
+Provenance budget (SF-1 Step 0a): the runner's tag table is capped
+at `MAX_PROV` 128 and refuses rather than undercount. A new Tier 2
+generator introduces one tag family per generator, not one per
+function or file, and names its oracle and seed policy below at
+merge. Raising the cap is seam work that must re-watch the
+overflow refusal; it is never a silent constant bump.
+
 ## Public operations
 
 ```

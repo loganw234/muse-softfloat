@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the P0 seam from tables/formats.tsv + tables/operations.tsv.
+"""Generate the table seam from tables/formats.tsv + tables/operations.tsv.
 
 Outputs (all byte-deterministic; tools/run.sh regenerates into a temp dir
 and refuses on any difference - SF-0 Section 6 items 2-3):
@@ -23,6 +23,11 @@ The expansion rules live here and nowhere else. Authority tokens:
                                provides), else mpfr-exact
 Wave rule: a wave-1 instantiation touching binary16 is claimed in
 wave 2 (SF-0 Section 7). Status is per family in the table.
+
+Tier/claim rule (SF-1 Step 0a): tier 1 admits claim `required`
+only; tier 2 admits claim `C-754` only. Reserved SF-1 claim
+tokens are refused until their own gates exist. Generation
+aborts on any other tier, claim, or authority token.
 """
 import pathlib
 import sys
@@ -45,6 +50,23 @@ def read_tsv(path):
             assert len(cells) == len(header), (path, line)
             rows.append(dict(zip(header, cells)))
     return rows
+
+
+AUTHORITIES = {"berkeley", "mpfr-exact", "project-exact",
+               "project-exact+berkeley-check", "auto-arith", "auto-int"}
+CLAIM_BY_TIER = {"1": {"required"}, "2": {"C-754"}}
+
+
+def validate_family(row):
+    tier, claim = row.get("tier"), row.get("claim")
+    if tier not in CLAIM_BY_TIER:
+        raise SystemExit("unknown tier %r for family %s" % (tier, row.get("op")))
+    if claim not in CLAIM_BY_TIER[tier]:
+        raise SystemExit("claim %r not admitted for tier %s family %s"
+                         % (claim, tier, row.get("op")))
+    if row.get("authority") not in AUTHORITIES:
+        raise SystemExit("unknown authority %r for family %s"
+                         % (row.get("authority"), row.get("op")))
 
 
 FORMATS = read_tsv(ROOT / "tables" / "formats.tsv")
@@ -83,6 +105,7 @@ def expand(row):
             "sig": sig, "dest": dest, "sources": ",".join(srcs),
             "rounding": row["rounding"], "flags": row["flags"],
             "wave": wave_of(row, fmts), "status": "planned",
+            "tier": int(row["tier"]), "claim": row["claim"],
             "authority": authority_of(row, fmts, int_tok or "i32"),
             "vectors": row["vectors"], "comparison": row["comparison"],
             "decl": decl, "retkind": retkind or ("MSF_RK_" + dest.upper()),
@@ -94,7 +117,7 @@ def expand(row):
     fl = ", msf_flags_t *flags" if row["flags"] == "yes" else ""
 
     if sig in ("rint_named", "rint_exact", "next", "sign_un", "classify",
-               "class_op", "radix_op"):
+               "class_op", "radix_op", "payload_un"):
         ret = {"classify": "int", "class_op": "msf_class_t",
                "radix_op": "int"}.get(sig)
         rk = {"classify": "MSF_RK_BOOL", "class_op": "MSF_RK_CLASS",
@@ -105,7 +128,7 @@ def expand(row):
                  ("bool" if sig == "classify" else ("class" if sig == "class_op" else "int")),
                  [f], "%s msf%s_%s(%s a%s%s);" % (r, f[1:], op, MTYPE[f], rm, fl),
                  [f], retkind=rk)
-    elif sig in ("remainder", "sign_bin", "totalorder"):
+    elif sig in ("remainder", "sign_bin", "totalorder", "minmax"):
         ret = "int" if sig == "totalorder" else None
         for f in FMT:
             r = ret or MTYPE[f]
@@ -212,7 +235,8 @@ FLAG_DECLS = {
 REPLAYABLE = {"rint_named", "rint_exact", "next", "remainder", "scaleb",
               "logb", "arith_bin", "arith_un", "fma", "from_int", "to_int",
               "conv_fmt", "sign_un", "sign_bin", "compare", "totalorder",
-              "classify", "class_op", "radix_op", "version_op"}
+              "classify", "class_op", "radix_op", "version_op",
+              "minmax", "payload_un"}
 
 
 def ctype(tok):
@@ -250,6 +274,7 @@ def wrapper_for(o):
 def instantiate():
     ops = []
     for row in read_tsv(ROOT / "tables" / "operations.tsv"):
+        validate_family(row)
         ops.extend(expand(row))
     names = [o["name"] for o in ops]
     assert len(names) == len(set(names)), "duplicate instantiation names"
@@ -302,6 +327,11 @@ HEADER_PRELUDE = """/* muse_softfloat.h - Muse-Softfloat public API.
  * it returns positive zero, consumes nothing, and signals nothing.
  * Correct rounding is promised for significant-digit counts 1..H with
  * H = MSF_DECIMAL_H (SF-0 Section 2.6).
+ *
+ * Tier 2 declarations (SF-1) are the registered recommended
+ * surface only: a tier 2 row is neither implemented nor claimed
+ * until docs/COVERAGE.tsv says implemented and its wave-4 gate
+ * has closed for the whole binary16/32/64 bundle alike.
  *
  * Each declaration's comment names its clause and claiming wave; a
  * declaration is not a conformance claim until that wave's gate has
@@ -439,7 +469,7 @@ SIGS = ["rint_named", "rint_exact", "next", "remainder", "scaleb", "logb",
         "arith_bin", "arith_un", "fma", "from_int", "to_int", "conv_fmt",
         "char_from", "char_to_dec", "char_to_hex", "sign_un", "sign_bin",
         "compare", "totalorder", "classify", "class_op", "radix_op",
-        "version_op", "flag_op"]
+        "version_op", "flag_op", "minmax", "payload_un"]
 KINDS = ["F16", "F32", "F64", "I8", "U8", "I16", "U16", "I32", "U32",
          "I64", "U64", "BOOL", "CLASS", "INT", "SPECIAL"]
 
@@ -511,12 +541,13 @@ def emit_coverage(ops):
              "# wave gate. status=implemented means the core provides the",
              "# function today; claiming conformance additionally needs the",
              "# wave gate named in the wave column to have closed.",
-             "name\tstd_name\tclause\tdest\tsources\trounding\tflags\twave\tstatus\tauthority\tvectors\tcomparison"]
+             "name\tstd_name\tclause\tdest\tsources\trounding\tflags\twave\tstatus\tauthority\tvectors\tcomparison\ttier\tclaim"]
     for o in ops:
         lines.append("\t".join([o["name"], o["std_name"], o["clause"], o["dest"],
                                 o["sources"], o["rounding"], o["flags"],
                                 str(o["wave"]), o["status"], o["authority"],
-                                o["vectors"], o["comparison"]]))
+                                o["vectors"], o["comparison"],
+                                str(o["tier"]), o["claim"]]))
     return "\n".join(lines) + "\n"
 
 
@@ -534,6 +565,11 @@ def main(argv):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(text.encode("utf-8"))
         print("wrote %s (%d bytes)" % (rel, len(text)))
+    for tier in (1, 2):
+        tot = sum(1 for o in ops if o["tier"] == tier)
+        impl = sum(1 for o in ops
+                   if o["tier"] == tier and o["status"] == "implemented")
+        print("tier%d instantiations: %d implemented of %d" % (tier, impl, tot))
     print("instantiations: %d (implemented %d)" %
           (len(ops), sum(1 for o in ops if o["status"] == "implemented")))
     return 0
