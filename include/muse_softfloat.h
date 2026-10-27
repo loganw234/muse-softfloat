@@ -1115,29 +1115,29 @@ msf64_t msf64_from_f16(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
 msf64_t msf64_from_f32(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* convertFormat (754-2019 5.4.2), wave 1, implemented */
 msf64_t msf64_from_f64(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromDecimalCharacter (754-2019 5.4.2,5.12), wave 3, planned */
+/* convertFromDecimalCharacter (754-2019 5.4.2,5.12), wave 3, implemented */
 msf16_t msf16_from_decimal(const char *s, size_t *consumed, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromDecimalCharacter (754-2019 5.4.2,5.12), wave 3, planned */
+/* convertFromDecimalCharacter (754-2019 5.4.2,5.12), wave 3, implemented */
 msf32_t msf32_from_decimal(const char *s, size_t *consumed, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromDecimalCharacter (754-2019 5.4.2,5.12), wave 3, planned */
+/* convertFromDecimalCharacter (754-2019 5.4.2,5.12), wave 3, implemented */
 msf64_t msf64_from_decimal(const char *s, size_t *consumed, msf_rounding_t rm, msf_flags_t *flags);
-/* convertToDecimalCharacter (754-2019 5.4.2,5.12), wave 3, planned */
+/* convertToDecimalCharacter (754-2019 5.4.2,5.12), wave 3, implemented */
 size_t msf16_to_decimal(msf16_t a, const msf_decimal_spec_t *spec, char *buf, size_t buf_size, msf_rounding_t rm, msf_flags_t *flags);
-/* convertToDecimalCharacter (754-2019 5.4.2,5.12), wave 3, planned */
+/* convertToDecimalCharacter (754-2019 5.4.2,5.12), wave 3, implemented */
 size_t msf32_to_decimal(msf32_t a, const msf_decimal_spec_t *spec, char *buf, size_t buf_size, msf_rounding_t rm, msf_flags_t *flags);
-/* convertToDecimalCharacter (754-2019 5.4.2,5.12), wave 3, planned */
+/* convertToDecimalCharacter (754-2019 5.4.2,5.12), wave 3, implemented */
 size_t msf64_to_decimal(msf64_t a, const msf_decimal_spec_t *spec, char *buf, size_t buf_size, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromHexCharacter (754-2019 5.4.3,5.12), wave 3, planned */
+/* convertFromHexCharacter (754-2019 5.4.3,5.12), wave 3, implemented */
 msf16_t msf16_from_hex(const char *s, size_t *consumed, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromHexCharacter (754-2019 5.4.3,5.12), wave 3, planned */
+/* convertFromHexCharacter (754-2019 5.4.3,5.12), wave 3, implemented */
 msf32_t msf32_from_hex(const char *s, size_t *consumed, msf_rounding_t rm, msf_flags_t *flags);
-/* convertFromHexCharacter (754-2019 5.4.3,5.12), wave 3, planned */
+/* convertFromHexCharacter (754-2019 5.4.3,5.12), wave 3, implemented */
 msf64_t msf64_from_hex(const char *s, size_t *consumed, msf_rounding_t rm, msf_flags_t *flags);
-/* convertToHexCharacter (754-2019 5.4.3,5.12), wave 3, planned */
+/* convertToHexCharacter (754-2019 5.4.3,5.12), wave 3, implemented */
 size_t msf16_to_hex(msf16_t a, const msf_hex_spec_t *spec, char *buf, size_t buf_size, msf_rounding_t rm, msf_flags_t *flags);
-/* convertToHexCharacter (754-2019 5.4.3,5.12), wave 3, planned */
+/* convertToHexCharacter (754-2019 5.4.3,5.12), wave 3, implemented */
 size_t msf32_to_hex(msf32_t a, const msf_hex_spec_t *spec, char *buf, size_t buf_size, msf_rounding_t rm, msf_flags_t *flags);
-/* convertToHexCharacter (754-2019 5.4.3,5.12), wave 3, planned */
+/* convertToHexCharacter (754-2019 5.4.3,5.12), wave 3, implemented */
 size_t msf64_to_hex(msf64_t a, const msf_hex_spec_t *spec, char *buf, size_t buf_size, msf_rounding_t rm, msf_flags_t *flags);
 /* copy (754-2019 5.5.1), wave 0, implemented */
 msf16_t msf16_copy(msf16_t a);
