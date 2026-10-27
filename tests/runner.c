@@ -291,7 +291,7 @@ static void process_char_line(char **tok, int ntok, const msf_op_desc_t *op,
         size_t bufsize = 4096u, ret;
         long want_len;
         const char *want_out;
-        int spec_idx = 3, w = kind_width((uint8_t)op->retkind);
+        int spec_idx = 3, w = kind_width(op->argkinds[0]);
         msf_decimal_spec_t dspec;
         msf_hex_spec_t hspec;
         int out_idx = arrow + 1;
