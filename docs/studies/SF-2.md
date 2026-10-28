@@ -1,6 +1,9 @@
 # SF-2: Tier 2 expansion, second prefix
 
-Status: DRAFT for planted verification, 2026-10-28.
+Status: APPROVED plan of record, 2026-10-28 (owner
+decisions Sec. 9; planted verification closed same day,
+findings folded in; metrics rows carry the grades). This
+is Wave 5.
 Authorisation basis: owner's SF-2 decisions of 2026-10-28
 (Sec. 9 below). Inputs (scratch studies, cited by report
 hash in the lead ledger): `sf2-attribute`,
@@ -37,16 +40,23 @@ built from scratch by a kernel that needs it).
 
 ## 2. Step 1 - fifth attribute (first, deliberately)
 
-Study verdict PRICED-GO, ~11-17 h (14-20 with the MPFR
-route). The pack is already correct under ties-to-away
+Study verdict PRICED-GO, ~11-17 h (14-20 h with the MPFR
+route; Sec. 8 prices carry the MPFR-route band). The pack is already correct under ties-to-away
 (internal mode 4; proven by the study on 6.28M Berkeley
 `roundTiesToAway` cases). The kernel bill is
 `src/msf_string.c`, where mode 4 silently behaves as
 toward-zero in `dec_round_inc` and `to_hex` (2 cases),
 plus every mode-switch site the study enumerates. The
 rest is evidence: runner mode token, per-family vectors
-(Berkeley where it emits the mode, MPFR-RNDA/exact
-elsewhere), and the attribute column of the inventory.
+(Berkeley where it emits the mode; `sinPi`/`cosPi`/`sqrt`
+via the ties-to-even relabel, with the study's
+Niven-theorem second read as a stop condition; the exact
+Python decider for the rest - raw MPFR `RNDNA` as a
+general mode is **prohibited** by the study (measured
+incoherent); the sanctioned `mpfr_round_nearest_away`
+macro may only be used with narrowed emin/emax set first
+and a boundary battery cross-decided by exact-py before
+trust), and the attribute column of the inventory.
 Stop rule (study): the public enum value must never ship
 ahead of its vectors - today mode 4 is reachable through
 the internal header and wrong in the string path, so this
@@ -77,7 +87,8 @@ Study verdicts PRICED-GO: `exp2`/`exp2m1` 55-75 h,
 (leg (a) authority, the SF-1 Sec. 8 settlement): plain
 binary64 maxima 55.8-69.8 extra bits across the exp/log
 programme, with the stage-3 kernel reach at 4.6x the
-`exp2` demand. The Ziv three-stage pattern of
+programme-wide measured maximum (`log10` 69.77; against
+`exp2`'s own maximum of 60.54 the reach is ~5.3x). The Ziv three-stage pattern of
 `src/msf_math.c` carries mechanically; genuinely new
 parts are the generalised pack composition, wide division
 (for `log2`), constant chains, exact exponent cuts and
@@ -85,8 +96,11 @@ tie tables - all per the spike's audit. Binary32 legs
 are exhaustive MPFR differentials (priced), binary16
 exhaustive by construction. Oracle fences from the
 spike (F1: `cr_expm1/log1p` directed wrong on this host;
-H1: 8 non-binary64 tokens in `exp10m1.wc`) do not touch
-these two bundles; they bind the later ones.
+H1: 8 non-binary64 tokens in `exp10m1.wc`) bind the later
+bundles, not these two - with one exception: a measured
+`exp2m1` RN subnormal-corner pre-screen cell (foreign
+false alarm, ~1 per 1e4) that the `exp2` parcel brief
+carries as a named fence.
 
 ## 5. Step 4 - augmented arithmetic
 
@@ -99,12 +113,14 @@ verbatim far-operand pair, one internal
 round-to-nearest-ties-to-zero pack mode, `aug_pair`
 signature with a two-result runner line, ~7-10 h.
 **Pin P1 (owner, 2026-10-28):** the exact-tiny-residual
-underflow-flag cell takes the study's R2 reading
-(underflow raised), confirmed by an independent second
+underflow-flag cell takes the study's R2 reading (no
+underflow raised under default handling), confirmed by an independent second
 read inside the parcel brief before kernel code. If the
 second read cannot settle P1 to one reading, the parcel
 stops and returns as an owner decision (study stop
-condition).
+condition). The parcel brief also settles the study's
+remaining pins (rounding-column token `fixed`, internal
+RTTZ mode value) before kernel code.
 
 ## 6. Evidence and gates (unchanged discipline)
 
@@ -114,7 +130,10 @@ replay where the family has a board caller (Step 4: the
 interval firmware path; Steps 1-3: sampled vector replay).
 Vector authorities per the studies; any family whose
 leg cannot close is refused, not downgraded (SF-0 rule).
-Negative controls named in each brief, incl. one plant
+Each parcel brief enumerates its exact/tie branches and
+their inexact-flag proof obligation before kernel code
+(spike Sec. 2.3 pattern). Negative controls named in
+each brief, incl. one plant
 that would pass if mode 4 still leaked toward-zero
 semantics (Step 1) and one that swaps head/tail rounding
 directions (Step 4).
@@ -151,6 +170,9 @@ and board sweeps uncontested.
 
 - Leg-(c) spike for `pown`/`compound`/`rootn` (8-16 h,
   priced, unauthorised).
+- `exp` near-1 directed pocket (105.58 extra bits):
+  composition-path vs stage-reliance choice belongs to
+  that later bundle's brief.
 - Float KissFFT configuration; three unenumerated clone
   boards (owner cables); video music (owner).
 - F1 oracle-defect origin (Linux documented check is the
