@@ -128,7 +128,7 @@ def expand(row):
                  ("bool" if sig == "classify" else ("class" if sig == "class_op" else "int")),
                  [f], "%s msf%s_%s(%s a%s%s);" % (r, f[1:], op, MTYPE[f], rm, fl),
                  [f], retkind=rk)
-    elif sig in ("remainder", "sign_bin", "totalorder", "minmax"):
+    elif sig in ("remainder", "sign_bin", "totalorder", "minmax", "math_bin"):
         ret = "int" if sig == "totalorder" else None
         for f in FMT:
             r = ret or MTYPE[f]
@@ -236,7 +236,7 @@ REPLAYABLE = {"rint_named", "rint_exact", "next", "remainder", "scaleb",
               "logb", "arith_bin", "arith_un", "fma", "from_int", "to_int",
               "conv_fmt", "sign_un", "sign_bin", "compare", "totalorder",
               "classify", "class_op", "radix_op", "version_op",
-              "minmax", "payload_un", "math_un"}
+              "minmax", "payload_un", "math_un", "math_bin"}
 
 
 def ctype(tok):
@@ -472,7 +472,8 @@ SIGS = ["rint_named", "rint_exact", "next", "remainder", "scaleb", "logb",
         "arith_bin", "arith_un", "fma", "from_int", "to_int", "conv_fmt",
         "char_from", "char_to_dec", "char_to_hex", "sign_un", "sign_bin",
         "compare", "totalorder", "classify", "class_op", "radix_op",
-        "version_op", "flag_op", "minmax", "payload_un", "math_un"]
+        "version_op", "flag_op", "minmax", "payload_un", "math_un",
+        "math_bin"]
 KINDS = ["F16", "F32", "F64", "I8", "U8", "I16", "U16", "I32", "U32",
          "I64", "U64", "BOOL", "CLASS", "INT", "SPECIAL"]
 

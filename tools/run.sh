@@ -34,7 +34,7 @@ PY="${MSF_PYTHON:-}"
 HOST_CC="${MSF_HOST_CC:-gcc}"
 ARM_CC="${MSF_ARM_CC:-arm-none-eabi-gcc}"
 CFLAGS="-std=c11 -O2 -Wall -Wextra -Werror -ffp-contract=off"
-SRC="src/msf16.c src/msf32.c src/msf64.c src/msf_flags.c src/msf_wide.c src/msf_roundpack.c src/msf_string.c src/msf_math.c"
+SRC="src/msf16.c src/msf32.c src/msf64.c src/msf_flags.c src/msf_wide.c src/msf_roundpack.c src/msf_string.c src/msf_math.c src/msf_alg.c"
 START=$(date +%s)
 fail() { echo "RUN.SH: FAIL - $1"; exit 1; }
 
@@ -127,12 +127,13 @@ control_ok() { echo "control $1: refused as required"; }
 control_bad() { echo "control $1: NOT REFUSED"; CTRL_FAIL=1; }
 
 # SF-1 registered-surface freeze: Tier 1 stays exactly the SF-0
-# surface; the registered Tier 2 surface is Step 1's 33 rows plus
-# Step 2c's 6 sinPi/cosPi rows. A lead table expansion updates
-# TIER2 in the same commit that registers more families - never
-# silently.
+# surface; the registered Tier 2 surface is SF-1's 39 rows plus
+# SF-2 Step 2a's 6 rSqrt/hypot rows (rSqrt implemented, hypot
+# registered planned; 45 registered / 42 implemented). A lead
+# table expansion updates TIER2 in the same commit that
+# registers more families - never silently.
 TIER1_TOTAL_EXPECTED=783
-TIER2_TOTAL_EXPECTED=39
+TIER2_TOTAL_EXPECTED=45
 inventory_check() { # $1 = COVERAGE.tsv to judge; prints one summary line
     local file="$1"
     awk -F '\t' -v t1exp="$TIER1_TOTAL_EXPECTED" -v t2exp="$TIER2_TOTAL_EXPECTED" '
@@ -222,7 +223,7 @@ controls() {
     echo "negative controls: all refused"
 }
 
-VECS="tests/vectors/encodings-f16.vec tests/vectors/encodings-f32.vec tests/vectors/encodings-f64.vec tests/vectors/copysign.vec tests/vectors/pack64.vec tests/vectors/pack32.vec tests/vectors/pack16.vec tests/vectors/arith-f32.vec tests/vectors/fma-sqrt-f32.vec tests/vectors/conv-int-f32.vec tests/vectors/toint-f32.vec tests/vectors/rint-misc-f32.vec tests/vectors/compare-f32.vec tests/vectors/arith-f64.vec tests/vectors/conv-f64.vec tests/vectors/misc-f64.vec tests/vectors/compare-f64.vec tests/vectors/nan-f64.vec tests/vectors/arith-f16.vec tests/vectors/fma-sqrt-f16.vec tests/vectors/conv-int-f16.vec tests/vectors/toint-f16.vec tests/vectors/rint-misc-f16.vec tests/vectors/compare-f16.vec tests/vectors/arith-xf.vec tests/vectors/fma-sqrt-xf.vec tests/vectors/conv-xf.vec tests/vectors/compare-xf.vec tests/vectors/traps-xf.vec tests/vectors/from-decimal-str.vec tests/vectors/from-hex-str.vec tests/vectors/to-decimal-str.vec tests/vectors/to-hex-str.vec tests/vectors/minmax-f16.vec tests/vectors/minmax-f32.vec tests/vectors/minmax-f64.vec tests/vectors/payload-f16.vec tests/vectors/payload-f32.vec tests/vectors/payload-f64.vec tests/vectors/trig-f16.vec tests/vectors/trig-f32.vec tests/vectors/trig-f64.vec"
+VECS="tests/vectors/encodings-f16.vec tests/vectors/encodings-f32.vec tests/vectors/encodings-f64.vec tests/vectors/copysign.vec tests/vectors/pack64.vec tests/vectors/pack32.vec tests/vectors/pack16.vec tests/vectors/arith-f32.vec tests/vectors/fma-sqrt-f32.vec tests/vectors/conv-int-f32.vec tests/vectors/toint-f32.vec tests/vectors/rint-misc-f32.vec tests/vectors/compare-f32.vec tests/vectors/arith-f64.vec tests/vectors/conv-f64.vec tests/vectors/misc-f64.vec tests/vectors/compare-f64.vec tests/vectors/nan-f64.vec tests/vectors/arith-f16.vec tests/vectors/fma-sqrt-f16.vec tests/vectors/conv-int-f16.vec tests/vectors/toint-f16.vec tests/vectors/rint-misc-f16.vec tests/vectors/compare-f16.vec tests/vectors/arith-xf.vec tests/vectors/fma-sqrt-xf.vec tests/vectors/conv-xf.vec tests/vectors/compare-xf.vec tests/vectors/traps-xf.vec tests/vectors/from-decimal-str.vec tests/vectors/from-hex-str.vec tests/vectors/to-decimal-str.vec tests/vectors/to-hex-str.vec tests/vectors/minmax-f16.vec tests/vectors/minmax-f32.vec tests/vectors/minmax-f64.vec tests/vectors/payload-f16.vec tests/vectors/payload-f32.vec tests/vectors/payload-f64.vec tests/vectors/trig-f16.vec tests/vectors/trig-f32.vec tests/vectors/trig-f64.vec tests/vectors/alg-f16.vec tests/vectors/alg-f32.vec tests/vectors/alg-f64.vec"
 
 smoke() {
     check_host_compiler "$HOST_CC" || fail "host compiler refused"

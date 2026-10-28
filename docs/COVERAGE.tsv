@@ -827,3 +827,9 @@ msf64_sin_pi	sinPi	9.2	f64	f64	attr	yes	4	implemented	mpfr-exact	directed-hardes
 msf16_cos_pi	cosPi	9.2	f16	f16	attr	yes	4	implemented	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
 msf32_cos_pi	cosPi	9.2	f32	f32	attr	yes	4	implemented	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
 msf64_cos_pi	cosPi	9.2	f64	f64	attr	yes	4	implemented	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
+msf16_r_sqrt	rSqrt	9.2	f16	f16	attr	yes	5	implemented	mpfr-exact	directed-alg;ties;seeded-random	exact	2	C-754
+msf32_r_sqrt	rSqrt	9.2	f32	f32	attr	yes	5	implemented	mpfr-exact	directed-alg;ties;seeded-random	exact	2	C-754
+msf64_r_sqrt	rSqrt	9.2	f64	f64	attr	yes	5	implemented	mpfr-exact	directed-alg;ties;seeded-random	exact	2	C-754
+msf16_hypot	hypot	9.2	f16	f16,f16	attr	yes	5	planned	mpfr-exact	directed-alg;ties;seeded-random	exact	2	C-754
+msf32_hypot	hypot	9.2	f32	f32,f32	attr	yes	5	planned	mpfr-exact	directed-alg;ties;seeded-random	exact	2	C-754
+msf64_hypot	hypot	9.2	f64	f64,f64	attr	yes	5	planned	mpfr-exact	directed-alg;ties;seeded-random	exact	2	C-754

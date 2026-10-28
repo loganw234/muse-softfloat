@@ -77,6 +77,10 @@ printed, never silent (SF-0 §4.3).
 | `mpfr640-trig:hardest` | measured-hardest input excerpts: binary64 patterns from the published worst-case input sets (Step 2b mechanical census, inputs only), binary32 from a parcel mpmath margin scan, binary16 the spike-measured maxima; every expectation re-decided by the same MPFR decider |
 | `mpfr640-trig:seeded` | seeded finite-encoding class sweep (seeds in the generator), same decider |
 | `mpfr640-trig:<family>-ta-relabel` | SF-2 Step 1: the same input's decided `te` expectation relabeled `ta`; sinPi/cosPi of a dyadic input is never a rounding midpoint (Niven), so ta == te in bits and flags. Relabeled, NOT independently decided; theorem note in the parcel-w5attr report |
+| `mpfr-alg:specials` | Clause 9.2 rSqrt specials at all 3 formats (signed zeros/infinities, quiet/signaling NaN payload samples, negative finite samples), expectations table-decided from the settled 9.2.1 cells in `tests/alg_decider.c` and `tests/gen_vectors_alg.py` and cross-checked - the `rSqrt(-0)` cell is never MPFR-sourced (SF-2 Step 2a) |
+| `mpfr-alg:directed` | rSqrt directed exact/edge pool: perfect-square lattice (+-1 ulp neighbours), powers of two, smallest/largest subnormal, smallest normal, largest finite, same split as above: MPFR Step 0b operation recipe via `tests/alg_decider.c`, cross-decided per case by the generator's exact integer decider in all five modes |
+| `mpfr-alg:ties` | rSqrt midpoint-adjacent constructions (encodings nearest the reciprocal square of sampled destination midpoints; exact ties are unattainable for rSqrt, so these are the hardest-to-round inputs), same decider split |
+| `mpfr-alg:seeded` | rSqrt seeded finite-positive encoding sweep (seeds in the generator), same decider split |
 
 Berkeley's flag bits are ordered differently from `MSF_FLAG_*`
 (inexact=1, underflow=2, overflow=4, infinite/divide-by-zero=8,
