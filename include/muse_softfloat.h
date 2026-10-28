@@ -1744,17 +1744,17 @@ msf16_t msf16_set_payload_signaling(msf16_t a);
 msf32_t msf32_set_payload_signaling(msf32_t a);
 /* setPayloadSignaling (754-2019 9.7), wave 4, implemented */
 msf64_t msf64_set_payload_signaling(msf64_t a);
-/* sinPi (754-2019 9.2), wave 4, planned */
+/* sinPi (754-2019 9.2), wave 4, implemented */
 msf16_t msf16_sin_pi(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* sinPi (754-2019 9.2), wave 4, planned */
+/* sinPi (754-2019 9.2), wave 4, implemented */
 msf32_t msf32_sin_pi(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* sinPi (754-2019 9.2), wave 4, planned */
+/* sinPi (754-2019 9.2), wave 4, implemented */
 msf64_t msf64_sin_pi(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* cosPi (754-2019 9.2), wave 4, planned */
+/* cosPi (754-2019 9.2), wave 4, implemented */
 msf16_t msf16_cos_pi(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* cosPi (754-2019 9.2), wave 4, planned */
+/* cosPi (754-2019 9.2), wave 4, implemented */
 msf32_t msf32_cos_pi(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* cosPi (754-2019 9.2), wave 4, planned */
+/* cosPi (754-2019 9.2), wave 4, implemented */
 msf64_t msf64_cos_pi(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
 
 #endif /* MUSE_SOFTFLOAT_H */

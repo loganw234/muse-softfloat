@@ -874,6 +874,12 @@ static uint64_t msf_call_msf64_set_payload(const uint64_t *args, int rm, msf_fla
 static uint64_t msf_call_msf16_set_payload_signaling(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf16_set_payload_signaling((msf16_t)args[0])); }
 static uint64_t msf_call_msf32_set_payload_signaling(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf32_set_payload_signaling((msf32_t)args[0])); }
 static uint64_t msf_call_msf64_set_payload_signaling(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf64_set_payload_signaling((msf64_t)args[0])); }
+static uint64_t msf_call_msf16_sin_pi(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf16_sin_pi((msf16_t)args[0], (msf_rounding_t)rm, flags)); }
+static uint64_t msf_call_msf32_sin_pi(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf32_sin_pi((msf32_t)args[0], (msf_rounding_t)rm, flags)); }
+static uint64_t msf_call_msf64_sin_pi(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf64_sin_pi((msf64_t)args[0], (msf_rounding_t)rm, flags)); }
+static uint64_t msf_call_msf16_cos_pi(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf16_cos_pi((msf16_t)args[0], (msf_rounding_t)rm, flags)); }
+static uint64_t msf_call_msf32_cos_pi(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf32_cos_pi((msf32_t)args[0], (msf_rounding_t)rm, flags)); }
+static uint64_t msf_call_msf64_cos_pi(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf64_cos_pi((msf64_t)args[0], (msf_rounding_t)rm, flags)); }
 
 static const msf_op_desc_t MSF_OPS[] = {
     { "msf16_round_to_integral_ties_to_even", "roundToIntegralTiesToEven", MSF_SIG_RINT_NAMED, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 1, 1, 2, msf_call_msf16_round_to_integral_ties_to_even },
@@ -1692,12 +1698,12 @@ static const msf_op_desc_t MSF_OPS[] = {
     { "msf16_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf16_set_payload_signaling },
     { "msf32_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf32_set_payload_signaling },
     { "msf64_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf64_set_payload_signaling },
-    { "msf16_sin_pi", "sinPi", MSF_SIG_MATH_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
-    { "msf32_sin_pi", "sinPi", MSF_SIG_MATH_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
-    { "msf64_sin_pi", "sinPi", MSF_SIG_MATH_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
-    { "msf16_cos_pi", "cosPi", MSF_SIG_MATH_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
-    { "msf32_cos_pi", "cosPi", MSF_SIG_MATH_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
-    { "msf64_cos_pi", "cosPi", MSF_SIG_MATH_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
+    { "msf16_sin_pi", "sinPi", MSF_SIG_MATH_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 4, msf_call_msf16_sin_pi },
+    { "msf32_sin_pi", "sinPi", MSF_SIG_MATH_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 4, msf_call_msf32_sin_pi },
+    { "msf64_sin_pi", "sinPi", MSF_SIG_MATH_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 4, msf_call_msf64_sin_pi },
+    { "msf16_cos_pi", "cosPi", MSF_SIG_MATH_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 4, msf_call_msf16_cos_pi },
+    { "msf32_cos_pi", "cosPi", MSF_SIG_MATH_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 4, msf_call_msf32_cos_pi },
+    { "msf64_cos_pi", "cosPi", MSF_SIG_MATH_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 4, msf_call_msf64_cos_pi },
 };
 #define MSF_OP_COUNT 822
 
