@@ -62,7 +62,7 @@ static const mpfr_rnd_t XRND[4] = { MPFR_RNDN, MPFR_RNDZ, MPFR_RNDU,
 
 static uint64_t g_x_escal, g_x_undecided, g_x_special, g_x_shortcut;
 static uint64_t g_x_audit, g_x_audit_fail, g_x_audit_seq;
-#define X_AUDIT_STRIDE 999983ULL
+#define X_AUDIT_STRIDE 99991ULL
 
 static void x_decode(const xfmt_t *f, uint64_t bits, int *sign,
                      uint64_t *sig, int *exp2, int *cls)
@@ -126,15 +126,22 @@ static void x_round_grid(mpfr_t a, long g, int sign, int rm,
                          uint64_t *iu, int *inexact)
 {
     static mpfr_t sc, iv, fr, half;
-    static int init = 0;
+    static long cur_prec = 0;
     int cmp, inc = 0, nonzero;
-    if (!init) {
-        mpfr_init2(sc, 4352);
-        mpfr_init2(iv, 4352);
-        mpfr_init2(fr, 4352);
-        mpfr_init2(half, 64);
-        mpfr_set_si_2exp(half, 1, -1, MPFR_RNDN);
-        init = 1;
+    long need = (long)mpfr_get_prec(a) + 64;
+    if (cur_prec < need) {
+        if (cur_prec != 0) {
+            mpfr_clear(sc);
+            mpfr_clear(iv);
+            mpfr_clear(fr);
+        } else {
+            mpfr_init2(half, 64);
+            mpfr_set_si_2exp(half, 1, -1, MPFR_RNDN);
+        }
+        mpfr_init2(sc, (mpfr_prec_t)need);
+        mpfr_init2(iv, (mpfr_prec_t)need);
+        mpfr_init2(fr, (mpfr_prec_t)need);
+        cur_prec = need;
     }
     mpfr_mul_2si(sc, a, -g, MPFR_RNDN);
     mpfr_trunc(iv, sc);
@@ -171,13 +178,17 @@ static void x_narrow(const xfmt_t *f, mpfr_t v, int rm,
                      uint64_t *rb, uint32_t *rf)
 {
     static mpfr_t a;
-    static int init = 0;
+    static long cur_prec = 0;
     int sign, inexact = 0, tiny = 0;
     long e, g;
     uint64_t iu = 0u, sign_bit;
-    if (!init) {
-        mpfr_init2(a, 4352);
-        init = 1;
+    long need = (long)mpfr_get_prec(v) + 64;
+    if (cur_prec < need) {
+        if (cur_prec != 0) {
+            mpfr_clear(a);
+        }
+        mpfr_init2(a, (mpfr_prec_t)need);
+        cur_prec = need;
     }
     sign = mpfr_signbit(v) != 0;
     sign_bit = (uint64_t)sign << (f->w - 1);
@@ -324,14 +335,23 @@ static int x_decide_table(const xfmt_t *f, int is_m1, uint64_t bits,
             is_int = rem == 0u;
             nval = (int64_t)(sig >> (unsigned)-exp2);
         }
-        /* Far cuts first (they also cover huge integers):
-         * |x| >= 4096 puts the RESULT more than 3000 bits of
-         * exponent beyond every kernel threshold (kernel
-         * cuts sit at |x| <= 1076), so a proxy exact value
-         * narrowed by the same grid is a sound decision and
-         * a kernel cut off-by-one still faces the full
-         * bracket in between. */
-        if (top >= 12) {
+        /* Far cuts first (they also cover huge integers).
+         * Thresholds are on top = floor(log2|x|) and put the
+         * result at least 64 exponent bits beyond every
+         * kernel threshold (kernel cuts: x >= emax+2 <= 1025,
+         * x < emin-p >= -1075, x < -(p+1) >= -54), so a proxy
+         * exact value narrowed by the same grid is a sound
+         * decision and a kernel cut off-by-one still faces
+         * the full bracket in between:
+         *   x >= 2048 (top >= 11): result >= 2^2048, proxy
+         *     2^(emax+2);
+         *   exp2, x <= -2048: result <= 2^-2048, proxy
+         *     2^(etie-2) (< u/2 at every format);
+         *   exp2m1, x <= -256 (top >= 8): result within
+         *     2^-256 of -1, proxy -(1 - 2^-(p+8)). */
+        if ((!sign && top >= 11)
+            || (sign && !is_m1 && top >= 11)
+            || (sign && is_m1 && top >= 8)) {
             for (rm = 0; rm < 5; rm++) {
                 if (!sign) {
                     x_narrow_pow2(f, 0, (long)f->emax + 2, rm,
@@ -424,7 +444,14 @@ static int x_decide_mpfr(const xfmt_t *f, int is_m1, uint64_t bits,
         if (sign) {
             mpfr_neg(x, x, MPFR_RNDN);
         }
-        if (is_m1) {
+        /* Near-1 composition for tiny exp2 inputs: the
+         * direct value 1 + m collapses onto 1 at working
+         * precision when |m| < 2^-prec (spike Sec. 2.4), so
+         * bracket m = exp2m1(x) relatively and compose the
+         * ends 1 + m_end exactly in a wide workspace. */
+        int compose1 = !is_m1
+            && ((long)exp2 + x_bitlen(sig) - 1) <= -9;
+        if (is_m1 || compose1) {
             mpfr_exp2m1(y, x, MPFR_RNDN);
         } else {
             mpfr_exp2(y, x, MPFR_RNDN);
@@ -438,12 +465,53 @@ static int x_decide_mpfr(const xfmt_t *f, int is_m1, uint64_t bits,
         mpfr_set(yhi, y, MPFR_RNDN);
         mpfr_nextabove(yhi);
         mpfr_nextabove(yhi);
+        if (compose1) {
+            static mpfr_t clo, chi;
+            static int cinit = 0;
+            if (!cinit) {
+                mpfr_init2(clo, 4224);
+                mpfr_init2(chi, 4224);
+                cinit = 1;
+            }
+            /* 1 + end is exact at 4224 bits: end span from
+             * 2^0 to 2^(e-prec+1) is at most 1075+3072 bits. */
+            mpfr_add_ui(clo, ylo, 1u, MPFR_RNDN);
+            mpfr_add_ui(chi, yhi, 1u, MPFR_RNDN);
+            for (rm = 0; rm < 5 && ok; rm++) {
+                uint64_t blo, bhi;
+                uint32_t flo, fhi;
+                x_narrow(f, clo, rm, &blo, &flo);
+                x_narrow(f, chi, rm, &bhi, &fhi);
+                if (blo != bhi || flo != fhi) {
+                    ok = 0;
+                } else {
+                    rb[rm] = blo;
+                    rf[rm] = flo;
+                }
+            }
+            if (ok) {
+                return 0;
+            }
+            continue;
+        }
         for (rm = 0; rm < 5 && ok; rm++) {
             uint64_t blo, bhi;
             uint32_t flo, fhi;
             x_narrow(f, ylo, rm, &blo, &flo);
             x_narrow(f, yhi, rm, &bhi, &fhi);
             if (blo != bhi || flo != fhi) {
+#ifdef X_DEBUG_ESCAL
+                static int dbg = 0;
+                if (attempt == 0 && dbg < 10) {
+                    dbg++;
+                    printf("ESCAL %s in=%016llx rm=%d blo=%016llx/%02x "
+                           "bhi=%016llx/%02x\n",
+                           is_m1 ? "exp2m1" : "exp2",
+                           (unsigned long long)bits, rm,
+                           (unsigned long long)blo, (unsigned)flo,
+                           (unsigned long long)bhi, (unsigned)fhi);
+                }
+#endif
                 ok = 0;
             } else {
                 rb[rm] = blo;

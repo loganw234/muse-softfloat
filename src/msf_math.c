@@ -1145,7 +1145,16 @@ static uint64_t explog_core(int fmt, int is_m1, uint64_t bits, int rm,
     sh.sign = 0;
     kind = f_sign ? 2 : 0;
     if (!is_m1) {
-        if (!f_sign) {
+        if (!f_sign && n_int == 0) {
+            /* near-1 attractor: 1 + m composed at pack scale
+             * (m can be ~2^-1075 relative, far below any
+             * stage Ek on the direct v path) */
+            sh.kind = EXPLOG_SH_BRACKET;
+            sh.sign = 0;
+            sh.ones_lo = 0;
+            sh.ones_hi = 1;
+            sh.q_neg = 0;
+        } else if (!f_sign) {
             sh.kind = EXPLOG_SH_PLAIN;
             sh.sign = 0;
             kind = 1;
