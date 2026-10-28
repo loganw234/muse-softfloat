@@ -17,3 +17,8 @@ __pycache__/
 # Scratch that must never be staged by accident
 probe-tmp/
 *-tmp/
+
+# Demo downloads and generated workload trees (demo/README.md):
+# fetched REBOUND/KissFFT source must never be tracked; demo/fetch.sh
+# refuses to run if this path would be.
+demo/cache/
