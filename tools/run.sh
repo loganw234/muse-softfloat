@@ -128,8 +128,8 @@ control_bad() { echo "control $1: NOT REFUSED"; CTRL_FAIL=1; }
 
 # SF-1 registered-surface freeze: Tier 1 stays exactly the SF-0
 # surface; the registered Tier 2 surface is SF-1's 39 rows plus
-# SF-2 Step 2a's 6 rSqrt/hypot rows (rSqrt implemented, hypot
-# registered planned; 45 registered / 42 implemented). A lead
+# SF-2 Step 2's 6 rSqrt/hypot rows (Step 2a rSqrt, Step 2b
+# hypot; 45 registered / 45 implemented). A lead
 # table expansion updates TIER2 in the same commit that
 # registers more families - never silently.
 TIER1_TOTAL_EXPECTED=783

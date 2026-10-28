@@ -831,3 +831,6 @@ msf64_cos_pi	4
 msf16_r_sqrt	5
 msf32_r_sqrt	5
 msf64_r_sqrt	5
+msf16_hypot	5
+msf32_hypot	5
+msf64_hypot	5
