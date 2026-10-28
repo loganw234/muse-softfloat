@@ -17,8 +17,9 @@ pipeline and rendered cut, and the record that stands beside them.
 
 **Tier 1 complete and Tier 2's authorised prefix landed:
 822 of 822 instantiations, three workloads bit-identical on
-silicon.** [SF-0](docs/studies/SF-0.md) and
-[SF-1](docs/studies/SF-1.md) are the approved plans of record.
+silicon.** [SF-0](docs/studies/SF-0.md),
+[SF-1](docs/studies/SF-1.md) and
+[SF-2](docs/studies/SF-2.md) are the approved plans of record.
 The full Clause 5 surface for binary16/32/64 is implemented
 and gated (783/783) — arithmetic, FMA, conversions,
 comparisons, totalOrder, and correctly rounded decimal/hex
@@ -27,9 +28,9 @@ character conversions (H=20) — plus 39 Tier 2 rows: Clause
 correctly rounded `sinPi`/`cosPi`, every family at all three
 formats. Each row is gated against Berkeley TestFloat 3e,
 MPFR, or an exact reference at the volume its authority
-names (146,442 committed vectors; `standard` adds 1,117,504),
+names (171,423 committed vectors; `standard` adds 1,117,504),
 and verified wave by wave on planted copies by independent
-Spark verifiers (49 of 50 plants caught across four waves).
+Spark verifiers (61 of 65 plants caught to date).
 Three workloads run bit-identically on the RP2040: REBOUND's
 IAS15 integrator over the AEABI compat surface reproduces the
 unmodified desktop build's state hashes for 2,000 steps
@@ -46,16 +47,18 @@ Git Bash: it prints its inventory before any verdict, refuses drift
 and each named negative control, and `standard` is the merge gate
 (AGENTS.md has the budgets and their measured costs).
 
-Still deliberately not implemented — deferred or refused by
-name in SF-1 §7 until a workload or a later study earns them:
-the other 37 Clause 9.2 functions (`pow`/`powr` refused in
-any first sequence), Clause 9.4 reductions, Clause 9.5
-augmented arithmetic, dynamic rounding wrappers,
-`roundTiesToAway` as a fifth attribute, and public
-`roundToOdd`. Binary128, decimal formats, and Clause 8
-alternate exception handling are out of this project entirely
-(SF-0 §2.7). Anything beyond this list needs a new study and
-owner approval before it is briefed.
+Wave 5 (SF-2) is under way: `roundTiesToAway` has landed as
+the fifth public rounding attribute across all 255
+attribute-carrying rows; `rSqrt`/`hypot`, the `exp2`/`log2`
+pairs, and Clause 9.5 augmented arithmetic follow in SF-2's
+order. Still deliberately not implemented — deferred or
+refused by name in SF-1 §7 and SF-2 §1: the remaining Clause
+9.2 functions (`pow`/`powr` refused in any first sequence),
+Clause 9.4 reductions, dynamic rounding wrappers, and
+public `roundToOdd`. Binary128, decimal formats, and Clause
+8 alternate exception handling are out of this project
+entirely (SF-0 §2.7). Anything beyond this list needs a new
+study and owner approval before it is briefed.
 
 ## Demo video
 
@@ -72,7 +75,7 @@ is built on a 120 BPM grid so a licensed track can be dropped in later.
 | `docs/KICKOFF.md` | the owner's words verbatim, the lead's readings, open questions |
 | `docs/HARNESS.md` | how the methods' mechanisms map onto Muse, measured |
 | `docs/BOARD.md` | the Pico: protocol and filled details |
-| `docs/studies/` | SF-0 and SF-1, the approved plans of record |
+| `docs/studies/` | SF-0, SF-1 and SF-2, the approved plans of record |
 | `docs/RECORD.md` | dated run entries, the project's record |
 | `docs/COVERAGE.tsv` | per-instantiation coverage ledger: status, deciding authority, vector set (generated) |
 | `docs/WIDTHS.md` | internal exact-integer widths, with proof notes |
