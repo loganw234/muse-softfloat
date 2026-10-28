@@ -54,8 +54,8 @@ augmented arithmetic, dynamic rounding wrappers,
 `roundTiesToAway` as a fifth attribute, and public
 `roundToOdd`. Binary128, decimal formats, and Clause 8
 alternate exception handling are out of this project entirely
-(SF-0 §2.7). Expansion studies for the deferred families are
-under way.
+(SF-0 §2.7). Anything beyond this list needs a new study and
+owner approval before it is briefed.
 
 ## Demo video
 
