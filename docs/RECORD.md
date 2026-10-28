@@ -816,3 +816,28 @@ same day graded the project *adherent with slips* - the
 slips are named in the ledger, two fixed same-step
 (README staleness, `checked_by` honesty), the metrics
 refresh owed at Wave 5 close.
+
+**Wave 5 Step 2b landed (appended 2026-10-28):**
+correctly rounded `hypot` at all three formats
+(`e858498`, merged `4a80126`) - exact in a 128-bit
+anchored window (floor-sum plus a separate tail sticky,
+never a jam, because midpoint ties are attainable),
+specials in Clause 9.2 evaluation order with
+infinity-over-quiet-NaN. Tier 2 is now **45/45**. Evidence:
+2,500 committed lines per format (smoke 182,518),
+binary16 pool sweep 6,553,600 decisions, 1.75M seeded
+checks per wider format, zero mismatches, every
+committed pair three-way cross-decided. Two audit-grade
+finds ride along: the parcel proved (and its verifier
+independently confirmed) that the tree-idiom jam mutant
+is packed-equivalent to the mandated floor form in this
+realization - floor shipped anyway; and `cr_hypot`
+corroboration exposed a foreign directed-mode defect
+class on this host (6,897 disagreements, every one
+adjudicated MPFR==exact, fenced). Planted verification
+**5 of 5** (75 of 80 cumulative). Board: budget passes;
+1,585/1,585 stride-sampled algebraic vectors (1,071 of
+them `hypot`) replay bit-identically (hash
+`c57f84f8...a915`, UF2 `ce666350...7801`), after a
+one-token `-O3` maybe-uninitialized fix the parcel's
+`-Os` check could not see.
