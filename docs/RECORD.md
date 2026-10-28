@@ -647,3 +647,22 @@ steps/s each at 125 MHz). The other three clones did not
 enumerate on power-only cables; the full six-board run is
 deferred until data cables arrive and no claim is made for
 those boards.
+
+**Step 0 closed (appended 2026-10-27):** the oracle half has
+landed. The MPFR binary32/binary16 emulation recipe is now
+proven by known-answer probes cross-decided by exact rational
+arithmetic (232/232): `emin/emax` -148/128 and -23/16, with
+`mpfr_check_range` required on the narrowing path, a zero guard
+before `mpfr_subnormalize`, and MPFR flags measured *not*
+transcribable as IEEE flags. CORE-MATH is pinned in scratch
+(master `3b2163bb...`, fetch row in
+`docs/metrics/fetches.jsonl`) and smoked against MPFR on
+regular numbers (23,926 of 24,520 comparisons agree). Two
+honest fences stand: the documented `check.sh` build fails on
+this Windows host (priced: a Linux host), and `cr_cospif` as
+built here is wrong in toward-zero/downward modes near result 1
+(297 inputs per mode, adjudicated against it by three MPFR
+routes) - that cell corroborates nothing directed until a Linux
+exhaustive check separates upstream defect from build artifact.
+MPFR remains the decider. With 0a and 0b both checked, SF-1
+Step 0 is closed and Step 1 briefs may be cut.
