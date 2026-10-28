@@ -840,4 +840,9 @@ adjudicated MPFR==exact, fenced). Planted verification
 them `hypot`) replay bit-identically (hash
 `c57f84f8...a915`, UF2 `ce666350...7801`), after a
 one-token `-O3` maybe-uninitialized fix the parcel's
-`-Os` check could not see.
+`-Os` check could not see. The project also has a live
+demo page now (owner side parcel, planted-verified 5 of
+5): the repository's own C sources compiled to
+WebAssembly behind an instrument UI, proven by replaying
+1,596 committed vectors through the WASM build with zero
+mismatches - https://loganw234.github.io/muse-softfloat/
