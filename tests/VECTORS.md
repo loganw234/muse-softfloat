@@ -19,8 +19,9 @@ overflow refusal; it is never a silent constant bump.
 ```
 
 - `<op>` is a generated API name from `docs/COVERAGE.tsv`.
-- `<rm>` is `te|tz|tp|tn` for attribute-taking operations, `-`
-  otherwise. (`ta` exists only for `internal.pack64` below.)
+- `<rm>` is `te|tz|tp|tn|ta` for attribute-taking operations
+  (five attributes; `ta` = roundTiesToAway, SF-2 Step 1), `-`
+  otherwise.
 - `<args...>` are operand bit patterns as hexadecimal integers,
   truncated to the operation's kind width.
 - `<result>` is the expected result bits (integers and predicates in
@@ -75,6 +76,7 @@ printed, never silent (SF-0 §4.3).
 | `mpfr640-trig:tiny` | smallest/largest subnormal and smallest-normal neighbourhood inputs (saturation family near +-1), same decider |
 | `mpfr640-trig:hardest` | measured-hardest input excerpts: binary64 patterns from the published worst-case input sets (Step 2b mechanical census, inputs only), binary32 from a parcel mpmath margin scan, binary16 the spike-measured maxima; every expectation re-decided by the same MPFR decider |
 | `mpfr640-trig:seeded` | seeded finite-encoding class sweep (seeds in the generator), same decider |
+| `mpfr640-trig:<family>-ta-relabel` | SF-2 Step 1: the same input's decided `te` expectation relabeled `ta`; sinPi/cosPi of a dyadic input is never a rounding midpoint (Niven), so ta == te in bits and flags. Relabeled, NOT independently decided; theorem note in the parcel-w5attr report |
 
 Berkeley's flag bits are ordered differently from `MSF_FLAG_*`
 (inexact=1, underflow=2, overflow=4, infinite/divide-by-zero=8,

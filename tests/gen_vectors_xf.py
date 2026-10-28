@@ -34,7 +34,7 @@ from fractions import Fraction
 from pathlib import Path
 
 FLAG_INV, FLAG_DIV0, FLAG_OVF, FLAG_UNF, FLAG_INX = 0x01, 0x02, 0x04, 0x08, 0x10
-RMS4 = ["te", "tz", "tp", "tn"]
+RMS4 = ["te", "tz", "tp", "tn", "ta"]  # five attributes (SF-2 Step 1)
 
 FMT = {  # name: (bits, precision, exp bits)
     "f16": (16, 11, 5),
@@ -142,6 +142,8 @@ def _round_q(sign, q, r, den, rm):
     inc = False
     if rm == "te":
         inc = twice > den or (twice == den and q % 2 == 1)
+    elif rm == "ta":
+        inc = twice >= den
     elif rm == "tp":
         inc = not sign
     elif rm == "tn":
@@ -185,7 +187,7 @@ def pack_mag(sign, mag, rm, fmt):
     if q >= (1 << (p - 1)):
         big_e = scale + (p - 1)
         if big_e > emax:
-            to_inf = rm == "te" or (rm == "tp" and not sign) \
+            to_inf = rm in ("te", "ta") or (rm == "tp" and not sign) \
                 or (rm == "tn" and sign)
             enc = c["inf"] if to_inf else ((c["expmax"] - 1) << t) | c["fracmask"]
             return signbit | enc, FLAG_OVF | FLAG_INX
@@ -597,6 +599,140 @@ def gen_conv(prov):
     return out
 
 
+def tie_values(fmt, dest):
+    """Dyadic operands exact in fmt whose exact results land
+    on dest-grid (and source-grid) midpoints: even
+    significands, half-ulps, subnormal multiples (SF-2
+    Step 1 tie-rich directed design; searches keep only
+    te != ta pairs, decided in every mode emitted). The
+    trap sets in gen_traps additionally cover the
+    cross-format double-rounding tie zone."""
+    c = fmt_consts(fmt)
+    d = fmt_consts(dest)
+    emin, emax = d["emin"], d["emax"]
+    vals = []
+    for p in sorted({d["p"], c["p"]}):
+        for e in (0, -3, 4, emin + 2, emax - 1):
+            for m in ((1 << (p - 1)), (1 << (p - 1)) + 2,
+                      (1 << (p - 1)) + (1 << (p - 2)), (1 << p) - 2):
+                vals.append(Fraction(m) * Fraction(2) ** (e - (p - 1)))
+            vals.append(Fraction(2) ** (e - p))
+            vals.append(3 * Fraction(2) ** (e - p))
+        q = Fraction(2) ** (emin - (p - 1))
+        for k in (1, 3, 5, 7):
+            vals.append(k * q)
+        vals += [1 + Fraction(2) ** (-(p - 1)),
+                 1 + Fraction(2) ** (-(p - 2))]
+    vals += [Fraction(3, 2), Fraction(5, 4), Fraction(9, 8), Fraction(2)]
+    out = []
+    for v in vals:
+        for s in (v, -v):
+            try:
+                out.append(enc_value(fmt, s))
+            except AssertionError:
+                pass
+    return sorted(set(out))
+
+
+def gen_arith_ties(prov):
+    out = []
+    tv = {(f, d): tie_values(f, d) for f in ("f16", "f32", "f64")
+          for d in DESTS}
+    for dest in DESTS:
+        for op, fn in BINOPS:
+            for afmt, bfmt in BIN_COMBOS:
+                name = "msf%s_%s_%s_%s" % (dest[1:], op, afmt, bfmt)
+                found = 0
+                for a in tv[(afmt, dest)]:
+                    if found >= 3:
+                        break
+                    for b in tv[(bfmt, dest)]:
+                        if fn(dest, afmt, a, bfmt, b, "te") != \
+                                fn(dest, afmt, a, bfmt, b, "ta"):
+                            for rm in RMS4:
+                                r, f = fn(dest, afmt, a, bfmt, b, rm)
+                                out.append(vline(name, rm, [a, b],
+                                                 r, f, prov))
+                            found += 1
+                            if found >= 3:
+                                break
+    return out
+
+
+def gen_fma_ties(prov):
+    out = []
+    tv = {(f, d): tie_values(f, d) for f in ("f16", "f32", "f64")
+          for d in DESTS}
+    for dest in DESTS:
+        for afmt, bfmt, cfmt in FMA_COMBOS:
+            name = "msf%s_fma_%s_%s_%s" % (dest[1:], afmt, bfmt, cfmt)
+            found = 0
+            for a in [enc_value(afmt, v) for v in
+                      (Fraction(1), Fraction(3, 2), Fraction(-3, 2),
+                       Fraction(5, 4), Fraction(2), Fraction(9, 8),
+                       Fraction(1, 2), Fraction(-1))]:
+                if found >= 2:
+                    break
+                for b in [enc_value(bfmt, v) for v in
+                          (Fraction(1), Fraction(3, 2), Fraction(-3, 2),
+                           Fraction(5, 4), Fraction(2), Fraction(9, 8),
+                           Fraction(1, 2), Fraction(-1))]:
+                    if found >= 2:
+                        break
+                    for cc in tv[(cfmt, dest)]:
+                        if ref_fma(dest, afmt, a, bfmt, b, cfmt, cc,
+                                   "te") != \
+                                ref_fma(dest, afmt, a, bfmt, b, cfmt, cc,
+                                        "ta"):
+                            for rm in RMS4:
+                                r, f = ref_fma(dest, afmt, a, bfmt, b,
+                                               cfmt, cc, rm)
+                                out.append(vline(name, rm, [a, b, cc],
+                                                 r, f, prov))
+                            found += 1
+                            if found >= 2:
+                                break
+    # Phase 2: jam ties at wide binades. P = a*b has an even
+    # dest significand at binade E; c is exactly half a dest
+    # ulp of P, at a scale the (possibly narrow) addend format
+    # can still represent. Catches dest-f64 combos whose
+    # addend is f16, where near-one searches cannot reach.
+    for dest in DESTS:
+        pd = fmt_consts(dest)["p"]
+        for afmt, bfmt, cfmt in FMA_COMBOS:
+            name = "msf%s_fma_%s_%s_%s" % (dest[1:], afmt, bfmt, cfmt)
+            found = 0
+            for e in (pd - 24, pd - 23, 10, 40):
+                if found >= 2:
+                    break
+                for sa in (0, 7, 14, 20):
+                    if found >= 2:
+                        break
+                    for big_b in ((1 << 10), (1 << 10) + 2):
+                        aval = Fraction(2) ** sa
+                        bval = Fraction(big_b) * Fraction(2) ** (e - 10 - sa)
+                        cval = Fraction(2) ** (e - pd)
+                        try:
+                            a = enc_value(afmt, aval)
+                            b = enc_value(bfmt, bval)
+                            cc = enc_value(cfmt, cval)
+                        except AssertionError:
+                            continue
+                        if ref_fma(dest, afmt, a, bfmt, b, cfmt, cc,
+                                   "te") != \
+                                ref_fma(dest, afmt, a, bfmt, b, cfmt, cc,
+                                        "ta"):
+                            for rm in RMS4:
+                                r, f = ref_fma(dest, afmt, a, bfmt, b,
+                                               cfmt, cc, rm)
+                                out.append(vline(name, rm, [a, b, cc],
+                                                 r, f, prov))
+                            found += 1
+                            if found >= 2:
+                                break
+    return out
+
+
 def gen_compare(prov):
     out = []
     pair_idx = [(7, 7), (7, 8), (8, 7), (0, 1), (1, 0), (2, 0), (3, 2),
@@ -735,7 +871,7 @@ def gen_traps():
                 pb = danger if bfmt == "f64" else small16
                 for ia, a in enumerate(pa):
                     for ib, b in enumerate(pb):
-                        yield name, RMS4[(ia + ib) % 4], (afmt, a, bfmt, b)
+                        yield name, RMS4[(ia + ib) % len(RMS4)], (afmt, a, bfmt, b)
             kept = _trap_search(
                 cand(),
                 lambda rm, t, fn=fn: fn("f32", t[0], t[1], t[2], t[3], rm),
@@ -754,7 +890,7 @@ def gen_traps():
             for ia, a in enumerate(pos_pool[afmt][:60]):
                 for ib, b in enumerate(pos_pool[bfmt][:12]):
                     for ic, c in enumerate(pos_pool[cfmt][:12]):
-                        yield name, RMS4[(ia + ib + ic) % 4], (afmt, a, bfmt, b, cfmt, c)
+                        yield name, RMS4[(ia + ib + ic) % len(RMS4)], (afmt, a, bfmt, b, cfmt, c)
         kept = _trap_search(
             cand(),
             lambda rm, t: ref_fma("f32", t[0], t[1], t[2], t[3], t[4], t[5], rm),
@@ -897,9 +1033,11 @@ def directed(outdir):
     outdir = Path(outdir)
     total = 0
     total += write_file(outdir / "arith-xf.vec",
-                        gen_arith("exact-py-xf:directed-arith"))
+                        gen_arith("exact-py-xf:directed-arith")
+                        + gen_arith_ties("exact-py-xf:directed-arith"))
     total += write_file(outdir / "fma-sqrt-xf.vec",
-                        gen_fma_sqrt("exact-py-xf:directed-fma-sqrt"))
+                        gen_fma_sqrt("exact-py-xf:directed-fma-sqrt")
+                        + gen_fma_ties("exact-py-xf:directed-fma-sqrt"))
     total += write_file(outdir / "conv-xf.vec",
                         gen_conv("exact-py-xf:directed-conv"))
     total += write_file(outdir / "compare-xf.vec",
@@ -919,7 +1057,9 @@ def directed(outdir):
     assert not missing, sorted(missing)
     print("directed: all %d xf instantiations present; total %d bytes"
           % (len(seen & all_xf_names()), total))
-    assert total < 1000000, total
+    # byte budget raised 1000000 -> 1400000 for the five-mode
+    # expansion (SF-2 Step 1: ta at directed-mode volume + ties)
+    assert total < 1400000, total
     return 0
 
 
@@ -1020,7 +1160,7 @@ def exhaustive_f16(outfile):
         for dest in DESTS:
             r, f = ref_conv(dest, "f16", bits, "te")
             out.append(vline("msf%s_from_f16" % dest[1:], "te", [bits], r, f, prov))
-            for rm in ("te", "tp", "tn"):
+            for rm in ("te", "tp", "tn", "ta"):
                 r, f = ref_sqrt(dest, "f16", bits, rm)
                 out.append(vline("msf%s_sqrt_f16" % dest[1:], rm, [bits], r, f, prov))
     write_file(outfile, out)

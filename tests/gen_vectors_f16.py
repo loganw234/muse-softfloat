@@ -28,7 +28,7 @@ from math import isqrt
 from pathlib import Path
 
 FLAG_INV, FLAG_DIV0, FLAG_OVF, FLAG_UNF, FLAG_INX = 0x01, 0x02, 0x04, 0x08, 0x10
-RMS4 = ["te", "tz", "tp", "tn"]
+RMS4 = ["te", "tz", "tp", "tn", "ta"]  # five attributes (SF-2 Step 1)
 DEST = "f16"
 
 FMT = {  # name: (bits, precision, exp bits)
@@ -686,6 +686,146 @@ BINOPS = [("add", lambda da, db, rm: ref_addsub(da, db, False, rm)),
           ("mul", ref_mul), ("div", ref_div)]
 
 
+def tie_values(fmt):
+    """Dyadic operand values (exact in fmt) chosen so exact
+    results land on rounding midpoints of the DEST grid (and
+    of the source grid): even significands at several
+    binades, half-ulps, subnormal multiples. SF-2 Step 1
+    tie-rich directed design; the searches below keep only
+    pairs where te and ta actually differ (decided by the
+    exact references in every mode emitted). Some cross
+    combos are exact or provably tie-free (e.g. widening
+    arithmetic); the searches assert only in aggregate."""
+    c = fmt_consts(fmt)
+    d = fmt_consts(DEST)
+    emin, emax = d["emin"], d["emax"]
+    vals = []
+    for p in sorted({d["p"], c["p"]}):
+        for e in (0, -3, 4, emin + 2, emax - 1):
+            for m in ((1 << (p - 1)), (1 << (p - 1)) + 2,
+                      (1 << (p - 1)) + (1 << (p - 2)), (1 << p) - 2):
+                vals.append(Fraction(m) * Fraction(2) ** (e - (p - 1)))
+            vals.append(Fraction(2) ** (e - p))
+            vals.append(3 * Fraction(2) ** (e - p))
+        q = Fraction(2) ** (emin - (p - 1))
+        for k in (1, 3, 5, 7):
+            vals.append(k * q)
+        vals += [1 + Fraction(2) ** (-(p - 1)),
+                 1 + Fraction(2) ** (-(p - 2))]
+    vals += [Fraction(3, 2), Fraction(5, 4), Fraction(9, 8), Fraction(2)]
+    out = []
+    for v in vals:
+        for s in (v, -v):
+            try:
+                out.append(enc_exact_frac(fmt, s))
+            except AssertionError:
+                pass
+    return sorted(set(out))
+
+
+TIEVALS = {f: tie_values(f) for f in FMTS3}
+
+
+def gen_arith_ties(prov):
+    out = []
+    for op, fn in BINOPS:
+        for afmt in FMTS3:
+            for bfmt in FMTS3:
+                name = opname_bin(op, afmt, bfmt)
+                found = 0
+                for a in TIEVALS[afmt]:
+                    if found >= 3:
+                        break
+                    for b in TIEVALS[bfmt]:
+                        da, db = dec(afmt, a), dec(bfmt, b)
+                        if fn(da, db, "te") != fn(da, db, "ta"):
+                            for rm in RMS4:
+                                r, f = fn(da, db, rm)
+                                out.append(vline(name, rm, [a, b],
+                                                 r, f, prov))
+                            found += 1
+                            if found >= 3:
+                                break
+                if afmt == bfmt == DEST:
+                    assert found, (op, afmt, bfmt)
+    return out
+
+
+def gen_fma_ties(prov):
+    out = []
+    for afmt in FMTS3:
+        for bfmt in FMTS3:
+            for cfmt in FMTS3:
+                name = "msf16_fma" if afmt == bfmt == cfmt == "f16" \
+                    else "msf16_fma_%s_%s_%s" % (afmt, bfmt, cfmt)
+                near1 = [enc_exact_frac(afmt, v) for v in
+                         (Fraction(1), Fraction(3, 2), Fraction(-3, 2),
+                          Fraction(5, 4), Fraction(2), Fraction(9, 8),
+                          Fraction(1, 2), Fraction(-1))]
+                near1b = [enc_exact_frac(bfmt, v) for v in
+                          (Fraction(1), Fraction(3, 2), Fraction(-3, 2),
+                           Fraction(5, 4), Fraction(2), Fraction(9, 8),
+                           Fraction(1, 2), Fraction(-1))]
+                found = 0
+                for a in near1:
+                    if found >= 2:
+                        break
+                    for b in near1b:
+                        if found >= 2:
+                            break
+                        for cc in TIEVALS[cfmt]:
+                            ds = (dec(afmt, a), dec(bfmt, b),
+                                  dec(cfmt, cc))
+                            if ref_fma(*ds, "te") != ref_fma(*ds, "ta"):
+                                for rm in RMS4:
+                                    r, f = ref_fma(*ds, rm)
+                                    out.append(vline(name, rm,
+                                                     [a, b, cc],
+                                                     r, f, prov))
+                                found += 1
+                                if found >= 2:
+                                    break
+                if afmt == bfmt == cfmt == DEST:
+                    assert found, (afmt, bfmt, cfmt)
+    return out
+
+
+def gen_conv_ties(prov):
+    out = []
+    pd = fmt_consts(DEST)["p"]
+    for sfmt in FMTS3:
+        if fmt_consts(sfmt)["p"] <= pd:
+            continue  # widening/exact: no rounding, no ties
+        name = "msf16_from_%s" % sfmt
+        found = 0
+        for e in (0, -3, 4):
+            for m in ((1 << pd) + 1, (1 << pd) + 5, (1 << (pd + 1)) - 3):
+                v = Fraction(m) * Fraction(2) ** (e - pd)
+                for s in (v, -v):
+                    a = enc_exact_frac(sfmt, s)
+                    da = dec(sfmt, a)
+                    if ref_conv(da, "te") != ref_conv(da, "ta"):
+                        for rm in RMS4:
+                            r, f = ref_conv(da, rm)
+                            out.append(vline(name, rm, [a], r, f, prov))
+                        found += 1
+        assert found, sfmt
+    for tok, (is_signed, width) in INT_KINDS.items():
+        lo = -(1 << (width - 1)) if is_signed else 0
+        hi = (1 << (width - 1)) - 1 if is_signed else (1 << width) - 1
+        mask = (1 << width) - 1
+        cands = [(1 << pd) + 1, (1 << (pd + 1)) + 2, (1 << (pd + 2)) + 4]
+        cands += [-c for c in list(cands)]
+        for v in cands:
+            if lo <= v <= hi and \
+                    ref_from_int(v, "te") != ref_from_int(v, "ta"):
+                for rm in RMS4:
+                    r, f = ref_from_int(v, rm)
+                    out.append(vline("msf16_from_%s" % tok, rm,
+                                     [v & mask], r, f, prov))
+    return out
+
+
 def opname_bin(op, afmt, bfmt):
     if afmt == bfmt == "f16":
         return "msf16_%s" % op
@@ -749,6 +889,33 @@ def gen_fma_sqrt(prov):
             for rm in RMS4:
                 r, f = ref_sqrt(da, rm)
                 out.append(vline(name, rm, [a], r, f, prov))
+    # Narrowing cross-format sqrt TIES (SF-2 Step 1 second
+    # read): homogeneous/widening sqrt is tie-free by the
+    # midpoint-square bit count, but sqrt from a WIDER source
+    # can land exactly on a dest midpoint - x = m^2 exactly in
+    # the source with m an odd (p_dest+1)-bit midpoint (e.g.
+    # m = 1+2^-11 for f16 dest). Decided by ref_sqrt here,
+    # never relabeled.
+    pd = fmt_consts(DEST)["p"]
+    emin_d = fmt_consts(DEST)["emin"]
+    for sfmt in ("f32", "f64"):
+        name = "msf16_sqrt_%s" % sfmt
+        found = 0
+        mids = []
+        for e in (-2, 0, 3):
+            for odd in ((1 << pd) + 1, (1 << pd) + 5, (1 << (pd + 1)) - 3):
+                mids.append(Fraction(odd) * Fraction(2) ** (e - pd))
+        for k in (1, 3, 5):
+            mids.append(Fraction(k) * Fraction(2) ** (emin_d - pd))
+        for m in mids:
+            a = enc_exact_frac(sfmt, m * m)
+            da = dec(sfmt, a)
+            if ref_sqrt(da, "te") != ref_sqrt(da, "ta"):
+                found += 1
+            for rm in RMS4:
+                r, f = ref_sqrt(da, rm)
+                out.append(vline(name, rm, [a], r, f, prov))
+        assert found, sfmt
     return out
 
 
@@ -852,10 +1019,30 @@ def gen_rint_next_scale_logb_rem(prov):
     for i in (2, 5, 7, 16, 30, 4):
         for nb in npool[:9]:
             dn = Dec("f64", nb)
-            for rm in ("tz", "tp", "tn"):
+            for rm in ("tz", "tp", "tn", "ta"):
                 r, f = ref_scaleb(POOL16[i], dn, rm)
                 out.append(vline("msf16_scale_b", rm, [POOL16[i], nb],
                                  r, f, prov))
+    # scaleB subnormal-delivery ties (SF-2 Step 1): x * 2^N is
+    # exactly a subnormal-grid midpoint with even lower
+    # neighbour. (Normal-range scaleB is exact and the
+    # overflow midpoint needs p+1 significand bits, so
+    # subnormal delivery is the only tie shape.)
+    _c = fmt_consts(DEST)
+    _p, _emin = _c["p"], _c["emin"]
+    for _m, _u in (((1 << (_p - 1)) + 1, -(_p - 1)),
+                   ((1 << _p) - 3, -(_p - 1)), (5, -2), (9, -3),
+                   (17, -4)):
+        _n = (_emin - _p) - _u
+        _nb = pack_signed(Fraction(_n), "te", "f64")[0]
+        for _s in (1, -1):
+            _a = enc_exact_frac(DEST, _s * Fraction(_m) * Fraction(2) ** _u)
+            if ref_scaleb(_a, Dec("f64", _nb), "te") != \
+                    ref_scaleb(_a, Dec("f64", _nb), "ta"):
+                for _rm in RMS4:
+                    _r, _f = ref_scaleb(_a, Dec("f64", _nb), _rm)
+                    out.append(vline("msf16_scale_b", _rm, [_a, _nb],
+                                     _r, _f, prov))
     # remainder: pool pairs plus dyadic tie constructions
     for (i, j) in NUM_PAIRS + SPECIAL_PAIRS_REM:
         r, f = ref_remainder(POOL16[i], POOL16[j])
@@ -922,11 +1109,14 @@ def directed(outdir):
     outdir = Path(outdir)
     total = 0
     total += write_file(outdir / "arith-f16.vec",
-                        gen_arith("exact-py-f16:dir-arith"))
+                        gen_arith("exact-py-f16:dir-arith")
+                        + gen_arith_ties("exact-py-f16:dir-arith"))
     total += write_file(outdir / "fma-sqrt-f16.vec",
-                        gen_fma_sqrt("exact-py-f16:dir-fma-sqrt"))
+                        gen_fma_sqrt("exact-py-f16:dir-fma-sqrt")
+                        + gen_fma_ties("exact-py-f16:dir-fma-sqrt"))
     total += write_file(outdir / "conv-int-f16.vec",
-                        gen_conv_int("exact-py-f16:dir-conv-int"))
+                        gen_conv_int("exact-py-f16:dir-conv-int")
+                        + gen_conv_ties("exact-py-f16:dir-conv-int"))
     total += write_file(outdir / "toint-f16.vec",
                         gen_toint("exact-py-f16:dir-toint"))
     total += write_file(outdir / "rint-misc-f16.vec",

@@ -395,6 +395,50 @@ msf16_round_to_integral_exact tn 3666 -> 0 10 exact-py-f16:dir-rint-misc
 msf16_round_to_integral_exact tn b666 -> bc00 10 exact-py-f16:dir-rint-misc
 msf16_round_to_integral_exact tn 6001 -> 6000 10 exact-py-f16:dir-rint-misc
 msf16_round_to_integral_exact tn 63ff -> 63fe 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 0 -> 0 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 8000 -> 8000 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 1 -> 0 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 8001 -> 8000 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 3ff -> 0 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 400 -> 0 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 8400 -> 8000 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 3c00 -> 3c00 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta bc00 -> bc00 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 3c01 -> 3c00 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 3bff -> 3c00 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 4000 -> 4000 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 3800 -> 3c00 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 3e00 -> 4000 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta be00 -> c000 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 4100 -> 4200 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 7bff -> 7bff 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta fbff -> fbff 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 7400 -> 7400 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 800 -> 0 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 4200 -> 4200 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta c200 -> c200 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 7c00 -> 7c00 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta fc00 -> fc00 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 7e00 -> 7e00 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta ff45 -> ff45 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 7c01 -> 7e01 01 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta fdff -> ffff 01 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 6800 -> 6800 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 67ff -> 67ff 00 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 2e66 -> 0 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta ae66 -> 8000 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 3800 -> 3c00 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta b800 -> bc00 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 3e00 -> 4000 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta be00 -> c000 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 4100 -> 4200 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta c100 -> c200 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 4300 -> 4400 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta c300 -> c400 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 3666 -> 0 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta b666 -> 8000 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 6001 -> 6002 10 exact-py-f16:dir-rint-misc
+msf16_round_to_integral_exact ta 63ff -> 6400 10 exact-py-f16:dir-rint-misc
 msf16_next_up - 0 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_next_down - 0 -> 8001 00 exact-py-f16:dir-rint-misc
 msf16_next_up - 8000 -> 1 00 exact-py-f16:dir-rint-misc
@@ -782,165 +826,269 @@ msf16_scale_b te 2e66 1 -> 2e66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 1 0 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 1 0 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 1 0 -> 1 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 1 0 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 1 3ff0000000000000 -> 2 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 1 3ff0000000000000 -> 2 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 1 3ff0000000000000 -> 2 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 1 3ff0000000000000 -> 2 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 1 bff0000000000000 -> 0 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 1 bff0000000000000 -> 1 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 1 bff0000000000000 -> 0 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 1 bff0000000000000 -> 1 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 1 4004000000000000 -> 4 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 1 4004000000000000 -> 4 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 1 4004000000000000 -> 4 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 1 4004000000000000 -> 4 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 1 c004000000000000 -> 0 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 1 c004000000000000 -> 1 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 1 c004000000000000 -> 0 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 1 c004000000000000 -> 0 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 1 3fe0000000000000 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 1 3fe0000000000000 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 1 3fe0000000000000 -> 1 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 1 3fe0000000000000 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 1 bfe0000000000000 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 1 bfe0000000000000 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 1 bfe0000000000000 -> 1 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 1 bfe0000000000000 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 1 402e000000000000 -> 1800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 1 402e000000000000 -> 1800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 1 402e000000000000 -> 1800 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 1 402e000000000000 -> 1800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 1 c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 1 c038000000000000 -> 1 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 1 c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 1 c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 400 0 -> 400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 400 0 -> 400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 400 0 -> 400 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 400 0 -> 400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 400 3ff0000000000000 -> 800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 400 3ff0000000000000 -> 800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 400 3ff0000000000000 -> 800 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 400 3ff0000000000000 -> 800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 400 bff0000000000000 -> 200 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 400 bff0000000000000 -> 200 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 400 bff0000000000000 -> 200 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 400 bff0000000000000 -> 200 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 400 4004000000000000 -> c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 400 4004000000000000 -> c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 400 4004000000000000 -> c00 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 400 4004000000000000 -> c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 400 c004000000000000 -> 100 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 400 c004000000000000 -> 100 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 400 c004000000000000 -> 100 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 400 c004000000000000 -> 100 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 400 3fe0000000000000 -> 400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 400 3fe0000000000000 -> 400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 400 3fe0000000000000 -> 400 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 400 3fe0000000000000 -> 400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 400 bfe0000000000000 -> 400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 400 bfe0000000000000 -> 400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 400 bfe0000000000000 -> 400 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 400 bfe0000000000000 -> 400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 400 402e000000000000 -> 4000 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 400 402e000000000000 -> 4000 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 400 402e000000000000 -> 4000 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 400 402e000000000000 -> 4000 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 400 c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 400 c038000000000000 -> 1 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 400 c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 400 c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3c00 0 -> 3c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3c00 0 -> 3c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3c00 0 -> 3c00 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c00 0 -> 3c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3c00 bff0000000000000 -> 3800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3c00 bff0000000000000 -> 3800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3c00 bff0000000000000 -> 3800 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c00 bff0000000000000 -> 3800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3c00 4004000000000000 -> 4400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3c00 4004000000000000 -> 4400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3c00 4004000000000000 -> 4400 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c00 4004000000000000 -> 4400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3c00 c004000000000000 -> 3400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3c00 c004000000000000 -> 3400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3c00 c004000000000000 -> 3400 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c00 c004000000000000 -> 3400 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3c00 3fe0000000000000 -> 3c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3c00 3fe0000000000000 -> 3c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3c00 3fe0000000000000 -> 3c00 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c00 3fe0000000000000 -> 3c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3c00 bfe0000000000000 -> 3c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3c00 bfe0000000000000 -> 3c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3c00 bfe0000000000000 -> 3c00 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c00 bfe0000000000000 -> 3c00 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3c00 402e000000000000 -> 7800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3c00 402e000000000000 -> 7800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3c00 402e000000000000 -> 7800 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c00 402e000000000000 -> 7800 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3c00 c038000000000000 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3c00 c038000000000000 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3c00 c038000000000000 -> 1 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c00 c038000000000000 -> 1 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 7bff 0 -> 7bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 7bff 0 -> 7bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 7bff 0 -> 7bff 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 7bff 0 -> 7bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 7bff 3ff0000000000000 -> 7bff 14 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 7bff 3ff0000000000000 -> 7c00 14 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 7bff 3ff0000000000000 -> 7bff 14 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 7bff 3ff0000000000000 -> 7c00 14 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 7bff bff0000000000000 -> 77ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 7bff bff0000000000000 -> 77ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 7bff bff0000000000000 -> 77ff 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 7bff bff0000000000000 -> 77ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 7bff 4004000000000000 -> 7bff 14 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 7bff 4004000000000000 -> 7c00 14 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 7bff 4004000000000000 -> 7bff 14 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 7bff 4004000000000000 -> 7c00 14 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 7bff c004000000000000 -> 73ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 7bff c004000000000000 -> 73ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 7bff c004000000000000 -> 73ff 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 7bff c004000000000000 -> 73ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 7bff 3fe0000000000000 -> 7bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 7bff 3fe0000000000000 -> 7bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 7bff 3fe0000000000000 -> 7bff 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 7bff 3fe0000000000000 -> 7bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 7bff bfe0000000000000 -> 7bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 7bff bfe0000000000000 -> 7bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 7bff bfe0000000000000 -> 7bff 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 7bff bfe0000000000000 -> 7bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 7bff 402e000000000000 -> 7bff 14 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 7bff 402e000000000000 -> 7c00 14 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 7bff 402e000000000000 -> 7bff 14 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 7bff 402e000000000000 -> 7c00 14 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 7bff c038000000000000 -> 1bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 7bff c038000000000000 -> 1bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 7bff c038000000000000 -> 1bff 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 7bff c038000000000000 -> 1bff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 2e66 0 -> 2e66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 2e66 0 -> 2e66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 2e66 0 -> 2e66 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 2e66 0 -> 2e66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 2e66 3ff0000000000000 -> 3266 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 2e66 3ff0000000000000 -> 3266 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 2e66 3ff0000000000000 -> 3266 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 2e66 3ff0000000000000 -> 3266 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 2e66 bff0000000000000 -> 2a66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 2e66 bff0000000000000 -> 2a66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 2e66 bff0000000000000 -> 2a66 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 2e66 bff0000000000000 -> 2a66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 2e66 4004000000000000 -> 3666 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 2e66 4004000000000000 -> 3666 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 2e66 4004000000000000 -> 3666 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 2e66 4004000000000000 -> 3666 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 2e66 c004000000000000 -> 2666 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 2e66 c004000000000000 -> 2666 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 2e66 c004000000000000 -> 2666 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 2e66 c004000000000000 -> 2666 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 2e66 3fe0000000000000 -> 2e66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 2e66 3fe0000000000000 -> 2e66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 2e66 3fe0000000000000 -> 2e66 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 2e66 3fe0000000000000 -> 2e66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 2e66 bfe0000000000000 -> 2e66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 2e66 bfe0000000000000 -> 2e66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 2e66 bfe0000000000000 -> 2e66 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 2e66 bfe0000000000000 -> 2e66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 2e66 402e000000000000 -> 6a66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 2e66 402e000000000000 -> 6a66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 2e66 402e000000000000 -> 6a66 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 2e66 402e000000000000 -> 6a66 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 2e66 c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 2e66 c038000000000000 -> 1 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 2e66 c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 2e66 c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3ff 0 -> 3ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3ff 0 -> 3ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3ff 0 -> 3ff 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3ff 0 -> 3ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3ff 3ff0000000000000 -> 7fe 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3ff 3ff0000000000000 -> 7fe 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3ff 3ff0000000000000 -> 7fe 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3ff 3ff0000000000000 -> 7fe 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3ff bff0000000000000 -> 1ff 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3ff bff0000000000000 -> 200 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3ff bff0000000000000 -> 1ff 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3ff bff0000000000000 -> 200 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3ff 4004000000000000 -> bfe 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3ff 4004000000000000 -> bfe 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3ff 4004000000000000 -> bfe 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3ff 4004000000000000 -> bfe 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3ff c004000000000000 -> ff 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3ff c004000000000000 -> 100 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3ff c004000000000000 -> ff 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3ff c004000000000000 -> 100 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3ff 3fe0000000000000 -> 3ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3ff 3fe0000000000000 -> 3ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3ff 3fe0000000000000 -> 3ff 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3ff 3fe0000000000000 -> 3ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3ff bfe0000000000000 -> 3ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3ff bfe0000000000000 -> 3ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3ff bfe0000000000000 -> 3ff 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3ff bfe0000000000000 -> 3ff 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3ff 402e000000000000 -> 3ffe 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3ff 402e000000000000 -> 3ffe 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3ff 402e000000000000 -> 3ffe 00 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3ff 402e000000000000 -> 3ffe 00 exact-py-f16:dir-rint-misc
 msf16_scale_b tz 3ff c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tp 3ff c038000000000000 -> 1 18 exact-py-f16:dir-rint-misc
 msf16_scale_b tn 3ff c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3ff c038000000000000 -> 0 18 exact-py-f16:dir-rint-misc
+msf16_scale_b te 3c01 c02e000000000000 -> 200 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tz 3c01 c02e000000000000 -> 200 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tp 3c01 c02e000000000000 -> 201 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tn 3c01 c02e000000000000 -> 200 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c01 c02e000000000000 -> 201 18 exact-py-f16:dir-rint-misc
+msf16_scale_b te bc01 c02e000000000000 -> 8200 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tz bc01 c02e000000000000 -> 8200 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tp bc01 c02e000000000000 -> 8200 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tn bc01 c02e000000000000 -> 8201 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta bc01 c02e000000000000 -> 8201 18 exact-py-f16:dir-rint-misc
+msf16_scale_b te 3ffd c02e000000000000 -> 3fe 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tz 3ffd c02e000000000000 -> 3fe 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tp 3ffd c02e000000000000 -> 3ff 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tn 3ffd c02e000000000000 -> 3fe 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3ffd c02e000000000000 -> 3ff 18 exact-py-f16:dir-rint-misc
+msf16_scale_b te bffd c02e000000000000 -> 83fe 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tz bffd c02e000000000000 -> 83fe 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tp bffd c02e000000000000 -> 83fe 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tn bffd c02e000000000000 -> 83ff 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta bffd c02e000000000000 -> 83ff 18 exact-py-f16:dir-rint-misc
+msf16_scale_b te 3d00 c037000000000000 -> 2 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tz 3d00 c037000000000000 -> 2 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tp 3d00 c037000000000000 -> 3 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tn 3d00 c037000000000000 -> 2 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3d00 c037000000000000 -> 3 18 exact-py-f16:dir-rint-misc
+msf16_scale_b te bd00 c037000000000000 -> 8002 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tz bd00 c037000000000000 -> 8002 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tp bd00 c037000000000000 -> 8002 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tn bd00 c037000000000000 -> 8003 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta bd00 c037000000000000 -> 8003 18 exact-py-f16:dir-rint-misc
+msf16_scale_b te 3c80 c036000000000000 -> 4 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tz 3c80 c036000000000000 -> 4 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tp 3c80 c036000000000000 -> 5 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tn 3c80 c036000000000000 -> 4 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c80 c036000000000000 -> 5 18 exact-py-f16:dir-rint-misc
+msf16_scale_b te bc80 c036000000000000 -> 8004 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tz bc80 c036000000000000 -> 8004 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tp bc80 c036000000000000 -> 8004 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tn bc80 c036000000000000 -> 8005 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta bc80 c036000000000000 -> 8005 18 exact-py-f16:dir-rint-misc
+msf16_scale_b te 3c40 c035000000000000 -> 8 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tz 3c40 c035000000000000 -> 8 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tp 3c40 c035000000000000 -> 9 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tn 3c40 c035000000000000 -> 8 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta 3c40 c035000000000000 -> 9 18 exact-py-f16:dir-rint-misc
+msf16_scale_b te bc40 c035000000000000 -> 8008 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tz bc40 c035000000000000 -> 8008 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tp bc40 c035000000000000 -> 8008 18 exact-py-f16:dir-rint-misc
+msf16_scale_b tn bc40 c035000000000000 -> 8009 18 exact-py-f16:dir-rint-misc
+msf16_scale_b ta bc40 c035000000000000 -> 8009 18 exact-py-f16:dir-rint-misc
 msf16_remainder - 3c00 bc00 -> 0 00 exact-py-f16:dir-rint-misc
 msf16_remainder - 3c00 3c00 -> 0 00 exact-py-f16:dir-rint-misc
 msf16_remainder - 3c01 3bff -> 1600 00 exact-py-f16:dir-rint-misc

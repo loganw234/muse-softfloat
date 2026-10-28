@@ -417,6 +417,8 @@ static int dec_round_inc(int rm, int sign, int last_kept,
     switch (rm) {
     case MSF_IROUND_TIES_TO_EVEN:
         return gt_half || (eq_half && (last_kept & 1));
+    case MSF_IROUND_TIES_TO_AWAY:
+        return gt_half || eq_half;
     case MSF_IROUND_TOWARD_POSITIVE:
         return !sign && dropped_nonzero;
     case MSF_IROUND_TOWARD_NEGATIVE:
@@ -1151,6 +1153,9 @@ static size_t to_hex_generic(int fmt, uint64_t bits,
             switch (rm) {
             case MSF_IROUND_TIES_TO_EVEN:
                 inc = dropped > half || (dropped == half && (kept & 1u));
+                break;
+            case MSF_IROUND_TIES_TO_AWAY:
+                inc = dropped >= half;
                 break;
             case MSF_IROUND_TOWARD_POSITIVE:
                 inc = !d.sign && inexact;

@@ -15,8 +15,9 @@ the SF-0 2.5 matrix, +-inf -> invalid + default qNaN) and
 generation REFUSES if the decider disagrees on any special -
 the two implementations cross-check.
 
-Input families per format/function (~1500 inputs each, all
-four modes): specials (zeros, infinities, quiet/signaling
+Input families per format/function (~1500 inputs each, four
+decided modes plus a `ta` line relabeled from `te` per input -
+no exact ties exist, Niven; SF-2 Step 1): specials (zeros, infinities, quiet/signaling
 NaN payload samples), integer and half-integer anchors
 (including the ulp>=1 region and both settled zero-sign
 cells in every mode), a k/8 lattice with +-3 ulp neighbours
@@ -330,6 +331,15 @@ def main():
         for rm, (rb, rf) in zip(RMS, exp):
             files[fmt].append(
                 f"{op} {rm} {x:x} -> {rb:x} {rf:02x} mpfr640-trig:{fam}")
+        # SF-2 Step 1: ta by te relabel. sinPi/cosPi of a dyadic
+        # input is irrational or in {0,+-1/2,+-1} (Niven), never a
+        # rounding midpoint, so ties-to-away == ties-to-even in
+        # bits and flags; the tag states the relabel (these lines
+        # are NOT independently decided). See parcel report.
+        rb, rf = exp[0]
+        files[fmt].append(
+            f"{op} ta {x:x} -> {rb:x} {rf:02x} "
+            f"mpfr640-trig:{fam}-ta-relabel")
     os.makedirs(outdir, exist_ok=True)
     total = 0
     for fmt in FMTS:
@@ -339,6 +349,8 @@ def main():
                      " - do not edit (regenerate)\n")
             fh.write("# expectations: MPFR 640-bit bracketed"
                      " decider (tests/trig_exhaustive.c)\n")
+            fh.write("# ta lines: te expectations relabeled"
+                     " (no exact ties, Niven; SF-2 Step 1)\n")
             for line in files[fmt]:
                 fh.write(line + "\n")
         total += len(files[fmt])

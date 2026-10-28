@@ -3,26 +3,32 @@ msf16_fma te 3c00 3c00 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma tz 3c00 3c00 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma tp 3c00 3c00 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma tn 3c00 3c00 bc00 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma ta 3c00 3c00 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma te 3c00 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma tz 3c00 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma tp 3c00 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma tn 3c00 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma ta 3c00 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma te 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tz 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tp 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tn 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma ta 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma te 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tz 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tp 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tn 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma ta 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma te 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tz 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tp 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tn 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma ta 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma te 7c00 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tz 7c00 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tp 7c00 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma tn 7c00 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma ta 7c00 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma te 7c00 3c00 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma te 3c00 3c00 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma te 1 1 1 -> 1 18 exact-py-f16:dir-fma-sqrt
@@ -49,26 +55,32 @@ msf16_fma_f16_f16_f32 te 3c00 3c00 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tz 3c00 3c00 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tp 3c00 3c00 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tn 3c00 3c00 bf800000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 ta 3c00 3c00 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 te 3c00 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tz 3c00 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tp 3c00 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tn 3c00 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 ta 3c00 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 te 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tz 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tp 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tn 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 ta 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 te 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tz 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tp 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tn 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 ta 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 te 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tz 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tp 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tn 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 ta 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 te 7c00 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tz 7c00 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tp 7c00 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 tn 7c00 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 ta 7c00 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 te 7c00 3c00 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 te 3c00 3c00 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f32 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -95,26 +107,32 @@ msf16_fma_f16_f16_f64 te 3c00 3c00 bff0000000000000 -> 0 00 exact-py-f16:dir-fma
 msf16_fma_f16_f16_f64 tz 3c00 3c00 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tp 3c00 3c00 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tn 3c00 3c00 bff0000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 ta 3c00 3c00 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 te 3c00 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tz 3c00 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tp 3c00 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tn 3c00 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 ta 3c00 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 te 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tz 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tp 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tn 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 ta 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 te 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tz 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tp 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tn 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 ta 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 te 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tz 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tp 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tn 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 ta 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 te 7c00 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tz 7c00 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tp 7c00 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 tn 7c00 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 ta 7c00 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 te 7c00 3c00 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 te 3c00 3c00 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f16_f64 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -141,26 +159,32 @@ msf16_fma_f16_f32_f16 te 3c00 3f800000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tz 3c00 3f800000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tp 3c00 3f800000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tn 3c00 3f800000 bc00 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 ta 3c00 3f800000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 te 3c00 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tz 3c00 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tp 3c00 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tn 3c00 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 ta 3c00 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 te 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tz 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tp 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tn 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 ta 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 te 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tz 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tp 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tn 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 ta 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 te 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tz 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tp 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tn 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 ta 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 te 7c00 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tz 7c00 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tp 7c00 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 tn 7c00 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 ta 7c00 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 te 7c00 3f800000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 te 3c00 3f800000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f16 te 1 1 1 -> 1 18 exact-py-f16:dir-fma-sqrt
@@ -187,26 +211,32 @@ msf16_fma_f16_f32_f32 te 3c00 3f800000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqr
 msf16_fma_f16_f32_f32 tz 3c00 3f800000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tp 3c00 3f800000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tn 3c00 3f800000 bf800000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 ta 3c00 3f800000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 te 3c00 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tz 3c00 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tp 3c00 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tn 3c00 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 ta 3c00 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 te 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tz 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tp 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tn 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 ta 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 te 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tz 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tp 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tn 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 ta 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 te 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tz 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tp 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tn 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 ta 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 te 7c00 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tz 7c00 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tp 7c00 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 tn 7c00 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 ta 7c00 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 te 7c00 3f800000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 te 3c00 3f800000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f32 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -233,26 +263,32 @@ msf16_fma_f16_f32_f64 te 3c00 3f800000 bff0000000000000 -> 0 00 exact-py-f16:dir
 msf16_fma_f16_f32_f64 tz 3c00 3f800000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tp 3c00 3f800000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tn 3c00 3f800000 bff0000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 ta 3c00 3f800000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 te 3c00 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tz 3c00 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tp 3c00 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tn 3c00 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 ta 3c00 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 te 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tz 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tp 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tn 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 ta 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 te 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tz 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tp 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tn 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 ta 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 te 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tz 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tp 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tn 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 ta 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 te 7c00 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tz 7c00 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tp 7c00 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 tn 7c00 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 ta 7c00 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 te 7c00 3f800000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 te 3c00 3f800000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f32_f64 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -279,26 +315,32 @@ msf16_fma_f16_f64_f16 te 3c00 3ff0000000000000 bc00 -> 0 00 exact-py-f16:dir-fma
 msf16_fma_f16_f64_f16 tz 3c00 3ff0000000000000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tp 3c00 3ff0000000000000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tn 3c00 3ff0000000000000 bc00 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 ta 3c00 3ff0000000000000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 te 3c00 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tz 3c00 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tp 3c00 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tn 3c00 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 ta 3c00 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 te 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tz 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tp 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tn 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 ta 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 te 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tz 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tp 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tn 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 ta 7c00 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 te 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tz 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tp 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tn 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 ta 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 te 7c00 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tz 7c00 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tp 7c00 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 tn 7c00 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 ta 7c00 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 te 7c00 3ff0000000000000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 te 3c00 3ff0000000000000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f16 te 1 1 1 -> 1 18 exact-py-f16:dir-fma-sqrt
@@ -325,26 +367,32 @@ msf16_fma_f16_f64_f32 te 3c00 3ff0000000000000 bf800000 -> 0 00 exact-py-f16:dir
 msf16_fma_f16_f64_f32 tz 3c00 3ff0000000000000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tp 3c00 3ff0000000000000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tn 3c00 3ff0000000000000 bf800000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 ta 3c00 3ff0000000000000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 te 3c00 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tz 3c00 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tp 3c00 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tn 3c00 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 ta 3c00 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 te 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tz 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tp 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tn 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 ta 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 te 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tz 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tp 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tn 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 ta 7c00 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 te 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tz 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tp 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tn 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 ta 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 te 7c00 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tz 7c00 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tp 7c00 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 tn 7c00 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 ta 7c00 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 te 7c00 3ff0000000000000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 te 3c00 3ff0000000000000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f32 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -371,26 +419,32 @@ msf16_fma_f16_f64_f64 te 3c00 3ff0000000000000 bff0000000000000 -> 0 00 exact-py
 msf16_fma_f16_f64_f64 tz 3c00 3ff0000000000000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tp 3c00 3ff0000000000000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tn 3c00 3ff0000000000000 bff0000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 ta 3c00 3ff0000000000000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 te 3c00 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tz 3c00 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tp 3c00 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tn 3c00 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 ta 3c00 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 te 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tz 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tp 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tn 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 ta 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 te 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tz 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tp 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tn 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 ta 7c00 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 te 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tz 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tp 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tn 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 ta 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 te 7c00 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tz 7c00 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tp 7c00 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 tn 7c00 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 ta 7c00 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 te 7c00 3ff0000000000000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 te 3c00 3ff0000000000000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f16_f64_f64 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -417,26 +471,32 @@ msf16_fma_f32_f16_f16 te 3f800000 3c00 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tz 3f800000 3c00 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tp 3f800000 3c00 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tn 3f800000 3c00 bc00 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 ta 3f800000 3c00 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 te 3f800000 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tz 3f800000 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tp 3f800000 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tn 3f800000 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 ta 3f800000 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 te 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tz 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tp 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tn 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 ta 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 te 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tz 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tp 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tn 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 ta 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 te 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tz 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tp 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tn 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 ta 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 te 7f800000 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tz 7f800000 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tp 7f800000 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 tn 7f800000 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 ta 7f800000 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 te 7f800000 3c00 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 te 3f800000 3c00 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f16 te 1 1 1 -> 1 18 exact-py-f16:dir-fma-sqrt
@@ -463,26 +523,32 @@ msf16_fma_f32_f16_f32 te 3f800000 3c00 bf800000 -> 0 00 exact-py-f16:dir-fma-sqr
 msf16_fma_f32_f16_f32 tz 3f800000 3c00 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tp 3f800000 3c00 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tn 3f800000 3c00 bf800000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 ta 3f800000 3c00 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 te 3f800000 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tz 3f800000 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tp 3f800000 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tn 3f800000 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 ta 3f800000 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 te 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tz 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tp 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tn 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 ta 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 te 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tz 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tp 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tn 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 ta 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 te 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tz 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tp 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tn 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 ta 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 te 7f800000 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tz 7f800000 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tp 7f800000 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 tn 7f800000 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 ta 7f800000 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 te 7f800000 3c00 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 te 3f800000 3c00 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f32 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -509,26 +575,32 @@ msf16_fma_f32_f16_f64 te 3f800000 3c00 bff0000000000000 -> 0 00 exact-py-f16:dir
 msf16_fma_f32_f16_f64 tz 3f800000 3c00 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tp 3f800000 3c00 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tn 3f800000 3c00 bff0000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 ta 3f800000 3c00 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 te 3f800000 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tz 3f800000 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tp 3f800000 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tn 3f800000 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 ta 3f800000 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 te 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tz 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tp 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tn 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 ta 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 te 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tz 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tp 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tn 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 ta 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 te 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tz 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tp 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tn 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 ta 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 te 7f800000 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tz 7f800000 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tp 7f800000 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 tn 7f800000 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 ta 7f800000 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 te 7f800000 3c00 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 te 3f800000 3c00 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f16_f64 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -555,26 +627,32 @@ msf16_fma_f32_f32_f16 te 3f800000 3f800000 bc00 -> 0 00 exact-py-f16:dir-fma-sqr
 msf16_fma_f32_f32_f16 tz 3f800000 3f800000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tp 3f800000 3f800000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tn 3f800000 3f800000 bc00 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 ta 3f800000 3f800000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 te 3f800000 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tz 3f800000 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tp 3f800000 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tn 3f800000 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 ta 3f800000 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 te 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tz 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tp 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tn 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 ta 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 te 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tz 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tp 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tn 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 ta 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 te 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tz 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tp 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tn 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 ta 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 te 7f800000 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tz 7f800000 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tp 7f800000 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 tn 7f800000 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 ta 7f800000 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 te 7f800000 3f800000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 te 3f800000 3f800000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f16 te 1 1 1 -> 1 18 exact-py-f16:dir-fma-sqrt
@@ -601,26 +679,32 @@ msf16_fma_f32_f32_f32 te 3f800000 3f800000 bf800000 -> 0 00 exact-py-f16:dir-fma
 msf16_fma_f32_f32_f32 tz 3f800000 3f800000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tp 3f800000 3f800000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tn 3f800000 3f800000 bf800000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 ta 3f800000 3f800000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 te 3f800000 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tz 3f800000 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tp 3f800000 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tn 3f800000 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 ta 3f800000 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 te 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tz 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tp 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tn 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 ta 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 te 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tz 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tp 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tn 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 ta 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 te 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tz 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tp 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tn 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 ta 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 te 7f800000 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tz 7f800000 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tp 7f800000 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 tn 7f800000 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 ta 7f800000 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 te 7f800000 3f800000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 te 3f800000 3f800000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f32 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -647,26 +731,32 @@ msf16_fma_f32_f32_f64 te 3f800000 3f800000 bff0000000000000 -> 0 00 exact-py-f16
 msf16_fma_f32_f32_f64 tz 3f800000 3f800000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tp 3f800000 3f800000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tn 3f800000 3f800000 bff0000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 ta 3f800000 3f800000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 te 3f800000 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tz 3f800000 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tp 3f800000 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tn 3f800000 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 ta 3f800000 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 te 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tz 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tp 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tn 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 ta 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 te 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tz 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tp 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tn 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 ta 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 te 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tz 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tp 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tn 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 ta 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 te 7f800000 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tz 7f800000 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tp 7f800000 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 tn 7f800000 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 ta 7f800000 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 te 7f800000 3f800000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 te 3f800000 3f800000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f32_f64 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -693,26 +783,32 @@ msf16_fma_f32_f64_f16 te 3f800000 3ff0000000000000 bc00 -> 0 00 exact-py-f16:dir
 msf16_fma_f32_f64_f16 tz 3f800000 3ff0000000000000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tp 3f800000 3ff0000000000000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tn 3f800000 3ff0000000000000 bc00 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 ta 3f800000 3ff0000000000000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 te 3f800000 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tz 3f800000 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tp 3f800000 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tn 3f800000 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 ta 3f800000 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 te 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tz 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tp 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tn 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 ta 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 te 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tz 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tp 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tn 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 ta 7f800000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 te 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tz 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tp 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tn 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 ta 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 te 7f800000 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tz 7f800000 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tp 7f800000 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 tn 7f800000 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 ta 7f800000 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 te 7f800000 3ff0000000000000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 te 3f800000 3ff0000000000000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f16 te 1 1 1 -> 1 18 exact-py-f16:dir-fma-sqrt
@@ -739,26 +835,32 @@ msf16_fma_f32_f64_f32 te 3f800000 3ff0000000000000 bf800000 -> 0 00 exact-py-f16
 msf16_fma_f32_f64_f32 tz 3f800000 3ff0000000000000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tp 3f800000 3ff0000000000000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tn 3f800000 3ff0000000000000 bf800000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 ta 3f800000 3ff0000000000000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 te 3f800000 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tz 3f800000 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tp 3f800000 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tn 3f800000 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 ta 3f800000 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 te 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tz 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tp 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tn 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 ta 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 te 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tz 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tp 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tn 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 ta 7f800000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 te 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tz 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tp 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tn 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 ta 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 te 7f800000 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tz 7f800000 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tp 7f800000 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 tn 7f800000 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 ta 7f800000 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 te 7f800000 3ff0000000000000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 te 3f800000 3ff0000000000000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f32 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -785,26 +887,32 @@ msf16_fma_f32_f64_f64 te 3f800000 3ff0000000000000 bff0000000000000 -> 0 00 exac
 msf16_fma_f32_f64_f64 tz 3f800000 3ff0000000000000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tp 3f800000 3ff0000000000000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tn 3f800000 3ff0000000000000 bff0000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 ta 3f800000 3ff0000000000000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 te 3f800000 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tz 3f800000 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tp 3f800000 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tn 3f800000 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 ta 3f800000 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 te 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tz 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tp 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tn 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 ta 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 te 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tz 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tp 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tn 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 ta 7f800000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 te 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tz 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tp 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tn 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 ta 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 te 7f800000 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tz 7f800000 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tp 7f800000 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 tn 7f800000 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 ta 7f800000 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 te 7f800000 3ff0000000000000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 te 3f800000 3ff0000000000000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f32_f64_f64 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -831,26 +939,32 @@ msf16_fma_f64_f16_f16 te 3ff0000000000000 3c00 bc00 -> 0 00 exact-py-f16:dir-fma
 msf16_fma_f64_f16_f16 tz 3ff0000000000000 3c00 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tp 3ff0000000000000 3c00 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tn 3ff0000000000000 3c00 bc00 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 ta 3ff0000000000000 3c00 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 te 3ff0000000000000 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tz 3ff0000000000000 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tp 3ff0000000000000 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tn 3ff0000000000000 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 ta 3ff0000000000000 3c00 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 te 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tz 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tp 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tn 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 ta 0 7c00 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 te 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tz 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tp 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tn 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 ta 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 te 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tz 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tp 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tn 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 ta 0 7c00 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 te 7ff0000000000000 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tz 7ff0000000000000 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tp 7ff0000000000000 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 tn 7ff0000000000000 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 ta 7ff0000000000000 3c00 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 te 7ff0000000000000 3c00 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 te 3ff0000000000000 3c00 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f16 te 1 1 1 -> 1 18 exact-py-f16:dir-fma-sqrt
@@ -877,26 +991,32 @@ msf16_fma_f64_f16_f32 te 3ff0000000000000 3c00 bf800000 -> 0 00 exact-py-f16:dir
 msf16_fma_f64_f16_f32 tz 3ff0000000000000 3c00 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tp 3ff0000000000000 3c00 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tn 3ff0000000000000 3c00 bf800000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 ta 3ff0000000000000 3c00 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 te 3ff0000000000000 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tz 3ff0000000000000 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tp 3ff0000000000000 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tn 3ff0000000000000 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 ta 3ff0000000000000 3c00 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 te 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tz 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tp 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tn 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 ta 0 7c00 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 te 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tz 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tp 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tn 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 ta 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 te 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tz 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tp 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tn 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 ta 0 7c00 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 te 7ff0000000000000 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tz 7ff0000000000000 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tp 7ff0000000000000 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 tn 7ff0000000000000 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 ta 7ff0000000000000 3c00 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 te 7ff0000000000000 3c00 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 te 3ff0000000000000 3c00 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f32 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -923,26 +1043,32 @@ msf16_fma_f64_f16_f64 te 3ff0000000000000 3c00 bff0000000000000 -> 0 00 exact-py
 msf16_fma_f64_f16_f64 tz 3ff0000000000000 3c00 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tp 3ff0000000000000 3c00 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tn 3ff0000000000000 3c00 bff0000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 ta 3ff0000000000000 3c00 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 te 3ff0000000000000 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tz 3ff0000000000000 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tp 3ff0000000000000 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tn 3ff0000000000000 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 ta 3ff0000000000000 3c00 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 te 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tz 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tp 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tn 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 ta 0 7c00 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 te 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tz 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tp 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tn 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 ta 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 te 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tz 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tp 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tn 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 ta 0 7c00 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 te 7ff0000000000000 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tz 7ff0000000000000 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tp 7ff0000000000000 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 tn 7ff0000000000000 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 ta 7ff0000000000000 3c00 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 te 7ff0000000000000 3c00 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 te 3ff0000000000000 3c00 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f16_f64 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -969,26 +1095,32 @@ msf16_fma_f64_f32_f16 te 3ff0000000000000 3f800000 bc00 -> 0 00 exact-py-f16:dir
 msf16_fma_f64_f32_f16 tz 3ff0000000000000 3f800000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tp 3ff0000000000000 3f800000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tn 3ff0000000000000 3f800000 bc00 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 ta 3ff0000000000000 3f800000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 te 3ff0000000000000 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tz 3ff0000000000000 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tp 3ff0000000000000 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tn 3ff0000000000000 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 ta 3ff0000000000000 3f800000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 te 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tz 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tp 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tn 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 ta 0 7f800000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 te 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tz 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tp 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tn 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 ta 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 te 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tz 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tp 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tn 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 ta 0 7f800000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 te 7ff0000000000000 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tz 7ff0000000000000 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tp 7ff0000000000000 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 tn 7ff0000000000000 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 ta 7ff0000000000000 3f800000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 te 7ff0000000000000 3f800000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 te 3ff0000000000000 3f800000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f16 te 1 1 1 -> 1 18 exact-py-f16:dir-fma-sqrt
@@ -1015,26 +1147,32 @@ msf16_fma_f64_f32_f32 te 3ff0000000000000 3f800000 bf800000 -> 0 00 exact-py-f16
 msf16_fma_f64_f32_f32 tz 3ff0000000000000 3f800000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tp 3ff0000000000000 3f800000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tn 3ff0000000000000 3f800000 bf800000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 ta 3ff0000000000000 3f800000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 te 3ff0000000000000 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tz 3ff0000000000000 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tp 3ff0000000000000 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tn 3ff0000000000000 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 ta 3ff0000000000000 3f800000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 te 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tz 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tp 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tn 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 ta 0 7f800000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 te 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tz 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tp 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tn 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 ta 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 te 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tz 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tp 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tn 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 ta 0 7f800000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 te 7ff0000000000000 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tz 7ff0000000000000 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tp 7ff0000000000000 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 tn 7ff0000000000000 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 ta 7ff0000000000000 3f800000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 te 7ff0000000000000 3f800000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 te 3ff0000000000000 3f800000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f32 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -1061,26 +1199,32 @@ msf16_fma_f64_f32_f64 te 3ff0000000000000 3f800000 bff0000000000000 -> 0 00 exac
 msf16_fma_f64_f32_f64 tz 3ff0000000000000 3f800000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tp 3ff0000000000000 3f800000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tn 3ff0000000000000 3f800000 bff0000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 ta 3ff0000000000000 3f800000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 te 3ff0000000000000 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tz 3ff0000000000000 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tp 3ff0000000000000 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tn 3ff0000000000000 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 ta 3ff0000000000000 3f800000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 te 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tz 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tp 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tn 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 ta 0 7f800000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 te 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tz 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tp 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tn 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 ta 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 te 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tz 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tp 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tn 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 ta 0 7f800000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 te 7ff0000000000000 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tz 7ff0000000000000 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tp 7ff0000000000000 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 tn 7ff0000000000000 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 ta 7ff0000000000000 3f800000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 te 7ff0000000000000 3f800000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 te 3ff0000000000000 3f800000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f32_f64 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -1107,26 +1251,32 @@ msf16_fma_f64_f64_f16 te 3ff0000000000000 3ff0000000000000 bc00 -> 0 00 exact-py
 msf16_fma_f64_f64_f16 tz 3ff0000000000000 3ff0000000000000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tp 3ff0000000000000 3ff0000000000000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tn 3ff0000000000000 3ff0000000000000 bc00 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 ta 3ff0000000000000 3ff0000000000000 bc00 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 te 3ff0000000000000 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tz 3ff0000000000000 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tp 3ff0000000000000 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tn 3ff0000000000000 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 ta 3ff0000000000000 3ff0000000000000 3c00 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 te 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tz 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tp 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tn 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 ta 0 7ff0000000000000 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 te 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tz 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tp 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tn 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 ta 7ff0000000000000 0 7e00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 te 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tz 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tp 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tn 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 ta 0 7ff0000000000000 3c00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 te 7ff0000000000000 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tz 7ff0000000000000 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tp 7ff0000000000000 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 tn 7ff0000000000000 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 ta 7ff0000000000000 3ff0000000000000 fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 te 7ff0000000000000 3ff0000000000000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 te 3ff0000000000000 3ff0000000000000 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f16 te 1 1 1 -> 1 18 exact-py-f16:dir-fma-sqrt
@@ -1153,26 +1303,32 @@ msf16_fma_f64_f64_f32 te 3ff0000000000000 3ff0000000000000 bf800000 -> 0 00 exac
 msf16_fma_f64_f64_f32 tz 3ff0000000000000 3ff0000000000000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tp 3ff0000000000000 3ff0000000000000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tn 3ff0000000000000 3ff0000000000000 bf800000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 ta 3ff0000000000000 3ff0000000000000 bf800000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 te 3ff0000000000000 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tz 3ff0000000000000 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tp 3ff0000000000000 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tn 3ff0000000000000 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 ta 3ff0000000000000 3ff0000000000000 3f800000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 te 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tz 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tp 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tn 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 ta 0 7ff0000000000000 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 te 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tz 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tp 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tn 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 ta 7ff0000000000000 0 7fc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 te 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tz 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tp 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tn 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 ta 0 7ff0000000000000 3f800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 te 7ff0000000000000 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tz 7ff0000000000000 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tp 7ff0000000000000 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 tn 7ff0000000000000 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 ta 7ff0000000000000 3ff0000000000000 ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 te 7ff0000000000000 3ff0000000000000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 te 3ff0000000000000 3ff0000000000000 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f32 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -1199,26 +1355,32 @@ msf16_fma_f64_f64_f64 te 3ff0000000000000 3ff0000000000000 bff0000000000000 -> 0
 msf16_fma_f64_f64_f64 tz 3ff0000000000000 3ff0000000000000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tp 3ff0000000000000 3ff0000000000000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tn 3ff0000000000000 3ff0000000000000 bff0000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 ta 3ff0000000000000 3ff0000000000000 bff0000000000000 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 te 3ff0000000000000 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tz 3ff0000000000000 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tp 3ff0000000000000 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tn 3ff0000000000000 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 ta 3ff0000000000000 3ff0000000000000 3ff0000000000000 -> 4000 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 te 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tz 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tp 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tn 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 ta 0 7ff0000000000000 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 te 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tz 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tp 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tn 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 ta 7ff0000000000000 0 7ff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 te 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tz 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tp 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tn 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 ta 0 7ff0000000000000 3ff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 te 7ff0000000000000 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tz 7ff0000000000000 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tp 7ff0000000000000 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 tn 7ff0000000000000 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 ta 7ff0000000000000 3ff0000000000000 fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 te 7ff0000000000000 3ff0000000000000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 te 3ff0000000000000 3ff0000000000000 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_fma_f64_f64_f64 te 1 1 1 -> 0 18 exact-py-f16:dir-fma-sqrt
@@ -1245,431 +1407,929 @@ msf16_sqrt te 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 0 -> 0 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 8000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 8000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 8000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 8000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 8000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 1 -> c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 1 -> c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 1 -> c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 1 -> c00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 1 -> c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 8001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 8001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 8001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 8001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 8001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 3ff -> 1fff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 3ff -> 1ffe 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 3ff -> 1fff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 3ff -> 1ffe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 3ff -> 1fff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 400 -> 2000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 400 -> 2000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 400 -> 2000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 400 -> 2000 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 400 -> 2000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 8400 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 8400 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 8400 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 8400 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 8400 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 3c00 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 3c00 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 3c00 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 3c00 -> 3c00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 3c00 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te bc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz bc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp bc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn bc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta bc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 3c01 -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 3c01 -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 3c01 -> 3c01 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 3c01 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 3c01 -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 3bff -> 3bff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 3bff -> 3bff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 3bff -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 3bff -> 3bff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 3bff -> 3bff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 4000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 4000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 4000 -> 3da9 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 4000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 4000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 3800 -> 39a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 3800 -> 39a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 3800 -> 39a9 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 3800 -> 39a8 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 3800 -> 39a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 3e00 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 3e00 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 3e00 -> 3ce7 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 3e00 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 3e00 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te be00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz be00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp be00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn be00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta be00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 4100 -> 3e53 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 4100 -> 3e53 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 4100 -> 3e54 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 4100 -> 3e53 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 4100 -> 3e53 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 7bff -> 5bff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 7bff -> 5bff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 7bff -> 5c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 7bff -> 5bff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 7bff -> 5bff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te fbff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz fbff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp fbff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn fbff -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta fbff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 7400 -> 5800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 7400 -> 5800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 7400 -> 5800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 7400 -> 5800 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 7400 -> 5800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 800 -> 21a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 800 -> 21a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 800 -> 21a9 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 800 -> 21a8 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 800 -> 21a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 4200 -> 3eee 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 4200 -> 3eed 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 4200 -> 3eee 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 4200 -> 3eed 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 4200 -> 3eee 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te c200 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz c200 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp c200 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn c200 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta c200 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 7c00 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta fc00 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 7e00 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 7e00 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 7e00 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 7e00 -> 7e00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 7e00 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te ff45 -> ff45 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz ff45 -> ff45 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp ff45 -> ff45 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn ff45 -> ff45 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta ff45 -> ff45 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 7c01 -> 7e01 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 7c01 -> 7e01 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 7c01 -> 7e01 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 7c01 -> 7e01 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 7c01 -> 7e01 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te fdff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz fdff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp fdff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn fdff -> ffff 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta fdff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 6800 -> 51a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 6800 -> 51a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 6800 -> 51a9 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 6800 -> 51a8 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 6800 -> 51a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 67ff -> 51a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 67ff -> 51a7 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 67ff -> 51a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 67ff -> 51a7 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 67ff -> 51a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 2e66 -> 350f 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 2e66 -> 350f 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 2e66 -> 3510 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 2e66 -> 350f 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 2e66 -> 350f 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te ae66 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz ae66 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp ae66 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn ae66 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta ae66 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 4000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 4000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 4000 -> 3da9 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 4000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 4000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 3400 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 3400 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 3400 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 3400 -> 3800 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 3400 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 4880 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 4880 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 4880 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 4880 -> 4200 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 4880 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt te 6400 -> 5000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tz 6400 -> 5000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tp 6400 -> 5000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt tn 6400 -> 5000 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt ta 6400 -> 5000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 0 -> 0 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 80000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 80000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 80000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 80000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 80000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 1 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 1 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 1 -> 1 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 1 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 1 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 80000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 80000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 80000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 80000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 80000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 7fffff -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 7fffff -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 7fffff -> 1 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 7fffff -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 7fffff -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 800000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 800000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 800000 -> 1 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 800000 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 800000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 80800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 80800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 80800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 80800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 80800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 3f800000 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 3f800000 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 3f800000 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 3f800000 -> 3c00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3f800000 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te bf800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz bf800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp bf800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn bf800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta bf800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 3f800001 -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 3f800001 -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 3f800001 -> 3c01 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 3f800001 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3f800001 -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 3f7fffff -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 3f7fffff -> 3bff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 3f7fffff -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 3f7fffff -> 3bff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3f7fffff -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 40000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 40000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 40000000 -> 3da9 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 40000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 40000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 3f000000 -> 39a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 3f000000 -> 39a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 3f000000 -> 39a9 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 3f000000 -> 39a8 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3f000000 -> 39a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 3fc00000 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 3fc00000 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 3fc00000 -> 3ce7 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 3fc00000 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3fc00000 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te bfc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz bfc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp bfc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn bfc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta bfc00000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 40200000 -> 3e53 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 40200000 -> 3e53 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 40200000 -> 3e54 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 40200000 -> 3e53 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 40200000 -> 3e53 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 7f7fffff -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 7f7fffff -> 7bff 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 7f7fffff -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 7f7fffff -> 7bff 14 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 7f7fffff -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te ff7fffff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz ff7fffff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp ff7fffff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn ff7fffff -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta ff7fffff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 7e800000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 7e800000 -> 7bff 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 7e800000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 7e800000 -> 7bff 14 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 7e800000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 1000000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 1000000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 1000000 -> 1 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 1000000 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 1000000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 40400000 -> 3eee 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 40400000 -> 3eed 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 40400000 -> 3eee 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 40400000 -> 3eed 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 40400000 -> 3eee 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te c0400000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz c0400000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp c0400000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn c0400000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta c0400000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 7f800000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta ff800000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 7fc00000 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 7fc00000 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 7fc00000 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 7fc00000 -> 7e00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 7fc00000 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te ffc12345 -> fe09 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz ffc12345 -> fe09 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp ffc12345 -> fe09 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn ffc12345 -> fe09 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta ffc12345 -> fe09 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 7f800001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 7f800001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 7f800001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 7f800001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 7f800001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te ffbfffff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz ffbfffff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp ffbfffff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn ffbfffff -> ffff 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta ffbfffff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 4b800000 -> 6c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 4b800000 -> 6c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 4b800000 -> 6c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 4b800000 -> 6c00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 4b800000 -> 6c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 4b7fffff -> 6c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 4b7fffff -> 6bff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 4b7fffff -> 6c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 4b7fffff -> 6bff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 4b7fffff -> 6c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 3dcccccd -> 350f 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 3dcccccd -> 350f 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 3dcccccd -> 3510 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 3dcccccd -> 350f 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3dcccccd -> 350f 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te bdcccccd -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz bdcccccd -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp bdcccccd -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn bdcccccd -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta bdcccccd -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 40000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 40000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 40000000 -> 3da9 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 40000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 40000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 3e800000 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 3e800000 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 3e800000 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 3e800000 -> 3800 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3e800000 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 41100000 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 41100000 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 41100000 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 41100000 -> 4200 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 41100000 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 te 49800000 -> 6400 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tz 49800000 -> 6400 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tp 49800000 -> 6400 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f32 tn 49800000 -> 6400 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 49800000 -> 6400 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 0 -> 0 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 0 -> 0 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 8000000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 8000000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 8000000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 8000000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 8000000000000000 -> 8000 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 1 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 1 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 1 -> 1 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 1 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 1 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 8000000000000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 8000000000000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 8000000000000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 8000000000000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 8000000000000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te fffffffffffff -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz fffffffffffff -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp fffffffffffff -> 1 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn fffffffffffff -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta fffffffffffff -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 10000000000000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 10000000000000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 10000000000000 -> 1 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 10000000000000 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 10000000000000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 8010000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 8010000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 8010000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 8010000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 8010000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 3ff0000000000000 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 3ff0000000000000 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 3ff0000000000000 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 3ff0000000000000 -> 3c00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3ff0000000000000 -> 3c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te bff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz bff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp bff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn bff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta bff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 3ff0000000000001 -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 3ff0000000000001 -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 3ff0000000000001 -> 3c01 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 3ff0000000000001 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3ff0000000000001 -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 3fefffffffffffff -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 3fefffffffffffff -> 3bff 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 3fefffffffffffff -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 3fefffffffffffff -> 3bff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3fefffffffffffff -> 3c00 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 4000000000000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 4000000000000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 4000000000000000 -> 3da9 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 4000000000000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 4000000000000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 3fe0000000000000 -> 39a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 3fe0000000000000 -> 39a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 3fe0000000000000 -> 39a9 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 3fe0000000000000 -> 39a8 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3fe0000000000000 -> 39a8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 3ff8000000000000 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 3ff8000000000000 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 3ff8000000000000 -> 3ce7 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 3ff8000000000000 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3ff8000000000000 -> 3ce6 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te bff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz bff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp bff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn bff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta bff8000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 4004000000000000 -> 3e53 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 4004000000000000 -> 3e53 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 4004000000000000 -> 3e54 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 4004000000000000 -> 3e53 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 4004000000000000 -> 3e53 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 7fefffffffffffff -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 7fefffffffffffff -> 7bff 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 7fefffffffffffff -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 7fefffffffffffff -> 7bff 14 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 7fefffffffffffff -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te ffefffffffffffff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz ffefffffffffffff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp ffefffffffffffff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn ffefffffffffffff -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta ffefffffffffffff -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 7fd0000000000000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 7fd0000000000000 -> 7bff 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 7fd0000000000000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 7fd0000000000000 -> 7bff 14 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 7fd0000000000000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 20000000000000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 20000000000000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 20000000000000 -> 1 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 20000000000000 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 20000000000000 -> 0 18 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 4008000000000000 -> 3eee 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 4008000000000000 -> 3eed 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 4008000000000000 -> 3eee 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 4008000000000000 -> 3eed 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 4008000000000000 -> 3eee 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te c008000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz c008000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp c008000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn c008000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta c008000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 7ff0000000000000 -> 7c00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta fff0000000000000 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 7ff8000000000000 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 7ff8000000000000 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 7ff8000000000000 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 7ff8000000000000 -> 7e00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 7ff8000000000000 -> 7e00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te fff8000000012345 -> fe00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz fff8000000012345 -> fe00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp fff8000000012345 -> fe00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn fff8000000012345 -> fe00 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta fff8000000012345 -> fe00 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 7ff0000000000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 7ff0000000000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 7ff0000000000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 7ff0000000000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 7ff0000000000001 -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te fff7ffffffffffff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz fff7ffffffffffff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp fff7ffffffffffff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn fff7ffffffffffff -> ffff 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta fff7ffffffffffff -> ffff 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 4340000000000000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 4340000000000000 -> 7bff 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 4340000000000000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 4340000000000000 -> 7bff 14 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 4340000000000000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 433fffffffffffff -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 433fffffffffffff -> 7bff 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 433fffffffffffff -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 433fffffffffffff -> 7bff 14 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 433fffffffffffff -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 3fb999999999999a -> 350f 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 3fb999999999999a -> 350f 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 3fb999999999999a -> 3510 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 3fb999999999999a -> 350f 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3fb999999999999a -> 350f 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te bfb999999999999a -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz bfb999999999999a -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp bfb999999999999a -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn bfb999999999999a -> 7e00 01 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta bfb999999999999a -> 7e00 01 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 4000000000000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 4000000000000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 4000000000000000 -> 3da9 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 4000000000000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 4000000000000000 -> 3da8 10 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 3fd0000000000000 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 3fd0000000000000 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 3fd0000000000000 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 3fd0000000000000 -> 3800 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3fd0000000000000 -> 3800 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 4022000000000000 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 4022000000000000 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 4022000000000000 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 4022000000000000 -> 4200 00 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 4022000000000000 -> 4200 00 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 te 4270000000000000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tz 4270000000000000 -> 7bff 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tp 4270000000000000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
 msf16_sqrt_f64 tn 4270000000000000 -> 7bff 14 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 4270000000000000 -> 7c00 14 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 3d802002 -> 3400 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 3d802002 -> 3400 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 3d802002 -> 3401 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 3d802002 -> 3400 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3d802002 -> 3401 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 3d80a032 -> 3402 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 3d80a032 -> 3402 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 3d80a032 -> 3403 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 3d80a032 -> 3402 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3d80a032 -> 3403 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 3e7fa009 -> 37fe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 3e7fa009 -> 37fe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 3e7fa009 -> 37ff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 3e7fa009 -> 37fe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3e7fa009 -> 37ff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 3f802002 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 3f802002 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 3f802002 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 3f802002 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3f802002 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 3f80a032 -> 3c02 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 3f80a032 -> 3c02 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 3f80a032 -> 3c03 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 3f80a032 -> 3c02 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 3f80a032 -> 3c03 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 407fa009 -> 3ffe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 407fa009 -> 3ffe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 407fa009 -> 3fff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 407fa009 -> 3ffe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 407fa009 -> 3fff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 42802002 -> 4800 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 42802002 -> 4800 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 42802002 -> 4801 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 42802002 -> 4800 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 42802002 -> 4801 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 4280a032 -> 4802 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 4280a032 -> 4802 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 4280a032 -> 4803 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 4280a032 -> 4802 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 4280a032 -> 4803 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 437fa009 -> 4bfe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 437fa009 -> 4bfe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 437fa009 -> 4bff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 437fa009 -> 4bfe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 437fa009 -> 4bff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 26800000 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 26800000 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 26800000 -> 1 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 26800000 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 26800000 -> 1 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 28100000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 28100000 -> 1 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 28100000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 28100000 -> 1 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 28100000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 te 28c80000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tz 28c80000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tp 28c80000 -> 3 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 tn 28c80000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f32 ta 28c80000 -> 3 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 3fb0040040000000 -> 3400 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 3fb0040040000000 -> 3400 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 3fb0040040000000 -> 3401 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 3fb0040040000000 -> 3400 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3fb0040040000000 -> 3401 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 3fb0140640000000 -> 3402 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 3fb0140640000000 -> 3402 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 3fb0140640000000 -> 3403 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 3fb0140640000000 -> 3402 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3fb0140640000000 -> 3403 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 3fcff40120000000 -> 37fe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 3fcff40120000000 -> 37fe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 3fcff40120000000 -> 37ff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 3fcff40120000000 -> 37fe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3fcff40120000000 -> 37ff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 3ff0040040000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 3ff0040040000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 3ff0040040000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 3ff0040040000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3ff0040040000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 3ff0140640000000 -> 3c02 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 3ff0140640000000 -> 3c02 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 3ff0140640000000 -> 3c03 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 3ff0140640000000 -> 3c02 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3ff0140640000000 -> 3c03 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 400ff40120000000 -> 3ffe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 400ff40120000000 -> 3ffe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 400ff40120000000 -> 3fff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 400ff40120000000 -> 3ffe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 400ff40120000000 -> 3fff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 4050040040000000 -> 4800 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 4050040040000000 -> 4800 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 4050040040000000 -> 4801 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 4050040040000000 -> 4800 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 4050040040000000 -> 4801 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 4050140640000000 -> 4802 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 4050140640000000 -> 4802 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 4050140640000000 -> 4803 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 4050140640000000 -> 4802 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 4050140640000000 -> 4803 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 406ff40120000000 -> 4bfe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 406ff40120000000 -> 4bfe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 406ff40120000000 -> 4bff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 406ff40120000000 -> 4bfe 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 406ff40120000000 -> 4bff 10 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 3cd0000000000000 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 3cd0000000000000 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 3cd0000000000000 -> 1 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 3cd0000000000000 -> 0 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3cd0000000000000 -> 1 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 3d02000000000000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 3d02000000000000 -> 1 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 3d02000000000000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 3d02000000000000 -> 1 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3d02000000000000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 te 3d19000000000000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tz 3d19000000000000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tp 3d19000000000000 -> 3 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 tn 3d19000000000000 -> 2 18 exact-py-f16:dir-fma-sqrt
+msf16_sqrt_f64 ta 3d19000000000000 -> 3 18 exact-py-f16:dir-fma-sqrt
+msf16_fma te 3c00 3c00 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma tz 3c00 3c00 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma tp 3c00 3c00 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma tn 3c00 3c00 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma ta 3c00 3c00 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma te 3c00 3c00 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma tz 3c00 3c00 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma tp 3c00 3c00 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma tn 3c00 3c00 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma ta 3c00 3c00 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 te 3c00 3c00 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 tz 3c00 3c00 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 tp 3c00 3c00 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 tn 3c00 3c00 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 ta 3c00 3c00 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 te 3c00 3c00 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 tz 3c00 3c00 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 tp 3c00 3c00 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 tn 3c00 3c00 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f32 ta 3c00 3c00 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 te 3c00 3c00 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 tz 3c00 3c00 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 tp 3c00 3c00 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 tn 3c00 3c00 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 ta 3c00 3c00 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 te 3c00 3c00 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 tz 3c00 3c00 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 tp 3c00 3c00 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 tn 3c00 3c00 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f16_f64 ta 3c00 3c00 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 te 3c00 3f800000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 tz 3c00 3f800000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 tp 3c00 3f800000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 tn 3c00 3f800000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 ta 3c00 3f800000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 te 3c00 3f800000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 tz 3c00 3f800000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 tp 3c00 3f800000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 tn 3c00 3f800000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f16 ta 3c00 3f800000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 te 3c00 3f800000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 tz 3c00 3f800000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 tp 3c00 3f800000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 tn 3c00 3f800000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 ta 3c00 3f800000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 te 3c00 3f800000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 tz 3c00 3f800000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 tp 3c00 3f800000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 tn 3c00 3f800000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f32 ta 3c00 3f800000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 te 3c00 3f800000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 tz 3c00 3f800000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 tp 3c00 3f800000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 tn 3c00 3f800000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 ta 3c00 3f800000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 te 3c00 3f800000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 tz 3c00 3f800000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 tp 3c00 3f800000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 tn 3c00 3f800000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f32_f64 ta 3c00 3f800000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 te 3c00 3ff0000000000000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 tz 3c00 3ff0000000000000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 tp 3c00 3ff0000000000000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 tn 3c00 3ff0000000000000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 ta 3c00 3ff0000000000000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 te 3c00 3ff0000000000000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 tz 3c00 3ff0000000000000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 tp 3c00 3ff0000000000000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 tn 3c00 3ff0000000000000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f16 ta 3c00 3ff0000000000000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 te 3c00 3ff0000000000000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 tz 3c00 3ff0000000000000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 tp 3c00 3ff0000000000000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 tn 3c00 3ff0000000000000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 ta 3c00 3ff0000000000000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 te 3c00 3ff0000000000000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 tz 3c00 3ff0000000000000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 tp 3c00 3ff0000000000000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 tn 3c00 3ff0000000000000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f32 ta 3c00 3ff0000000000000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 te 3c00 3ff0000000000000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 tz 3c00 3ff0000000000000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 tp 3c00 3ff0000000000000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 tn 3c00 3ff0000000000000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 ta 3c00 3ff0000000000000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 te 3c00 3ff0000000000000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 tz 3c00 3ff0000000000000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 tp 3c00 3ff0000000000000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 tn 3c00 3ff0000000000000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f16_f64_f64 ta 3c00 3ff0000000000000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 te 3f800000 3c00 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 tz 3f800000 3c00 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 tp 3f800000 3c00 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 tn 3f800000 3c00 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 ta 3f800000 3c00 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 te 3f800000 3c00 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 tz 3f800000 3c00 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 tp 3f800000 3c00 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 tn 3f800000 3c00 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f16 ta 3f800000 3c00 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 te 3f800000 3c00 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 tz 3f800000 3c00 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 tp 3f800000 3c00 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 tn 3f800000 3c00 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 ta 3f800000 3c00 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 te 3f800000 3c00 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 tz 3f800000 3c00 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 tp 3f800000 3c00 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 tn 3f800000 3c00 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f32 ta 3f800000 3c00 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 te 3f800000 3c00 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 tz 3f800000 3c00 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 tp 3f800000 3c00 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 tn 3f800000 3c00 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 ta 3f800000 3c00 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 te 3f800000 3c00 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 tz 3f800000 3c00 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 tp 3f800000 3c00 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 tn 3f800000 3c00 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f16_f64 ta 3f800000 3c00 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 te 3f800000 3f800000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 tz 3f800000 3f800000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 tp 3f800000 3f800000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 tn 3f800000 3f800000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 ta 3f800000 3f800000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 te 3f800000 3f800000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 tz 3f800000 3f800000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 tp 3f800000 3f800000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 tn 3f800000 3f800000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f16 ta 3f800000 3f800000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 te 3f800000 3f800000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 tz 3f800000 3f800000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 tp 3f800000 3f800000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 tn 3f800000 3f800000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 ta 3f800000 3f800000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 te 3f800000 3f800000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 tz 3f800000 3f800000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 tp 3f800000 3f800000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 tn 3f800000 3f800000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f32 ta 3f800000 3f800000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 te 3f800000 3f800000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 tz 3f800000 3f800000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 tp 3f800000 3f800000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 tn 3f800000 3f800000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 ta 3f800000 3f800000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 te 3f800000 3f800000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 tz 3f800000 3f800000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 tp 3f800000 3f800000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 tn 3f800000 3f800000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f32_f64 ta 3f800000 3f800000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 te 3f800000 3ff0000000000000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 tz 3f800000 3ff0000000000000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 tp 3f800000 3ff0000000000000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 tn 3f800000 3ff0000000000000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 ta 3f800000 3ff0000000000000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 te 3f800000 3ff0000000000000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 tz 3f800000 3ff0000000000000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 tp 3f800000 3ff0000000000000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 tn 3f800000 3ff0000000000000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f16 ta 3f800000 3ff0000000000000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 te 3f800000 3ff0000000000000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 tz 3f800000 3ff0000000000000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 tp 3f800000 3ff0000000000000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 tn 3f800000 3ff0000000000000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 ta 3f800000 3ff0000000000000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 te 3f800000 3ff0000000000000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 tz 3f800000 3ff0000000000000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 tp 3f800000 3ff0000000000000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 tn 3f800000 3ff0000000000000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f32 ta 3f800000 3ff0000000000000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 te 3f800000 3ff0000000000000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 tz 3f800000 3ff0000000000000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 tp 3f800000 3ff0000000000000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 tn 3f800000 3ff0000000000000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 ta 3f800000 3ff0000000000000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 te 3f800000 3ff0000000000000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 tz 3f800000 3ff0000000000000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 tp 3f800000 3ff0000000000000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 tn 3f800000 3ff0000000000000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f32_f64_f64 ta 3f800000 3ff0000000000000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 te 3ff0000000000000 3c00 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 tz 3ff0000000000000 3c00 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 tp 3ff0000000000000 3c00 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 tn 3ff0000000000000 3c00 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 ta 3ff0000000000000 3c00 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 te 3ff0000000000000 3c00 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 tz 3ff0000000000000 3c00 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 tp 3ff0000000000000 3c00 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 tn 3ff0000000000000 3c00 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f16 ta 3ff0000000000000 3c00 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 te 3ff0000000000000 3c00 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 tz 3ff0000000000000 3c00 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 tp 3ff0000000000000 3c00 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 tn 3ff0000000000000 3c00 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 ta 3ff0000000000000 3c00 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 te 3ff0000000000000 3c00 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 tz 3ff0000000000000 3c00 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 tp 3ff0000000000000 3c00 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 tn 3ff0000000000000 3c00 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f32 ta 3ff0000000000000 3c00 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 te 3ff0000000000000 3c00 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 tz 3ff0000000000000 3c00 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 tp 3ff0000000000000 3c00 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 tn 3ff0000000000000 3c00 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 ta 3ff0000000000000 3c00 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 te 3ff0000000000000 3c00 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 tz 3ff0000000000000 3c00 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 tp 3ff0000000000000 3c00 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 tn 3ff0000000000000 3c00 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f16_f64 ta 3ff0000000000000 3c00 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 te 3ff0000000000000 3f800000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 tz 3ff0000000000000 3f800000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 tp 3ff0000000000000 3f800000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 tn 3ff0000000000000 3f800000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 ta 3ff0000000000000 3f800000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 te 3ff0000000000000 3f800000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 tz 3ff0000000000000 3f800000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 tp 3ff0000000000000 3f800000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 tn 3ff0000000000000 3f800000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f16 ta 3ff0000000000000 3f800000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 te 3ff0000000000000 3f800000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 tz 3ff0000000000000 3f800000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 tp 3ff0000000000000 3f800000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 tn 3ff0000000000000 3f800000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 ta 3ff0000000000000 3f800000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 te 3ff0000000000000 3f800000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 tz 3ff0000000000000 3f800000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 tp 3ff0000000000000 3f800000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 tn 3ff0000000000000 3f800000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f32 ta 3ff0000000000000 3f800000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 te 3ff0000000000000 3f800000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 tz 3ff0000000000000 3f800000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 tp 3ff0000000000000 3f800000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 tn 3ff0000000000000 3f800000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 ta 3ff0000000000000 3f800000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 te 3ff0000000000000 3f800000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 tz 3ff0000000000000 3f800000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 tp 3ff0000000000000 3f800000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 tn 3ff0000000000000 3f800000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f32_f64 ta 3ff0000000000000 3f800000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 te 3ff0000000000000 3ff0000000000000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 tz 3ff0000000000000 3ff0000000000000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 tp 3ff0000000000000 3ff0000000000000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 tn 3ff0000000000000 3ff0000000000000 1000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 ta 3ff0000000000000 3ff0000000000000 1000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 te 3ff0000000000000 3ff0000000000000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 tz 3ff0000000000000 3ff0000000000000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 tp 3ff0000000000000 3ff0000000000000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 tn 3ff0000000000000 3ff0000000000000 3c01 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f16 ta 3ff0000000000000 3ff0000000000000 3c01 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 te 3ff0000000000000 3ff0000000000000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 tz 3ff0000000000000 3ff0000000000000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 tp 3ff0000000000000 3ff0000000000000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 tn 3ff0000000000000 3ff0000000000000 3a000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 ta 3ff0000000000000 3ff0000000000000 3a000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 te 3ff0000000000000 3ff0000000000000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 tz 3ff0000000000000 3ff0000000000000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 tp 3ff0000000000000 3ff0000000000000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 tn 3ff0000000000000 3ff0000000000000 3f802000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f32 ta 3ff0000000000000 3ff0000000000000 3f802000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 te 3ff0000000000000 3ff0000000000000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 tz 3ff0000000000000 3ff0000000000000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 tp 3ff0000000000000 3ff0000000000000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 tn 3ff0000000000000 3ff0000000000000 3f40000000000000 -> 3c00 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 ta 3ff0000000000000 3ff0000000000000 3f40000000000000 -> 3c01 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 te 3ff0000000000000 3ff0000000000000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 tz 3ff0000000000000 3ff0000000000000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 tp 3ff0000000000000 3ff0000000000000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 tn 3ff0000000000000 3ff0000000000000 3ff0040000000000 -> 4000 10 exact-py-f16:dir-fma-sqrt
+msf16_fma_f64_f64_f64 ta 3ff0000000000000 3ff0000000000000 3ff0040000000000 -> 4001 10 exact-py-f16:dir-fma-sqrt

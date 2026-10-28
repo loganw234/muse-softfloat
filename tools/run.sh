@@ -175,6 +175,12 @@ controls() {
         tests/vectors/pack64.vec > "$C/wrongrm.vec"
     "$R" verify "$C/wrongrm.vec" > "$C/wrongrm.log" 2>&1
     [ $? -ne 0 ] && control_ok wrong-rounding-mode || control_bad wrong-rounding-mode
+    # 3b. wrong rounding mode te<->ta (SF-2 Step 1: the fifth
+    # attribute must be distinguishable on public tie lines)
+    awk '{if($2=="te")$2="ta"; else if($2=="ta")$2="te"} {print}' \
+        tests/vectors/arith-f32.vec > "$C/wrongrm-ta.vec"
+    "$R" verify "$C/wrongrm-ta.vec" > "$C/wrongrm-ta.log" 2>&1
+    [ $? -ne 0 ] && grep -q 'VERDICT: FAIL' "$C/wrongrm-ta.log" && control_ok wrong-rounding-mode-te-ta || control_bad wrong-rounding-mode-te-ta
     # 4. wrong flag bit (first nonzero pack64 flags zeroed)
     awk 'BEGIN{d=0} $1=="internal.pack64" && !d && $(NF-1)!="00" {$(NF-1)="00"; d=1} {print}' \
         tests/vectors/pack64.vec > "$C/wrongflag.vec"

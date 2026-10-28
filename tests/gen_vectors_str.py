@@ -42,7 +42,7 @@ FMTS = {  # name: (bits, precision, exp bits, pmin)
     "f64": (64, 53, 11, 17),
 }
 F_INV, F_DIV0, F_OVF, F_UNF, F_INX = 0x01, 0x02, 0x04, 0x08, 0x10
-RMS = ["te", "tz", "tp", "tn"]
+RMS = ["te", "tz", "tp", "tn", "ta"]  # five attributes (SF-2 Step 1)
 POW10 = {0: 1}
 
 
@@ -97,6 +97,8 @@ def _round_ratio_to_int(num, den, rm, sign):
     if rm == "te":
         twice = 2 * r
         inc = twice > den or (twice == den and (q & 1))
+    elif rm == "ta":
+        inc = 2 * r >= den
     elif rm == "tp":
         inc = not sign
     elif rm == "tn":
@@ -126,7 +128,7 @@ def pack_ratio(sign, num, den, rm, fmt):
     # delivered magnitude = q * 2^scale; overflow iff > max finite
     maxq = (1 << p) - 1
     if scale > emax - (p - 1) or (scale == emax - (p - 1) and q > maxq):
-        to_inf = rm == "te" or (rm == "tp" and not sign) or (rm == "tn" and sign)
+        to_inf = rm in ("te", "ta") or (rm == "tp" and not sign) or (rm == "tn" and sign)
         expmax = (1 << fp["w"]) - 1
         enc = (expmax << t) if to_inf else (((expmax - 1) << t) | ((1 << t) - 1))
         return (sign << fp["signbit"]) | enc, F_OVF | F_INX
@@ -203,6 +205,8 @@ def dec_round_inc(rm, sign, last_kept_digit, dropped_str):
     half = 5 * 10 ** (n - 1)
     if rm == "te":
         return tail > half or (tail == half and (last_kept_digit & 1) == 1)
+    if rm == "ta":
+        return tail >= half
     if rm == "tp":
         return not sign and dropped_nonzero
     if rm == "tn":
@@ -513,6 +517,8 @@ def to_hex_ref(bits, precision, rm, fmt):
     inc = False
     if rm == "te":
         inc = dropped > half or (dropped == half and (kept & 1))
+    elif rm == "ta":
+        inc = dropped >= half
     elif rm == "tp":
         inc = not d["sign"] and inexact
     elif rm == "tn":
@@ -684,6 +690,146 @@ def _write(path, lines):
     return len([l for l in lines if l and not l.startswith("#")])
 
 
+def gen_from_dec_beyond_h_ties():
+    """Beyond-H digit ties (SF-2 Step 1, study plant shape 2):
+    take an exact binary midpoint M with an even lower
+    neighbour, floor its decimal expansion to H digits D
+    (even last digit), and emit D followed by '50000'. The
+    two-step rule keeps D under te (pack -> lower neighbour,
+    since D < M) and increments to D+ulp under ta (pack ->
+    upper neighbour). Kept only where the reference's
+    te/ta outcomes actually differ."""
+    out = []
+    for fmt in FMTS:
+        fp = fmt_params(fmt)
+        p = fp["p"]
+        qs = [1 << (p - 1), (1 << (p - 1)) + 2, (1 << p) - 2,
+              (1 << (p - 1)) + (1 << (p // 2 + 1))]
+        found = 0
+        for big_e in (0, -7, 9, fp["emin"] + 3, fp["emin"]):
+            for q in qs:
+                odd = 2 * q + 1
+                e2 = big_e - p
+                if e2 >= 0:
+                    digs = str(odd << e2)
+                    dexp = len(digs) - 1
+                else:
+                    digs = str(odd * 5 ** (-e2))
+                    dexp = len(digs) - 1 + e2
+                if len(digs) <= H + 1:
+                    continue
+                kept = digs[:H]
+                if int(kept[-1]) % 2:
+                    continue
+                s = kept[0] + "." + kept[1:] + "50000" + f"e{dexp}"
+                if from_decimal_ref(s, "te", fmt)[:2] != \
+                        from_decimal_ref(s, "ta", fmt)[:2]:
+                    for rm in RMS:
+                        out.append(from_dec_line(s, rm, fmt,
+                                                 "exact-str:beyond-h"))
+                        out.append(from_dec_line("-" + s, rm, fmt,
+                                                 "exact-str:beyond-h"))
+                    found += 1
+        assert found, fmt
+    return out
+
+
+def gen_to_dec_ties():
+    """to_decimal digit ties: dyadic values whose exact
+    decimal expansion, cut at the emitted precision, drops
+    exactly '5' followed by zeros with an even kept digit
+    (study plant shape 1). Searched, then decided by the
+    reference in every mode."""
+    out = []
+    for fmt in FMTS:
+        cands = []
+        for n in range(1, 13):
+            for k in (1, 3, 5, 9, 15, 25, 35, 45, 65, 125):
+                for e in (-2, 0, 3):
+                    num, den = k, 1 << n
+                    if e >= 0:
+                        num <<= e
+                    else:
+                        den <<= -e
+                    for sign in (0, 1):
+                        bits, fl = pack_ratio(sign, num, den, "te", fmt)
+                        if fl == 0:
+                            cands.append(bits)
+        found = 0
+        for bits in sorted(set(cands)):
+            for prec in range(1, 9):
+                for style in (0, 1):
+                    spec = (prec, style, 0)
+                    if to_decimal_ref(bits, spec, "te", fmt) != \
+                            to_decimal_ref(bits, spec, "ta", fmt):
+                        for rm in RMS:
+                            out.append(to_dec_line(
+                                bits, spec, rm, fmt,
+                                "exact-str:to-dec-modes"))
+                        found += 1
+        assert found, fmt
+    return out
+
+
+def gen_to_hex_ties():
+    """to_hex half ties: significands whose dropped part at
+    the emitted precision is exactly half, kept part even
+    (study plant shape 1)."""
+    out = []
+    for fmt in FMTS:
+        fp = fmt_params(fmt)
+        t, p, bias = fp["t"], fp["p"], fp["emax"]
+        ndig = (t + 3) // 4
+        found = 0
+        for pr in range(0, ndig):
+            shift = t - 4 * pr
+            if shift <= 0:
+                continue
+            kbits = p - shift
+            for kept in ((1 << (kbits - 1)), (1 << (kbits - 1)) + 2,
+                         (1 << kbits) - 2):
+                sig = (kept << shift) | (1 << (shift - 1))
+                if not (1 << t) <= sig < (1 << p):
+                    continue
+                for sign in (0, 1):
+                    bits = (sign << fp["signbit"]) | (bias << t) | \
+                        (sig - (1 << t))
+                    if to_hex_ref(bits, pr, "te", fmt) != \
+                            to_hex_ref(bits, pr, "ta", fmt):
+                        for rm in RMS:
+                            out.append(to_hex_line(
+                                bits, pr, rm, fmt,
+                                "exact-str:to-hex-modes"))
+                        found += 1
+        assert found, fmt
+    return out
+
+
+def gen_from_hex_ties():
+    """from_hex binary ties at each format's own precision:
+    value = odd * 2^(e-p) with odd a p+1-bit midpoint
+    significand, even lower neighbour (SF-2 Step 1)."""
+    out = []
+    for fmt in FMTS:
+        fp = fmt_params(fmt)
+        p = fp["p"]
+        found = 0
+        for e in (0, -5, 7, fp["emin"] + 2):
+            for q in ((1 << (p - 1)), (1 << (p - 1)) + 2, (1 << p) - 2):
+                odd = 2 * q + 1
+                s = f"0x{odd:x}p{e - p}"
+                if from_hex_ref(s, "te", fmt)[:2] != \
+                        from_hex_ref(s, "ta", fmt)[:2]:
+                    for rm in RMS:
+                        out.append(from_hex_line(
+                            s, rm, fmt, "exact-str:from-hex-ties"))
+                        out.append(from_hex_line(
+                            "-" + s, rm, fmt, "exact-str:from-hex-ties"))
+                    found += 1
+        assert found, fmt
+    return out
+
+
 def directed(outdir):
     outdir = Path(outdir)
     outdir.mkdir(parents=True, exist_ok=True)
@@ -696,7 +842,7 @@ def directed(outdir):
             lines.append(from_dec_line(s, "te", fmt, "exact-str:grammar-dec"))
         core = [s for s in GRAMMAR_DEC if s and (s[0].isdigit() or s[0] in "+-.")]
         for s in core:
-            for rm in ["tz", "tp", "tn"]:  # te covered in the pass above
+            for rm in ["tz", "tp", "tn", "ta"]:  # te covered in the pass above
                 lines.append(from_dec_line(s, rm, fmt, "exact-str:grammar-dec-modes"))
         for s in _tie_strings(fmt):
             for rm in RMS:
@@ -731,6 +877,7 @@ def directed(outdir):
         for s in beyond:
             for rm in RMS:
                 lines.append(from_dec_line(s, rm, fmt, "exact-str:beyond-h"))
+    lines += gen_from_dec_beyond_h_ties()
     total += _write(outdir / "from-decimal-str.vec", lines)
 
     lines = [header]
@@ -757,6 +904,7 @@ def directed(outdir):
                 for rm in RMS:
                     lines.append(from_hex_line(f"{hs}{e2}", rm, fmt,
                                                "exact-str:from-hex-boundary"))
+    lines += gen_from_hex_ties()
     total += _write(outdir / "from-hex-str.vec", lines)
 
     lines = [header]
@@ -785,6 +933,7 @@ def directed(outdir):
                                  "exact-str:to-dec-buffer", buf=64))
         lines.append(to_dec_line(one, (1000000, 1, 0), "te", fmt,
                                  "exact-str:to-dec-buffer", buf=64))
+    lines += gen_to_dec_ties()
     total += _write(outdir / "to-decimal-str.vec", lines)
 
     lines = [header]
@@ -808,6 +957,7 @@ def directed(outdir):
         one = (fp["emax"] << fp["t"])
         lines.append(to_hex_line(one, 1000000, "te", fmt,
                                  "exact-str:to-hex-buffer", buf=64))
+    lines += gen_to_hex_ties()
     total += _write(outdir / "to-hex-str.vec", lines)
     print(f"directed: wrote {total} vectors into {outdir}")
     return total
@@ -861,7 +1011,7 @@ def bulk(kind, outfile, n, seed):
     lines = [f"# bulk {kind} seed={seed} - scratch differential set"]
     for i in range(n):
         fmt = fmts[i % 3]
-        rm = RMS[rng.randint(0, 3)]
+        rm = RMS[rng.randint(0, len(RMS) - 1)]
         if kind == "from-decimal":
             lines.append(from_dec_line(_rand_decimal_string(rng, fmt), rm,
                                        fmt, "exact-str:bulk-from-dec"))
