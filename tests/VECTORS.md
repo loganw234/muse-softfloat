@@ -81,6 +81,15 @@ printed, never silent (SF-0 §4.3).
 | `mpfr-alg:directed` | rSqrt+hypot directed exact/edge pool: perfect-square lattice (+-1 ulp neighbours), powers of two, smallest/largest subnormal, smallest normal, largest finite, same split as above: MPFR Step 0b operation recipe via `tests/alg_decider.c`, cross-decided per case by the generator's exact integer decider in all five modes |
 | `mpfr-alg:ties` | rSqrt+hypot midpoint-adjacent constructions (encodings nearest the reciprocal square of sampled destination midpoints; exact ties are unattainable for rSqrt, so these are the hardest-to-round inputs), same decider split |
 | `mpfr-alg:seeded` | rSqrt+hypot seeded sweep (seeds in the generator), same decider split |
+| `mpfr-explog:specials` | Clause 9.2 exp2+exp2m1 specials at all 3 formats (signed zeros, infinities - not invalid for this bundle - quiet/signaling NaN payload samples), expectations from the adaptive-precision MPFR bracket decider in `tests/explog_decider.c` (five modes, first-principles grid narrowing), cross-checked by the settled-table reference in `tests/gen_vectors_explog.py` (SF-2 Step 3a) |
+| `mpfr-explog:integers` | exp2+exp2m1 integer anchors: every exact/tie cell of the design table (exp2 at emin-p the u/2 tie, exp2m1 at p+1 and -(p+1) the binade-midpoint ties, exact powers/subnormal powers, overflow integers) with +-1 ulp neighbours, same decider split as above (C decider vs the generator's exact Fraction rounder, all five modes incl. ties-to-away) |
+| `mpfr-explog:cuts` | exp2+exp2m1 kernel cut thresholds (emax+1, emax+2, emin-p, -(p+1)) at -3..+3 ulp, same decider |
+| `mpfr-explog:lattice` | exp2+exp2m1 dyadic m/8 lattice at 7 scales with +-2 ulp neighbours, same decider |
+| `mpfr-explog:tiny` | exp2+exp2m1 smallest/largest subnormal and smallest-normal neighbourhood inputs (near-1 composition family), same decider |
+| `mpfr-explog:strips` | exp2m1 saturation strip ladder from -(p+1) upward and the exp2 subnormal-result strip around emin-p and overflow strip below emax+1, same decider |
+| `mpfr-explog:hardest` | exp2+exp2m1 spike-measured plain-class hardest binary64 patterns (inputs only, SF-2 spike Sec. 2.1) with +-2 ulp neighbours, same decider |
+| `mpfr-explog:seeded` | exp2+exp2m1 seeded finite-encoding class sweep (seeds in the generator), same decider |
+| `mpfr-explog:*` (all families) | `ta` lines are INDEPENDENTLY decided by the five-mode decider (exact ties exist at integer inputs), never relabeled from `te` - the deliberate contrast with `mpfr640-trig:<family>-ta-relabel` |
 
 Berkeley's flag bits are ordered differently from `MSF_FLAG_*`
 (inexact=1, underflow=2, overflow=4, infinite/divide-by-zero=8,
