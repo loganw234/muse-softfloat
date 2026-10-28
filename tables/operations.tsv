@@ -133,3 +133,5 @@ maximum_magnitude_number	maximumMagnitudeNumber	9.6	minmax	none	yes	4	project-ex
 get_payload	getPayload	9.7	payload_un	none	no	4	project-exact	exhaustive-f16;directed-encodings	exact	2	C-754
 set_payload	setPayload	9.7	payload_un	none	no	4	project-exact	exhaustive-f16;directed-encodings	exact	2	C-754
 set_payload_signaling	setPayloadSignaling	9.7	payload_un	none	no	4	project-exact	exhaustive-f16;directed-encodings	exact	2	C-754
+sin_pi	sinPi	9.2	math_un	attr	yes	4	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
+cos_pi	cosPi	9.2	math_un	attr	yes	4	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754

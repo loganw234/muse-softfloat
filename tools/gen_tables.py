@@ -117,7 +117,7 @@ def expand(row):
     fl = ", msf_flags_t *flags" if row["flags"] == "yes" else ""
 
     if sig in ("rint_named", "rint_exact", "next", "sign_un", "classify",
-               "class_op", "radix_op", "payload_un"):
+               "class_op", "radix_op", "payload_un", "math_un"):
         ret = {"classify": "int", "class_op": "msf_class_t",
                "radix_op": "int"}.get(sig)
         rk = {"classify": "MSF_RK_BOOL", "class_op": "MSF_RK_CLASS",
@@ -236,7 +236,7 @@ REPLAYABLE = {"rint_named", "rint_exact", "next", "remainder", "scaleb",
               "logb", "arith_bin", "arith_un", "fma", "from_int", "to_int",
               "conv_fmt", "sign_un", "sign_bin", "compare", "totalorder",
               "classify", "class_op", "radix_op", "version_op",
-              "minmax", "payload_un"}
+              "minmax", "payload_un", "math_un"}
 
 
 def ctype(tok):
@@ -469,7 +469,7 @@ SIGS = ["rint_named", "rint_exact", "next", "remainder", "scaleb", "logb",
         "arith_bin", "arith_un", "fma", "from_int", "to_int", "conv_fmt",
         "char_from", "char_to_dec", "char_to_hex", "sign_un", "sign_bin",
         "compare", "totalorder", "classify", "class_op", "radix_op",
-        "version_op", "flag_op", "minmax", "payload_un"]
+        "version_op", "flag_op", "minmax", "payload_un", "math_un"]
 KINDS = ["F16", "F32", "F64", "I8", "U8", "I16", "U16", "I32", "U32",
          "I64", "U64", "BOOL", "CLASS", "INT", "SPECIAL"]
 

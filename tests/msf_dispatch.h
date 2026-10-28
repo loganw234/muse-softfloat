@@ -39,7 +39,8 @@ enum msf_sig {
     MSF_SIG_VERSION_OP = 22,
     MSF_SIG_FLAG_OP = 23,
     MSF_SIG_MINMAX = 24,
-    MSF_SIG_PAYLOAD_UN = 25
+    MSF_SIG_PAYLOAD_UN = 25,
+    MSF_SIG_MATH_UN = 26
 };
 enum msf_kind {
     MSF_AK_NONE = 0,
@@ -1691,7 +1692,13 @@ static const msf_op_desc_t MSF_OPS[] = {
     { "msf16_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf16_set_payload_signaling },
     { "msf32_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf32_set_payload_signaling },
     { "msf64_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf64_set_payload_signaling },
+    { "msf16_sin_pi", "sinPi", MSF_SIG_MATH_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
+    { "msf32_sin_pi", "sinPi", MSF_SIG_MATH_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
+    { "msf64_sin_pi", "sinPi", MSF_SIG_MATH_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
+    { "msf16_cos_pi", "cosPi", MSF_SIG_MATH_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
+    { "msf32_cos_pi", "cosPi", MSF_SIG_MATH_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
+    { "msf64_cos_pi", "cosPi", MSF_SIG_MATH_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 4, 0 },
 };
-#define MSF_OP_COUNT 816
+#define MSF_OP_COUNT 822
 
 #endif /* MSF_DISPATCH_H */

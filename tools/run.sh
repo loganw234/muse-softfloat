@@ -126,12 +126,13 @@ CTRL_FAIL=0
 control_ok() { echo "control $1: refused as required"; }
 control_bad() { echo "control $1: NOT REFUSED"; CTRL_FAIL=1; }
 
-# SF-1 Step 0a registered-surface freeze: Tier 1 stays exactly the
-# SF-0 surface; the registered Tier 2 surface is the 33 planned
-# Step 1 rows. A lead table expansion updates TIER2 in the same
-# commit that registers more families - never silently.
+# SF-1 registered-surface freeze: Tier 1 stays exactly the SF-0
+# surface; the registered Tier 2 surface is Step 1's 33 rows plus
+# Step 2c's 6 sinPi/cosPi rows. A lead table expansion updates
+# TIER2 in the same commit that registers more families - never
+# silently.
 TIER1_TOTAL_EXPECTED=783
-TIER2_TOTAL_EXPECTED=33
+TIER2_TOTAL_EXPECTED=39
 inventory_check() { # $1 = COVERAGE.tsv to judge; prints one summary line
     local file="$1"
     awk -F '\t' -v t1exp="$TIER1_TOTAL_EXPECTED" -v t2exp="$TIER2_TOTAL_EXPECTED" '
