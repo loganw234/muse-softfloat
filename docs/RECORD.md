@@ -742,3 +742,27 @@ MSYS2-bash hop in the board delegate silently dropped
 the clones were never flashed). Next: the KissFFT
 runtime-twiddle workload that earns these functions their
 keep, under the spike's 2026-11-02 stop rule.
+
+**Step 2c workload landed (appended 2026-10-28):** the
+KissFFT Fork B runtime-twiddle workload is merged
+(`32bbd93`). The repository carries only the binary64 compat
+wrappers and board glue; BSD-3 KissFFT 131.2.0 stays in
+scratch, fresh-extracted and patched at exactly three sites
+so its alloc phases hand exact cycle fractions to
+`sinpi/cospi` - the one named change, never described as
+unmodified KissFFT. At the gated power-of-two sizes
+(N=256/1024/4096, complex and real, forward and inverse), a
+host MPFR provenance gate over the actual runtime twiddle
+tables checks 8,856 fields with zero mismatches, including
+N=1024 exhaustively. Planted-copy verification caught **5 of
+5** plants (49 of 50 cumulative) and found no non-plant
+defect; its independent rebuild reproduced that provenance
+gate. On the genuine board (`e66440a2cb6f5c2b`, serial
+targeted on COM8 with the clones untouched), all **12/12 KF
+hash rows are bit-identical** to the host proof under the
+same patched scratch source (UF2 `bafafa24...568f`, ELF
+`ea1f8206...3bbc`, protocol in `docs/BOARD.md`). That closes
+SF-1 Step 2c: `sinPi/cosPi` now have a silicon workload that
+actually links them. The float KissFFT configuration was
+not attempted; it would need a second scalar build and
+binary32 wrappers, and no claim here covers it.
