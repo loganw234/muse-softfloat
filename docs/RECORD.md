@@ -712,3 +712,33 @@ spike returned **PRICED - GO** for the `sinPi`/`cosPi` bundle
 binary64 hardest margin measured at 58.58 extra bits over the
 full published worst-case sets, MPFR-re-decided); its
 leg-(c) authority reading is settled in the Step 2c brief.
+
+**Step 2c kernel landed (appended 2026-10-28):** correctly
+rounded `sinPi`/`cosPi` at all three formats (`81b7635`,
+merged `da46f51`) - the library's first mathematical
+functions and its strongest evidence to date: binary16
+exhaustive differential, binary32 **exhaustive** finite
+differential (34,225,520,640 checks over 32 shards),
+binary64 at 100% of the published worst-case inputs plus a
+2^21-per-function seeded sweep, all against MPFR deciders,
+zero mismatches, zero final-undecided at any Ziv stage. The
+kernel is original (exact integer reduction, three wide
+stages at 160/256/384 bits with generator-derived error
+bounds, own-generated constant tables); binary64 leg (c)
+rests on the published worst-case completeness authority
+SF-1's ladder provides, with the measured 58.58 extra bits
+as the only gap ever cited. Planted verification **5 of 5**
+(44 of 45 cumulative) - decisively, its independent Ek
+re-derivation caught a too-narrow stage-1 interval plant
+that no replay could see, and its own decider agreed
+18,494/18,494 with the parcel's audited harness. Committed
+smoke is now **146,442 vectors** (43,492 trig lines);
+inventory Tier 2 39/39. Board sampled replay on the genuine
+board passes (968 vectors, whole-run hash match), after a
+measured host trap was fixed for good: the Git-Bash ->
+MSYS2-bash hop in the board delegate silently dropped
+`MSF_*` environment, so serial targeting now goes through
+`$BASH` and `picotool --ser` (three boards share the bus;
+the clones were never flashed). Next: the KissFFT
+runtime-twiddle workload that earns these functions their
+keep, under the spike's 2026-11-02 stop rule.

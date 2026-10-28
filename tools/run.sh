@@ -249,10 +249,14 @@ case "$BUDGET" in
     standard) standard ;;
     board)
         [ -x board/run_board.sh ] || fail "board budget: board/run_board.sh missing"
-        bash board/run_board.sh || fail "board budget (see output above)" ;;
+        # Delegate through $BASH, not PATH bash: the PATH export
+        # above puts MSYS2's bash first, and the Git-Bash -> MSYS2
+        # hop drops MSF_* environment (measured 2026-10-28), which
+        # would silently untarget MSF_BOARD_SERIAL/MSF_BOARD_PORT.
+        "$BASH" board/run_board.sh || fail "board budget (see output above)" ;;
     bench)
         [ -x board/run_bench.sh ] || fail "bench budget: board/run_bench.sh missing"
-        bash board/run_bench.sh || fail "bench budget (see output above)" ;;
+        "$BASH" board/run_bench.sh || fail "bench budget (see output above)" ;;
 esac
 echo "budget $BUDGET: PASS in $(( $(date +%s) - START ))s (logs in $BUILD/)"
 exit 0

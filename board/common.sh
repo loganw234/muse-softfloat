@@ -39,7 +39,14 @@ flash_uf2() { # $1 = uf2 path
     # -f forces a running device (USB serial present) to reboot so
     # the load can proceed; measured necessary on this board, whose
     # firmware reset interface did not answer a plain reboot -u.
-    if ! "$PICOTOOL" load -f -x "$1" > "$BOARD_BUILD/flash.log" 2>&1; then
+    # With several boards on the bus an untargeted load may pick
+    # the wrong device: MSF_BOARD_SERIAL selects exactly one.
+    local ser_arg=()
+    echo "flash target serial: ${MSF_BOARD_SERIAL:-untargeted}"
+    if [ -n "${MSF_BOARD_SERIAL:-}" ]; then
+        ser_arg=(--ser "$MSF_BOARD_SERIAL")
+    fi
+    if ! "$PICOTOOL" load ${ser_arg[@]+"${ser_arg[@]}"} -f -x "$1" > "$BOARD_BUILD/flash.log" 2>&1; then
         cat "$BOARD_BUILD/flash.log"
         board_fail "picotool load failed - board may need hands (hold BOOTSEL while plugging in), see docs/BOARD.md"
     fi

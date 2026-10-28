@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Print Pico CDC lines until one contains MARKER (hello/bench)."""
+"""Print Pico CDC lines until one contains MARKER (hello/bench).
+
+MSF_BOARD_PORT, when set, pins the CDC device (multi-board bus).
+"""
+import os
 import sys
 import time
 
@@ -8,6 +12,9 @@ import serial.tools.list_ports
 
 
 def find_port():
+    want = os.environ.get("MSF_BOARD_PORT")
+    if want:
+        return want
     for p in serial.tools.list_ports.comports():
         if p.vid == 0x2E8A:
             return p.device
