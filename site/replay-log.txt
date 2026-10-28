@@ -1,0 +1,2 @@
+msf_op_count=828 ops_json=828 sample=1596
+replayed=1596 mismatches=0

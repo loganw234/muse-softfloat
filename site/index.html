@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>muse-softfloat — IEEE 754 softfloat for the RP2040, live in your browser</title>
+<meta name="description" content="An IEEE 754 binary16/32/64 softfloat library for the RP2040. This page runs the actual library, compiled to WebAssembly, against the repository's committed test vectors.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <p class="repo-line"><a href="https://github.com/loganw234/muse-softfloat">github.com/loganw234/muse-softfloat</a></p>
+    <h1>muse-softfloat</h1>
+    <p class="lede">An IEEE&nbsp;754 softfloat library for the RP2040 — binary16, binary32 and
+    binary64 — with no floating-point unit underneath it. Every result is worked out in exact
+    integer arithmetic and rounded once, correctly, in your choice of five rounding modes.</p>
+    <p class="status-line" id="status-line">Loading the build record…</p>
+    <nav class="toc" aria-label="Sections">
+      <a href="#instrument">The instrument</a>
+      <a href="#numbers">The numbers</a>
+      <a href="#silicon">On silicon</a>
+      <a href="#verification">How this was verified</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="instrument" aria-labelledby="instrument-h">
+  <h2 id="instrument-h">The instrument</h2>
+  <p id="wasm-status" class="wasm-status">WebAssembly build: loading…</p>
+  <p>Pick a format and an operation, type operands as bit patterns or decimal values, and run.
+  The hex bits are what actually execute; the decimal fields are a display convenience that
+  converts through the format. Or deal a real line out of the repository's committed test
+  vectors and watch the build reproduce it.</p>
+
+  <div class="panel">
+    <div class="controls">
+      <label>Format
+        <select id="fmt">
+          <option value="f16">binary16</option>
+          <option value="f32" selected>binary32</option>
+          <option value="f64">binary64</option>
+          <option value="general">general</option>
+        </select>
+      </label>
+      <label class="grow">Operation
+        <select id="op"></select>
+      </label>
+      <label>Rounding
+        <select id="rm">
+          <option value="0">ties to even</option>
+          <option value="4">ties to away</option>
+          <option value="1">toward zero</option>
+          <option value="2">toward +∞</option>
+          <option value="3">toward −∞</option>
+        </select>
+      </label>
+    </div>
+    <p class="op-note" id="op-note"></p>
+    <div id="operands"></div>
+    <div class="actions">
+      <button id="run" type="button">Run</button>
+      <button id="deal" type="button" class="secondary">Deal me a committed vector</button>
+    </div>
+    <div id="dealt" class="dealt" hidden></div>
+    <div id="result" class="result" hidden>
+      <h3>Result</h3>
+      <p class="result-main"><span class="k" id="res-kind">bits</span>
+        <code id="res-hex"></code> <span id="res-dec" class="res-dec"></span></p>
+      <div id="res-bits" class="bits" aria-label="Result bit fields"></div>
+      <p id="res-fields" class="fields"></p>
+      <div class="flags" id="res-flags" aria-label="Exception flags"></div>
+    </div>
+  </div>
+  <p class="fineprint">The operation list is the repository's generated dispatch table
+  (<code>tests/msf_dispatch.h</code>) — the same table the host test runner drives. The twelve
+  character-conversion operations and six flag-management operations are not hex-drivable and
+  are omitted here; they are gated on the host like everything else. Decimal entry for
+  binary16 rounds ties-to-even in the page before the bits run.</p>
+</section>
+
+<section id="numbers" aria-labelledby="numbers-h">
+  <h2 id="numbers-h">The numbers</h2>
+  <p>Generated at build time by <code>site/build_data.py</code> from the files named in the
+  right-hand column — nothing here is typed by hand. Rebuild with <code>site/build.py</code>
+  and the table follows the tree.</p>
+  <table class="data" id="numbers-table">
+    <thead><tr><th scope="col">Measure</th><th scope="col">Value</th><th scope="col">Source</th></tr></thead>
+    <tbody><tr><td colspan="3">Loading…</td></tr></tbody>
+  </table>
+  <h3>Planted-copy verification, by wave</h3>
+  <p>Before each parcel of work merged, an independent verifier re-derived its claims against
+  a copy of the tree carrying deliberate, pre-ledgered defects (&ldquo;plants&rdquo;). Caught
+  plants are evidence the verifier was actually looking.</p>
+  <table class="data" id="plants-table">
+    <thead><tr><th scope="col">Wave</th><th scope="col">Caught</th><th scope="col">Plants</th><th scope="col"></th></tr></thead>
+    <tbody><tr><td colspan="4">Loading…</td></tr></tbody>
+  </table>
+</section>
+
+<section id="silicon" aria-labelledby="silicon-h">
+  <h2 id="silicon-h">On silicon</h2>
+  <p>Three workloads run bit-identically on a Raspberry Pi Pico (RP2040) through this library.
+  The figures below are recorded facts from
+  <a href="https://github.com/loganw234/muse-softfloat/blob/main/docs/RECORD.md">docs/RECORD.md</a>,
+  with the board protocol in
+  <a href="https://github.com/loganw234/muse-softfloat/blob/main/docs/BOARD.md">docs/BOARD.md</a> —
+  quoted with their units and context, not as speed claims.</p>
+
+  <h3>IAS15 — REBOUND's integrator on the Pico</h3>
+  <div class="silicon-row">
+    <canvas id="orbit" width="320" height="200" role="img"
+      aria-label="Illustration of three bodies tracing a figure-eight path"></canvas>
+    <dl class="facts">
+      <dt>What runs</dt>
+      <dd>REBOUND's IAS15 gravitational integrator (GPL, scratch only — it never enters this
+      repository), its binary64 arithmetic served by this library over the AEABI compat surface.</dd>
+      <dt>Agreement</dt>
+      <dd>2,001 of 2,001 per-step state hashes match the unmodified desktop build exactly
+      (step-2000 state hash begins <code>4d4530a6</code>).</dd>
+      <dt>Recorded rate</dt>
+      <dd>1.58 accepted steps per second at 125&nbsp;MHz, measured over a 1,000-step block.
+      A full figure-8 period takes about ten minutes at that rate.</dd>
+    </dl>
+  </div>
+  <p class="fineprint">The sketch is an illustration of the figure-8 three-body choreography,
+  drawn by this page. It is not simulation output and carries no data.</p>
+
+  <h3>Interval geometry</h3>
+  <dl class="facts">
+    <dt>What runs</dt>
+    <dd>Guaranteed ray classification (sphere, box, torus) over directed-rounded intervals,
+    against a frozen 710-row exact-oracle catalogue.</dd>
+    <dt>Agreement</dt>
+    <dd>The full catalogue streamed to the board matches the host bit-for-bit: 710 of 710 rows,
+    stream hash beginning <code>ce81d66e</code> on both sides; 7.92&nbsp;s of workload-call time
+    at 125&nbsp;MHz.</dd>
+  </dl>
+
+  <h3>KissFFT with runtime twiddles</h3>
+  <dl class="facts">
+    <dt>What runs</dt>
+    <dd>KissFFT 131.2.0 (BSD-3, scratch only) with one named change: its setup phases hand exact
+    cycle fractions to this library's <code>sinPi</code>/<code>cosPi</code> instead of calling
+    host trigonometry. It is never described as unmodified KissFFT.</dd>
+    <dt>Agreement</dt>
+    <dd>All 12 configuration hashes bit-identical between host and board at the gated sizes
+    N&nbsp;=&nbsp;256/1024/4096 (complex and real, forward and inverse).</dd>
+  </dl>
+</section>
+
+<section id="verification" aria-labelledby="verification-h">
+  <h2 id="verification-h">How this was verified</h2>
+  <ul class="plain">
+    <li><strong>Named authorities, never self-consistency.</strong> Correctness is decided
+    against Berkeley SoftFloat/TestFloat 3e (pinned by archive SHA-256 in
+    <code>docs/metrics/fetches.jsonl</code>, executed in scratch, never vendored), MPFR, or an
+    exact-integer reference — per instantiation, in
+    <a href="https://github.com/loganw234/muse-softfloat/blob/main/docs/COVERAGE.tsv">docs/COVERAGE.tsv</a>.
+    The plans of record are the SF-0/SF-1/SF-2 studies in
+    <a href="https://github.com/loganw234/muse-softfloat/tree/main/docs/studies">docs/studies/</a>.</li>
+    <li><strong>Planted copies.</strong> Independent verifiers re-derive each parcel's evidence
+    against a tree carrying pre-ledgered defects; the score to date is in the table above,
+    misses included. A gate that has not been watched to fail is not treated as a gate.</li>
+    <li><strong>Board hashes.</strong> Silicon results name their firmware hash, commit and
+    board, or they are not evidence; the three workloads above carry theirs into RECORD.md.</li>
+    <li><strong>This page.</strong> The WebAssembly build is proven at build time by replaying
+    the bundled sample of committed vectors through it under Node
+    (<code>site/replay.mjs</code>, log in <code>site/replay-log.txt</code>); the count is in the
+    table above. If WebAssembly is unavailable in your browser, the instrument says so and
+    dealt vectors show their recorded results, labelled as recorded.</li>
+  </ul>
+  <h3>Status and what is still in progress</h3>
+  <p>Tier&nbsp;1 (the full Clause&nbsp;5 surface) and the authorised Tier&nbsp;2 prefix are
+  landed and gated. Wave&nbsp;5 has landed <code>roundTiesToAway</code> as the fifth rounding
+  attribute and correctly rounded <code>rSqrt</code> and <code>hypot</code> at all three formats.
+  Still in progress, and labelled as such wherever they appear: the
+  <code>exp2</code>/<code>log2</code> pairs and Clause&nbsp;9.5 augmented arithmetic.
+  Nothing beyond the SF-2 study's list is claimed.</p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p id="build-stamp">Build stamp loading…</p>
+    <p>No external requests: everything on this page — markup, script, data and the compiled
+    library — is served from this site directory. MIT — see the repository's LICENSE.</p>
+  </div>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>

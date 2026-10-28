@@ -1,0 +1,105 @@
+{
+ "base": "a0acf2a",
+ "instantiations": {
+  "total": 828,
+  "tier1": 783,
+  "tier2": 45,
+  "implemented": 828,
+  "source": "docs/COVERAGE.tsv"
+ },
+ "vectors": {
+  "total": 182518,
+  "files": {
+   "alg-f16.vec": 3695,
+   "alg-f32.vec": 3700,
+   "alg-f64.vec": 3700,
+   "arith-f16.vec": 5364,
+   "arith-f32.vec": 4240,
+   "arith-f64.vec": 4355,
+   "arith-xf.vec": 6959,
+   "compare-f16.vec": 2802,
+   "compare-f32.vec": 2362,
+   "compare-f64.vec": 2302,
+   "compare-xf.vec": 1980,
+   "conv-f64.vec": 3480,
+   "conv-int-f16.vec": 1745,
+   "conv-int-f32.vec": 1115,
+   "conv-xf.vec": 460,
+   "copysign.vec": 4336,
+   "encodings-f16.vec": 2352,
+   "encodings-f32.vec": 2352,
+   "encodings-f64.vec": 2352,
+   "fma-sqrt-f16.vec": 2334,
+   "fma-sqrt-f32.vec": 1172,
+   "fma-sqrt-xf.vec": 3566,
+   "from-decimal-str.vec": 4290,
+   "from-hex-str.vec": 1959,
+   "minmax-f16.vec": 5832,
+   "minmax-f32.vec": 5832,
+   "minmax-f64.vec": 5832,
+   "misc-f64.vec": 1467,
+   "nan-f64.vec": 285,
+   "pack16.vec": 6160,
+   "pack32.vec": 6160,
+   "pack64.vec": 6270,
+   "payload-f16.vec": 102,
+   "payload-f32.vec": 102,
+   "payload-f64.vec": 102,
+   "rint-misc-f16.vec": 1133,
+   "rint-misc-f32.vec": 1143,
+   "to-decimal-str.vec": 7506,
+   "to-hex-str.vec": 2661,
+   "toint-f16.vec": 1840,
+   "toint-f32.vec": 2640,
+   "traps-xf.vec": 114,
+   "trig-f16.vec": 13955,
+   "trig-f32.vec": 17800,
+   "trig-f64.vec": 22610
+  },
+  "source": "tests/vectors/*.vec (counted lines)"
+ },
+ "plants": {
+  "caught": 75,
+  "total": 80,
+  "by_wave": [
+   {
+    "wave": "wave1",
+    "caught": 9,
+    "total": 10
+   },
+   {
+    "wave": "wave2",
+    "caught": 10,
+    "total": 10
+   },
+   {
+    "wave": "wave3",
+    "caught": 5,
+    "total": 5
+   },
+   {
+    "wave": "wave4",
+    "caught": 25,
+    "total": 25
+   },
+   {
+    "wave": "wave5",
+    "caught": 17,
+    "total": 20
+   },
+   {
+    "wave": "readme",
+    "caught": 9,
+    "total": 10
+   }
+  ],
+  "source": "docs/metrics/plants.jsonl"
+ },
+ "sample": {
+  "vectors": 1596,
+  "ops_covered": 798,
+  "ops_runnable": 810,
+  "ops_total": 828,
+  "source": "tests/vectors/*.vec via site/build_data.py"
+ }
+}
