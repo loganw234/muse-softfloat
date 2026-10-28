@@ -64,6 +64,11 @@ printed, never silent (SF-0 §4.3).
 | `exact-py:pack32-directed`, `exact-py:pack16-directed` | same reference at binary32/binary16 parameters |
 | `exact-py:pack64-sweep` | seeded random round/pack sweep, same reference |
 | `berkeley:testfloat_gen-*` | streamed `testfloat_gen` output (from the P0 oracle bring-up onward; the runner inventory prints the oracle hash from the fetch record) |
+| `exact-py-t2:directed-minmax` | Clause 9.6 directed class/sign/magnitude pool pairs at all 3 formats, expectations from the independent bit/rational reference in `tests/gen_vectors_tier2.py` (SF-1 Step 1) |
+| `exact-py-t2:directed-payload` | Clause 9.7 directed payload boundaries at all 3 formats, same reference |
+| `exact-py-t2:payload-f16-exhaustive` | generated at gate time: every binary16 encoding per payload op, plus `is_signaling` on every setter-result encoding |
+| `exact-py-t2:minmax-f16-sweep` | generated at gate time: every binary16 encoding as second operand against named boundary first operands, all 8 min/max names |
+| `exact-py-t2:seeded-sweep` | generated at gate time: seeded (20261027) binary32/64 pair and encoding sweeps, same reference |
 
 Berkeley's flag bits are ordered differently from `MSF_FLAG_*`
 (inexact=1, underflow=2, overflow=4, infinite/divide-by-zero=8,

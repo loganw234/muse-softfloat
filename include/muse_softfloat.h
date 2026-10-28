@@ -1678,71 +1678,71 @@ int msf_test_saved_flags(msf_saved_flags_t saved, msf_flags_t group);
 void msf_restore_flags(msf_flags_t *state, msf_saved_flags_t saved, msf_flags_t group);
 /* saveAllFlags (754-2019 5.7.4), wave 0, implemented */
 msf_saved_flags_t msf_save_all_flags(const msf_flags_t *state);
-/* minimum (754-2019 9.6), wave 4, planned */
+/* minimum (754-2019 9.6), wave 4, implemented */
 msf16_t msf16_minimum(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* minimum (754-2019 9.6), wave 4, planned */
+/* minimum (754-2019 9.6), wave 4, implemented */
 msf32_t msf32_minimum(msf32_t a, msf32_t b, msf_flags_t *flags);
-/* minimum (754-2019 9.6), wave 4, planned */
+/* minimum (754-2019 9.6), wave 4, implemented */
 msf64_t msf64_minimum(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* maximum (754-2019 9.6), wave 4, planned */
+/* maximum (754-2019 9.6), wave 4, implemented */
 msf16_t msf16_maximum(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* maximum (754-2019 9.6), wave 4, planned */
+/* maximum (754-2019 9.6), wave 4, implemented */
 msf32_t msf32_maximum(msf32_t a, msf32_t b, msf_flags_t *flags);
-/* maximum (754-2019 9.6), wave 4, planned */
+/* maximum (754-2019 9.6), wave 4, implemented */
 msf64_t msf64_maximum(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* minimumNumber (754-2019 9.6), wave 4, planned */
+/* minimumNumber (754-2019 9.6), wave 4, implemented */
 msf16_t msf16_minimum_number(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* minimumNumber (754-2019 9.6), wave 4, planned */
+/* minimumNumber (754-2019 9.6), wave 4, implemented */
 msf32_t msf32_minimum_number(msf32_t a, msf32_t b, msf_flags_t *flags);
-/* minimumNumber (754-2019 9.6), wave 4, planned */
+/* minimumNumber (754-2019 9.6), wave 4, implemented */
 msf64_t msf64_minimum_number(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* maximumNumber (754-2019 9.6), wave 4, planned */
+/* maximumNumber (754-2019 9.6), wave 4, implemented */
 msf16_t msf16_maximum_number(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* maximumNumber (754-2019 9.6), wave 4, planned */
+/* maximumNumber (754-2019 9.6), wave 4, implemented */
 msf32_t msf32_maximum_number(msf32_t a, msf32_t b, msf_flags_t *flags);
-/* maximumNumber (754-2019 9.6), wave 4, planned */
+/* maximumNumber (754-2019 9.6), wave 4, implemented */
 msf64_t msf64_maximum_number(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* minimumMagnitude (754-2019 9.6), wave 4, planned */
+/* minimumMagnitude (754-2019 9.6), wave 4, implemented */
 msf16_t msf16_minimum_magnitude(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* minimumMagnitude (754-2019 9.6), wave 4, planned */
+/* minimumMagnitude (754-2019 9.6), wave 4, implemented */
 msf32_t msf32_minimum_magnitude(msf32_t a, msf32_t b, msf_flags_t *flags);
-/* minimumMagnitude (754-2019 9.6), wave 4, planned */
+/* minimumMagnitude (754-2019 9.6), wave 4, implemented */
 msf64_t msf64_minimum_magnitude(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* maximumMagnitude (754-2019 9.6), wave 4, planned */
+/* maximumMagnitude (754-2019 9.6), wave 4, implemented */
 msf16_t msf16_maximum_magnitude(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* maximumMagnitude (754-2019 9.6), wave 4, planned */
+/* maximumMagnitude (754-2019 9.6), wave 4, implemented */
 msf32_t msf32_maximum_magnitude(msf32_t a, msf32_t b, msf_flags_t *flags);
-/* maximumMagnitude (754-2019 9.6), wave 4, planned */
+/* maximumMagnitude (754-2019 9.6), wave 4, implemented */
 msf64_t msf64_maximum_magnitude(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* minimumMagnitudeNumber (754-2019 9.6), wave 4, planned */
+/* minimumMagnitudeNumber (754-2019 9.6), wave 4, implemented */
 msf16_t msf16_minimum_magnitude_number(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* minimumMagnitudeNumber (754-2019 9.6), wave 4, planned */
+/* minimumMagnitudeNumber (754-2019 9.6), wave 4, implemented */
 msf32_t msf32_minimum_magnitude_number(msf32_t a, msf32_t b, msf_flags_t *flags);
-/* minimumMagnitudeNumber (754-2019 9.6), wave 4, planned */
+/* minimumMagnitudeNumber (754-2019 9.6), wave 4, implemented */
 msf64_t msf64_minimum_magnitude_number(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* maximumMagnitudeNumber (754-2019 9.6), wave 4, planned */
+/* maximumMagnitudeNumber (754-2019 9.6), wave 4, implemented */
 msf16_t msf16_maximum_magnitude_number(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* maximumMagnitudeNumber (754-2019 9.6), wave 4, planned */
+/* maximumMagnitudeNumber (754-2019 9.6), wave 4, implemented */
 msf32_t msf32_maximum_magnitude_number(msf32_t a, msf32_t b, msf_flags_t *flags);
-/* maximumMagnitudeNumber (754-2019 9.6), wave 4, planned */
+/* maximumMagnitudeNumber (754-2019 9.6), wave 4, implemented */
 msf64_t msf64_maximum_magnitude_number(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* getPayload (754-2019 9.7), wave 4, planned */
+/* getPayload (754-2019 9.7), wave 4, implemented */
 msf16_t msf16_get_payload(msf16_t a);
-/* getPayload (754-2019 9.7), wave 4, planned */
+/* getPayload (754-2019 9.7), wave 4, implemented */
 msf32_t msf32_get_payload(msf32_t a);
-/* getPayload (754-2019 9.7), wave 4, planned */
+/* getPayload (754-2019 9.7), wave 4, implemented */
 msf64_t msf64_get_payload(msf64_t a);
-/* setPayload (754-2019 9.7), wave 4, planned */
+/* setPayload (754-2019 9.7), wave 4, implemented */
 msf16_t msf16_set_payload(msf16_t a);
-/* setPayload (754-2019 9.7), wave 4, planned */
+/* setPayload (754-2019 9.7), wave 4, implemented */
 msf32_t msf32_set_payload(msf32_t a);
-/* setPayload (754-2019 9.7), wave 4, planned */
+/* setPayload (754-2019 9.7), wave 4, implemented */
 msf64_t msf64_set_payload(msf64_t a);
-/* setPayloadSignaling (754-2019 9.7), wave 4, planned */
+/* setPayloadSignaling (754-2019 9.7), wave 4, implemented */
 msf16_t msf16_set_payload_signaling(msf16_t a);
-/* setPayloadSignaling (754-2019 9.7), wave 4, planned */
+/* setPayloadSignaling (754-2019 9.7), wave 4, implemented */
 msf32_t msf32_set_payload_signaling(msf32_t a);
-/* setPayloadSignaling (754-2019 9.7), wave 4, planned */
+/* setPayloadSignaling (754-2019 9.7), wave 4, implemented */
 msf64_t msf64_set_payload_signaling(msf64_t a);
 
 #endif /* MUSE_SOFTFLOAT_H */

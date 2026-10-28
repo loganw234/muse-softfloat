@@ -840,6 +840,39 @@ static uint64_t msf_call_msf_is754version2019(const uint64_t *args, int rm, msf_
 static uint64_t msf_call_msf16_is754version2019(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; (void)args; return (uint64_t)(msf16_is754version2019()); }
 static uint64_t msf_call_msf32_is754version2019(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; (void)args; return (uint64_t)(msf32_is754version2019()); }
 static uint64_t msf_call_msf64_is754version2019(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; (void)args; return (uint64_t)(msf64_is754version2019()); }
+static uint64_t msf_call_msf16_minimum(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf16_minimum((msf16_t)args[0], (msf16_t)args[1], flags)); }
+static uint64_t msf_call_msf32_minimum(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf32_minimum((msf32_t)args[0], (msf32_t)args[1], flags)); }
+static uint64_t msf_call_msf64_minimum(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf64_minimum((msf64_t)args[0], (msf64_t)args[1], flags)); }
+static uint64_t msf_call_msf16_maximum(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf16_maximum((msf16_t)args[0], (msf16_t)args[1], flags)); }
+static uint64_t msf_call_msf32_maximum(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf32_maximum((msf32_t)args[0], (msf32_t)args[1], flags)); }
+static uint64_t msf_call_msf64_maximum(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf64_maximum((msf64_t)args[0], (msf64_t)args[1], flags)); }
+static uint64_t msf_call_msf16_minimum_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf16_minimum_number((msf16_t)args[0], (msf16_t)args[1], flags)); }
+static uint64_t msf_call_msf32_minimum_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf32_minimum_number((msf32_t)args[0], (msf32_t)args[1], flags)); }
+static uint64_t msf_call_msf64_minimum_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf64_minimum_number((msf64_t)args[0], (msf64_t)args[1], flags)); }
+static uint64_t msf_call_msf16_maximum_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf16_maximum_number((msf16_t)args[0], (msf16_t)args[1], flags)); }
+static uint64_t msf_call_msf32_maximum_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf32_maximum_number((msf32_t)args[0], (msf32_t)args[1], flags)); }
+static uint64_t msf_call_msf64_maximum_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf64_maximum_number((msf64_t)args[0], (msf64_t)args[1], flags)); }
+static uint64_t msf_call_msf16_minimum_magnitude(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf16_minimum_magnitude((msf16_t)args[0], (msf16_t)args[1], flags)); }
+static uint64_t msf_call_msf32_minimum_magnitude(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf32_minimum_magnitude((msf32_t)args[0], (msf32_t)args[1], flags)); }
+static uint64_t msf_call_msf64_minimum_magnitude(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf64_minimum_magnitude((msf64_t)args[0], (msf64_t)args[1], flags)); }
+static uint64_t msf_call_msf16_maximum_magnitude(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf16_maximum_magnitude((msf16_t)args[0], (msf16_t)args[1], flags)); }
+static uint64_t msf_call_msf32_maximum_magnitude(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf32_maximum_magnitude((msf32_t)args[0], (msf32_t)args[1], flags)); }
+static uint64_t msf_call_msf64_maximum_magnitude(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf64_maximum_magnitude((msf64_t)args[0], (msf64_t)args[1], flags)); }
+static uint64_t msf_call_msf16_minimum_magnitude_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf16_minimum_magnitude_number((msf16_t)args[0], (msf16_t)args[1], flags)); }
+static uint64_t msf_call_msf32_minimum_magnitude_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf32_minimum_magnitude_number((msf32_t)args[0], (msf32_t)args[1], flags)); }
+static uint64_t msf_call_msf64_minimum_magnitude_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf64_minimum_magnitude_number((msf64_t)args[0], (msf64_t)args[1], flags)); }
+static uint64_t msf_call_msf16_maximum_magnitude_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf16_maximum_magnitude_number((msf16_t)args[0], (msf16_t)args[1], flags)); }
+static uint64_t msf_call_msf32_maximum_magnitude_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf32_maximum_magnitude_number((msf32_t)args[0], (msf32_t)args[1], flags)); }
+static uint64_t msf_call_msf64_maximum_magnitude_number(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; return (uint64_t)(msf64_maximum_magnitude_number((msf64_t)args[0], (msf64_t)args[1], flags)); }
+static uint64_t msf_call_msf16_get_payload(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf16_get_payload((msf16_t)args[0])); }
+static uint64_t msf_call_msf32_get_payload(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf32_get_payload((msf32_t)args[0])); }
+static uint64_t msf_call_msf64_get_payload(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf64_get_payload((msf64_t)args[0])); }
+static uint64_t msf_call_msf16_set_payload(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf16_set_payload((msf16_t)args[0])); }
+static uint64_t msf_call_msf32_set_payload(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf32_set_payload((msf32_t)args[0])); }
+static uint64_t msf_call_msf64_set_payload(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf64_set_payload((msf64_t)args[0])); }
+static uint64_t msf_call_msf16_set_payload_signaling(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf16_set_payload_signaling((msf16_t)args[0])); }
+static uint64_t msf_call_msf32_set_payload_signaling(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf32_set_payload_signaling((msf32_t)args[0])); }
+static uint64_t msf_call_msf64_set_payload_signaling(const uint64_t *args, int rm, msf_flags_t *flags) { (void)rm; (void)flags; return (uint64_t)(msf64_set_payload_signaling((msf64_t)args[0])); }
 
 static const msf_op_desc_t MSF_OPS[] = {
     { "msf16_round_to_integral_ties_to_even", "roundToIntegralTiesToEven", MSF_SIG_RINT_NAMED, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 1, 1, 2, msf_call_msf16_round_to_integral_ties_to_even },
@@ -1625,39 +1658,39 @@ static const msf_op_desc_t MSF_OPS[] = {
     { "msf_test_saved_flags", "testSavedFlags", MSF_SIG_FLAG_OP, MSF_RK_SPECIAL, { MSF_AK_NONE, MSF_AK_NONE, MSF_AK_NONE }, 0, 0, 0, 1, 0, 0 },
     { "msf_restore_flags", "restoreFlags", MSF_SIG_FLAG_OP, MSF_RK_SPECIAL, { MSF_AK_NONE, MSF_AK_NONE, MSF_AK_NONE }, 0, 0, 0, 1, 0, 0 },
     { "msf_save_all_flags", "saveAllFlags", MSF_SIG_FLAG_OP, MSF_RK_SPECIAL, { MSF_AK_NONE, MSF_AK_NONE, MSF_AK_NONE }, 0, 0, 0, 1, 0, 0 },
-    { "msf16_minimum", "minimum", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf32_minimum", "minimum", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf64_minimum", "minimum", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf16_maximum", "maximum", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf32_maximum", "maximum", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf64_maximum", "maximum", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf16_minimum_number", "minimumNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf32_minimum_number", "minimumNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf64_minimum_number", "minimumNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf16_maximum_number", "maximumNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf32_maximum_number", "maximumNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf64_maximum_number", "maximumNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf16_minimum_magnitude", "minimumMagnitude", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf32_minimum_magnitude", "minimumMagnitude", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf64_minimum_magnitude", "minimumMagnitude", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf16_maximum_magnitude", "maximumMagnitude", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf32_maximum_magnitude", "maximumMagnitude", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf64_maximum_magnitude", "maximumMagnitude", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf16_minimum_magnitude_number", "minimumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf32_minimum_magnitude_number", "minimumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf64_minimum_magnitude_number", "minimumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf16_maximum_magnitude_number", "maximumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf32_maximum_magnitude_number", "maximumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf64_maximum_magnitude_number", "maximumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 4, 0 },
-    { "msf16_get_payload", "getPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
-    { "msf32_get_payload", "getPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
-    { "msf64_get_payload", "getPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
-    { "msf16_set_payload", "setPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
-    { "msf32_set_payload", "setPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
-    { "msf64_set_payload", "setPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
-    { "msf16_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
-    { "msf32_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
-    { "msf64_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 0, 4, 0 },
+    { "msf16_minimum", "minimum", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf16_minimum },
+    { "msf32_minimum", "minimum", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf32_minimum },
+    { "msf64_minimum", "minimum", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf64_minimum },
+    { "msf16_maximum", "maximum", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf16_maximum },
+    { "msf32_maximum", "maximum", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf32_maximum },
+    { "msf64_maximum", "maximum", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf64_maximum },
+    { "msf16_minimum_number", "minimumNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf16_minimum_number },
+    { "msf32_minimum_number", "minimumNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf32_minimum_number },
+    { "msf64_minimum_number", "minimumNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf64_minimum_number },
+    { "msf16_maximum_number", "maximumNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf16_maximum_number },
+    { "msf32_maximum_number", "maximumNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf32_maximum_number },
+    { "msf64_maximum_number", "maximumNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf64_maximum_number },
+    { "msf16_minimum_magnitude", "minimumMagnitude", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf16_minimum_magnitude },
+    { "msf32_minimum_magnitude", "minimumMagnitude", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf32_minimum_magnitude },
+    { "msf64_minimum_magnitude", "minimumMagnitude", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf64_minimum_magnitude },
+    { "msf16_maximum_magnitude", "maximumMagnitude", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf16_maximum_magnitude },
+    { "msf32_maximum_magnitude", "maximumMagnitude", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf32_maximum_magnitude },
+    { "msf64_maximum_magnitude", "maximumMagnitude", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf64_maximum_magnitude },
+    { "msf16_minimum_magnitude_number", "minimumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf16_minimum_magnitude_number },
+    { "msf32_minimum_magnitude_number", "minimumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf32_minimum_magnitude_number },
+    { "msf64_minimum_magnitude_number", "minimumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf64_minimum_magnitude_number },
+    { "msf16_maximum_magnitude_number", "maximumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf16_maximum_magnitude_number },
+    { "msf32_maximum_magnitude_number", "maximumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf32_maximum_magnitude_number },
+    { "msf64_maximum_magnitude_number", "maximumMagnitudeNumber", MSF_SIG_MINMAX, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 1, 4, msf_call_msf64_maximum_magnitude_number },
+    { "msf16_get_payload", "getPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf16_get_payload },
+    { "msf32_get_payload", "getPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf32_get_payload },
+    { "msf64_get_payload", "getPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf64_get_payload },
+    { "msf16_set_payload", "setPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf16_set_payload },
+    { "msf32_set_payload", "setPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf32_set_payload },
+    { "msf64_set_payload", "setPayload", MSF_SIG_PAYLOAD_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf64_set_payload },
+    { "msf16_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf16_set_payload_signaling },
+    { "msf32_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf32_set_payload_signaling },
+    { "msf64_set_payload_signaling", "setPayloadSignaling", MSF_SIG_PAYLOAD_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 0, 1, 4, msf_call_msf64_set_payload_signaling },
 };
 #define MSF_OP_COUNT 816
 
