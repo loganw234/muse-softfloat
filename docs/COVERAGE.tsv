@@ -833,3 +833,15 @@ msf64_r_sqrt	rSqrt	9.2	f64	f64	attr	yes	5	implemented	mpfr-exact	directed-alg;ti
 msf16_hypot	hypot	9.2	f16	f16,f16	attr	yes	5	implemented	mpfr-exact	directed-alg;ties;seeded-random	exact	2	C-754
 msf32_hypot	hypot	9.2	f32	f32,f32	attr	yes	5	implemented	mpfr-exact	directed-alg;ties;seeded-random	exact	2	C-754
 msf64_hypot	hypot	9.2	f64	f64,f64	attr	yes	5	implemented	mpfr-exact	directed-alg;ties;seeded-random	exact	2	C-754
+msf16_exp2	exp2	9.2	f16	f16	attr	yes	5	implemented	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf32_exp2	exp2	9.2	f32	f32	attr	yes	5	implemented	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf64_exp2	exp2	9.2	f64	f64	attr	yes	5	implemented	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf16_exp2m1	exp2m1	9.2	f16	f16	attr	yes	5	implemented	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf32_exp2m1	exp2m1	9.2	f32	f32	attr	yes	5	implemented	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf64_exp2m1	exp2m1	9.2	f64	f64	attr	yes	5	implemented	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf16_log2	log2	9.2	f16	f16	attr	yes	5	planned	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf32_log2	log2	9.2	f32	f32	attr	yes	5	planned	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf64_log2	log2	9.2	f64	f64	attr	yes	5	planned	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf16_log2p1	log2p1	9.2	f16	f16	attr	yes	5	planned	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf32_log2p1	log2p1	9.2	f32	f32	attr	yes	5	planned	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf64_log2p1	log2p1	9.2	f64	f64	attr	yes	5	planned	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754

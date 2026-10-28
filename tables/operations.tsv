@@ -137,3 +137,7 @@ sin_pi	sinPi	9.2	math_un	attr	yes	4	mpfr-exact	directed-hardest;wc-mpfr;seeded-r
 cos_pi	cosPi	9.2	math_un	attr	yes	4	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
 r_sqrt	rSqrt	9.2	math_un	attr	yes	5	mpfr-exact	directed-alg;ties;seeded-random	exact	2	C-754
 hypot	hypot	9.2	math_bin	attr	yes	5	mpfr-exact	directed-alg;ties;seeded-random	exact	2	C-754
+exp2	exp2	9.2	math_un	attr	yes	5	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+exp2m1	exp2m1	9.2	math_un	attr	yes	5	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+log2	log2	9.2	math_un	attr	yes	5	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+log2p1	log2p1	9.2	math_un	attr	yes	5	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754

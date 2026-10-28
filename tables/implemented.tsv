@@ -834,3 +834,9 @@ msf64_r_sqrt	5
 msf16_hypot	5
 msf32_hypot	5
 msf64_hypot	5
+msf16_exp2	5
+msf32_exp2	5
+msf64_exp2	5
+msf16_exp2m1	5
+msf32_exp2m1	5
+msf64_exp2m1	5
