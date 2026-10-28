@@ -15,21 +15,29 @@ pipeline and rendered cut, and the record that stands beside them.
 
 ## Status
 
-**Wave 3 landed, 2026-10-27: 783 of 783 instantiations, and
-IAS15 bit-identical on silicon.** [SF-0](docs/studies/SF-0.md)
-is the approved plan of record. The full Clause 5 surface for
-binary16/32/64 is implemented and gated — arithmetic, FMA,
-conversions, comparisons, totalOrder, and correctly rounded
-decimal/hex character conversions (H=20) — each row gated
-against Berkeley TestFloat 3e, MPFR, or an exact reference at
-the volume its authority names, and verified wave by wave on
-planted copies by independent Spark verifiers (24 of 25 plants
-caught across three waves). Board samples replay bit-identically
-on the RP2040. The impact workload runs there too: REBOUND's
-IAS15 integrator (extracted in scratch, GPL) over this library's
-AEABI compat surface reproduces the unmodified desktop build's
-state hashes exactly for 2,000 steps (2,001/2,001 records,
-1.58 steps/s at 125 MHz). Per-instantiation status lives in
+**Tier 1 complete and Tier 2's authorised prefix landed:
+822 of 822 instantiations, three workloads bit-identical on
+silicon.** [SF-0](docs/studies/SF-0.md) and
+[SF-1](docs/studies/SF-1.md) are the approved plans of record.
+The full Clause 5 surface for binary16/32/64 is implemented
+and gated (783/783) — arithmetic, FMA, conversions,
+comparisons, totalOrder, and correctly rounded decimal/hex
+character conversions (H=20) — plus 39 Tier 2 rows: Clause
+9.6 minimum/maximum semantics, the payload accessors, and
+correctly rounded `sinPi`/`cosPi`, every family at all three
+formats. Each row is gated against Berkeley TestFloat 3e,
+MPFR, or an exact reference at the volume its authority
+names (146,442 committed vectors; `standard` adds 1,117,504),
+and verified wave by wave on planted copies by independent
+Spark verifiers (49 of 50 plants caught across four waves).
+Three workloads run bit-identically on the RP2040: REBOUND's
+IAS15 integrator over the AEABI compat surface reproduces the
+unmodified desktop build's state hashes for 2,000 steps
+(2,001/2,001 records); an interval-geometry catalogue streams
+host==board bit-for-bit; and KissFFT — BSD-3, scratch-only,
+with the one named Fork B change (exact cycle fractions into
+`sinpi`/`cospi`) — matches all 12 configuration hashes at the
+gated sizes N=256/1024/4096. Per-instantiation status lives in
 [docs/COVERAGE.tsv](docs/COVERAGE.tsv); the story, with its
 slips attributed, is [docs/RECORD.md](docs/RECORD.md).
 
@@ -37,6 +45,17 @@ The front door is `tools/run.sh <smoke|standard|board|bench>` under
 Git Bash: it prints its inventory before any verdict, refuses drift
 and each named negative control, and `standard` is the merge gate
 (AGENTS.md has the budgets and their measured costs).
+
+Still deliberately not implemented — deferred or refused by
+name in SF-1 §7 until a workload or a later study earns them:
+the other 37 Clause 9.2 functions (`pow`/`powr` refused in
+any first sequence), Clause 9.4 reductions, Clause 9.5
+augmented arithmetic, dynamic rounding wrappers,
+`roundTiesToAway` as a fifth attribute, and public
+`roundToOdd`. Binary128, decimal formats, and Clause 8
+alternate exception handling are out of this project entirely
+(SF-0 §2.7). Expansion studies for the deferred families are
+under way.
 
 ## Demo video
 
@@ -53,7 +72,7 @@ is built on a 120 BPM grid so a licensed track can be dropped in later.
 | `docs/KICKOFF.md` | the owner's words verbatim, the lead's readings, open questions |
 | `docs/HARNESS.md` | how the methods' mechanisms map onto Muse, measured |
 | `docs/BOARD.md` | the Pico: protocol and filled details |
-| `docs/studies/` | SF-0, the approved plan of record |
+| `docs/studies/` | SF-0 and SF-1, the approved plans of record |
 | `docs/RECORD.md` | dated run entries, the project's record |
 | `docs/COVERAGE.tsv` | per-instantiation coverage ledger: status, deciding authority, vector set (generated) |
 | `docs/WIDTHS.md` | internal exact-integer widths, with proof notes |
@@ -61,7 +80,7 @@ is built on a 120 BPM grid so a licensed track can be dropped in later.
 | `include/`, `src/` | the library: generated public header, exact-integer core |
 | `compat/` | AEABI/toolchain compatibility layer (per-core wrapper state) |
 | `tests/` | host runner, exact-reference vector generation, committed vector sets |
-| `board/` | RP2040 firmware: CDC replay harness, interposition hello, bench skeleton |
+| `board/` | RP2040 firmware: CDC replay harness, interposition hello, IAS15 / interval / KissFFT workloads, bench skeleton |
 | `tools/` | the front door (`run.sh`), table generator, metrics extractor |
 | `video/` | programmatic demo-video pipeline, IAS15 hash captures, storyboard, rendered cuts |
 | `docs/metrics/` | the metrics inputs (usage, passes, briefs, fetches, …) |
