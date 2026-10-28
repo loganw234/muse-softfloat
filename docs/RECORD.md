@@ -791,3 +791,28 @@ replay bit-identically (hash `4fba1c1b...aa9`; string-
 conversion `ta` lines are host-gated - the harness line
 format carries numeric ops only). SF-2 continues with
 the algebraic bundle (`rSqrt`, `hypot` first).
+
+**Wave 5 Step 2a landed (appended 2026-10-28):** the
+algebraic seam (`math_bin` signature, `r_sqrt`+`hypot`
+registered) and correctly rounded `rSqrt` at all three
+formats (`b886e03`, merged `0de6a30`) - an exact integer
+decision (178-bit logical split compare over u128 into
+one pack call), five attributes from birth, Tier 2 now
+42 implemented of 45 registered (`hypot` planned).
+Evidence: binary16 exhaustive 327,680 checks and 1.75M
+seeded checks per wider format, zero mismatches against
+MPFR deciders; 3,595 committed vectors (smoke 175,018).
+The fenced `rSqrt(-0) = -inf` cell is table-decided -
+executed MPFR returns `+inf` and is never sourced for it.
+Planted verification **4 of 5** (70 of 75 cumulative),
+its own exact decider reproducing the exhaustive gate; a
+generator boundary plant slipped past because that leg
+decides nothing in the shipped sets. On the genuine
+board the budget passes and 514/514 stride-sampled
+`rSqrt` vectors replay bit-identically (hash
+`5aad822c...c297`, UF2 `a7e923da...f83d`); `src/msf_alg.c`
+is 1,032 B of text on the RP2040. A methods audit the
+same day graded the project *adherent with slips* - the
+slips are named in the ledger, two fixed same-step
+(README staleness, `checked_by` honesty), the metrics
+refresh owed at Wave 5 close.
