@@ -108,9 +108,11 @@ host and board `e66440a2cb6f5c2b` at 125 MHz, `compute_us`
 ## KissFFT Fork B workload firmware (SF-1 Step 2c)
 
 One further guarded target, lead-run under the same lock and
-protocol above; written and compile-checked by parcel-w4kissfft,
-**not yet run on silicon** (the run below is lead work after
-merge and gates any on-silicon sentence):
+protocol above. First silicon evidence 2026-10-28: all 12 KF
+rows bit-identical to the host proof on the genuine board
+`e66440a2cb6f5c2b` (serial-targeted flash, `MSF_BOARD_SERIAL`
+uppercase); UF2 sha256 `bafafa24...568f` (per-build; every run
+prints and hashes its own artifacts):
 
 - `msf_kissfft` (KissFFT runtime-twiddle workload): built only
   with `-DMSF_KISSFFT_DIR=<patched KissFFT 131.2.0 scratch tree>`;
