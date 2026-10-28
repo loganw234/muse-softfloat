@@ -1,0 +1,8 @@
+# expected-interval.txt - Step 1c interval workload host expectation.
+# Provenance: parcel-w4interval results (host IW1 SHA-256 over the
+# frozen tests/interval_catalogue.tsv, 710 rows); docs/BOARD.md
+# quotes the truncated form ce81d66e...a9aec for the identical
+# host and board digests.  demo/run_demo.sh requires the host
+# runner to reproduce exactly these two lines' values:
+rows=710
+HOST_SHA256 ce81d66e9b0b0a4b654c4eb82664417780c6f09c3f866901002b286980ba9aec
