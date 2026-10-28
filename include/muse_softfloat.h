@@ -53,13 +53,16 @@ typedef uint16_t msf16_t;
 typedef uint32_t msf32_t;
 typedef uint64_t msf64_t;
 
-/* Required binary rounding-direction attributes (754-2019 4.3).
- * Ties-to-away exists only in the operation-named forms (SF-0 2.3). */
+/* Binary rounding-direction attributes (754-2019 4.3): the four
+ * required for binary, plus roundTiesToAway (required for decimal,
+ * provided here for binary as a permitted extension with the
+ * standard-defined semantics, SF-2 Step 1). */
 typedef enum msf_rounding {
     MSF_ROUND_TIES_TO_EVEN = 0,
     MSF_ROUND_TOWARD_ZERO = 1,
     MSF_ROUND_TOWARD_POSITIVE = 2,
-    MSF_ROUND_TOWARD_NEGATIVE = 3
+    MSF_ROUND_TOWARD_NEGATIVE = 3,
+    MSF_ROUND_TIES_TO_AWAY = 4
 } msf_rounding_t;
 
 /* The five Clause 7 exception flags as bits in caller-owned state. */

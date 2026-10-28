@@ -395,6 +395,50 @@ msf32_round_to_integral_exact tn 3ecccccd -> 0 10 exact-py-f32:directed-rint-mis
 msf32_round_to_integral_exact tn becccccd -> bf800000 10 exact-py-f32:directed-rint-misc
 msf32_round_to_integral_exact tn 4a800001 -> 4a800000 10 exact-py-f32:directed-rint-misc
 msf32_round_to_integral_exact tn 4affffff -> 4afffffe 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 0 -> 0 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 80000000 -> 80000000 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 1 -> 0 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 80000001 -> 80000000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 7fffff -> 0 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 800000 -> 0 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 80800000 -> 80000000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 3f800000 -> 3f800000 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta bf800000 -> bf800000 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 3f800001 -> 3f800000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 3f7fffff -> 3f800000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 40000000 -> 40000000 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 3f000000 -> 3f800000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 3fc00000 -> 40000000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta bfc00000 -> c0000000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 40200000 -> 40400000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 7f7fffff -> 7f7fffff 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta ff7fffff -> ff7fffff 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 7e800000 -> 7e800000 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 1000000 -> 0 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 40400000 -> 40400000 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta c0400000 -> c0400000 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 7f800000 -> 7f800000 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta ff800000 -> ff800000 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 7fc00000 -> 7fc00000 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta ffc12345 -> ffc12345 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 7f800001 -> 7fc00001 01 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta ffbfffff -> ffffffff 01 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 4b800000 -> 4b800000 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 4b7fffff -> 4b7fffff 00 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 3dcccccd -> 0 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta bdcccccd -> 80000000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 3f000000 -> 3f800000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta bf000000 -> bf800000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 3fc00000 -> 40000000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta bfc00000 -> c0000000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 40200000 -> 40400000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta c0200000 -> c0400000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 40600000 -> 40800000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta c0600000 -> c0800000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 3ecccccd -> 0 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta becccccd -> 80000000 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 4a800001 -> 4a800002 10 exact-py-f32:directed-rint-misc
+msf32_round_to_integral_exact ta 4affffff -> 4b000000 10 exact-py-f32:directed-rint-misc
 msf32_next_up - 0 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_next_down - 0 -> 80000001 00 exact-py-f32:directed-rint-misc
 msf32_next_up - 80000000 -> 1 00 exact-py-f32:directed-rint-misc
@@ -782,165 +826,269 @@ msf32_scale_b te 3dcccccd 1 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 1 0 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 1 0 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 1 0 -> 1 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 1 0 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 1 3ff0000000000000 -> 2 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 1 3ff0000000000000 -> 2 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 1 3ff0000000000000 -> 2 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 1 3ff0000000000000 -> 2 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 1 bff0000000000000 -> 0 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 1 bff0000000000000 -> 1 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 1 bff0000000000000 -> 0 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 1 bff0000000000000 -> 1 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 1 4004000000000000 -> 4 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 1 4004000000000000 -> 4 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 1 4004000000000000 -> 4 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 1 4004000000000000 -> 4 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 1 c004000000000000 -> 0 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 1 c004000000000000 -> 1 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 1 c004000000000000 -> 0 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 1 c004000000000000 -> 0 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 1 3fe0000000000000 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 1 3fe0000000000000 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 1 3fe0000000000000 -> 1 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 1 3fe0000000000000 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 1 bfe0000000000000 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 1 bfe0000000000000 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 1 bfe0000000000000 -> 1 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 1 bfe0000000000000 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 1 405fc00000000000 -> 34800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 1 405fc00000000000 -> 34800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 1 405fc00000000000 -> 34800000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 1 405fc00000000000 -> 34800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 1 c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 1 c062a00000000000 -> 1 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 1 c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 1 c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 800000 0 -> 800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 800000 0 -> 800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 800000 0 -> 800000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 800000 0 -> 800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 800000 3ff0000000000000 -> 1000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 800000 3ff0000000000000 -> 1000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 800000 3ff0000000000000 -> 1000000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 800000 3ff0000000000000 -> 1000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 800000 bff0000000000000 -> 400000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 800000 bff0000000000000 -> 400000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 800000 bff0000000000000 -> 400000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 800000 bff0000000000000 -> 400000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 800000 4004000000000000 -> 1800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 800000 4004000000000000 -> 1800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 800000 4004000000000000 -> 1800000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 800000 4004000000000000 -> 1800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 800000 c004000000000000 -> 200000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 800000 c004000000000000 -> 200000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 800000 c004000000000000 -> 200000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 800000 c004000000000000 -> 200000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 800000 3fe0000000000000 -> 800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 800000 3fe0000000000000 -> 800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 800000 3fe0000000000000 -> 800000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 800000 3fe0000000000000 -> 800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 800000 bfe0000000000000 -> 800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 800000 bfe0000000000000 -> 800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 800000 bfe0000000000000 -> 800000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 800000 bfe0000000000000 -> 800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 800000 405fc00000000000 -> 40000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 800000 405fc00000000000 -> 40000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 800000 405fc00000000000 -> 40000000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 800000 405fc00000000000 -> 40000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 800000 c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 800000 c062a00000000000 -> 1 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 800000 c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 800000 c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3f800000 0 -> 3f800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3f800000 0 -> 3f800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3f800000 0 -> 3f800000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f800000 0 -> 3f800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3f800000 3ff0000000000000 -> 40000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3f800000 3ff0000000000000 -> 40000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3f800000 3ff0000000000000 -> 40000000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f800000 3ff0000000000000 -> 40000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3f800000 bff0000000000000 -> 3f000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3f800000 bff0000000000000 -> 3f000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3f800000 bff0000000000000 -> 3f000000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f800000 bff0000000000000 -> 3f000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3f800000 4004000000000000 -> 40800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3f800000 4004000000000000 -> 40800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3f800000 4004000000000000 -> 40800000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f800000 4004000000000000 -> 40800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3f800000 c004000000000000 -> 3e800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3f800000 c004000000000000 -> 3e800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3f800000 c004000000000000 -> 3e800000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f800000 c004000000000000 -> 3e800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3f800000 3fe0000000000000 -> 3f800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3f800000 3fe0000000000000 -> 3f800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3f800000 3fe0000000000000 -> 3f800000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f800000 3fe0000000000000 -> 3f800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3f800000 bfe0000000000000 -> 3f800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3f800000 bfe0000000000000 -> 3f800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3f800000 bfe0000000000000 -> 3f800000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f800000 bfe0000000000000 -> 3f800000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3f800000 405fc00000000000 -> 7f000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3f800000 405fc00000000000 -> 7f000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3f800000 405fc00000000000 -> 7f000000 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f800000 405fc00000000000 -> 7f000000 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3f800000 c062a00000000000 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3f800000 c062a00000000000 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3f800000 c062a00000000000 -> 1 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f800000 c062a00000000000 -> 1 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7f7fffff 0 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7f7fffff 0 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7f7fffff 0 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7f7fffff 0 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7f7fffff 3ff0000000000000 -> 7f7fffff 14 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7f7fffff 3ff0000000000000 -> 7f800000 14 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7f7fffff 3ff0000000000000 -> 7f7fffff 14 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7f7fffff 3ff0000000000000 -> 7f800000 14 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7f7fffff bff0000000000000 -> 7effffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7f7fffff bff0000000000000 -> 7effffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7f7fffff bff0000000000000 -> 7effffff 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7f7fffff bff0000000000000 -> 7effffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7f7fffff 4004000000000000 -> 7f7fffff 14 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7f7fffff 4004000000000000 -> 7f800000 14 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7f7fffff 4004000000000000 -> 7f7fffff 14 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7f7fffff 4004000000000000 -> 7f800000 14 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7f7fffff c004000000000000 -> 7e7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7f7fffff c004000000000000 -> 7e7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7f7fffff c004000000000000 -> 7e7fffff 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7f7fffff c004000000000000 -> 7e7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7f7fffff 3fe0000000000000 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7f7fffff 3fe0000000000000 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7f7fffff 3fe0000000000000 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7f7fffff 3fe0000000000000 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7f7fffff bfe0000000000000 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7f7fffff bfe0000000000000 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7f7fffff bfe0000000000000 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7f7fffff bfe0000000000000 -> 7f7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7f7fffff 405fc00000000000 -> 7f7fffff 14 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7f7fffff 405fc00000000000 -> 7f800000 14 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7f7fffff 405fc00000000000 -> 7f7fffff 14 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7f7fffff 405fc00000000000 -> 7f800000 14 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7f7fffff c062a00000000000 -> 34ffffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7f7fffff c062a00000000000 -> 34ffffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7f7fffff c062a00000000000 -> 34ffffff 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7f7fffff c062a00000000000 -> 34ffffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3dcccccd 0 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3dcccccd 0 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3dcccccd 0 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3dcccccd 0 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3dcccccd 3ff0000000000000 -> 3e4ccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3dcccccd 3ff0000000000000 -> 3e4ccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3dcccccd 3ff0000000000000 -> 3e4ccccd 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3dcccccd 3ff0000000000000 -> 3e4ccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3dcccccd bff0000000000000 -> 3d4ccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3dcccccd bff0000000000000 -> 3d4ccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3dcccccd bff0000000000000 -> 3d4ccccd 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3dcccccd bff0000000000000 -> 3d4ccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3dcccccd 4004000000000000 -> 3ecccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3dcccccd 4004000000000000 -> 3ecccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3dcccccd 4004000000000000 -> 3ecccccd 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3dcccccd 4004000000000000 -> 3ecccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3dcccccd c004000000000000 -> 3ccccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3dcccccd c004000000000000 -> 3ccccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3dcccccd c004000000000000 -> 3ccccccd 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3dcccccd c004000000000000 -> 3ccccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3dcccccd 3fe0000000000000 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3dcccccd 3fe0000000000000 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3dcccccd 3fe0000000000000 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3dcccccd 3fe0000000000000 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3dcccccd bfe0000000000000 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3dcccccd bfe0000000000000 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3dcccccd bfe0000000000000 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3dcccccd bfe0000000000000 -> 3dcccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3dcccccd 405fc00000000000 -> 7d4ccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3dcccccd 405fc00000000000 -> 7d4ccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3dcccccd 405fc00000000000 -> 7d4ccccd 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3dcccccd 405fc00000000000 -> 7d4ccccd 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 3dcccccd c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 3dcccccd c062a00000000000 -> 1 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 3dcccccd c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3dcccccd c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7fffff 0 -> 7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7fffff 0 -> 7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7fffff 0 -> 7fffff 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7fffff 0 -> 7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7fffff 3ff0000000000000 -> fffffe 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7fffff 3ff0000000000000 -> fffffe 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7fffff 3ff0000000000000 -> fffffe 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7fffff 3ff0000000000000 -> fffffe 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7fffff bff0000000000000 -> 3fffff 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7fffff bff0000000000000 -> 400000 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7fffff bff0000000000000 -> 3fffff 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7fffff bff0000000000000 -> 400000 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7fffff 4004000000000000 -> 17ffffe 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7fffff 4004000000000000 -> 17ffffe 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7fffff 4004000000000000 -> 17ffffe 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7fffff 4004000000000000 -> 17ffffe 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7fffff c004000000000000 -> 1fffff 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7fffff c004000000000000 -> 200000 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7fffff c004000000000000 -> 1fffff 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7fffff c004000000000000 -> 200000 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7fffff 3fe0000000000000 -> 7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7fffff 3fe0000000000000 -> 7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7fffff 3fe0000000000000 -> 7fffff 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7fffff 3fe0000000000000 -> 7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7fffff bfe0000000000000 -> 7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7fffff bfe0000000000000 -> 7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7fffff bfe0000000000000 -> 7fffff 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7fffff bfe0000000000000 -> 7fffff 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7fffff 405fc00000000000 -> 3ffffffe 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7fffff 405fc00000000000 -> 3ffffffe 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7fffff 405fc00000000000 -> 3ffffffe 00 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7fffff 405fc00000000000 -> 3ffffffe 00 exact-py-f32:directed-rint-misc
 msf32_scale_b tz 7fffff c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tp 7fffff c062a00000000000 -> 1 18 exact-py-f32:directed-rint-misc
 msf32_scale_b tn 7fffff c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 7fffff c062a00000000000 -> 0 18 exact-py-f32:directed-rint-misc
+msf32_scale_b te 3f800001 c05fc00000000000 -> 400000 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tz 3f800001 c05fc00000000000 -> 400000 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tp 3f800001 c05fc00000000000 -> 400001 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tn 3f800001 c05fc00000000000 -> 400000 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f800001 c05fc00000000000 -> 400001 18 exact-py-f32:directed-rint-misc
+msf32_scale_b te bf800001 c05fc00000000000 -> 80400000 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tz bf800001 c05fc00000000000 -> 80400000 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tp bf800001 c05fc00000000000 -> 80400000 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tn bf800001 c05fc00000000000 -> 80400001 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta bf800001 c05fc00000000000 -> 80400001 18 exact-py-f32:directed-rint-misc
+msf32_scale_b te 3ffffffd c05fc00000000000 -> 7ffffe 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tz 3ffffffd c05fc00000000000 -> 7ffffe 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tp 3ffffffd c05fc00000000000 -> 7fffff 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tn 3ffffffd c05fc00000000000 -> 7ffffe 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3ffffffd c05fc00000000000 -> 7fffff 18 exact-py-f32:directed-rint-misc
+msf32_scale_b te bffffffd c05fc00000000000 -> 807ffffe 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tz bffffffd c05fc00000000000 -> 807ffffe 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tp bffffffd c05fc00000000000 -> 807ffffe 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tn bffffffd c05fc00000000000 -> 807fffff 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta bffffffd c05fc00000000000 -> 807fffff 18 exact-py-f32:directed-rint-misc
+msf32_scale_b te 3fa00000 c062800000000000 -> 2 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tz 3fa00000 c062800000000000 -> 2 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tp 3fa00000 c062800000000000 -> 3 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tn 3fa00000 c062800000000000 -> 2 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3fa00000 c062800000000000 -> 3 18 exact-py-f32:directed-rint-misc
+msf32_scale_b te bfa00000 c062800000000000 -> 80000002 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tz bfa00000 c062800000000000 -> 80000002 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tp bfa00000 c062800000000000 -> 80000002 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tn bfa00000 c062800000000000 -> 80000003 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta bfa00000 c062800000000000 -> 80000003 18 exact-py-f32:directed-rint-misc
+msf32_scale_b te 3f900000 c062600000000000 -> 4 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tz 3f900000 c062600000000000 -> 4 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tp 3f900000 c062600000000000 -> 5 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tn 3f900000 c062600000000000 -> 4 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f900000 c062600000000000 -> 5 18 exact-py-f32:directed-rint-misc
+msf32_scale_b te bf900000 c062600000000000 -> 80000004 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tz bf900000 c062600000000000 -> 80000004 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tp bf900000 c062600000000000 -> 80000004 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tn bf900000 c062600000000000 -> 80000005 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta bf900000 c062600000000000 -> 80000005 18 exact-py-f32:directed-rint-misc
+msf32_scale_b te 3f880000 c062400000000000 -> 8 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tz 3f880000 c062400000000000 -> 8 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tp 3f880000 c062400000000000 -> 9 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tn 3f880000 c062400000000000 -> 8 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta 3f880000 c062400000000000 -> 9 18 exact-py-f32:directed-rint-misc
+msf32_scale_b te bf880000 c062400000000000 -> 80000008 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tz bf880000 c062400000000000 -> 80000008 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tp bf880000 c062400000000000 -> 80000008 18 exact-py-f32:directed-rint-misc
+msf32_scale_b tn bf880000 c062400000000000 -> 80000009 18 exact-py-f32:directed-rint-misc
+msf32_scale_b ta bf880000 c062400000000000 -> 80000009 18 exact-py-f32:directed-rint-misc
 msf32_remainder - 3f800000 bf800000 -> 0 00 exact-py-f32:directed-rint-misc
 msf32_remainder - bf800000 3f800000 -> 80000000 00 exact-py-f32:directed-rint-misc
 msf32_remainder - 3f800000 3f800000 -> 0 00 exact-py-f32:directed-rint-misc

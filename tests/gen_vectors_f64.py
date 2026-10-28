@@ -26,7 +26,7 @@ F_DIV0 = 0x02
 F_OVF = 0x04
 F_UNF = 0x08
 F_INX = 0x10
-RMS = ["te", "tz", "tp", "tn"]
+RMS = ["te", "tz", "tp", "tn", "ta"]  # five attributes (SF-2 Step 1)
 
 
 def fmt_params(fmt):
@@ -577,7 +577,8 @@ def directed_arith(prov):
         suf = "" if (fa == "f64" and fb == "f64") else "_%s_%s" % (fa, fb)
         for ia, a in enumerate(pa):
             for ib, b in enumerate(pb):
-                pair_modes = (RMS[(ia + ib) % 4], RMS[(ia + ib + 1) % 4])
+                pair_modes = (RMS[(ia + ib) % len(RMS)],
+                              RMS[(ia + ib + 1) % len(RMS)])
                 for rm in pair_modes:
                     r, f = ref_addsub(fa, a, fb, b, False, rm)
                     out.append(line("msf64_add" + suf, rm, [a, b], r, f, prov))
@@ -614,6 +615,125 @@ def directed_arith(prov):
         for rm in ("te", "ta"):
             r, f = ref_mul("f64", a, "f64", b, rm)
             out.append(line("msf64_mul", rm, [a, b], r, f, prov))
+    return out
+
+
+def tie_values(fmt):
+    """Dyadic operands exact in fmt whose exact results land
+    on f64-grid (and source-grid) midpoints: even
+    significands, half-ulps, subnormal multiples (SF-2
+    Step 1 tie-rich directed design; searches keep only
+    te != ta pairs, decided in every mode emitted)."""
+    _, psrc, _, _, _, _ = fmt_params(fmt)
+    _, pd, _, _, emax, emin = fmt_params("f64")
+    vals = []
+    for p in sorted({pd, psrc}):
+        for e in (0, -3, 4, emin + 2, emax - 1):
+            for m in ((1 << (p - 1)), (1 << (p - 1)) + 2,
+                      (1 << (p - 1)) + (1 << (p - 2)), (1 << p) - 2):
+                vals.append(Fraction(m) * Fraction(2) ** (e - (p - 1)))
+            vals.append(Fraction(2) ** (e - p))
+            vals.append(3 * Fraction(2) ** (e - p))
+        q = Fraction(2) ** (emin - (p - 1))
+        for k in (1, 3, 5, 7):
+            vals.append(k * q)
+        vals += [1 + Fraction(2) ** (-(p - 1)),
+                 1 + Fraction(2) ** (-(p - 2))]
+    vals += [Fraction(3, 2), Fraction(5, 4), Fraction(9, 8), Fraction(2)]
+    out = []
+    for v in vals:
+        for s in (v, -v):
+            try:
+                out.append(make_bits(fmt, s))
+            except AssertionError:
+                pass
+    return sorted(set(out))
+
+
+TIEVALS = {f: tie_values(f) for f in ("f32", "f64")}
+F64_BINOPS = [("add", lambda fa, a, fb, b, rm: ref_addsub(fa, a, fb, b, False, rm)),
+              ("sub", lambda fa, a, fb, b, rm: ref_addsub(fa, a, fb, b, True, rm)),
+              ("mul", ref_mul), ("div", ref_div)]
+
+
+def gen_arith_ties(prov):
+    out = []
+    for op, fn in F64_BINOPS:
+        for fa in ("f32", "f64"):
+            for fb in ("f32", "f64"):
+                suf = "" if (fa == "f64" and fb == "f64") \
+                    else "_%s_%s" % (fa, fb)
+                name = "msf64_%s%s" % (op, suf)
+                found = 0
+                for a in TIEVALS[fa]:
+                    if found >= 3:
+                        break
+                    for b in TIEVALS[fb]:
+                        if fn(fa, a, fb, b, "te") != fn(fa, a, fb, b, "ta"):
+                            for rm in RMS:
+                                r, f = fn(fa, a, fb, b, rm)
+                                out.append(line(name, rm, [a, b],
+                                                r, f, prov))
+                            found += 1
+                            if found >= 3:
+                                break
+                if fa == fb == "f64":
+                    assert found, (op, fa, fb)
+    for fa in ("f32", "f64"):
+        for fb in ("f32", "f64"):
+            for fc in ("f32", "f64"):
+                suf = "" if (fa, fb, fc) == ("f64", "f64", "f64") \
+                    else "_%s_%s_%s" % (fa, fb, fc)
+                name = "msf64_fma" + suf
+                found = 0
+                for a in [make_bits(fa, v) for v in
+                          (Fraction(1), Fraction(3, 2), Fraction(-3, 2),
+                           Fraction(5, 4), Fraction(2), Fraction(9, 8),
+                           Fraction(1, 2), Fraction(-1))]:
+                    if found >= 2:
+                        break
+                    for b in [make_bits(fb, v) for v in
+                              (Fraction(1), Fraction(3, 2),
+                               Fraction(-3, 2), Fraction(5, 4),
+                               Fraction(2), Fraction(9, 8),
+                               Fraction(1, 2), Fraction(-1))]:
+                        if found >= 2:
+                            break
+                        for cc in TIEVALS[fc]:
+                            if ref_fma(fa, a, fb, b, fc, cc, "te") != \
+                                    ref_fma(fa, a, fb, b, fc, cc, "ta"):
+                                for rm in RMS:
+                                    r, f = ref_fma(fa, a, fb, b, fc, cc, rm)
+                                    out.append(line(name, rm, [a, b, cc],
+                                                    r, f, prov))
+                                found += 1
+                                if found >= 2:
+                                    break
+                if (fa, fb, fc) == ("f64", "f64", "f64"):
+                    assert found, (fa, fb, fc)
+    return out
+
+
+def gen_conv_ties(prov):
+    """int->f64 midpoint integers (format conversion into f64
+    is widening/exact and has no ties)."""
+    out = []
+    pd = 53
+    ranges = {"i64": (-(1 << 63), (1 << 63) - 1, 64),
+              "u64": (0, (1 << 64) - 1, 64),
+              "i32": (-(1 << 31), (1 << 31) - 1, 32),
+              "u32": (0, (1 << 32) - 1, 32)}
+    cands = [(1 << pd) + 1, (1 << (pd + 1)) + 2, (1 << (pd + 2)) + 4,
+             (1 << (pd + 3)) + 8]
+    cands += [-c for c in list(cands)]
+    for tok, (lo, hi, w) in ranges.items():
+        for v in cands:
+            if lo <= v <= hi and \
+                    ref_from_int(v, "te") != ref_from_int(v, "ta"):
+                for rm in RMS:
+                    r, f = ref_from_int(v, rm)
+                    out.append(line("msf64_from_" + tok, rm,
+                                    [v & ((1 << w) - 1)], r, f, prov))
     return out
 
 
@@ -741,6 +861,22 @@ def directed_misc(prov):
             for rm in RMS:
                 r, f = ref_scaleb(a, nb, rm)
                 out.append(line("msf64_scale_b", rm, [a, nb], r, f, prov))
+    # scaleB subnormal-delivery ties (SF-2 Step 1): x * 2^N is
+    # exactly a subnormal-grid midpoint with even lower
+    # neighbour (the only scaleB tie shape).
+    _p, _emin = 53, -1022
+    for _m, _u in (((1 << (_p - 1)) + 1, -(_p - 1)),
+                   ((1 << _p) - 3, -(_p - 1)), (5, -2), (9, -3),
+                   (17, -4)):
+        _n = (_emin - _p) - _u
+        _nb = make_bits("f64", fr(_n))
+        for _s in (1, -1):
+            _a = make_bits("f64", _s * fr(_m) * fr(2) ** _u)
+            if ref_scaleb(_a, _nb, "te") != ref_scaleb(_a, _nb, "ta"):
+                for _rm in RMS:
+                    _r, _f = ref_scaleb(_a, _nb, _rm)
+                    out.append(line("msf64_scale_b", _rm, [_a, _nb],
+                                    _r, _f, prov))
     return out
 
 
@@ -885,9 +1021,11 @@ def main(argv):
     if mode == "directed":
         outdir = Path(argv[2])
         write(outdir / "arith-f64.vec",
-              directed_arith("exact-f64:directed-arith"))
+              directed_arith("exact-f64:directed-arith")
+              + gen_arith_ties("exact-f64:directed-arith"))
         write(outdir / "conv-f64.vec",
-              directed_conv("exact-f64:directed-conv"))
+              directed_conv("exact-f64:directed-conv")
+              + gen_conv_ties("exact-f64:directed-conv"))
         write(outdir / "misc-f64.vec",
               directed_misc("exact-f64:directed-misc"))
         write(outdir / "compare-f64.vec",
