@@ -74,9 +74,12 @@ set(MSF_AEABI_WRAP_SYMBOLS
     __aeabi_d2iz __aeabi_d2uiz __aeabi_d2lz __aeabi_d2ulz
     __aeabi_f2d __aeabi_d2f
     sqrt fabs fma copysignf copysign
+    # Step 2c earned wrappers (KissFFT Fork B): correctly rounded
+    # sinPi/cosPi and floor (roundToIntegralTowardNegative).
+    sinpi cospi floor
     # named traps (compat/msf_aeabi.c): the upstream tree's
     # never-executed libm surface; any call stops loudly.
-    acos acosh asin atan cbrt cos cosh exp floor log log10
+    acos acosh asin atan cbrt cos cosh exp log log10
     sin sinh tan tanh atan2 pow fmod)
 set(MSF_AEABI_SRC
     ${MSF_ROOT}/compat/msf_aeabi.c
@@ -100,7 +103,7 @@ target_compile_options(msf_aeabi_selftest PRIVATE -ffp-contract=off -fno-fast-ma
 set_source_files_properties(${MSF_AEABI_SRC} PROPERTIES
     COMPILE_OPTIONS "-ffp-contract=off")
 set_source_files_properties(ias15_selftest.c PROPERTIES COMPILE_OPTIONS
-    "-fno-builtin-sqrt;-fno-builtin-fabs;-fno-builtin-copysign")
+    "-fno-builtin-sqrt;-fno-builtin-fabs;-fno-builtin-copysign;-fno-builtin-sinpi;-fno-builtin-cospi;-fno-builtin-floor")
 target_link_libraries(msf_aeabi_selftest msf_core pico_stdlib pico_unique_id)
 pico_enable_stdio_usb(msf_aeabi_selftest 1)
 pico_enable_stdio_uart(msf_aeabi_selftest 0)
@@ -164,3 +167,43 @@ target_link_libraries(msf_interval msf_core pico_stdlib pico_unique_id)
 pico_enable_stdio_usb(msf_interval 1)
 pico_enable_stdio_uart(msf_interval 0)
 pico_add_extra_outputs(msf_interval)
+
+# ---- Step 2c KissFFT Fork B workload firmware (SF-1) -------------
+# Guarded, like msf_ias15: the BSD-3 KissFFT 131.2.0 tree lives
+# outside this repository (scratch, Fork-B-patched by script -
+# exact cycle fractions into sinpi/cospi, the one named change;
+# never "unmodified KissFFT"). Point MSF_KISSFFT_DIR at a patched
+# scratch tree to build msf_kissfft; WITHOUT it the target is
+# absent and every other target builds unchanged (recorded shape).
+if(DEFINED MSF_KISSFFT_DIR)
+    set(KISSFFT_SRC
+        ${MSF_KISSFFT_DIR}/kiss_fft.c
+        ${MSF_KISSFFT_DIR}/kiss_fftr.c)
+    add_executable(msf_kissfft kissfft_main.c
+                   ${MSF_ROOT}/tests/sha256.c ${MSF_AEABI_SRC} ${KISSFFT_SRC})
+    msf_aeabi_target_wraps(msf_kissfft)
+    # RAM: 128 KiB static workspace + <=82208 B malloc'd state
+    # (host-measured lenmem, real N=4096); one config live at a
+    # time. Stack 4 KiB as msf_ias15 (FFT recursion depth 12).
+    target_compile_definitions(msf_kissfft PRIVATE PICO_STACK_SIZE=0x1000)
+    target_include_directories(msf_kissfft PRIVATE ${CMAKE_CURRENT_LIST_DIR}
+                               ${MSF_ROOT} ${MSF_ROOT}/compat
+                               ${MSF_KISSFFT_DIR})
+    target_compile_options(msf_kissfft PRIVATE -ffp-contract=off -fno-fast-math)
+    # Double config (kiss_fft.h's documented override) + pinned
+    # flags on the workload and glue TUs; trig stays a call into
+    # the wrapped helpers.
+    set_source_files_properties(${KISSFFT_SRC} PROPERTIES
+        COMPILE_OPTIONS "-std=c99;-O2;-ffp-contract=off;-fno-fast-math;-fno-unsafe-math-optimizations;-fno-builtin-sinpi;-fno-builtin-cospi;-fno-builtin-floor;-fno-builtin-sqrt"
+        COMPILE_DEFINITIONS "kiss_fft_scalar=double")
+    # Glue TU includes SDK headers (C11 static_assert): no -std=c99.
+    set_source_files_properties(kissfft_main.c PROPERTIES
+        COMPILE_OPTIONS "-O2;-ffp-contract=off;-fno-fast-math;-fno-unsafe-math-optimizations"
+        COMPILE_DEFINITIONS "kiss_fft_scalar=double")
+    target_link_libraries(msf_kissfft msf_core pico_stdlib pico_unique_id)
+    pico_enable_stdio_usb(msf_kissfft 1)
+    pico_enable_stdio_uart(msf_kissfft 0)
+    pico_add_extra_outputs(msf_kissfft)
+else()
+    message(STATUS "msf_kissfft skipped: -DMSF_KISSFFT_DIR=<patched KissFFT scratch tree> not given")
+endif()

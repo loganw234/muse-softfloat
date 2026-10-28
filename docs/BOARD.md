@@ -104,3 +104,32 @@ serial), artifact hashes printed. First silicon evidence
 host and board `e66440a2cb6f5c2b` at 125 MHz, `compute_us`
 7,918,838 for 616,754 counted ops; UF2 sha256
 `a9b7cf1d...1b3a5` (per-build; every run prints its own).
+
+## KissFFT Fork B workload firmware (SF-1 Step 2c)
+
+One further guarded target, lead-run under the same lock and
+protocol above; written and compile-checked by parcel-w4kissfft,
+**not yet run on silicon** (the run below is lead work after
+merge and gates any on-silicon sentence):
+
+- `msf_kissfft` (KissFFT runtime-twiddle workload): built only
+  with `-DMSF_KISSFFT_DIR=<patched KissFFT 131.2.0 scratch tree>`;
+  without it the target is absent and all other targets build
+  unchanged. The workload is BSD-3 KissFFT 131.2.0 with **one
+  named change** (Fork B): twiddle generation takes exact cycle
+  fractions into correctly rounded `sinpi`/`cospi` instead of
+  radian phases into `sin`/`cos` - "unmodified KissFFT" is never
+  claimed. Its source never enters this repository.
+  - At boot (and again on `R`) it runs N in {256, 1024, 4096} x
+    {complex fwd/inv, real fwd/inv} (double config) from the
+    shared integer-LCG inputs, twiddles generated at runtime
+    on-device, and prints banner `MSF-KISSFFT 1 ID ...`, one
+    `KF <N> <kind> <dir> <sha256>` row per configuration, then
+    `KISSFFT-DONE`. At these gated power-of-two sizes the
+    twiddles are the correctly rounded values of the exact
+    mathematical twiddles (host MPFR provenance gate, 0
+    mismatches); the KF rows must equal the host proof's
+    bit-for-bit under the same patched source.
+  - Run: `board/kissfft_run.sh` (lock, serial-targeted flash
+    via `MSF_BOARD_SERIAL`, capture/compare via
+    `board/kissfft_host.py`, port by VID or `MSF_BOARD_PORT`).

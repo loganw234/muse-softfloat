@@ -22,6 +22,12 @@
 #include "../include/muse_softfloat.h"
 #include "ias15_selftest.h"
 
+/* C23 names, wrapped to compat/msf_aeabi.c (Step 2c); declared here
+ * because neither newlib nor host MinGW math.h declares them under
+ * the build's -std flags. An identical redeclaration is legal. */
+double sinpi(double x);
+double cospi(double x);
+
 #ifndef IAS15_SELFTEST_LCG_PAIRS
 #define IAS15_SELFTEST_LCG_PAIRS 2000
 #endif
@@ -146,6 +152,10 @@ static void single_checks(uint64_t ua)
     volatile double va = u2d(ua);
     double a = va;
     check_bits("sqrt", d2u(sqrt(a)), msf64_sqrt(ua, RM, &fl));
+    check_bits("sinpi", d2u(sinpi(a)), msf64_sin_pi(ua, RM, &fl));
+    check_bits("cospi", d2u(cospi(a)), msf64_cos_pi(ua, RM, &fl));
+    check_bits("floor", d2u(floor(a)),
+               msf64_round_to_integral_toward_negative(ua, &fl));
     check_bits("fabs", d2u(fabs(a)), msf64_abs(ua));
     check_bits("neg", d2u(-a), msf64_negate(ua));
     check_int("isnormal", isnormal(a) ? 1 : 0, msf64_is_normal(ua) ? 1 : 0);
@@ -171,6 +181,57 @@ static void single_checks(uint64_t ua)
         memcpy(&fu, &f, 4);
         check_bits("d2f", fu, msf32_from_f64(ua, RM, &fl));
         check_bits("f2d", d2u((double)f), msf64_from_f32(fu, RM, &fl));
+    }
+}
+
+/* Bit+flag checks for the three Step 2c wrappers. The wrapper state
+ * flags are zeroed before each wrapped call and must equal the
+ * flags the core call raises from zero. Cycle points are exact bit
+ * patterns: 0, +-1/4, +-1/2, +-1, +-2, +-2^52, min subnormal, and a
+ * few non-dyadic patterns, plus the directed OPS set. */
+static void trig_floor_flag_checks(void)
+{
+    static const uint64_t pts[] = {
+        0x0000000000000000ULL, 0x8000000000000000ULL,
+        0x3FD0000000000000ULL, 0xBFD0000000000000ULL, /* +-1/4 */
+        0x3FE0000000000000ULL, 0xBFE0000000000000ULL, /* +-1/2 */
+        0x3FF0000000000000ULL, 0xBFF0000000000000ULL, /* +-1 */
+        0x4000000000000000ULL, 0xC000000000000000ULL, /* +-2 */
+        0x4330000000000000ULL, 0xC330000000000000ULL, /* +-2^52 */
+        0x0000000000000001ULL, 0x8000000000000001ULL,
+        0x3F847AE147AE147BULL, 0xBF847AE147AE147BULL, /* +-0.01-ish */
+        0x400921FB54442D18ULL, 0xC00921FB54442D18ULL, /* +-pi bits */
+    };
+    msf_wrap_state_t *s = msf_wrap_state();
+    size_t i, n = sizeof pts / sizeof pts[0] + NOPS;
+    for (i = 0; i < n; i++) {
+        uint64_t ua = i < sizeof pts / sizeof pts[0]
+                          ? pts[i]
+                          : OPS[i - sizeof pts / sizeof pts[0]];
+        volatile double va = u2d(ua);
+        double a = va, r;
+        msf_flags_t cf = 0;
+        uint64_t want;
+
+        want = msf64_sin_pi(ua, RM, &cf);
+        s->flags = 0;
+        r = sinpi(a);
+        check_bits("sinpi-fl", d2u(r), want);
+        check_int("sinpi-flags", (long long)s->flags, (long long)cf);
+
+        cf = 0;
+        want = msf64_cos_pi(ua, RM, &cf);
+        s->flags = 0;
+        r = cospi(a);
+        check_bits("cospi-fl", d2u(r), want);
+        check_int("cospi-flags", (long long)s->flags, (long long)cf);
+
+        cf = 0;
+        want = msf64_round_to_integral_toward_negative(ua, &cf);
+        s->flags = 0;
+        r = floor(a);
+        check_bits("floor-fl", d2u(r), want);
+        check_int("floor-flags", (long long)s->flags, (long long)cf);
     }
 }
 
@@ -202,6 +263,7 @@ int msf_aeabi_selftest(int full,
         msf_flags_t saved_fl = s->flags;
         s->rounding = MSF_ROUND_TIES_TO_EVEN;
 
+        trig_floor_flag_checks();
         for (i = 0; i < NOPS; i++) {
             single_checks(OPS[i]);
             for (j = 0; j < NOPS; j++) {
