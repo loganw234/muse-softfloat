@@ -1,0 +1,20 @@
+# expected-kissfft.txt - KissFFT Fork B host-proof hashes (12 configurations).
+# Provenance: parcel-w4kissfft host proof over the Fork-B-patched
+# KissFFT 131.2.0 tree (ledger results entry; identical rows in the
+# recorded hashes-main.txt).  The same 12 rows were reproduced
+# bit-for-bit on the RP2040 (docs/RECORD.md, Step 2c close).
+# Row shape: KF <N> <complex|real> <fwd|inv> <sha256 of output fields>.
+# This file doubles as KISSFFT_EXPECT for board/kissfft_run.sh
+# (board/kissfft_host.py reads KF rows and ignores other lines).
+KF 256 complex fwd 27f34c36d864da235da695fcc5778ce0e4f9212f7852882eaefc8be09e36067d
+KF 256 complex inv 382178df83b93c071b1ca6359e7781d559b821e7ea37be4dae15778a7c738b02
+KF 256 real fwd 30a1a861dabdad63af2daaadbf16fec21dcc67c479d0eed8ab5bae3ae09b6e39
+KF 256 real inv e117999cef21427939b7aed5bee83375f733e049154a4577903c1cd3d8d44d43
+KF 1024 complex fwd 797f1de199beb771ad86a3d8f2a42cf4b5ed3f6a8c6764b9bd6eec92afbc3337
+KF 1024 complex inv 6b59b7a7ba7052d63021745ab7b7b594c13843924c02e584415d2116fd41045b
+KF 1024 real fwd cd6cbd1ace7db41a5882ad38ebcbc2705fddf9f5c2761b7213663c282798e1ae
+KF 1024 real inv 8eac5b9a2ff904d461d32138d1c8112a897c13135ca7be50ade5544c95aca1fc
+KF 4096 complex fwd 5918720146738fbd7d55ee6b4c15e024463c453d1352f0bd556360fc26831f38
+KF 4096 complex inv 335bd5ff7e17307cecfb5871d55bfc4fd02d0b30eb16b70bc63525d48cc452fc
+KF 4096 real fwd 100af8782f5ac9f998e2156a329e6d6af2b14f7f7e011b072fdd680c23c740dd
+KF 4096 real inv 115288bd436199fec9687af321bbb49f83709556fe90a0d498939ddc3c3630a2

@@ -14,6 +14,7 @@ is a 3-minute programmatic video; this repository is the library, the video
 pipeline and rendered cut, and the record that stands beside them.
 
 **Live demo:** [loganw234.github.io/muse-softfloat](https://loganw234.github.io/muse-softfloat/) — the actual library compiled to WebAssembly, runnable against the committed test vectors ([site/](site/README.md)).
+**Reproduce the workloads:** `bash demo/run_demo.sh host` ([demo/](demo/README.md)) — fetches the pinned REBOUND/KissFFT archives into a gitignored cache and re-proves all three workload hashes on your machine.
 
 ## Status
 

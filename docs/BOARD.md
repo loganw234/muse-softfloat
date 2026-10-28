@@ -135,3 +135,18 @@ prints and hashes its own artifacts):
   - Run: `board/kissfft_run.sh` (lock, serial-targeted flash
     via `MSF_BOARD_SERIAL`, capture/compare via
     `board/kissfft_host.py`, port by VID or `MSF_BOARD_PORT`).
+
+## Reproducing the workload inputs (demo/)
+
+The extracts and patched trees the three lead sequences above
+consume (`IAS15_EXTRACT_DIR`, `MSF_KISSFFT_DIR`, expected-hash
+files) are regenerated from the pinned archives by
+[`demo/`](../demo/README.md): `bash demo/run_demo.sh host`
+fetches, verifies, extracts/patches, and re-proves every host
+hash from a fresh clone, and `bash demo/run_demo.sh board` then
+drives `ias15_run.sh`, `kissfft_run.sh`, and `interval_run.sh`
+unmodified with the demo cache wired in - after a preflight that
+refuses by name, before any lock or flash, when the SDK,
+toolchain, picotool, or ledger layout is missing. The board
+protocol above is unchanged; demo/ only removes the need for a
+pre-made scratch tree.
