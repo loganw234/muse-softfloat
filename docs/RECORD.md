@@ -687,3 +687,28 @@ permanent smoke set, now **102,950 committed vectors**;
 reference caught the one generator plant that replay volume
 alone could not. Board sampling of the new rows is not yet
 run - it rides the Step 1c interval board work, next.
+
+**Step 1c landed and on silicon (appended 2026-10-27):** the
+guaranteed interval-geometry workload is in
+`board/interval_workload.{c,h}` - staged ray-sphere
+classification (binary32 intervals, binary64 widening, exact
+FMA-expansion sign stage), ray-box through library
+minimum/maximum with Number forms banned, and torus
+first-hit bracketing - with a frozen 710-row exact-oracle
+catalogue (`tests/interval_catalogue.tsv`). Host proof: zero
+containment violations, zero decided-wrong at every stage,
+the survey's numbers reproduced (tangent staging 0/285/115,
+63-step limb uncertainty band); planted verification **5 of
+5** (39 of 40 cumulative), including a masked proof-guard
+plant only a source audit could catch. On silicon the full
+catalogue streamed to the genuine board matches the host
+bit-for-bit: IW1 SHA-256 `ce81d66e...a9aec` on both sides,
+710/710 rows, 616,754 counted ops in 7.92 s of workload-call
+time at 125 MHz (UF2 `a9b7cf1d...1b3a5`, protocol in
+`docs/BOARD.md`). Every ray still ends HIT, MISS, or
+UNCERTAIN - now also on the chip. In parallel the Step 2b
+spike returned **PRICED - GO** for the `sinPi`/`cosPi` bundle
+(3-5 working days estimated against the 2026-11-04 close;
+binary64 hardest margin measured at 58.58 extra bits over the
+full published worst-case sets, MPFR-re-decided); its
+leg-(c) authority reading is settled in the Step 2c brief.
