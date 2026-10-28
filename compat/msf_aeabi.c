@@ -188,6 +188,27 @@ double __wrap_fma(double a, double b, double c)
                                      s->rounding, &s->flags));
 }
 
+double __wrap_sinpi(double a)
+{
+    msf_wrap_state_t *s = st();
+    return msf64_to_double(msf64_sin_pi(msf64_from_double(a),
+                                        s->rounding, &s->flags));
+}
+
+double __wrap_cospi(double a)
+{
+    msf_wrap_state_t *s = st();
+    return msf64_to_double(msf64_cos_pi(msf64_from_double(a),
+                                        s->rounding, &s->flags));
+}
+
+double __wrap_floor(double a)
+{
+    msf_wrap_state_t *s = st();
+    return msf64_to_double(msf64_round_to_integral_toward_negative(
+        msf64_from_double(a), &s->flags));
+}
+
 /* ---- Named traps -------------------------------------------------
  * None of these is implemented by the core; a wrapped binary that
  * reaches one has left the proven surface and must stop loudly
@@ -216,7 +237,7 @@ MSF_TRAP1(cosh)
 MSF_TRAP1(exp)
 MSF_TRAP1(exp2)
 MSF_TRAP1(expm1)
-MSF_TRAP1(floor)
+/* floor is NOT trapped: __wrap_floor above is earned (Step 2c). */
 MSF_TRAP1(log)
 MSF_TRAP1(log2)
 MSF_TRAP1(log10)

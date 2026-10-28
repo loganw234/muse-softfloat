@@ -66,5 +66,11 @@ float __wrap___aeabi_d2f(double a);
 double __wrap_sqrt(double a);
 double __wrap_fabs(double a);
 double __wrap_fma(double a, double b, double c);
+/* Step 2c workload (KissFFT Fork B): correctly rounded sinPi/cosPi
+ * of exact cycle fractions, and floor via Tier 1
+ * roundToIntegralTowardNegative. sin/cos remain named traps. */
+double __wrap_sinpi(double a);
+double __wrap_cospi(double a);
+double __wrap_floor(double a);
 
 #endif /* MSF_AEABI_H */
