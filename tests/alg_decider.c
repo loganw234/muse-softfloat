@@ -1,6 +1,7 @@
 /* alg_decider.c - host MPFR decider + differential harness
- * for the SF-2 algebraic bundle's rSqrt rows (test-only; NOT
- * part of the shipped library and never linked into it).
+ * for the SF-2 algebraic bundle's rSqrt and hypot rows
+ * (test-only; NOT part of the shipped library and never
+ * linked into it).
  *
  * Finite positive inputs are decided by the proven Step 0b
  * operation recipe: per-format precision and emin/emax
@@ -37,15 +38,43 @@
  * integer decider disagrees on the ta column, so the
  * equality is verified per case, never assumed globally.
  *
+ * hypot (Step 2b): finite pairs go through the same Step 0b
+ * operation recipe with mpfr_hypot on the exact magnitudes.
+ * Flags are derived, never transcribed: inexact from the
+ * subnormalize ternary chain; overflow and tininess judged
+ * per mode from a separate unbounded-exponent precision-p
+ * rounding (overflow iff it reaches 2^(emax+1), tiny iff
+ * below 2^emin; underflow = tiny and inexact) - the shared
+ * pack's Clause 7 semantics re-derived from MPFR state.
+ * Ties-to-away never uses RNDNA: hypot ties ARE attainable,
+ * so ta is te adjusted at an exact delivered-granularity
+ * midpoint, detected exactly at 256-bit precision (a midpoint
+ * is dyadic with at most p+1 significant bits, hence exact
+ * there; a nonzero ternary proves non-tie) and moved to the
+ * away neighbour; ta flags equal te flags. Specials are
+ * table-decided here in the 9.2.1 evaluation order (signaling
+ * NaN first, then infinity over a quiet NaN, then the quiet
+ * matrix), implemented independently of the kernel - the
+ * (+-inf, sNaN) cell in particular never comes from MPFR
+ * (whose NaN is quiet).
+ *
  * Modes:
- *   decide              stdin "msf16_r_sqrt 3c00" lines;
- *                       stdout: op in, then bits+flags for
- *                       te tz tp tn ta
- *   f16                 exhaustive binary16 differential:
- *                       all 65,536 encodings x 5 modes,
- *                       kernel vs this decider, count printed
+ *   decide              stdin "msf16_r_sqrt 3c00" and
+ *                       "msf64_hypot 3ff0.. 4000.." lines;
+ *                       stdout: op in..., then bits+flags
+ *                       for te tz tp tn ta
+ *   f16                 exhaustive binary16 rSqrt
+ *                       differential: all 65,536 encodings
+ *                       x 5 modes, kernel vs this decider
  *   seeded FMT SEED N   seeded finite-positive binary32/64
- *                       encodings, kernel vs decider x5
+ *                       rSqrt encodings, kernel vs decider x5
+ *   h16pool             binary16 hypot second-operand sweep:
+ *                       boundary pool (incl. specials) as
+ *                       first operand x all 65,536 second
+ *                       operands x 5 modes
+ *   h16seed SEED N      seeded binary16 hypot encoding pairs
+ *   hseed FMT SEED N    seeded binary32/64 hypot finite
+ *                       pairs, kernel vs decider x5
  * Exit status is nonzero on any mismatch, undecided case,
  * or recipe violation.
  */
@@ -79,6 +108,8 @@ static const char *RM_NAME[5] = { "te", "tz", "tp", "tn", "ta" };
 
 #define FL_INVALID 0x01u
 #define FL_DIVZERO 0x02u
+#define FL_OVERFLOW 0x04u
+#define FL_UNDERFLOW 0x08u
 #define FL_INEXACT 0x10u
 
 static uint64_t g_checked, g_mismatch;
@@ -257,6 +288,279 @@ static void decide(const fmt_t *f, uint64_t bits,
     }
 }
 
+/* ---------------- hypot decider ---------------- */
+
+static mpfr_t h_x, h_y, h_r, h_w, h_tmp;
+static mpfr_t hi_x, hi_y, hi_r, hi_s, hi_t;
+static int h_prec = 0;
+
+static void hypot_setup(const fmt_t *f)
+{
+    if (h_prec != f->p) {
+        if (h_prec != 0) {
+            mpfr_clear(h_x);
+            mpfr_clear(h_y);
+            mpfr_clear(h_r);
+            mpfr_clear(h_w);
+            mpfr_clear(h_tmp);
+            mpfr_clear(hi_x);
+            mpfr_clear(hi_y);
+            mpfr_clear(hi_r);
+            mpfr_clear(hi_s);
+            mpfr_clear(hi_t);
+        }
+        mpfr_init2(h_x, (mpfr_prec_t)f->p);
+        mpfr_init2(h_y, (mpfr_prec_t)f->p);
+        mpfr_init2(h_r, (mpfr_prec_t)f->p);
+        mpfr_init2(h_w, (mpfr_prec_t)f->p);
+        mpfr_init2(h_tmp, 128);
+        mpfr_init2(hi_x, 256);
+        mpfr_init2(hi_y, 256);
+        mpfr_init2(hi_r, 256);
+        mpfr_init2(hi_s, 256);
+        mpfr_init2(hi_t, 256);
+        h_prec = f->p;
+    }
+    mpfr_set_emin(f->mpf_emin);
+    mpfr_set_emax(f->mpf_emax);
+    if (mpfr_get_emin() != f->mpf_emin
+            || mpfr_get_emax() != f->mpf_emax) {
+        fprintf(stderr, "emin/emax readback failed for %s\n", f->name);
+        exit(3);
+    }
+}
+
+static void hypot_set_wide(void)
+{
+    mpfr_set_emin(mpfr_get_emin_min());
+    mpfr_set_emax(mpfr_get_emax_max());
+}
+
+/* Set dst (any precision >= format p) exactly to sig * 2^exp2. */
+static void set_exact(mpfr_t dst, mpfr_t tmp, uint64_t sig, int exp2)
+{
+    mpfr_set_ui(dst, (unsigned long)(sig & 0xffffffffULL), MPFR_RNDN);
+    if (sig >> 32) {
+        mpfr_set_ui(tmp, (unsigned long)(sig >> 32), MPFR_RNDN);
+        mpfr_mul_2si(tmp, tmp, 32, MPFR_RNDN);
+        mpfr_add(dst, dst, tmp, MPFR_RNDN);
+    }
+    mpfr_mul_2si(dst, dst, exp2, MPFR_RNDN);
+}
+
+/* Extract destination bits from a decided nonnegative result
+ * (zero/inf/normal/subnormal). Aborts on NaN. */
+static uint64_t extract_any(const fmt_t *f, mpfr_t r)
+{
+    uint64_t sign_bit = (uint64_t)(mpfr_signbit(r) != 0) << (f->w - 1);
+    long e;
+    uint64_t m;
+    if (mpfr_nan_p(r)) {
+        fprintf(stderr, "RECIPE VIOLATION: NaN result for %s\n", f->name);
+        exit(3);
+    }
+    if (mpfr_inf_p(r)) {
+        return inf_bits(f, mpfr_signbit(r) != 0);
+    }
+    if (mpfr_zero_p(r)) {
+        return sign_bit;
+    }
+    e = (long)mpfr_get_exp(r) - 1;
+    mpfr_abs(h_tmp, r, MPFR_RNDN);
+    if (e >= f->emin) {
+        if (e > f->emax) {
+            fprintf(stderr, "RECIPE VIOLATION: exponent %ld > emax "
+                    "for %s\n", e, f->name);
+            exit(3);
+        }
+        mpfr_mul_2si(h_tmp, h_tmp, (long)f->t - e, MPFR_RNDN);
+        m = get_u64_from_int(h_tmp);
+        return sign_bit
+             | ((uint64_t)(unsigned long)(e + f->bias) << f->t)
+             | (m - (1ULL << f->t));
+    }
+    mpfr_mul_2si(h_tmp, h_tmp, -(long)(f->emin - f->t), MPFR_RNDN);
+    m = get_u64_from_int(h_tmp);
+    return sign_bit | m;
+}
+
+/* Returns 1 when the pair is a 9.2.1 evaluation-order table
+ * cell (fills rb/rf x5), implemented from the settled cells
+ * independently of the kernel. */
+static int decide_hypot_special(const fmt_t *f, uint64_t ab, uint64_t bb,
+                                uint64_t rb[5], uint32_t rf[5])
+{
+    int sa_, sb_, ea_, eb_, ca, cb, i;
+    uint64_t ga, gb, r;
+    uint32_t fl;
+    decode_bits(f, ab, &sa_, &ga, &ea_, &ca);
+    decode_bits(f, bb, &sb_, &gb, &eb_, &cb);
+    (void)sa_;
+    (void)sb_;
+    (void)ga;
+    (void)gb;
+    (void)ea_;
+    (void)eb_;
+    if (ca == 4 || cb == 4) { /* signaling first */
+        r = (ca == 4 ? ab : bb) | (1ULL << (f->t - 1));
+        fl = FL_INVALID;
+    } else if (ca == 2 || cb == 2) { /* infinity over qNaN */
+        r = inf_bits(f, 0);
+        fl = 0u;
+    } else if (ca == 3 || cb == 3) { /* first quiet NaN */
+        r = ca == 3 ? ab : bb;
+        fl = 0u;
+    } else if (ca == 0 && cb == 0) {
+        r = 0u;
+        fl = 0u;
+    } else {
+        return 0;
+    }
+    for (i = 0; i < 5; i++) {
+        rb[i] = r;
+        rf[i] = fl;
+    }
+    return 1;
+}
+
+static void decide_hypot_mpfr(const fmt_t *f, uint64_t ab, uint64_t bb,
+                              uint64_t rb[5], uint32_t rf[5])
+{
+    int sa_, sb_, ea_, eb_, ca, cb, rm;
+    uint64_t ga, gb;
+    decode_bits(f, ab, &sa_, &ga, &ea_, &ca);
+    decode_bits(f, bb, &sb_, &gb, &eb_, &cb);
+    (void)sa_;
+    (void)sb_;
+    (void)ca;
+    (void)cb;
+    hypot_setup(f);
+    set_exact(h_x, h_tmp, ga, ea_);
+    set_exact(h_y, h_tmp, gb, eb_);
+    for (rm = 0; rm < 4; rm++) {
+        int tern = mpfr_hypot(h_r, h_x, h_y, RND[rm]);
+        int inexact, overflow, tiny;
+        uint64_t maxfin;
+        if (mpfr_nan_p(h_r)) {
+            fprintf(stderr, "RECIPE VIOLATION: hypot %s "
+                    "a=%016llx b=%016llx rm=%s NaN intermediate\n",
+                    f->name, (unsigned long long)ab,
+                    (unsigned long long)bb, RM_NAME[rm]);
+            exit(3);
+        }
+        if (!mpfr_zero_p(h_r) && !mpfr_inf_p(h_r)) {
+            tern = mpfr_subnormalize(h_r, tern, RND[rm]);
+        }
+        rb[rm] = extract_any(f, h_r);
+        inexact = tern != 0;
+        hypot_set_wide();
+        (void)mpfr_hypot(h_w, h_x, h_y, RND[rm]);
+        overflow = mpfr_cmp_si_2exp(h_w, 1, (mpfr_exp_t)f->emax + 1) >= 0;
+        tiny = !mpfr_zero_p(h_w)
+            && mpfr_cmp_si_2exp(h_w, 1, (mpfr_exp_t)f->emin) < 0;
+        hypot_setup(f);
+        maxfin = inf_bits(f, 0) - 1u;
+        if (rb[rm] == inf_bits(f, 0) && !overflow) {
+            fprintf(stderr, "RECIPE VIOLATION: hypot %s a=%016llx "
+                    "b=%016llx rm=%s inf without overflow judge\n",
+                    f->name, (unsigned long long)ab,
+                    (unsigned long long)bb, RM_NAME[rm]);
+            exit(3);
+        }
+        if (overflow && rb[rm] != inf_bits(f, 0) && rb[rm] != maxfin) {
+            fprintf(stderr, "RECIPE VIOLATION: hypot %s a=%016llx "
+                    "b=%016llx rm=%s overflow delivery %016llx\n",
+                    f->name, (unsigned long long)ab,
+                    (unsigned long long)bb, RM_NAME[rm],
+                    (unsigned long long)rb[rm]);
+            exit(3);
+        }
+        rf[rm] = (inexact ? FL_INEXACT : 0u)
+               | (overflow ? (FL_OVERFLOW | FL_INEXACT) : 0u)
+               | ((tiny && inexact) ? FL_UNDERFLOW : 0u);
+    }
+    /* ta: te except at an exact delivered midpoint. */
+    rb[4] = rb[0];
+    rf[4] = rf[0];
+    if (rb[0] != inf_bits(f, 0)) {
+        int ew = f->w - 1 - f->t;
+        uint64_t ef = (rb[0] >> f->t) & ((1ULL << ew) - 1ULL);
+        long ulp_exp = ef != 0u ? (long)ef - f->bias - f->t
+                                : (long)(f->emin - f->t);
+        int th;
+        hypot_set_wide();
+        set_exact(hi_x, hi_t, ga, ea_);
+        set_exact(hi_y, hi_t, gb, eb_);
+        th = mpfr_hypot(hi_r, hi_x, hi_y, MPFR_RNDN);
+        if (th == 0 && !mpfr_zero_p(hi_r)) {
+            mpfr_mul_2si(hi_s, hi_r, -ulp_exp, MPFR_RNDN);
+            mpfr_mul_2si(hi_t, hi_s, 1, MPFR_RNDN);
+            if (!mpfr_integer_p(hi_s) && mpfr_integer_p(hi_t)) {
+                mpfr_add_ui(hi_t, hi_t, 1u, MPFR_RNDN);
+                mpfr_mul_2si(hi_t, hi_t, ulp_exp - 1, MPFR_RNDN);
+                rb[4] = extract_any(f, hi_t);
+            }
+        }
+        hypot_setup(f);
+    }
+}
+
+static void decide_hypot(const fmt_t *f, uint64_t ab, uint64_t bb,
+                         uint64_t rb[5], uint32_t rf[5])
+{
+    if (!decide_hypot_special(f, ab, bb, rb, rf)) {
+        decide_hypot_mpfr(f, ab, bb, rb, rf);
+    }
+}
+
+static uint64_t kernel_call_hypot(int fi, uint64_t ab, uint64_t bb,
+                                  int rm, msf_flags_t *fl)
+{
+    *fl = 0u;
+    switch (fi) {
+    case 0: return msf16_hypot((msf16_t)ab, (msf16_t)bb,
+                               (msf_rounding_t)rm, fl);
+    case 1: return msf32_hypot((msf32_t)ab, (msf32_t)bb,
+                               (msf_rounding_t)rm, fl);
+    default: return msf64_hypot(ab, bb, (msf_rounding_t)rm, fl);
+    }
+}
+
+static void check_one_hypot(int fi, uint64_t ab, uint64_t bb)
+{
+    const fmt_t *f = &FMTS[fi];
+    uint64_t rb[5];
+    uint32_t rf[5];
+    int rm;
+    decide_hypot(f, ab, bb, rb, rf);
+    for (rm = 0; rm < 5; rm++) {
+        msf_flags_t fl;
+        uint64_t got = kernel_call_hypot(fi, ab, bb, rm, &fl);
+        uint64_t mask = f->w >= 64 ? ~0ULL : ((1ULL << f->w) - 1ULL);
+        g_checked++;
+        if ((got & mask) != rb[rm] || (uint32_t)fl != rf[rm]) {
+            g_mismatch++;
+            if (g_mismatch <= 20) {
+                printf("MISMATCH %s hypot %s a=%016llx b=%016llx "
+                       "got=%016llx/%02x want=%016llx/%02x\n",
+                       f->name, RM_NAME[rm],
+                       (unsigned long long)(ab & mask),
+                       (unsigned long long)(bb & mask),
+                       (unsigned long long)(got & mask), (unsigned)fl,
+                       (unsigned long long)rb[rm], (unsigned)rf[rm]);
+            }
+        }
+    }
+}
+
+static int hypot_fmt_of_op(const char *op)
+{
+    if (strcmp(op, "msf16_hypot") == 0) return 0;
+    if (strcmp(op, "msf32_hypot") == 0) return 1;
+    if (strcmp(op, "msf64_hypot") == 0) return 2;
+    return -1;
+}
+
 static uint64_t kernel_call(int fi, uint64_t bits, int rm,
                             msf_flags_t *fl)
 {
@@ -316,18 +620,29 @@ int main(int argc, char **argv)
 {
     setvbuf(stdout, NULL, _IOFBF, 1u << 20);
     if (argc >= 2 && strcmp(argv[1], "decide") == 0) {
-        char op[64], tok[64];
-        while (scanf("%63s %63s", op, tok) == 2) {
-            int fi = fmt_of_op(op);
+        char line[256];
+        while (fgets(line, sizeof line, stdin) != NULL) {
+            char op[64], t1[64], t2[64];
+            int n = sscanf(line, "%63s %63s %63s", op, t1, t2);
             uint64_t rb[5];
             uint32_t rf[5];
-            int i;
-            if (fi < 0) {
-                fprintf(stderr, "unknown op %s\n", op);
+            int i, fi, hi;
+            if (n < 2) {
+                continue;
+            }
+            fi = fmt_of_op(op);
+            hi = hypot_fmt_of_op(op);
+            if (fi >= 0 && n == 2) {
+                decide(&FMTS[fi], strtoull(t1, NULL, 16), rb, rf);
+                printf("%s %s", op, t1);
+            } else if (hi >= 0 && n == 3) {
+                decide_hypot(&FMTS[hi], strtoull(t1, NULL, 16),
+                             strtoull(t2, NULL, 16), rb, rf);
+                printf("%s %s %s", op, t1, t2);
+            } else {
+                fprintf(stderr, "bad decide line: %s", line);
                 return 2;
             }
-            decide(&FMTS[fi], strtoull(tok, NULL, 16), rb, rf);
-            printf("%s %s", op, tok);
             for (i = 0; i < 5; i++) {
                 printf(" %llx %02x", (unsigned long long)rb[i],
                        (unsigned)rf[i]);
@@ -382,6 +697,76 @@ int main(int argc, char **argv)
                g_mismatch == 0 ? "PASS" : "FAIL");
         return g_mismatch == 0 ? 0 : 1;
     }
-    fprintf(stderr, "usage: alg_decider decide|f16|seeded f32|f64 SEED N\n");
+    if (argc >= 2 && strcmp(argv[1], "h16pool") == 0) {
+        static const uint64_t pool[] = {
+            0x0000, 0x8000, 0x0001, 0x8001, 0x0002, 0x03ff, 0x0400,
+            0x3c00, 0xbc00, 0x3555, 0x7bff, 0x7c00, 0xfc00, 0x7e00,
+            0xfe00, 0x7d55, 0x7c01, 0xfc01, 0x0003, 0x03fd
+        };
+        size_t pi;
+        uint64_t b;
+        for (pi = 0; pi < sizeof pool / sizeof pool[0]; pi++) {
+            for (b = 0; b < 65536ULL; b++) {
+                check_one_hypot(0, pool[pi], b);
+            }
+        }
+        printf("H16-POOL hypot: pool=%u checked=%llu mismatches=%llu %s\n",
+               (unsigned)(sizeof pool / sizeof pool[0]),
+               (unsigned long long)g_checked,
+               (unsigned long long)g_mismatch,
+               g_mismatch == 0 ? "PASS" : "FAIL");
+        return g_mismatch == 0 ? 0 : 1;
+    }
+    if (argc >= 4 && strcmp(argv[1], "h16seed") == 0) {
+        uint64_t count = strtoull(argv[3], NULL, 0), done;
+        rng_state = strtoull(argv[2], NULL, 0) | 1ULL;
+        for (done = 0; done < count; done++) {
+            check_one_hypot(0, rng_next() & 0xffffULL,
+                            rng_next() & 0xffffULL);
+        }
+        printf("H16-SEEDED hypot: inputs=%llu checked=%llu "
+               "mismatches=%llu %s\n", (unsigned long long)done,
+               (unsigned long long)g_checked,
+               (unsigned long long)g_mismatch,
+               g_mismatch == 0 ? "PASS" : "FAIL");
+        return g_mismatch == 0 ? 0 : 1;
+    }
+    if (argc >= 5 && strcmp(argv[1], "hseed") == 0) {
+        int fi = strcmp(argv[2], "f32") == 0 ? 1
+               : strcmp(argv[2], "f64") == 0 ? 2 : -1;
+        uint64_t count, done = 0;
+        const fmt_t *f;
+        if (fi < 0) {
+            fprintf(stderr, "hseed needs f32|f64\n");
+            return 2;
+        }
+        f = &FMTS[fi];
+        rng_state = strtoull(argv[3], NULL, 0) | 1ULL;
+        count = strtoull(argv[4], NULL, 0);
+        while (done < count) {
+            uint64_t ab = rng_next(), bb = rng_next();
+            int ew = f->w - 1 - f->t;
+            uint64_t emaxf = (1ULL << ew) - 1ULL;
+            if (f->w == 32) {
+                ab &= 0xffffffffULL;
+                bb &= 0xffffffffULL;
+            }
+            if (((ab >> f->t) & emaxf) == emaxf
+                    || ((bb >> f->t) & emaxf) == emaxf) {
+                continue; /* finite only */
+            }
+            check_one_hypot(fi, ab, bb);
+            done++;
+        }
+        printf("HSEEDED-%s hypot: inputs=%llu checked=%llu "
+               "mismatches=%llu %s\n", f->name,
+               (unsigned long long)done,
+               (unsigned long long)g_checked,
+               (unsigned long long)g_mismatch,
+               g_mismatch == 0 ? "PASS" : "FAIL");
+        return g_mismatch == 0 ? 0 : 1;
+    }
+    fprintf(stderr, "usage: alg_decider decide|f16|seeded f32|f64 SEED N"
+            "|h16pool|h16seed SEED N|hseed f32|f64 SEED N\n");
     return 2;
 }

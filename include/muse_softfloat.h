@@ -1765,11 +1765,11 @@ msf16_t msf16_r_sqrt(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
 msf32_t msf32_r_sqrt(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* rSqrt (754-2019 9.2), wave 5, implemented */
 msf64_t msf64_r_sqrt(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* hypot (754-2019 9.2), wave 5, planned */
+/* hypot (754-2019 9.2), wave 5, implemented */
 msf16_t msf16_hypot(msf16_t a, msf16_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* hypot (754-2019 9.2), wave 5, planned */
+/* hypot (754-2019 9.2), wave 5, implemented */
 msf32_t msf32_hypot(msf32_t a, msf32_t b, msf_rounding_t rm, msf_flags_t *flags);
-/* hypot (754-2019 9.2), wave 5, planned */
+/* hypot (754-2019 9.2), wave 5, implemented */
 msf64_t msf64_hypot(msf64_t a, msf64_t b, msf_rounding_t rm, msf_flags_t *flags);
 
 #endif /* MUSE_SOFTFLOAT_H */
