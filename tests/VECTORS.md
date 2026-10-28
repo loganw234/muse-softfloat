@@ -69,6 +69,12 @@ printed, never silent (SF-0 §4.3).
 | `exact-py-t2:payload-f16-exhaustive` | generated at gate time: every binary16 encoding per payload op, plus `is_signaling` on every setter-result encoding |
 | `exact-py-t2:minmax-f16-sweep` | generated at gate time: every binary16 encoding as second operand against named boundary first operands, all 8 min/max names |
 | `exact-py-t2:seeded-sweep` | generated at gate time: seeded (20261027) binary32/64 pair and encoding sweeps, same reference |
+| `mpfr640-trig:specials` | Clause 9.2 sinPi/cosPi specials (zeros, infinities, quiet/signaling NaN payload samples) at all 3 formats, expectations from MPFR at 640-bit precision via the bracketed decider in `tests/trig_exhaustive.c`, cross-checked by the settled-table reference in `tests/gen_vectors_trig.py` (SF-1 Step 2c) |
+| `mpfr640-trig:anchors` | integer and half-integer anchors including the ulp>=1 region and +-1 ulp neighbours (both settled zero-sign cells in every mode), same decider |
+| `mpfr640-trig:lattice` | k/8 lattice across 9 scales with +-3 ulp neighbours (bounce pairs around anchors), same decider |
+| `mpfr640-trig:tiny` | smallest/largest subnormal and smallest-normal neighbourhood inputs (saturation family near +-1), same decider |
+| `mpfr640-trig:hardest` | measured-hardest input excerpts: binary64 patterns from the published worst-case input sets (Step 2b mechanical census, inputs only), binary32 from a parcel mpmath margin scan, binary16 the spike-measured maxima; every expectation re-decided by the same MPFR decider |
+| `mpfr640-trig:seeded` | seeded finite-encoding class sweep (seeds in the generator), same decider |
 
 Berkeley's flag bits are ordered differently from `MSF_FLAG_*`
 (inexact=1, underflow=2, overflow=4, infinite/divide-by-zero=8,

@@ -1,0 +1,702 @@
+/* msf_math.c - Clause 9.2 sinPi/cosPi, correctly rounded in
+ * all four attributes at binary16/32/64 (SF-1 Step 2c).
+ *
+ * Design record: ledger/parcel-w4trig.md (design entry).
+ * Reduction is exact integer work: decode, split |x| into
+ * integer and fraction by shifts, take the nearest-integer
+ * remainder r with |r| <= 1/2, fold to t in [0, 1/4]. Integer
+ * and half-integer inputs are exact branches (their zero
+ * signs are the 9.2.1 cells settled in the design entry:
+ * sinPi at an integer delivers a zero with the sign of x,
+ * cosPi at a half-integer delivers +0 in every mode). The
+ * kernel sees u = pi*t in [0, pi/4] only.
+ *
+ * Kernel values are positive wide values: W-bit normalized
+ * significands over 32-bit limbs (value = M * 2^(e-(W-1)),
+ * top bit of M set), each stage evaluating one truncating
+ * approximation A with proven relative error bound Ek
+ * (MSF_TRIG_EK_EXP, generator-derived). Constants come from
+ * the generated floor table (msf_trig_tables.h). Sin-shaped
+ * results evaluate u * S(z); cos-shaped results evaluate
+ * delta = 1 - cos(u) = (z/2) * D(z) and form 1 - delta
+ * exactly at pack scale, z = u^2, S/D the Taylor series in
+ * z with alternating tails inside Ek. Three Ziv stages
+ * (W = 160, 256, 384) pack the endpoints A - Ek and A + Ek
+ * through the shared pack; agreement of result bits and
+ * flags decides. Outside the exact branches the true
+ * result is irrational (Niven: rational sine/cosine at a
+ * rational multiple of pi lies in {0, +-1/2, +-1}, and
+ * +-1/2 needs a non-dyadic argument), so inexact always
+ * accompanies a kernel result.
+ */
+#include "msf_internal.h"
+#include "msf_decode.h"
+#include "msf_trig_tables.h"
+
+#ifdef MSF_TRIG_TEST_COUNTERS
+/* Test-only escalation instrumentation. Never defined in a
+ * build whose results are quoted as the shipped library. */
+uint64_t msf_trig_stage_hits[3];
+uint64_t msf_trig_final_undecided;
+#define TRIG_COUNT_STAGE(s) (msf_trig_stage_hits[s]++)
+#define TRIG_COUNT_FINAL() (msf_trig_final_undecided++)
+#else
+#define TRIG_COUNT_STAGE(s) ((void)0)
+#define TRIG_COUNT_FINAL() ((void)0)
+#endif
+
+#ifdef MSF_TRIG_FORCE_START
+#define TRIG_START_STAGE MSF_TRIG_FORCE_START
+#else
+#define TRIG_START_STAGE 0
+#endif
+
+typedef struct wf {
+    uint32_t m[MSF_TRIG_MAXL];
+    int32_t e;
+} wf_t;
+
+#define TRIG_BIGL 40
+
+static int wf_is_zero(const wf_t *a, int n)
+{
+    int i;
+    for (i = 0; i < n; i++) {
+        if (a->m[i] != 0u) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+static void wf_set_zero(wf_t *a)
+{
+    int i;
+    for (i = 0; i < MSF_TRIG_MAXL; i++) {
+        a->m[i] = 0u;
+    }
+    a->e = 0;
+}
+
+static uint32_t big_limb(const uint32_t *big, int nbig, int32_t idx)
+{
+    if (idx < 0 || idx >= nbig) {
+        return 0u;
+    }
+    return big[idx];
+}
+
+/* 32 bits of big starting at bit position bitpos (may be
+ * negative; out-of-range bits read as zero). */
+static uint32_t big_bits32(const uint32_t *big, int nbig, int32_t bitpos)
+{
+    int32_t li;
+    int off;
+    uint32_t w;
+    if (bitpos >= 0) {
+        li = bitpos >> 5;
+        off = (int)(bitpos & 31);
+    } else {
+        li = -((int32_t)((-bitpos + 31) >> 5));
+        off = (int)(bitpos - li * 32);
+    }
+    w = big_limb(big, nbig, li) >> off;
+    if (off != 0) {
+        w |= big_limb(big, nbig, li + 1) << (32 - off);
+    }
+    return w;
+}
+
+static int clz32(uint32_t x)
+{
+    int n = 0;
+    if (x == 0u) {
+        return 32;
+    }
+    if ((x >> 16) == 0u) { n += 16; x <<= 16; }
+    if ((x >> 24) == 0u) { n += 8; x <<= 8; }
+    if ((x >> 28) == 0u) { n += 4; x <<= 4; }
+    if ((x >> 30) == 0u) { n += 2; x <<= 2; }
+    n -= (int)(x >> 31);
+    return n;
+}
+
+static int32_t big_top_bit(const uint32_t *big, int nbig)
+{
+    int i;
+    for (i = nbig - 1; i >= 0; i--) {
+        if (big[i] != 0u) {
+            return (int32_t)i * 32 + (31 - clz32(big[i]));
+        }
+    }
+    return -1;
+}
+
+static int big_any_below(const uint32_t *big, int nbig, int32_t shift)
+{
+    int32_t i;
+    int off;
+    if (shift <= 0) {
+        return 0;
+    }
+    for (i = 0; i < shift / 32 && i < nbig; i++) {
+        if (big[i] != 0u) {
+            return 1;
+        }
+    }
+    off = (int)(shift % 32);
+    if (off != 0 && shift / 32 < nbig) {
+        uint32_t mask = (1u << off) - 1u;
+        if ((big[shift / 32] & mask) != 0u) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+/* Normalize exact value (big + f) * 2^base_exp, f = 0 when
+ * sticky is 0 else 0 < f < 1, into an n-limb wf, truncating
+ * (round_up == 0) or rounding away from zero when any bit is
+ * dropped (round_up != 0). Values here are never negative. */
+static void wf_normalize(wf_t *out, const uint32_t *big, int nbig,
+                         int32_t base_exp, int sticky, int n, int round_up)
+{
+    int32_t w = (int32_t)n * 32;
+    int32_t p = big_top_bit(big, nbig);
+    int32_t shift;
+    int i;
+    if (p < 0) {
+        if (sticky && round_up) {
+            wf_set_zero(out);
+            out->m[n - 1] = 0x80000000u;
+            out->e = base_exp;
+        } else {
+            wf_set_zero(out);
+        }
+        return;
+    }
+    shift = p - (w - 1);
+    for (i = 0; i < MSF_TRIG_MAXL; i++) {
+        out->m[i] = 0u;
+    }
+    for (i = 0; i < n; i++) {
+        out->m[i] = big_bits32(big, nbig, shift + (int32_t)i * 32);
+    }
+    out->e = base_exp + p;
+    if (round_up && (sticky || big_any_below(big, nbig, shift))) {
+        uint32_t carry = 1u;
+        for (i = 0; i < n; i++) {
+            uint32_t nv = out->m[i] + carry;
+            carry = nv < out->m[i] ? 1u : 0u;
+            out->m[i] = nv;
+        }
+        if (carry != 0u) {
+            for (i = 0; i < n; i++) {
+                out->m[i] = 0u;
+            }
+            out->m[n - 1] = 0x80000000u;
+            out->e += 1;
+        }
+    }
+}
+
+static int wf_cmp(const wf_t *a, const wf_t *b, int n)
+{
+    int az = wf_is_zero(a, n), bz = wf_is_zero(b, n);
+    int i;
+    if (az || bz) {
+        return az == bz ? 0 : (az ? -1 : 1);
+    }
+    if (a->e != b->e) {
+        return a->e > b->e ? 1 : -1;
+    }
+    for (i = n - 1; i >= 0; i--) {
+        if (a->m[i] != b->m[i]) {
+            return a->m[i] > b->m[i] ? 1 : -1;
+        }
+    }
+    return 0;
+}
+
+static void wf_mul(wf_t *out, const wf_t *a, const wf_t *b, int n,
+                   int round_up)
+{
+    uint32_t big[2 * MSF_TRIG_MAXL];
+    int i, j;
+    if (wf_is_zero(a, n) || wf_is_zero(b, n)) {
+        wf_set_zero(out);
+        return;
+    }
+    for (i = 0; i < 2 * n; i++) {
+        big[i] = 0u;
+    }
+    for (i = 0; i < n; i++) {
+        uint64_t carry = 0u;
+        for (j = 0; j < n; j++) {
+            uint64_t t = (uint64_t)big[i + j]
+                       + (uint64_t)a->m[i] * (uint64_t)b->m[j] + carry;
+            big[i + j] = (uint32_t)t;
+            carry = t >> 32;
+        }
+        big[i + n] = (uint32_t)carry;
+    }
+    /* Product of two normalized W-bit significands has its
+     * top bit at 2W-1 or 2W-2; extract the top W bits. */
+    {
+        int32_t w = (int32_t)n * 32;
+        int top2 = (big[2 * n - 1] >> 31) != 0u;
+        int32_t shift = top2 ? w : w - 1;
+        int dropped;
+        int32_t eout = a->e + b->e + (top2 ? 1 : 0);
+        for (i = 0; i < MSF_TRIG_MAXL; i++) {
+            out->m[i] = 0u;
+        }
+        for (i = 0; i < n; i++) {
+            out->m[i] = big_bits32(big, 2 * n, shift + (int32_t)i * 32);
+        }
+        out->e = eout;
+        dropped = big_any_below(big, 2 * n, shift);
+        if (round_up && dropped) {
+            uint32_t carry = 1u;
+            for (i = 0; i < n; i++) {
+                uint32_t nv = out->m[i] + carry;
+                carry = nv < out->m[i] ? 1u : 0u;
+                out->m[i] = nv;
+            }
+            if (carry != 0u) {
+                for (i = 0; i < n; i++) {
+                    out->m[i] = 0u;
+                }
+                out->m[n - 1] = 0x80000000u;
+                out->e += 1;
+            }
+        }
+    }
+}
+
+/* Shift an n-limb significand right by d bits into a 2n-limb
+ * accumulator position: acc (2n limbs, scale: acc holds
+ * values in units of the acc LSB) receives src << (W - d)
+ * for d <= W, else src >> (d - W); *frac reports whether any
+ * bit fell below the acc LSB. W = 32n. */
+static void big_align_b(uint32_t *acc, const uint32_t *src, int n,
+                        int32_t d, int *frac)
+{
+    int32_t w = (int32_t)n * 32;
+    int i;
+    for (i = 0; i < 2 * n; i++) {
+        acc[i] = 0u;
+    }
+    *frac = 0;
+    if (d <= w) {
+        int32_t s = w - d;
+        int limb = (int)(s >> 5);
+        int off = (int)(s & 31);
+        for (i = 0; i < n; i++) {
+            acc[limb + i] |= src[i] << off;
+            if (off != 0 && limb + i + 1 < 2 * n) {
+                acc[limb + i + 1] |= src[i] >> (32 - off);
+            }
+        }
+    } else {
+        int32_t s = d - w;
+        int limb = (int)(s >> 5);
+        int off = (int)(s & 31);
+        for (i = 0; i < n; i++) {
+            uint32_t v = 0u;
+            if (i + limb < n) {
+                v = src[i + limb] >> off;
+                if (off != 0 && i + limb + 1 < n) {
+                    v |= src[i + limb + 1] << (32 - off);
+                }
+            }
+            acc[i] = v;
+        }
+        *frac = big_any_below(src, n, s);
+    }
+}
+
+/* a + b (is_sub == 0) or a - b, at stage limbs n, rounded
+ * toward zero (round_up == 0) or away. For subtraction with
+ * a < b, delivers zero toward zero and a away: every kernel
+ * quantity is >= 0, so both are sound interval endpoints. */
+static void wf_addsub(wf_t *out, const wf_t *a, const wf_t *b, int n,
+                      int is_sub, int round_up)
+{
+    int32_t w = (int32_t)n * 32;
+    int32_t d;
+    if (!is_sub && wf_cmp(a, b, n) < 0) {
+        const wf_t *tmp = a;
+        a = b;
+        b = tmp;
+    }
+    if (wf_is_zero(b, n)) {
+        *out = *a;
+        return;
+    }
+    if (wf_is_zero(a, n)) {
+        if (is_sub) {
+            wf_set_zero(out);
+        } else {
+            *out = *b;
+        }
+        return;
+    }
+    if (is_sub && wf_cmp(a, b, n) < 0) {
+        if (round_up) {
+            *out = *a;
+        } else {
+            wf_set_zero(out);
+        }
+        return;
+    }
+    d = a->e - b->e;
+    {
+        /* Align at a's scale with W extra low bits: exact
+         * value is (D + f) * 2^(ea-2W+1) with f = 0 when
+         * frac == 0 else 0 < f < 1. Subtraction with a
+         * fractional tail borrows one unit into D. */
+        uint32_t abuf[2 * MSF_TRIG_MAXL + 1];
+        uint32_t bbuf[2 * MSF_TRIG_MAXL];
+        int frac = 0;
+        int i;
+        uint64_t carry;
+        for (i = 0; i < n; i++) {
+            abuf[i] = 0u;
+            abuf[n + i] = a->m[i];
+        }
+        abuf[2 * n] = 0u;
+        big_align_b(bbuf, b->m, n, d, &frac);
+        if (is_sub) {
+            carry = frac ? 0u : 1u; /* ~B + (1 - frac) */
+            for (i = 0; i < 2 * n; i++) {
+                uint64_t t = (uint64_t)abuf[i] + (uint64_t)(~bbuf[i]) + carry;
+                abuf[i] = (uint32_t)t;
+                carry = t >> 32;
+            }
+            abuf[2 * n] = 0u;
+        } else {
+            carry = 0u;
+            for (i = 0; i < 2 * n; i++) {
+                uint64_t t = (uint64_t)abuf[i] + (uint64_t)bbuf[i] + carry;
+                abuf[i] = (uint32_t)t;
+                carry = t >> 32;
+            }
+            abuf[2 * n] = (uint32_t)carry;
+        }
+        wf_normalize(out, abuf, 2 * n + 1, a->e - 2 * w + 1, frac, n,
+                     round_up);
+    }
+}
+
+/* A table constant at stage n: the stored 384-bit floor F
+ * satisfies F <= true < F + ulp384; entries are normalized
+ * at 384 bits and stage widths are limb multiples, so the
+ * stage value is the top n limbs (truncation error under
+ * 1 ulp at stage width, as the budget charges). */
+static void wf_from_entry(wf_t *out, const msf_trig_entry_t *en,
+                          int32_t e_adj, int n)
+{
+    int i;
+    for (i = 0; i < MSF_TRIG_MAXL; i++) {
+        out->m[i] = 0u;
+    }
+    for (i = 0; i < n; i++) {
+        out->m[i] = en->m[MSF_TRIG_MAXL - n + i];
+    }
+    out->e = en->e + e_adj;
+#ifdef MSF_TRIG_DROP_LIMB
+    /* Permanent negative control only: truncated table
+     * precision, realized at stage width (dropping low limbs
+     * of every table-derived value). Never defined in a build
+     * whose results are quoted. */
+    out->m[0] = 0u;
+    out->m[1] = 0u;
+#endif
+}
+
+/* Evaluate one stage as a single truncating approximation A.
+ * shape_sin != 0: A approximates sin(pi*t); else A
+ * approximates delta = 1 - cos(pi*t). t is the exact dyadic
+ * t_num * 2^t_exp in (0, 1/4]. The proven relative bound
+ * |A - true| <= A * 2^-MSF_TRIG_EK_EXP[stage] is derived in
+ * the design entry (generator-checked recurrence over table
+ * quantum, pi truncation, u and u^2 rounding, Horner
+ * accumulation, Taylor tails, delta-branch terms). */
+static void trig_eval(wf_t *out, int shape_sin, uint64_t t_num,
+                      int32_t t_exp, int stage)
+{
+    int n = MSF_TRIG_STAGE_LIMBS[stage];
+    int nterms = shape_sin ? MSF_TRIG_NTERMS_SIN[stage]
+                           : MSF_TRIG_NTERMS_DELTA[stage];
+    wf_t t, pi, u, z, acc, prod, term;
+    uint32_t tbig[2];
+    int k;
+    tbig[0] = (uint32_t)t_num;
+    tbig[1] = (uint32_t)(t_num >> 32);
+    wf_normalize(&t, tbig, 2, t_exp, 0, n, 0);
+    wf_from_entry(&pi, &MSF_TRIG_PI, 0, n);
+    wf_mul(&u, &pi, &t, n, 0);
+    wf_mul(&z, &u, &u, n, 0);
+    if (shape_sin) {
+        wf_from_entry(&acc, &MSF_TRIG_SIN_C[nterms - 1], 0, n);
+        for (k = nterms - 2; k >= 0; k--) {
+            wf_mul(&prod, &z, &acc, n, 0);
+            wf_from_entry(&term, &MSF_TRIG_SIN_C[k], 0, n);
+            wf_addsub(&acc, &term, &prod, n, 1, 0);
+        }
+        wf_mul(out, &u, &acc, n, 0);
+    } else {
+        /* D coefficients: d_k = 2/(2k+2)! = 2 * COS_C[k+1]. */
+        wf_from_entry(&acc, &MSF_TRIG_COS_C[nterms], 1, n);
+        for (k = nterms - 2; k >= 0; k--) {
+            wf_mul(&prod, &z, &acc, n, 0);
+            wf_from_entry(&term, &MSF_TRIG_COS_C[k + 1], 1, n);
+            wf_addsub(&acc, &term, &prod, n, 1, 0);
+        }
+        wf_mul(out, &z, &acc, n, 0);
+        out->e -= 1;
+    }
+}
+
+/* Pack exact value (big + f) * 2^base_exp (f as in
+ * wf_normalize) by way of the pack's 128-bit grid: top 128
+ * bits plus the OR of everything below. For every magnitude
+ * this kernel produces, the destination round bit lies
+ * inside those 128 bits, so the pack sees the exact
+ * endpoint's rounding. */
+static uint64_t trig_pack_big(const msf_fmt_params_t *fp, int sign,
+                              const uint32_t *big, int nbig,
+                              int32_t base_exp, int sticky_in, int rm,
+                              msf_flags_t *flags)
+{
+    msf_u128_t sig;
+    int32_t p = big_top_bit(big, nbig);
+    int32_t shift;
+    int sticky, i;
+    if (p < 0) {
+        sig = msf_u128_from_u64(0u);
+        return msf_pack_generic(fp, sign, 0, sig, 0, rm, flags);
+    }
+    shift = p - 127;
+    for (i = 0; i < 4; i++) {
+        sig.w[i] = big_bits32(big, nbig, shift + (int32_t)i * 32);
+    }
+    sticky = sticky_in || big_any_below(big, nbig, shift);
+    return msf_pack_generic(fp, sign, base_exp + p - 127, sig, sticky,
+                            rm, flags);
+}
+
+static uint64_t trig_pack_wf(const msf_fmt_params_t *fp, int sign,
+                             const wf_t *v, int n, int rm,
+                             msf_flags_t *flags)
+{
+    /* Stage widths are limb multiples >= 128: the top four
+     * limbs are the pack significand, the rest are sticky. */
+    msf_u128_t sig;
+    int sticky = 0;
+    int i;
+    if (wf_is_zero(v, n)) {
+        sig = msf_u128_from_u64(0u);
+        return msf_pack_generic(fp, sign, 0, sig, 0, rm, flags);
+    }
+    for (i = 0; i < 4; i++) {
+        sig.w[i] = v->m[n - 4 + i];
+    }
+    for (i = 0; i < n - 4; i++) {
+        sticky |= v->m[i] != 0u;
+    }
+    return msf_pack_generic(fp, sign, v->e - 127, sig, sticky, rm, flags);
+}
+
+/* Pack 1 - d for a cos-shaped endpoint d in [0, 1): exact
+ * 288-bit fixed-point subtraction, sticky preserved. */
+static uint64_t trig_pack_one_minus(const msf_fmt_params_t *fp, int sign,
+                                    const wf_t *d, int n, int rm,
+                                    msf_flags_t *flags)
+{
+    uint32_t abig[10];
+    int32_t s;
+    int g_sticky, i;
+    uint32_t borrow;
+    /* A = floor(d * 2^288) = M shifted by s, g = remainder. */
+    s = d->e - ((int32_t)n * 32 - 1) + 288;
+    for (i = 0; i < 10; i++) {
+        abig[i] = big_bits32(d->m, n, (int32_t)i * 32 - s);
+    }
+    g_sticky = s < 0 ? big_any_below(d->m, n, -s) : 0;
+    if (wf_is_zero(d, n)) {
+        g_sticky = 0;
+    }
+    /* BIG = 2^288 - A - (g ? 1 : 0); value (BIG + f) 2^-288. */
+    borrow = g_sticky ? 1u : 0u;
+    for (i = 0; i < 10; i++) {
+        uint32_t sub = abig[i] + borrow;
+        borrow = sub < abig[i] ? 1u : 0u;
+        abig[i] = (i == 9 ? 1u : 0u) - sub;
+        if ((i == 9 ? 1u : 0u) < sub) {
+            borrow = 1u;
+        }
+    }
+    return trig_pack_big(fp, sign, abig, 10, -288, g_sticky, rm, flags);
+}
+
+/* Form the proven interval A +- A*2^-Ek around a stage
+ * approximation and pack both endpoints; when is_delta the
+ * endpoints are 1 - d_hi and 1 - d_lo. Returns 1 (and ORs
+ * the agreed flags into the scratch accumulator *flags)
+ * when both endpoints agree on bits and flags under the
+ * caller's attribute: rounding is monotone, so the true
+ * value between them rounds the same way. */
+static int trig_decide(const msf_fmt_params_t *fp, int sign,
+                       const wf_t *a, int is_delta, int n, int stage,
+                       int rm, uint64_t *bits_out, msf_flags_t *flags)
+{
+    wf_t d, lo, hi;
+    msf_flags_t flo = 0u, fhi = 0u;
+    uint64_t blo, bhi;
+    d = *a;
+    d.e -= MSF_TRIG_EK_EXP[stage];
+    wf_addsub(&lo, a, &d, n, 1, 0);
+    wf_addsub(&hi, a, &d, n, 0, 1);
+    if (is_delta) {
+        blo = trig_pack_one_minus(fp, sign, &hi, n, rm, &flo);
+        bhi = trig_pack_one_minus(fp, sign, &lo, n, rm, &fhi);
+    } else {
+        blo = trig_pack_wf(fp, sign, &lo, n, rm, &flo);
+        bhi = trig_pack_wf(fp, sign, &hi, n, rm, &fhi);
+    }
+    if (blo == bhi && flo == fhi) {
+        *bits_out = blo;
+        *flags |= flo | MSF_FLAG_INEXACT;
+        return 1;
+    }
+    *bits_out = blo;
+    *flags |= flo | MSF_FLAG_INEXACT;
+    return 0;
+}
+
+static uint64_t trig_core(int fmt, int is_cos, uint64_t bits, int rm,
+                          msf_flags_t *flags)
+{
+    const msf_fmt_params_t *fp = &MSF_FMT_PARAMS[fmt];
+    msf_decoded_t d = msf_decode(fmt, bits);
+    msf_decoded_t ops[1];
+    int fmts[1];
+    uint64_t out;
+    uint64_t sig, ipart, rem, half, tnum;
+    int32_t exp2, k;
+    int parity, r_neg = 0, swapped, shape_sin, result_sign;
+    int stage;
+
+    ops[0] = d;
+    fmts[0] = fmt;
+    if (msf_nan_delivery(fmt, ops, fmts, 1,
+                         d.cls == MSF_VC_INFINITY, &out, flags)) {
+        return out;
+    }
+    if (d.cls == MSF_VC_ZERO) {
+        if (is_cos) {
+            return msf_pack_generic(fp, 0, 0, msf_u128_from_u64(1u), 0,
+                                    rm, flags);
+        }
+        return msf_pack_generic(fp, d.sign, 0, msf_u128_from_u64(0u), 0,
+                                rm, flags);
+    }
+    sig = msf_u128_to_u64_trunc(d.sig);   /* < 2^53 */
+    exp2 = d.exp;                          /* |x| = sig * 2^exp2 */
+    if (exp2 >= 0) {
+        parity = exp2 == 0 ? (int)(sig & 1u) : 0;
+        if (is_cos) {
+            return msf_pack_generic(fp, parity, 0, msf_u128_from_u64(1u),
+                                    0, rm, flags);
+        }
+        return msf_pack_generic(fp, d.sign, 0, msf_u128_from_u64(0u), 0,
+                                rm, flags);
+    }
+    k = -exp2;
+    if (k < 64) {
+        ipart = sig >> k;
+        rem = sig & ((1ULL << k) - 1ULL);
+        half = 1ULL << (k - 1);
+    } else {
+        /* fraction is below 1/2: sig < 2^53 <= 2^(k-1) */
+        ipart = 0u;
+        rem = sig;
+        half = 0u;
+    }
+    if (rem == 0u) {
+        parity = (int)(ipart & 1u);
+        if (is_cos) {
+            return msf_pack_generic(fp, parity, 0, msf_u128_from_u64(1u),
+                                    0, rm, flags);
+        }
+        return msf_pack_generic(fp, d.sign, 0, msf_u128_from_u64(0u), 0,
+                                rm, flags);
+    }
+    if (k < 64 && rem == half) {
+        /* half-integer: sinPi = (-1)^ipart (sign of x applied),
+         * cosPi = +0 in every mode (settled cell B). */
+        if (is_cos) {
+            return msf_pack_generic(fp, 0, 0, msf_u128_from_u64(0u), 0,
+                                    rm, flags);
+        }
+        return msf_pack_generic(fp, d.sign ^ (int)(ipart & 1u), 0,
+                                msf_u128_from_u64(1u), 0, rm, flags);
+    }
+    if (k >= 64 || rem < half) {
+        parity = (int)(ipart & 1u);
+        tnum = rem;
+        r_neg = 0;
+    } else {
+        parity = (int)((ipart + 1ULL) & 1u);
+        tnum = (1ULL << k) - rem;
+        r_neg = 1;
+    }
+    /* t = tnum * 2^-k in (0, 1/2); k >= 2 on this path. */
+    if (k < 64 && tnum > (1ULL << (k - 2))) {
+        swapped = 1;
+        tnum = (1ULL << (k - 1)) - tnum;
+    } else {
+        swapped = 0;
+    }
+    if (is_cos) {
+        result_sign = parity;
+        shape_sin = swapped;
+    } else {
+        result_sign = d.sign ^ parity ^ r_neg;
+        shape_sin = !swapped;
+    }
+    out = 0u;
+    for (stage = TRIG_START_STAGE; stage < 3; stage++) {
+        wf_t approx;
+        int n = MSF_TRIG_STAGE_LIMBS[stage];
+        msf_flags_t tflags = 0u;
+        TRIG_COUNT_STAGE(stage);
+        trig_eval(&approx, shape_sin, tnum, -k, stage);
+        if (trig_decide(fp, result_sign, &approx, !shape_sin, n, stage,
+                        rm, &out, &tflags)) {
+            *flags |= tflags;
+            return out;
+        }
+        if (stage == 2) {
+            /* Unreachable under the leg-(c) margin argument;
+             * defined fallback packs the lo endpoint. */
+            TRIG_COUNT_FINAL();
+            *flags |= tflags;
+            return out;
+        }
+    }
+    return out;
+}
+
+#define DEF_TRIG(NAME, FMT, TYPE, ISCOS) \
+    TYPE NAME(TYPE a, msf_rounding_t rm, msf_flags_t *fl) \
+    { return (TYPE)trig_core(FMT, ISCOS, (uint64_t)a, (int)rm, fl); }
+
+DEF_TRIG(msf16_sin_pi, MSF_FMT_F16, msf16_t, 0)
+DEF_TRIG(msf32_sin_pi, MSF_FMT_F32, msf32_t, 0)
+DEF_TRIG(msf64_sin_pi, MSF_FMT_F64, msf64_t, 0)
+DEF_TRIG(msf16_cos_pi, MSF_FMT_F16, msf16_t, 1)
+DEF_TRIG(msf32_cos_pi, MSF_FMT_F32, msf32_t, 1)
+DEF_TRIG(msf64_cos_pi, MSF_FMT_F64, msf64_t, 1)

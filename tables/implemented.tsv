@@ -822,3 +822,9 @@ msf64_set_payload	4
 msf16_set_payload_signaling	4
 msf32_set_payload_signaling	4
 msf64_set_payload_signaling	4
+msf16_sin_pi	4
+msf32_sin_pi	4
+msf64_sin_pi	4
+msf16_cos_pi	4
+msf32_cos_pi	4
+msf64_cos_pi	4

@@ -821,9 +821,9 @@ msf64_set_payload	setPayload	9.7	f64	f64	none	no	4	implemented	project-exact	exh
 msf16_set_payload_signaling	setPayloadSignaling	9.7	f16	f16	none	no	4	implemented	project-exact	exhaustive-f16;directed-encodings	exact	2	C-754
 msf32_set_payload_signaling	setPayloadSignaling	9.7	f32	f32	none	no	4	implemented	project-exact	exhaustive-f16;directed-encodings	exact	2	C-754
 msf64_set_payload_signaling	setPayloadSignaling	9.7	f64	f64	none	no	4	implemented	project-exact	exhaustive-f16;directed-encodings	exact	2	C-754
-msf16_sin_pi	sinPi	9.2	f16	f16	attr	yes	4	planned	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
-msf32_sin_pi	sinPi	9.2	f32	f32	attr	yes	4	planned	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
-msf64_sin_pi	sinPi	9.2	f64	f64	attr	yes	4	planned	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
-msf16_cos_pi	cosPi	9.2	f16	f16	attr	yes	4	planned	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
-msf32_cos_pi	cosPi	9.2	f32	f32	attr	yes	4	planned	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
-msf64_cos_pi	cosPi	9.2	f64	f64	attr	yes	4	planned	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
+msf16_sin_pi	sinPi	9.2	f16	f16	attr	yes	4	implemented	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
+msf32_sin_pi	sinPi	9.2	f32	f32	attr	yes	4	implemented	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
+msf64_sin_pi	sinPi	9.2	f64	f64	attr	yes	4	implemented	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
+msf16_cos_pi	cosPi	9.2	f16	f16	attr	yes	4	implemented	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
+msf32_cos_pi	cosPi	9.2	f32	f32	attr	yes	4	implemented	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
+msf64_cos_pi	cosPi	9.2	f64	f64	attr	yes	4	implemented	mpfr-exact	directed-hardest;wc-mpfr;seeded-random	exact	2	C-754
