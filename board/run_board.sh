@@ -18,7 +18,7 @@ take_lock "P0 board budget: harness replay + interposition hello"
 # host side: runner + board-smoke vectors + expected whole-run hash
 export PATH="/c/msys64/mingw64/bin:/c/msys64/usr/bin:$PATH"
 gcc -std=c11 -O2 -Wall -Wextra -Werror -ffp-contract=off \
-    src/msf16.c src/msf32.c src/msf64.c src/msf_flags.c src/msf_wide.c src/msf_roundpack.c src/msf_string.c src/msf_math.c \
+    src/msf16.c src/msf32.c src/msf64.c src/msf_flags.c src/msf_wide.c src/msf_roundpack.c src/msf_string.c src/msf_math.c src/msf_alg.c \
     tests/runner.c tests/sha256.c -o "$BOARD_BUILD/msf_runner.exe" \
     > "$BOARD_BUILD/host-build.log" 2>&1 || board_fail "host runner build"
 $PY tests/gen_vectors.py board-smoke "$BOARD_BUILD/board-smoke.vec" > "$BOARD_BUILD/gen.log" 2>&1 || board_fail "board-smoke generation"
