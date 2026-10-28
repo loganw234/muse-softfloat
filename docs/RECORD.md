@@ -666,3 +666,24 @@ routes) - that cell corroborates nothing directed until a Linux
 exhaustive check separates upstream defect from build artifact.
 MPFR remains the decider. With 0a and 0b both checked, SF-1
 Step 0 is closed and Step 1 briefs may be cut.
+
+**Step 1 landed (appended 2026-10-27):** all 33 Clause
+9.6/9.7 rows are implemented as one three-format bundle
+(`128e577`, merged `75309d4`): the eight minimum/maximum names
+(first operand wins, -0 the minimum and +0 the maximum, Number
+forms delivering the number for a single NaN while an ignored
+signaling NaN still signals invalid) and the three payload
+names (positive setters, quiet 0..max / signaling 1..max, -0
+admissible for the quiet form only), format-generically in
+`src/msf_performat.inc` with no rounding anywhere. Evidence is
+project-exact (`exact-py-t2:*`): 17,802 committed directed
+cases plus 4,697,737 generated cases at the parcel gate
+(binary16 payload exhaustive, boundary-first min/max sweeps,
+seeded binary32/64). The six vector files are wired into the
+permanent smoke set, now **102,950 committed vectors**;
+`standard` PASS on the merge tree with inventory Tier 1
+783/783 and Tier 2 33/33. Planted verification graded **5 of
+5** (34 of 35 cumulative); the verifier's independent
+reference caught the one generator plant that replay volume
+alone could not. Board sampling of the new rows is not yet
+run - it rides the Step 1c interval board work, next.
