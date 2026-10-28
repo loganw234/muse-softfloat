@@ -71,7 +71,7 @@ $PY "$IAS15_COMPARE" "$IAS15_REF_HASHES" "$OUT/hashes_board.txt" \
     > "$OUT/compare.log" 2>&1 || { cat "$OUT/compare.log"; board_fail "board hashes differ from desktop reference"; }
 cat "$OUT/compare.log"
 
-$PY board/ias15_host.py --cmd "T 2000" \
+$PY board/ias15_host.py --cmd "T 2000" --idle-timeout 1200 \
     > "$OUT/rate2000.log" 2>&1 || { tail -20 "$OUT/rate2000.log"; board_fail "ias15 T capture"; }
 grep '^RATE' "$OUT/rate2000.log"
 
