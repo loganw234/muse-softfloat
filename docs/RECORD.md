@@ -766,3 +766,28 @@ SF-1 Step 2c: `sinPi/cosPi` now have a silicon workload that
 actually links them. The float KissFFT configuration was
 not attempted; it would need a second scalar build and
 binary32 wrappers, and no claim here covers it.
+
+**Wave 5 Step 1 landed (appended 2026-10-28):**
+`roundTiesToAway` is the fifth public rounding attribute
+(`8bfc877`, merged `6e0f2f2`), the first step of SF-2 -
+the plan of record the owner approved after four pricing
+studies covered the deferred Clause 9 menu. Zero new rows;
+all 255 attribute-carrying rows now carry ties-to-away
+evidence: 21,858 committed `ta` lines (10,985 decided;
+10,873 relabeled trig lines under the no-exact-ties
+theorems, provenance-tagged), Berkeley `-rnear_maxMag`
+level-1 18,978,288 cases flags-exact, binary16 five-mode
+exhaustive streams. The kernel bill was exactly the two
+string-path cases the study found - value 4 silently
+meant toward-zero in decimal/hex character rounding.
+Planted verification **5 of 5** (61 of 65 cumulative),
+including an independent re-derivation of the corrected
+sqrt tie scope (homogeneous/widening only; narrowing
+ties are decided, never relabeled). Committed smoke is
+now **171,423 vectors**; `standard` PASS on the merge
+tree. On the genuine board: the 968-vector budget replay
+passes, and a stride-sampled 419/419 public `ta` vectors
+replay bit-identically (hash `4fba1c1b...aa9`; string-
+conversion `ta` lines are host-gated - the harness line
+format carries numeric ops only). SF-2 continues with
+the algebraic bundle (`rSqrt`, `hypot` first).
