@@ -179,7 +179,7 @@ static uint64_t hypot_core(int fmt, uint64_t abits, uint64_t bbits,
     msf_decoded_t db = msf_decode(fmt, bbits);
     msf_decoded_t ops[2];
     int fmts[2];
-    uint64_t out, q;
+    uint64_t out = 0, q;
     msf_u128_t sa, sb, tot, rad, rem;
     int la2, lsh, net, tail = 0, pdrop = 0, sticky, k;
     int32_t ea, eb, ew;
