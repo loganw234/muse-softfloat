@@ -78,3 +78,29 @@ under the same lock and protocol above:
   run capture compares equal for all 2001 records against the
   reference hashes (first divergence: none) with
   `nonfinite_hashed_fields=0`.
+
+## Interval workload firmware (SF-1 Step 1c)
+
+`msf_interval` streams the frozen Step 1c catalogue
+(`tests/interval_catalogue.tsv`) from the host and folds the
+identical IW1 field sequence as `board/interval_host.c`
+(layout in that file's header). Protocol: banner
+`MSF-INTERVAL 1 ID ... clk_sys_hz ...`; `B` begins a run; `S` /
+`X` / `T` carry one sphere/box/torus row as binary64 bit
+patterns and are acked `R <id>`; `E` prints `SUMMARY ...`
+(with `compute_us`, RP2040-timer time inside workload calls
+only - a measurement record, not a rate claim), then
+`BOARD_SHA256 ...` and `INTERVAL-DONE`. The board digest must
+equal the host runner's `HOST_SHA256` for the same file.
+
+`board/interval_run.sh` is the lead sequence under the lock:
+regeneration check, host hash, firmware build, targeted flash
+(`picotool load --ser <serial> -f -x` - never untargeted while
+other boards share the bus; `MSF_BOARD_SERIAL` selects, default
+the genuine board above), full-catalogue stream via
+`board/interval_board_host.py` (selects the CDC port by USB
+serial), artifact hashes printed. First silicon evidence
+2026-10-27: all 710 rows, IW1 `ce81d66e...a9aec` identical on
+host and board `e66440a2cb6f5c2b` at 125 MHz, `compute_us`
+7,918,838 for 616,754 counted ops; UF2 sha256
+`a9b7cf1d...1b3a5` (per-build; every run prints its own).

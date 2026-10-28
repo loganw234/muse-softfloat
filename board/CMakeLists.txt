@@ -146,3 +146,20 @@ target_link_libraries(msf_bench msf_core pico_stdlib pico_unique_id)
 pico_enable_stdio_usb(msf_bench 1)
 pico_enable_stdio_uart(msf_bench 0)
 pico_add_extra_outputs(msf_bench)
+
+# ---- Step 1c interval workload firmware (SF-1) -------------------
+# Streams the frozen catalogue from the host and must reproduce
+# the IW1 host SHA-256 bit-for-bit (interval_main.c header). The
+# workload core calls the public API directly, so no AEABI wraps
+# are needed; stack is 4 KiB (SCRATCH_Y bound, as msf_ias15)
+# for the torus bisection + stage-3 distillation frames over
+# the static context.
+add_executable(msf_interval interval_main.c interval_workload.c
+               ${MSF_ROOT}/tests/sha256.c)
+target_compile_definitions(msf_interval PRIVATE PICO_STACK_SIZE=0x1000)
+target_include_directories(msf_interval PRIVATE ${CMAKE_CURRENT_LIST_DIR} ${MSF_ROOT})
+target_compile_options(msf_interval PRIVATE -ffp-contract=off -fno-fast-math)
+target_link_libraries(msf_interval msf_core pico_stdlib pico_unique_id)
+pico_enable_stdio_usb(msf_interval 1)
+pico_enable_stdio_uart(msf_interval 0)
+pico_add_extra_outputs(msf_interval)
