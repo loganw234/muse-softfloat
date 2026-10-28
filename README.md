@@ -13,6 +13,8 @@ run** — same integrator source, same bits out, on a chip with no FPU. The demo
 is a 3-minute programmatic video; this repository is the library, the video
 pipeline and rendered cut, and the record that stands beside them.
 
+**Live demo:** [loganw234.github.io/muse-softfloat](https://loganw234.github.io/muse-softfloat/) — the actual library compiled to WebAssembly, runnable against the committed test vectors ([site/](site/README.md)).
+
 ## Status
 
 **Tier 1 complete and Tier 2's authorised prefix landed:
