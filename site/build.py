@@ -21,8 +21,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = Path(__file__).resolve().parent
-SRC = ["msf16.c", "msf32.c", "msf64.c", "msf_alg.c", "msf_flags.c",
-       "msf_math.c", "msf_roundpack.c", "msf_string.c", "msf_wide.c"]
+SRC = ["msf16.c", "msf32.c", "msf64.c", "msf_alg.c", "msf_aug.c",
+       "msf_flags.c", "msf_math.c", "msf_roundpack.c", "msf_string.c",
+       "msf_wide.c"]
 EXPORTS = ["msf_op_count", "msf_run", "msf_result_lo", "msf_result_hi",
            "msf_result_flags", "msf_result_ok"]
 

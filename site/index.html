@@ -77,7 +77,12 @@
   <p class="fineprint">The operation list is the repository's generated dispatch table
   (<code>tests/msf_dispatch.h</code>) — the same table the host test runner drives. The twelve
   character-conversion operations and six flag-management operations are not hex-drivable and
-  are omitted here; they are gated on the host like everything else. Decimal entry for
+  are omitted here. The nine Clause&nbsp;9.5 augmented operations
+  (<code>augmentedAddition</code>/<code>Subtraction</code>/<code>Multiplication</code> at the
+  three formats) return a head+tail pair under clause-fixed roundTiesTowardZero; this
+  instrument's single-result shape cannot hold two results honestly, so they are omitted here
+  too. All omitted operations are gated on the host (and, for the pairs, replayed on the
+  board) like everything else. Decimal entry for
   binary16 rounds ties-to-even in the page before the bits run.</p>
 </section>
 
@@ -102,7 +107,8 @@
 
 <section id="silicon" aria-labelledby="silicon-h">
   <h2 id="silicon-h">On silicon</h2>
-  <p>Three workloads run bit-identically on a Raspberry Pi Pico (RP2040) through this library.
+  <p>Three workloads run bit-identically on RP2040 silicon through this library (the genuine
+  Pico; IAS15 also across five RP2040-Zero clones — six chips in all).
   The figures below are recorded facts from
   <a href="https://github.com/loganw234/muse-softfloat/blob/main/docs/RECORD.md">docs/RECORD.md</a>,
   with the board protocol in
@@ -119,10 +125,14 @@
       repository), its binary64 arithmetic served by this library over the AEABI compat surface.</dd>
       <dt>Agreement</dt>
       <dd>2,001 of 2,001 per-step state hashes match the unmodified desktop build exactly
-      (step-2000 state hash begins <code>4d4530a6</code>).</dd>
+      (step-2000 state hash begins <code>4d4530a6</code>) — on each of six chips: the genuine
+      Pico and five RP2040-Zero clones, zero failures in the sweep.</dd>
       <dt>Recorded rate</dt>
-      <dd>1.58 accepted steps per second at 125&nbsp;MHz, measured over a 1,000-step block.
-      A full figure-8 period takes about ten minutes at that rate.</dd>
+      <dd>1.60 accepted steps per second at 125&nbsp;MHz on every chip in the six-board sweep
+      (2,000-step timed run). A full figure-8 period takes about ten minutes at that rate.
+      The firmware blinks the onboard LED while working (Pico GP25; Zero WS2812 on GP16,
+      outside every timed region); that LED build re-passed 968 of 968 harness vectors on all
+      six boards, so it is hash-verified on silicon.</dd>
     </dl>
   </div>
   <p class="fineprint">The sketch is an illustration of the figure-8 three-body choreography,
@@ -172,13 +182,15 @@
     table above. If WebAssembly is unavailable in your browser, the instrument says so and
     dealt vectors show their recorded results, labelled as recorded.</li>
   </ul>
-  <h3>Status and what is still in progress</h3>
-  <p>Tier&nbsp;1 (the full Clause&nbsp;5 surface) and the authorised Tier&nbsp;2 prefix are
-  landed and gated. Wave&nbsp;5 has landed <code>roundTiesToAway</code> as the fifth rounding
-  attribute and correctly rounded <code>rSqrt</code> and <code>hypot</code> at all three formats.
-  Still in progress, and labelled as such wherever they appear: the
-  <code>exp2</code>/<code>log2</code> pairs and Clause&nbsp;9.5 augmented arithmetic.
-  Nothing beyond the SF-2 study's list is claimed.</p>
+  <h3>Status at SF-2 close</h3>
+  <p>Tier&nbsp;1 (the full Clause&nbsp;5 surface) and Tier&nbsp;2 are complete and gated
+  (counts in the table above, generated from <code>docs/COVERAGE.tsv</code>). That includes
+  <code>roundTiesToAway</code> as the fifth rounding attribute; correctly rounded
+  <code>rSqrt</code>/<code>hypot</code>, <code>exp2</code>/<code>exp2m1</code> and
+  <code>log2</code>/<code>log2p1</code> at all three formats; and Clause&nbsp;9.5 augmented
+  add/subtract/multiply (head+tail pairs under clause-fixed rounding — excluded from the
+  instrument above by shape, gated on host and board). Nothing beyond the SF-2 study's list
+  is claimed; the generated counts are stamped as of the commit in the footer.</p>
 </section>
 
 </main>

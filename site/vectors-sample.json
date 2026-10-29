@@ -2128,6 +2128,50 @@
   "file": "arith-f16.vec"
  },
  {
+  "op": "msf16_exp2",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "3c00",
+  "flags": "00",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f16.vec"
+ },
+ {
+  "op": "msf16_exp2",
+  "rm": "tp",
+  "args": [
+   "ba80"
+  ],
+  "result": "388f",
+  "flags": "10",
+  "prov": "mpfr-explog:lattice",
+  "file": "explog-f16.vec"
+ },
+ {
+  "op": "msf16_exp2m1",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "0",
+  "flags": "00",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f16.vec"
+ },
+ {
+  "op": "msf16_exp2m1",
+  "rm": "te",
+  "args": [
+   "ba01"
+  ],
+  "result": "b67d",
+  "flags": "10",
+  "prov": "mpfr-explog:lattice",
+  "file": "explog-f16.vec"
+ },
+ {
   "op": "msf16_fma",
   "rm": "te",
   "args": [
@@ -3314,6 +3358,50 @@
   "flags": "--",
   "prov": "exact-py:directed-encodings",
   "file": "encodings-f16.vec"
+ },
+ {
+  "op": "msf16_log2",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "fc00",
+  "flags": "02",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f16.vec"
+ },
+ {
+  "op": "msf16_log2",
+  "rm": "te",
+  "args": [
+   "ac7f"
+  ],
+  "result": "7e00",
+  "flags": "01",
+  "prov": "mpfr-explog:lattice",
+  "file": "explog-f16.vec"
+ },
+ {
+  "op": "msf16_log2p1",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "0",
+  "flags": "00",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f16.vec"
+ },
+ {
+  "op": "msf16_log2p1",
+  "rm": "tp",
+  "args": [
+   "9302"
+  ],
+  "result": "950e",
+  "flags": "10",
+  "prov": "mpfr-explog:lattice",
+  "file": "explog-f16.vec"
  },
  {
   "op": "msf16_log_b",
@@ -8320,6 +8408,50 @@
   "file": "arith-f32.vec"
  },
  {
+  "op": "msf32_exp2",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "3f800000",
+  "flags": "00",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f32.vec"
+ },
+ {
+  "op": "msf32_exp2",
+  "rm": "tp",
+  "args": [
+   "bf400000"
+  ],
+  "result": "3f1837f1",
+  "flags": "10",
+  "prov": "mpfr-explog:lattice",
+  "file": "explog-f32.vec"
+ },
+ {
+  "op": "msf32_exp2m1",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "0",
+  "flags": "00",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f32.vec"
+ },
+ {
+  "op": "msf32_exp2m1",
+  "rm": "tp",
+  "args": [
+   "bf400002"
+  ],
+  "result": "becf9021",
+  "flags": "10",
+  "prov": "mpfr-explog:lattice",
+  "file": "explog-f32.vec"
+ },
+ {
   "op": "msf32_fma",
   "rm": "te",
   "args": [
@@ -9506,6 +9638,50 @@
   "flags": "--",
   "prov": "exact-py:directed-encodings",
   "file": "encodings-f32.vec"
+ },
+ {
+  "op": "msf32_log2",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "ff800000",
+  "flags": "02",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f32.vec"
+ },
+ {
+  "op": "msf32_log2",
+  "rm": "tp",
+  "args": [
+   "3f300002"
+  ],
+  "result": "bf0a62ac",
+  "flags": "10",
+  "prov": "mpfr-explog:lattice",
+  "file": "explog-f32.vec"
+ },
+ {
+  "op": "msf32_log2p1",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "0",
+  "flags": "00",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f32.vec"
+ },
+ {
+  "op": "msf32_log2p1",
+  "rm": "te",
+  "args": [
+   "3f6fffff"
+  ],
+  "result": "3f744635",
+  "flags": "10",
+  "prov": "mpfr-explog:lattice",
+  "file": "explog-f32.vec"
  },
  {
   "op": "msf32_log_b",
@@ -14512,6 +14688,50 @@
   "file": "arith-f64.vec"
  },
  {
+  "op": "msf64_exp2",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "3ff0000000000000",
+  "flags": "00",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f64.vec"
+ },
+ {
+  "op": "msf64_exp2",
+  "rm": "te",
+  "args": [
+   "bfe7fffffffffffe"
+  ],
+  "result": "3fe306fe0a31b716",
+  "flags": "10",
+  "prov": "mpfr-explog:lattice",
+  "file": "explog-f64.vec"
+ },
+ {
+  "op": "msf64_exp2m1",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "0",
+  "flags": "00",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f64.vec"
+ },
+ {
+  "op": "msf64_exp2m1",
+  "rm": "tp",
+  "args": [
+   "bfe8000000000001"
+  ],
+  "result": "bfd9f203eb9c91d6",
+  "flags": "10",
+  "prov": "mpfr-explog:lattice",
+  "file": "explog-f64.vec"
+ },
+ {
   "op": "msf64_fma",
   "rm": "te",
   "args": [
@@ -15698,6 +15918,50 @@
   "flags": "--",
   "prov": "exact-py:directed-encodings",
   "file": "encodings-f64.vec"
+ },
+ {
+  "op": "msf64_log2",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "fff0000000000000",
+  "flags": "02",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f64.vec"
+ },
+ {
+  "op": "msf64_log2",
+  "rm": "te",
+  "args": [
+   "bf40000000000001"
+  ],
+  "result": "7ff8000000000000",
+  "flags": "01",
+  "prov": "mpfr-explog:tiny",
+  "file": "explog-f64.vec"
+ },
+ {
+  "op": "msf64_log2p1",
+  "rm": "te",
+  "args": [
+   "0"
+  ],
+  "result": "0",
+  "flags": "00",
+  "prov": "mpfr-explog:specials",
+  "file": "explog-f64.vec"
+ },
+ {
+  "op": "msf64_log2p1",
+  "rm": "tp",
+  "args": [
+   "bf50000000000001"
+  ],
+  "result": "bf57182a894b69c7",
+  "flags": "10",
+  "prov": "mpfr-explog:tiny",
+  "file": "explog-f64.vec"
  },
  {
   "op": "msf64_log_b",

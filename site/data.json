@@ -1,14 +1,14 @@
 {
- "base": "a0acf2a",
+ "base": "e9c57fb",
  "instantiations": {
-  "total": 828,
+  "total": 849,
   "tier1": 783,
-  "tier2": 45,
-  "implemented": 828,
+  "tier2": 66,
+  "implemented": 849,
   "source": "docs/COVERAGE.tsv"
  },
  "vectors": {
-  "total": 182518,
+  "total": 411213,
   "files": {
    "alg-f16.vec": 3695,
    "alg-f32.vec": 3700,
@@ -17,6 +17,9 @@
    "arith-f32.vec": 4240,
    "arith-f64.vec": 4355,
    "arith-xf.vec": 6959,
+   "aug-f16.vec": 46088,
+   "aug-f32.vec": 46146,
+   "aug-f64.vec": 46146,
    "compare-f16.vec": 2802,
    "compare-f32.vec": 2362,
    "compare-f64.vec": 2302,
@@ -29,6 +32,9 @@
    "encodings-f16.vec": 2352,
    "encodings-f32.vec": 2352,
    "encodings-f64.vec": 2352,
+   "explog-f16.vec": 29090,
+   "explog-f32.vec": 29175,
+   "explog-f64.vec": 32050,
    "fma-sqrt-f16.vec": 2334,
    "fma-sqrt-f32.vec": 1172,
    "fma-sqrt-xf.vec": 3566,
@@ -59,8 +65,8 @@
   "source": "tests/vectors/*.vec (counted lines)"
  },
  "plants": {
-  "caught": 75,
-  "total": 80,
+  "caught": 109,
+  "total": 115,
   "by_wave": [
    {
     "wave": "wave1",
@@ -84,22 +90,29 @@
    },
    {
     "wave": "wave5",
-    "caught": 17,
-    "total": 20
+    "caught": 41,
+    "total": 45
    },
    {
     "wave": "readme",
     "caught": 9,
+    "total": 10
+   },
+   {
+    "wave": "site",
+    "caught": 10,
     "total": 10
    }
   ],
   "source": "docs/metrics/plants.jsonl"
  },
  "sample": {
-  "vectors": 1596,
-  "ops_covered": 798,
-  "ops_runnable": 810,
-  "ops_total": 828,
+  "vectors": 1620,
+  "ops_covered": 810,
+  "ops_runnable": 822,
+  "ops_total": 849,
+  "ops_pair_excluded": 9,
+  "ops_nonhex_excluded": 18,
   "source": "tests/vectors/*.vec via site/build_data.py"
  }
 }

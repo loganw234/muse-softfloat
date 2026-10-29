@@ -15,10 +15,13 @@
  *   msf_result_flags()  flag delta (MSF_FLAG_* bits) of the last run
  *   msf_result_ok()     1 if the entry is runnable, 0 otherwise
  *
- * Entries whose trampoline is 0 in the dispatch table (the character
- * conversions and flag-management ops, which are not hex-drivable)
+ * Entries whose single-result trampoline is 0 in the dispatch table
  * report ok=0 and are excluded from the page's op list by
- * build_data.py.
+ * build_data.py: the character conversions and flag-management ops
+ * (not hex-drivable), and the Clause 9.5 augmented pairs, which
+ * return a head+tail pair under clause-fixed rounding and do not
+ * fit this single-result surface. The page prints both exclusions;
+ * the pairs stay host- and board-gated.
  */
 #include <stddef.h>
 #include <stdint.h>

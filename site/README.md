@@ -16,10 +16,16 @@ this directory.
 The centrepiece runs the actual library: `msf.wasm` is the
 repository's own `src/*.c` (compiled unmodified, freestanding
 wasm32) plus `glue.c`, which drives the same generated dispatch
-table (`tests/msf_dispatch.h`) the host test runner uses. 810 of
-828 instantiations are runnable in the page; the 12 character
-conversions and 6 flag-management operations are not hex-drivable
-and are omitted (they stay host-gated like everything else).
+table (`tests/msf_dispatch.h`) the host test runner uses. 822 of
+849 instantiations are runnable in the page (including the
+`exp2`/`exp2m1`/`log2`/`log2p1` families, which are ordinary
+single-result operations). The rest are omitted, with the
+exclusions printed on the page: the 12 character conversions
+and 6 flag-management operations are not hex-drivable, and the
+9 Clause 9.5 augmented operations return head+tail pairs under
+clause-fixed rounding, which the page's single-result shape
+cannot hold honestly. Omitted operations stay host-gated (the
+pairs also board-replayed) like everything else.
 
 If WebAssembly cannot load in a visitor's browser, free entry is
 disabled and "deal me a committed vector" shows recorded results
@@ -35,14 +41,15 @@ implies live computation it is not doing.
 | `msf.wasm` | generated: library + glue, freestanding wasm32 |
 | `data.json` | generated: counts from `docs/COVERAGE.tsv`, `docs/metrics/plants.jsonl`, `tests/vectors/` |
 | `ops.json` | generated: op table parsed from `tests/msf_dispatch.h`, joined with `docs/COVERAGE.tsv` |
-| `vectors-sample.json` | generated: 1,596-line stratified sample of committed vectors (first + middle line per op) |
+| `vectors-sample.json` | generated: 1,620-line stratified sample of committed vectors (first + middle line per op) |
 | `replay-log.txt` | generated: Node replay of the sample through `msf.wasm` (0 mismatches required) |
 | `build_data.py` | regenerates the three JSON files from the repo |
 | `replay.mjs` | the Node replay proof |
 | `build.py` | all of the above, end to end |
 
 Every number the page displays comes from `data.json` (regenerated
-from the named sources) or is a recorded fact quoted from
+from the named sources; its `base` field stamps the commit the
+counts are as of) or is a recorded fact quoted from
 `docs/RECORD.md` with its context. Timing figures appear only as
 recorded facts with units. There are no performance claims.
 
