@@ -140,9 +140,7 @@ static void cmd_run(long nsteps, long kevery)
         if (k > 0) {
             ias15x_step(sim);
         }
-        if ((k & 63) == 0) {
-            msf_led_busy();
-        }
+        msf_led_busy(); /* per step: a step is ~0.7 s here */
         if (k % kevery == 0 || k == nsteps) {
             ias15_hash_pair(sim, (uint64_t)k, hs, hf, &nonfinite);
             print_hash_line(sim, (uint64_t)k, hs, hf);

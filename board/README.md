@@ -14,14 +14,18 @@ here runs lead-only under `<ledger>/board.lock` via
 
 ## LED activity indicator
 
-`msf_led.h` blinks the onboard LED (`PICO_DEFAULT_LED_PIN`, GP25 on
-a Pico) at ~2 Hz while a firmware is doing work — vector replay,
-IAS15 runs, KissFFT configurations, interval rows, bench reports —
-and turns it off when the firmware is idle waiting for input, so a
-row of boards shows which are running. GPIO writes only: no effect
-on any computed value or hash, and calls sit outside timed regions
-next to the printing those timings already exclude. A board whose
-LED is not on the default pin simply stays dark.
+`msf_led.h` blinks the onboard LED at ~2 Hz while a firmware is
+doing work — vector replay, IAS15 runs, KissFFT configurations,
+interval rows, bench reports — and turns it off when the firmware
+is idle waiting for input, so a row of boards shows which are
+running. Both bench wirings are driven from the same image (board
+type is not runtime-detectable): the Pico's plain LED on
+`PICO_DEFAULT_LED_PIN` (GP25) by GPIO, and the RP2040-Zero clones'
+WS2812 RGB LED on GP16 by a minimal PIO program (frames sent only
+on blink-phase changes; harmless on a Pico, where GP16 is an
+unconnected header pin). No effect on any computed value or hash,
+and calls sit outside timed regions next to the printing those
+timings already exclude.
 
 ## Replay protocol
 
