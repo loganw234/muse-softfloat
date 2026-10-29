@@ -6,15 +6,16 @@
  * invoked on the original encoding in every mode; bits
  * and flags are compared.
  *
- * Modes:
+ * Modes: (FN ids 0 exp2, 1 exp2m1, 2 log2, 3 log2p1;
+ * Step 3b extension of the Step 3a harness)
  *   f16                    exhaustive binary16 sweep (all
- *                          65536 encodings, both functions)
+ *                          65536 encodings, all 4 functions)
  *   f32 LO HI [FN]         binary32 encodings in [LO, HI)
- *                          (hex), FN: 0 exp2, 1 exp2m1,
- *                          2 both (default)
+ *                          (hex), FN: 0..3 single, 4 log
+ *                          pair, 5 exp pair, absent all
  *   f64seed SEED COUNT     seeded finite binary64 patterns
  *   f32seed SEED COUNT     seeded finite binary32 patterns
- *   wc exp2|exp2m1 FILE    binary64 inputs from a .wc file
+ *   wc exp2|exp2m1|log2|log2p1 FILE  binary64 .wc inputs
  *                          (mechanical first-token parse;
  *                          token must be an exact binary64;
  *                          optional env EXPLOG_WC_DUMP=path
@@ -36,47 +37,59 @@ extern uint64_t msf_explog_final_undecided;
 
 static uint64_t g_checked, g_mismatch;
 
-static uint64_t x_kernel_call(int fi, int is_m1, uint64_t bits, int rm,
+static uint64_t x_kernel_call(int fi, int fn, uint64_t bits, int rm,
                               msf_flags_t *fl)
 {
     *fl = 0u;
     switch (fi) {
     case 0:
-        return is_m1 ? msf16_exp2m1((msf16_t)bits, (msf_rounding_t)rm, fl)
-                     : msf16_exp2((msf16_t)bits, (msf_rounding_t)rm, fl);
+        switch (fn) {
+        case 0: return msf16_exp2((msf16_t)bits, (msf_rounding_t)rm, fl);
+        case 1: return msf16_exp2m1((msf16_t)bits, (msf_rounding_t)rm, fl);
+        case 2: return msf16_log2((msf16_t)bits, (msf_rounding_t)rm, fl);
+        default: return msf16_log2p1((msf16_t)bits, (msf_rounding_t)rm, fl);
+        }
     case 1:
-        return is_m1 ? msf32_exp2m1((msf32_t)bits, (msf_rounding_t)rm, fl)
-                     : msf32_exp2((msf32_t)bits, (msf_rounding_t)rm, fl);
+        switch (fn) {
+        case 0: return msf32_exp2((msf32_t)bits, (msf_rounding_t)rm, fl);
+        case 1: return msf32_exp2m1((msf32_t)bits, (msf_rounding_t)rm, fl);
+        case 2: return msf32_log2((msf32_t)bits, (msf_rounding_t)rm, fl);
+        default: return msf32_log2p1((msf32_t)bits, (msf_rounding_t)rm, fl);
+        }
     default:
-        return is_m1 ? msf64_exp2m1(bits, (msf_rounding_t)rm, fl)
-                     : msf64_exp2(bits, (msf_rounding_t)rm, fl);
+        switch (fn) {
+        case 0: return msf64_exp2(bits, (msf_rounding_t)rm, fl);
+        case 1: return msf64_exp2m1(bits, (msf_rounding_t)rm, fl);
+        case 2: return msf64_log2(bits, (msf_rounding_t)rm, fl);
+        default: return msf64_log2p1(bits, (msf_rounding_t)rm, fl);
+        }
     }
 }
 
-static void check_one_x(int fi, int is_m1, uint64_t bits, long p0)
+static void check_one_x(int fi, int fn, uint64_t bits, long p0)
 {
     const xfmt_t *f = &XFMTS[fi];
     uint64_t rb[5];
     uint32_t rf[5];
     int rm;
-    if (explog_expected(fi, is_m1, bits, p0, rb, rf) != 0) {
+    if (explog_expected(fi, fn, bits, p0, rb, rf) != 0) {
         if (g_x_undecided <= 20) {
             printf("UNDECIDED %s %s %016llx\n", f->name,
-                   is_m1 ? "exp2m1" : "exp2",
+                   XFN_NAME[fn],
                    (unsigned long long)bits);
         }
         return;
     }
     for (rm = 0; rm < 5; rm++) {
         msf_flags_t fl;
-        uint64_t got = x_kernel_call(fi, is_m1, bits, rm, &fl);
+        uint64_t got = x_kernel_call(fi, fn, bits, rm, &fl);
         g_checked++;
         if (got != rb[rm] || (uint32_t)fl != rf[rm]) {
             g_mismatch++;
             if (g_mismatch <= 20) {
                 printf("MISMATCH %s %s %s in=%016llx got=%016llx/%02x "
                        "want=%016llx/%02x\n",
-                       f->name, is_m1 ? "exp2m1" : "exp2", XRM_NAME[rm],
+                       f->name, XFN_NAME[fn], XRM_NAME[rm],
                        (unsigned long long)bits,
                        (unsigned long long)got, (unsigned)fl,
                        (unsigned long long)rb[rm], (unsigned)rf[rm]);
@@ -114,7 +127,7 @@ static int x_summary(const char *what)
     return bad ? 1 : 0;
 }
 
-static int run_wc_x(int is_m1, const char *path)
+static int run_wc_x(int fn, const char *path)
 {
     FILE *fh = fopen(path, "r");
     FILE *dump = NULL;
@@ -136,7 +149,7 @@ static int run_wc_x(int is_m1, const char *path)
         }
     }
     printf("wc %s from %s (mechanical parse; MPFR re-decides)\n",
-           is_m1 ? "exp2m1" : "exp2", path);
+           XFN_NAME[fn], path);
     while (fgets(line, sizeof line, fh) != NULL) {
         char *hash = strchr(line, '#');
         char tok[256];
@@ -179,7 +192,7 @@ static int run_wc_x(int is_m1, const char *path)
             if (dump != NULL) {
                 fprintf(dump, "%016llx\n", (unsigned long long)rb);
             }
-            check_one_x(2, is_m1, rb, 320);
+            check_one_x(2, fn, rb, 320);
         }
     }
     fclose(fh);
@@ -193,7 +206,11 @@ static int run_wc_x(int is_m1, const char *path)
            (unsigned long long)nnonfinite,
            (unsigned long long)nunparsed,
            (unsigned long long)ninexact);
-    rc = x_summary(is_m1 ? "wc exp2m1 f64" : "wc exp2 f64");
+    {
+        char what[32];
+        snprintf(what, sizeof what, "wc %s f64", XFN_NAME[fn]);
+        rc = x_summary(what);
+    }
     if (ninexact != 0u) {
         printf("wc: inexact tokens present - coverage strictness FAIL\n");
         rc = 1;
@@ -201,31 +218,35 @@ static int run_wc_x(int is_m1, const char *path)
     return rc;
 }
 
-static int x_fmt_from_op(const char *op, int *fi, int *is_m1)
+static int x_fmt_from_op(const char *op, int *fi, int *fn)
 {
+    int k;
     if (strncmp(op, "msf16_", 6) == 0) { *fi = 0; }
     else if (strncmp(op, "msf32_", 6) == 0) { *fi = 1; }
     else if (strncmp(op, "msf64_", 6) == 0) { *fi = 2; }
     else { return 0; }
-    if (strcmp(op + 6, "exp2") == 0) { *is_m1 = 0; }
-    else if (strcmp(op + 6, "exp2m1") == 0) { *is_m1 = 1; }
-    else { return 0; }
-    return 1;
+    for (k = 0; k < 4; k++) {
+        if (strcmp(op + 6, XFN_NAME[k]) == 0) {
+            *fn = k;
+            return 1;
+        }
+    }
+    return 0;
 }
 
 static int run_decide_x(void)
 {
     char op[64], hex[32];
     while (scanf("%63s %31s", op, hex) == 2) {
-        int fi = 0, is_m1 = 0, rm;
+        int fi = 0, fn = 0, rm;
         uint64_t bits, rb[5];
         uint32_t rf[5];
-        if (!x_fmt_from_op(op, &fi, &is_m1)) {
+        if (!x_fmt_from_op(op, &fi, &fn)) {
             printf("BADOP %s\n", op);
             return 2;
         }
         bits = strtoull(hex, NULL, 16);
-        if (explog_expected(fi, is_m1, bits, 640, rb, rf) != 0) {
+        if (explog_expected(fi, fn, bits, 640, rb, rf) != 0) {
             printf("UNDECIDED %s %s\n", op, hex);
             return 1;
         }
@@ -254,26 +275,32 @@ int main(int argc, char **argv)
     if (argc >= 2 && strcmp(argv[1], "f16") == 0) {
         uint64_t b;
         int fn;
-        for (fn = 0; fn < 2; fn++) {
+        for (fn = 0; fn < 4; fn++) {
             for (b = 0; b < 65536ULL; b++) {
                 check_one_x(0, fn, b, 160);
             }
         }
-        return x_summary("f16 exhaustive exp2+exp2m1");
+        return x_summary("f16 exhaustive all4");
     }
     if (argc >= 4 && strcmp(argv[1], "f32") == 0) {
         uint64_t lo = strtoull(argv[2], NULL, 16);
         uint64_t hi = strtoull(argv[3], NULL, 16);
-        int fn = argc >= 5 ? atoi(argv[4]) : 2;
+        /* FN: 0..3 single, 4 = log pair (2,3), 5 = exp pair
+         * (0,1), absent/6 = all four (Step 3b extension) */
+        int fnsel = argc >= 5 ? atoi(argv[4]) : 6;
+        int f0, f1, f;
         uint64_t b;
-        int f0 = fn == 2 ? 0 : fn, f1 = fn == 2 ? 1 : fn, f;
+        if (fnsel <= 3) { f0 = f1 = fnsel; }
+        else if (fnsel == 4) { f0 = 2; f1 = 3; }
+        else if (fnsel == 5) { f0 = 0; f1 = 1; }
+        else { f0 = 0; f1 = 3; }
         for (f = f0; f <= f1; f++) {
             for (b = lo; b < hi; b++) {
                 check_one_x(1, f, b & 0xffffffffULL, 160);
             }
         }
         printf("f32 range [%016llx,%016llx) fn=%d inputs_per_fn=%llu\n",
-               (unsigned long long)lo, (unsigned long long)hi, fn,
+               (unsigned long long)lo, (unsigned long long)hi, fnsel,
                (unsigned long long)(hi - lo));
         return x_summary("f32 range");
     }
@@ -284,7 +311,7 @@ int main(int argc, char **argv)
         uint64_t i;
         int fn;
         g_rng = strtoull(argv[2], NULL, 10) * 0x2545f4914f6cdd1dULL + 1u;
-        for (fn = 0; fn < 2; fn++) {
+        for (fn = 0; fn < 4; fn++) {
             for (i = 0; i < count; i++) {
                 uint64_t b = rng_next();
                 if (fi == 1) {
@@ -301,27 +328,28 @@ int main(int argc, char **argv)
         return x_summary(argv[1]);
     }
     if (argc >= 4 && strcmp(argv[1], "wc") == 0) {
-        int is_m1;
-        if (strcmp(argv[2], "exp2") == 0) { is_m1 = 0; }
-        else if (strcmp(argv[2], "exp2m1") == 0) { is_m1 = 1; }
-        else { fprintf(stderr, "wc: bad fn\n"); return 2; }
-        return run_wc_x(is_m1, argv[3]);
+        int fn = -1, k;
+        for (k = 0; k < 4; k++) {
+            if (strcmp(argv[2], XFN_NAME[k]) == 0) { fn = k; }
+        }
+        if (fn < 0) { fprintf(stderr, "wc: bad fn\n"); return 2; }
+        return run_wc_x(fn, argv[3]);
     }
     if (argc >= 2 && strcmp(argv[1], "decide") == 0) {
         return run_decide_x();
     }
     if (argc >= 5 && strcmp(argv[1], "one") == 0) {
-        int fi = atoi(argv[2]), is_m1 = atoi(argv[3]), rm;
+        int fi = atoi(argv[2]), fn = atoi(argv[3]), rm;
         uint64_t bits = strtoull(argv[4], NULL, 16);
         uint64_t rb[5];
         uint32_t rf[5];
-        if (explog_expected(fi, is_m1, bits, 640, rb, rf) != 0) {
+        if (explog_expected(fi, fn, bits, 640, rb, rf) != 0) {
             printf("UNDECIDED\n");
             return 1;
         }
         for (rm = 0; rm < 5; rm++) {
             msf_flags_t fl;
-            uint64_t got = x_kernel_call(fi, is_m1, bits, rm, &fl);
+            uint64_t got = x_kernel_call(fi, fn, bits, rm, &fl);
             printf("%s got=%016llx/%02x want=%016llx/%02x %s\n",
                    XRM_NAME[rm], (unsigned long long)got, (unsigned)fl,
                    (unsigned long long)rb[rm], (unsigned)rf[rm],
@@ -331,6 +359,6 @@ int main(int argc, char **argv)
     }
     fprintf(stderr,
             "usage: f16 | f32 LO HI [FN] | f64seed S N | f32seed S N | "
-            "wc exp2|exp2m1 FILE | decide | one FI FN HEX\n");
+            "wc exp2|exp2m1|log2|log2p1 FILE | decide | one FI FN HEX\n");
     return 2;
 }

@@ -840,3 +840,9 @@ msf64_exp2	5
 msf16_exp2m1	5
 msf32_exp2m1	5
 msf64_exp2m1	5
+msf16_log2	5
+msf32_log2	5
+msf64_log2	5
+msf16_log2p1	5
+msf32_log2p1	5
+msf64_log2p1	5
