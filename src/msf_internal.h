@@ -9,14 +9,21 @@
 #include "../include/muse_softfloat.h"
 #include "msf_formats.h"
 
-/* Internal rounding modes: the four public attributes (same values)
- * plus the operation-named ties-to-away (SF-0 2.3). */
+/* Internal rounding modes: the five public attributes (same
+ * values) plus the Clause 9.5 internal mode below. */
 enum {
     MSF_IROUND_TIES_TO_EVEN = 0,
     MSF_IROUND_TOWARD_ZERO = 1,
     MSF_IROUND_TOWARD_POSITIVE = 2,
     MSF_IROUND_TOWARD_NEGATIVE = 3,
-    MSF_IROUND_TIES_TO_AWAY = 4
+    MSF_IROUND_TIES_TO_AWAY = 4,
+    /* roundTiesTowardZero (754-2019 9.5): nearest, the
+     * smaller-magnitude neighbour on an exact tie. Pin P5:
+     * value 5, one past the last public attribute value, so
+     * no caller-passable msf_rounding_t can ever select it;
+     * only src/msf_aug.c passes it, and only with scratch
+     * flags the caller never sees. */
+    MSF_IROUND_RTTZ = 5
 };
 
 /* Tininess is detected AFTER rounding (SF-0 2.5). The 0 setting exists

@@ -903,6 +903,15 @@ static uint64_t msf_call_msf64_log2(const uint64_t *args, int rm, msf_flags_t *f
 static uint64_t msf_call_msf16_log2p1(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf16_log2p1((msf16_t)args[0], (msf_rounding_t)rm, flags)); }
 static uint64_t msf_call_msf32_log2p1(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf32_log2p1((msf32_t)args[0], (msf_rounding_t)rm, flags)); }
 static uint64_t msf_call_msf64_log2p1(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf64_log2p1((msf64_t)args[0], (msf_rounding_t)rm, flags)); }
+static void msf_pair_msf16_augmented_add(const uint64_t *args, msf_flags_t *flags, uint64_t *head, uint64_t *tail) { msf16_pair_t r = msf16_augmented_add((msf16_t)args[0], (msf16_t)args[1], flags); *head = (uint64_t)r.head; *tail = (uint64_t)r.tail; }
+static void msf_pair_msf32_augmented_add(const uint64_t *args, msf_flags_t *flags, uint64_t *head, uint64_t *tail) { msf32_pair_t r = msf32_augmented_add((msf32_t)args[0], (msf32_t)args[1], flags); *head = (uint64_t)r.head; *tail = (uint64_t)r.tail; }
+static void msf_pair_msf64_augmented_add(const uint64_t *args, msf_flags_t *flags, uint64_t *head, uint64_t *tail) { msf64_pair_t r = msf64_augmented_add((msf64_t)args[0], (msf64_t)args[1], flags); *head = (uint64_t)r.head; *tail = (uint64_t)r.tail; }
+static void msf_pair_msf16_augmented_sub(const uint64_t *args, msf_flags_t *flags, uint64_t *head, uint64_t *tail) { msf16_pair_t r = msf16_augmented_sub((msf16_t)args[0], (msf16_t)args[1], flags); *head = (uint64_t)r.head; *tail = (uint64_t)r.tail; }
+static void msf_pair_msf32_augmented_sub(const uint64_t *args, msf_flags_t *flags, uint64_t *head, uint64_t *tail) { msf32_pair_t r = msf32_augmented_sub((msf32_t)args[0], (msf32_t)args[1], flags); *head = (uint64_t)r.head; *tail = (uint64_t)r.tail; }
+static void msf_pair_msf64_augmented_sub(const uint64_t *args, msf_flags_t *flags, uint64_t *head, uint64_t *tail) { msf64_pair_t r = msf64_augmented_sub((msf64_t)args[0], (msf64_t)args[1], flags); *head = (uint64_t)r.head; *tail = (uint64_t)r.tail; }
+static void msf_pair_msf16_augmented_mul(const uint64_t *args, msf_flags_t *flags, uint64_t *head, uint64_t *tail) { msf16_pair_t r = msf16_augmented_mul((msf16_t)args[0], (msf16_t)args[1], flags); *head = (uint64_t)r.head; *tail = (uint64_t)r.tail; }
+static void msf_pair_msf32_augmented_mul(const uint64_t *args, msf_flags_t *flags, uint64_t *head, uint64_t *tail) { msf32_pair_t r = msf32_augmented_mul((msf32_t)args[0], (msf32_t)args[1], flags); *head = (uint64_t)r.head; *tail = (uint64_t)r.tail; }
+static void msf_pair_msf64_augmented_mul(const uint64_t *args, msf_flags_t *flags, uint64_t *head, uint64_t *tail) { msf64_pair_t r = msf64_augmented_mul((msf64_t)args[0], (msf64_t)args[1], flags); *head = (uint64_t)r.head; *tail = (uint64_t)r.tail; }
 
 static const msf_op_desc_t MSF_OPS[] = {
     { "msf16_round_to_integral_ties_to_even", "roundToIntegralTiesToEven", MSF_SIG_RINT_NAMED, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 1, 1, 2, msf_call_msf16_round_to_integral_ties_to_even, 0 },
@@ -1745,15 +1754,15 @@ static const msf_op_desc_t MSF_OPS[] = {
     { "msf16_log2p1", "log2p1", MSF_SIG_MATH_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 5, msf_call_msf16_log2p1, 0 },
     { "msf32_log2p1", "log2p1", MSF_SIG_MATH_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 5, msf_call_msf32_log2p1, 0 },
     { "msf64_log2p1", "log2p1", MSF_SIG_MATH_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 5, msf_call_msf64_log2p1, 0 },
-    { "msf16_augmented_add", "augmentedAddition", MSF_SIG_AUG_PAIR, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 5, 0, 0 },
-    { "msf32_augmented_add", "augmentedAddition", MSF_SIG_AUG_PAIR, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 5, 0, 0 },
-    { "msf64_augmented_add", "augmentedAddition", MSF_SIG_AUG_PAIR, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 5, 0, 0 },
-    { "msf16_augmented_sub", "augmentedSubtraction", MSF_SIG_AUG_PAIR, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 5, 0, 0 },
-    { "msf32_augmented_sub", "augmentedSubtraction", MSF_SIG_AUG_PAIR, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 5, 0, 0 },
-    { "msf64_augmented_sub", "augmentedSubtraction", MSF_SIG_AUG_PAIR, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 5, 0, 0 },
-    { "msf16_augmented_mul", "augmentedMultiplication", MSF_SIG_AUG_PAIR, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 0, 5, 0, 0 },
-    { "msf32_augmented_mul", "augmentedMultiplication", MSF_SIG_AUG_PAIR, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 0, 5, 0, 0 },
-    { "msf64_augmented_mul", "augmentedMultiplication", MSF_SIG_AUG_PAIR, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 0, 5, 0, 0 },
+    { "msf16_augmented_add", "augmentedAddition", MSF_SIG_AUG_PAIR, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 1, 5, 0, msf_pair_msf16_augmented_add },
+    { "msf32_augmented_add", "augmentedAddition", MSF_SIG_AUG_PAIR, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 1, 5, 0, msf_pair_msf32_augmented_add },
+    { "msf64_augmented_add", "augmentedAddition", MSF_SIG_AUG_PAIR, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 1, 5, 0, msf_pair_msf64_augmented_add },
+    { "msf16_augmented_sub", "augmentedSubtraction", MSF_SIG_AUG_PAIR, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 1, 5, 0, msf_pair_msf16_augmented_sub },
+    { "msf32_augmented_sub", "augmentedSubtraction", MSF_SIG_AUG_PAIR, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 1, 5, 0, msf_pair_msf32_augmented_sub },
+    { "msf64_augmented_sub", "augmentedSubtraction", MSF_SIG_AUG_PAIR, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 1, 5, 0, msf_pair_msf64_augmented_sub },
+    { "msf16_augmented_mul", "augmentedMultiplication", MSF_SIG_AUG_PAIR, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 0, 1, 1, 5, 0, msf_pair_msf16_augmented_mul },
+    { "msf32_augmented_mul", "augmentedMultiplication", MSF_SIG_AUG_PAIR, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 0, 1, 1, 5, 0, msf_pair_msf32_augmented_mul },
+    { "msf64_augmented_mul", "augmentedMultiplication", MSF_SIG_AUG_PAIR, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 0, 1, 1, 5, 0, msf_pair_msf64_augmented_mul },
 };
 #define MSF_OP_COUNT 849
 

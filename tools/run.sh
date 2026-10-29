@@ -34,7 +34,7 @@ PY="${MSF_PYTHON:-}"
 HOST_CC="${MSF_HOST_CC:-gcc}"
 ARM_CC="${MSF_ARM_CC:-arm-none-eabi-gcc}"
 CFLAGS="-std=c11 -O2 -Wall -Wextra -Werror -ffp-contract=off"
-SRC="src/msf16.c src/msf32.c src/msf64.c src/msf_flags.c src/msf_wide.c src/msf_roundpack.c src/msf_string.c src/msf_math.c src/msf_alg.c"
+SRC="src/msf16.c src/msf32.c src/msf64.c src/msf_flags.c src/msf_wide.c src/msf_roundpack.c src/msf_string.c src/msf_math.c src/msf_alg.c src/msf_aug.c"
 START=$(date +%s)
 fail() { echo "RUN.SH: FAIL - $1"; exit 1; }
 

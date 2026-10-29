@@ -1811,23 +1811,23 @@ msf16_t msf16_log2p1(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
 msf32_t msf32_log2p1(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* log2p1 (754-2019 9.2), wave 5, implemented */
 msf64_t msf64_log2p1(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* augmentedAddition (754-2019 9.5), wave 5, planned */
+/* augmentedAddition (754-2019 9.5), wave 5, implemented */
 msf16_pair_t msf16_augmented_add(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* augmentedAddition (754-2019 9.5), wave 5, planned */
+/* augmentedAddition (754-2019 9.5), wave 5, implemented */
 msf32_pair_t msf32_augmented_add(msf32_t a, msf32_t b, msf_flags_t *flags);
-/* augmentedAddition (754-2019 9.5), wave 5, planned */
+/* augmentedAddition (754-2019 9.5), wave 5, implemented */
 msf64_pair_t msf64_augmented_add(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* augmentedSubtraction (754-2019 9.5), wave 5, planned */
+/* augmentedSubtraction (754-2019 9.5), wave 5, implemented */
 msf16_pair_t msf16_augmented_sub(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* augmentedSubtraction (754-2019 9.5), wave 5, planned */
+/* augmentedSubtraction (754-2019 9.5), wave 5, implemented */
 msf32_pair_t msf32_augmented_sub(msf32_t a, msf32_t b, msf_flags_t *flags);
-/* augmentedSubtraction (754-2019 9.5), wave 5, planned */
+/* augmentedSubtraction (754-2019 9.5), wave 5, implemented */
 msf64_pair_t msf64_augmented_sub(msf64_t a, msf64_t b, msf_flags_t *flags);
-/* augmentedMultiplication (754-2019 9.5), wave 5, planned */
+/* augmentedMultiplication (754-2019 9.5), wave 5, implemented */
 msf16_pair_t msf16_augmented_mul(msf16_t a, msf16_t b, msf_flags_t *flags);
-/* augmentedMultiplication (754-2019 9.5), wave 5, planned */
+/* augmentedMultiplication (754-2019 9.5), wave 5, implemented */
 msf32_pair_t msf32_augmented_mul(msf32_t a, msf32_t b, msf_flags_t *flags);
-/* augmentedMultiplication (754-2019 9.5), wave 5, planned */
+/* augmentedMultiplication (754-2019 9.5), wave 5, implemented */
 msf64_pair_t msf64_augmented_mul(msf64_t a, msf64_t b, msf_flags_t *flags);
 
 #endif /* MUSE_SOFTFLOAT_H */
