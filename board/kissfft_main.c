@@ -31,6 +31,7 @@
 #include "kiss_fft.h"
 #include "kiss_fftr.h"
 #include "../tests/sha256.h"
+#include "msf_led.h"
 
 /* ---- shared deterministic inputs (verbatim in the host proof,
  * scratch/parcel-w4kissfft/host_main.c) ---- */
@@ -67,6 +68,7 @@ static void print_hash(int n, const char *kind, const char *dir,
     uint8_t d[32];
     int i;
     msf_sha256_final(h, d);
+    msf_led_busy();
     printf("KF %d %s %s ", n, kind, dir);
     for (i = 0; i < 32; i++) printf("%02x", d[i]);
     printf("\n");
@@ -139,6 +141,7 @@ int main(void)
     int i, ch;
 
     stdio_init_all();
+    msf_led_init();
     while (!stdio_usb_connected()) {
         sleep_ms(50);
     }
@@ -152,12 +155,16 @@ int main(void)
     if (run_all() == 0) {
         printf("KISSFFT-DONE\n");
     }
+    msf_led_idle();
     for (;;) {
         ch = getchar_timeout_us(100000);
         if (ch == 'R') {
             if (run_all() == 0) {
                 printf("KISSFFT-DONE\n");
             }
+            msf_led_idle();
+        } else if (ch == PICO_ERROR_TIMEOUT) {
+            msf_led_idle();
         }
     }
 }

@@ -15,6 +15,7 @@
 #include "hardware/clocks.h"
 #include "../include/muse_softfloat.h"
 #include "../src/msf_internal.h"
+#include "msf_led.h"
 
 #ifndef MSF_FLAVOUR_NAME
 #define MSF_FLAVOUR_NAME "pico(default: ROM-routed)"
@@ -26,6 +27,7 @@ static volatile uint64_t g_sink = 0;
 
 static void report(const char *name, uint32_t iters, uint64_t us, uint32_t hz)
 {
+    msf_led_busy(); /* after the timed loop, with the printing */
     uint64_t ns_per = (us * 1000u) / iters;
     uint64_t cyc_x100 = (us * (uint64_t)hz) / (iters * 10000u);
     printf("BENCH %s iters=%lu total_us=%llu ns_per_op=%llu cycles_per_op_x100=%llu\n",
@@ -49,6 +51,7 @@ int main(void)
     volatile double da = 1.5, db = 2.25;
 
     stdio_init_all();
+    msf_led_init();
     while (!stdio_usb_connected()) {
         sleep_ms(50);
     }
@@ -76,6 +79,7 @@ int main(void)
     BENCH("sdk-flavour double add (baseline)", da = da + db);
     g_sink += (uint64_t)(fa == fa) + (uint64_t)(da == db);
     printf("BENCH-DONE sink=%016llx\n", (unsigned long long)g_sink);
+    msf_led_idle();
     for (;;) {
         sleep_ms(1000);
     }

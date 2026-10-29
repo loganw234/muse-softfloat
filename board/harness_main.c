@@ -16,6 +16,7 @@
 #include "../src/msf_internal.h"
 #include "../tests/msf_dispatch.h"
 #include "../tests/sha256.h"
+#include "msf_led.h"
 
 static msf_sha256_t g_hash;
 static unsigned long g_count = 0;
@@ -85,6 +86,9 @@ static void hash_result(const char *opname, const uint64_t *args, int nargs,
                   (unsigned long long)result, (unsigned)flags);
     msf_sha256_update(&g_hash, line, (size_t)n);
     g_count++;
+    if ((g_count & 255u) == 0u) {
+        msf_led_busy();
+    }
 }
 
 static void handle_line(char *line)
@@ -196,6 +200,7 @@ int main(void)
     size_t len = 0;
     pico_unique_board_id_t id;
     stdio_init_all();
+    msf_led_init();
     while (!stdio_usb_connected()) {
         sleep_ms(50);
     }
@@ -210,6 +215,7 @@ int main(void)
     for (;;) {
         int c = getchar_timeout_us(100000);
         if (c == PICO_ERROR_TIMEOUT) {
+            msf_led_idle();
             continue;
         }
         if (c == '\n' || c == '\r') {

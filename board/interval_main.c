@@ -31,6 +31,7 @@
 #include "hardware/clocks.h"
 #include "interval_workload.h"
 #include "../tests/sha256.h"
+#include "msf_led.h"
 
 static iw_ctx_t g_ctx;
 static msf_sha256_t g_hash;
@@ -209,6 +210,7 @@ static void handle_line(char *line)
     if (ntok == 0 || tok[0][0] == '#') {
         return;
     }
+    msf_led_busy();
     if (strcmp(tok[0], "I") == 0) {
         print_banner();
     } else if (strcmp(tok[0], "B") == 0) {
@@ -231,6 +233,7 @@ int main(void)
     char line[384];
     size_t len = 0;
     stdio_init_all();
+    msf_led_init();
     while (!stdio_usb_connected()) {
         sleep_ms(50);
     }
@@ -240,6 +243,7 @@ int main(void)
     for (;;) {
         int c = getchar_timeout_us(100000);
         if (c == PICO_ERROR_TIMEOUT) {
+            msf_led_idle();
             continue;
         }
         if (c == '\n' || c == '\r') {

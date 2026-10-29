@@ -12,6 +12,17 @@ here runs lead-only under `<ledger>/board.lock` via
 | `msf_hello` | interposition hello: `--wrap=copysignf/copysign` onto `compat/msf_wrap.c`, per-core/IRQ wrapper-state self-test (`hello_main.c`) |
 | `msf_bench` | bench skeleton: placement/clock-labelled cycle/size reporting, no claims (`bench_main.c`) |
 
+## LED activity indicator
+
+`msf_led.h` blinks the onboard LED (`PICO_DEFAULT_LED_PIN`, GP25 on
+a Pico) at ~2 Hz while a firmware is doing work — vector replay,
+IAS15 runs, KissFFT configurations, interval rows, bench reports —
+and turns it off when the firmware is idle waiting for input, so a
+row of boards shows which are running. GPIO writes only: no effect
+on any computed value or hash, and calls sit outside timed regions
+next to the printing those timings already exclude. A board whose
+LED is not on the default pin simply stays dark.
+
 ## Replay protocol
 
 Text lines over USB CDC at any baud (CDC ignores it). On boot the

@@ -28,6 +28,7 @@
 #include "ias15_ic.h"
 #include "ias15_selftest.h"
 #include "ias15_tables.h"
+#include "msf_led.h"
 
 static unsigned char g_arena[IAS15X_ARENA_BYTES] __attribute__((aligned(8)));
 static int g_ready; /* AEABI-lite + tables both passed */
@@ -117,6 +118,7 @@ static void finish_run(ias15x_t *sim, uint64_t nonfinite)
            (unsigned long)ias15x_errors(sim));
     printf("IAS15-DONE steps=%llu\n",
            (unsigned long long)ias15x_steps_done(sim));
+    msf_led_idle();
     ias15x_shutdown(sim);
 }
 
@@ -137,6 +139,9 @@ static void cmd_run(long nsteps, long kevery)
     for (k = 0; k <= nsteps; k++) {
         if (k > 0) {
             ias15x_step(sim);
+        }
+        if ((k & 63) == 0) {
+            msf_led_busy();
         }
         if (k % kevery == 0 || k == nsteps) {
             ias15_hash_pair(sim, (uint64_t)k, hs, hf, &nonfinite);
@@ -177,6 +182,7 @@ static void cmd_timed(long nsteps)
             ias15x_step(sim);
         }
         t1 = time_us_64();
+        msf_led_busy(); /* outside the timed region, with the printing */
         done += block;
         printf("RATE block_steps=%ld elapsed_us=%llu clk_sys_hz=%lu\n",
                block, (unsigned long long)(t1 - t0),
@@ -234,11 +240,13 @@ int main(void)
     int lite_rc, tables_rc;
 
     stdio_init_all();
+    msf_led_init();
     while (!stdio_usb_connected()) {
         sleep_ms(50);
     }
     sleep_ms(200);
     print_banner();
+    msf_led_busy();
     lite_rc = msf_aeabi_selftest(0, &checks, &fails);
     printf("AEABI-LITE %s checks=%llu failures=%llu\n",
            lite_rc == 0 ? "PASS" : "FAIL", checks, fails);
@@ -246,9 +254,11 @@ int main(void)
     printf("TABLES %s\n", tables_rc == 0 ? "PASS" : "FAIL");
     g_ready = (lite_rc == 0 && tables_rc == 0);
     printf("IAS15-READY %d\n", g_ready);
+    msf_led_idle();
     for (;;) {
         int c = getchar_timeout_us(100000);
         if (c == PICO_ERROR_TIMEOUT) {
+            msf_led_idle();
             continue;
         }
         if (c == '\n' || c == '\r') {
