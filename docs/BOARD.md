@@ -131,7 +131,10 @@ prints and hashes its own artifacts):
     twiddles are the correctly rounded values of the exact
     mathematical twiddles (host MPFR provenance gate, 0
     mismatches); the KF rows must equal the host proof's
-    bit-for-bit under the same patched source.
+    bit-for-bit under the same patched source. The full
+    derivation - claim scope, patch algebra, field census,
+    decider, controls, and reproduction - is retained in
+    [docs/TWIDDLES.md](../TWIDDLES.md).
   - Run: `board/kissfft_run.sh` (lock, serial-targeted flash
     via `MSF_BOARD_SERIAL`, capture/compare via
     `board/kissfft_host.py`, port by VID or `MSF_BOARD_PORT`).

@@ -125,7 +125,8 @@ runs its 12 configurations at boot in seconds.
 
 Ours (committed): `fetch.sh`, `fetch.py`, `make_ias15_extract.py`,
 `make_kissfft_tree.py`, `ias15_host_main.c`, `ias15_host_shim.c`,
-`kissfft_host_main.c`, `kissfft_host_shim.c`, `compare_ias15.py`,
+`kissfft_host_main.c`, `kissfft_host_shim.c`, `twiddle_gate.c`
+(MPFR provenance gate over the patched tree - see `docs/TWIDDLES.md`), `compare_ias15.py`,
 `run_demo.sh`, `expected-ias15.txt`, `expected-kissfft.txt`,
 `expected-interval.txt` (hash data - provenance in each header),
 this README. Fetched/generated (never committed, all under
