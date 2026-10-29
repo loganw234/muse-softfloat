@@ -45,8 +45,8 @@ its authority names (411,213 committed vectors;
 `standard` adds 1,117,504 generated checks plus a
 5,505,024-check binary16 augmented-pool differential),
 and verified wave by wave on planted copies by
-independent verifiers (109 of 115 plants caught at
-`e9c57fb`). Recorded one-time evidence beyond the
+independent verifiers (114 of 120 plants caught at
+`bc807e6`). Recorded one-time evidence beyond the
 budgets: binary32 exhaustive for each of the `exp2` and
 `log2` pairs (42,949,672,960 mode-checks each, zero
 mismatches) and binary16 augmented pairs exhaustive
@@ -80,7 +80,7 @@ and each named negative control, and `standard` is the merge gate
 The metrics ledgers in [docs/metrics/](docs/metrics/README.md)
 were refreshed append-only through SF-2 close (93 usage
 rows, 94 pass rows, 20 escalations at `e9c57fb`); the
-plant score above is pinned to that commit.
+plant score above is pinned to `bc807e6`.
 
 SF-2 is complete: its four steps (fifth attribute,
 `rSqrt`/`hypot`, `exp2`/`log2` pairs, augmented
@@ -139,9 +139,11 @@ The working ledger, briefs and per-agent scratch live outside this repository
 - A gate that has not been watched to fail is not a gate; negative controls are
   permanent, named in each brief, and run.
 - Work is split into parcels with briefs; a verifier that only disconfirms
-  stands between each parcel (and each of the lead's own commits) and the
-  push to this public remote — local commits may be restated in place until
-  then.
+  stands between each parcel and the push to this public remote. The lead's
+  own wiring/record commits are not planted-verified parcel-style; they are
+  gated by `standard` and named as lead work in RECORD (the final adherence
+  audit grades the distinction) — local commits may be restated in place
+  until pushed.
 - Git operations run under the owner's standing permission (2026-10-26);
   his words and the lead's readings are in `docs/KICKOFF.md`. Commits carry
   detailed bodies with verification and ledger references, and AI-authored

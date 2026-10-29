@@ -975,3 +975,62 @@ consume these operations: the op-count benefit
 study model, not a shipped claim. SF-2's four steps
 are all merged; what remains of Wave 5 is the close
 (metrics refresh, README/site numbers, final audit).
+
+**Wave 5 close (appended 2026-10-29):** (1) Metrics
+refresh (`3f29682`, merged `a1a888f`): usage 39->93,
+passes 39->94, escalations 13->20, briefs 27->30 -
+append-only, frozen prefixes byte-identical, every
+annotation sourced; six study/audit briefs rows stay
+honestly not-reconstructed (no stated time box). It
+also corrected the tokens-visual study: its grand
+total double-counted 38,594,472 input tokens (three
+sessions re-added under garbled ids); the refreshed
+rows are the numbers of record and any production
+regen uses them. Planted verification 4 of 5
+(109/115). (2) README + site refreshed (`498a916`,
+merged `5a387e5`): all numbers re-derived; WASM
+rebuilt (Zig recipe; byte-identity holds same-
+directory - DWARF paths differ across build dirs,
+code sections identical); augmented pairs excluded
+from the page's single-result shape with the exclusion
+printed; live Pages redeploy verified. Planted
+verification 5 of 5 (114/120). (3) Final adherence
+audit grades the run **ADHERENT WITH SLIPS**:
+repaired - metrics freeze, README/site claim surface;
+partial - `checked_by` (see erratum); still open and
+immutable - Wave 1 merges preceded verdicts, per-wave
+plant reveal in git history lets a reader reconstruct
+plant shapes retroactively (the caveat stands), plant
+key hashes were never pre-committed. Erratum (rows
+stand, appendix-only rules apply): the 65 earliest
+plants rows' `checked_by: integration` names a role
+that never ran - read them as lead-run (dispatch and
+grading by the lead, as the later `lead-merge` rows
+say plainly); 8 early passes rows carry
+`sent_back: true` where the planted verdict was not a
+parcel revision round - read `sent_back` as true only
+on proven revision rounds; `26e86ce` reflowed one
+RECORD line (noted, stands). Going-forward rules
+adopted from the audit: plant key sha256 is committed
+hash-only before verifier dispatch (the brief-only
+shape was judged insufficient - unversioned files);
+each verifier brief fences `docs/metrics/plants.jsonl`
+by name; silicon runs cite the lock and serial in a
+parcel/verifier ledger so a read-only auditor can
+verify board discipline; merge bodies cite gate log
+paths; claim-surface diffs are rechecked at each merge
+gate. Corrections: six sourced rows appended
+(verifier-sf2's five SF-2-draft corrections, the
+tokens double-count); the audit's other candidates
+were the planted defects themselves - on the real
+tips the rows were already correct, so they are
+recorded here as rejected with reason, not landed as
+corrections. Owner confirmations on record: kit-zip
+sha256 matches the owner's retained hash (confirmed
+2026-10-28); P1 study recommendation adopted the same
+day. Two false universals restated in place in README
+(verifier-between-every-commit) and docs/HARNESS.md
+(ledger.sh "only writer"), each wording now says what
+actually happens. The library work is finished; the
+demo-video rework (with the two withheld visual
+studies) is the next owner-gated phase.
