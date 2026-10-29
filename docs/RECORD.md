@@ -932,3 +932,46 @@ Board: 2,203/2,203 stride-41-sampled explog vectors
 board (hash `a49e8680...765a`, UF2 `1159ac71...e529`).
 One debt named by the parcel: Step 3a's `briefs.jsonl`
 row never landed - owed to the Wave 5 close.
+
+**Wave 5 Step 4 landed - SF-2 complete (appended
+2026-10-29):** Clause 9.5 augmented arithmetic
+(`augmentedAddition/Subtraction/Multiplication`, all
+three formats; seam `2c89edd`, kernel `0ecdd11`,
+evidence `3741453`, merged `4a0b0d4`). The rounding is
+the clause-fixed roundTiesTowardZero - no caller
+attribute exists (token `fixed`; internal pack mode 5
+shares no value with a public attribute) - and the
+entry gate second-read ratified pin **P1 = R2** from
+the clause extracts: an exact tiny residual signals
+underflow but raises **no flag** (9.5's "shall be
+signaled" against the multiplication paragraph's
+explicit "raises the underflow flag", 7.5's exact
+branch "the only case in this standard"); only the
+unrepresentable mul residual raises underflow+inexact.
+Flags are computed from exact-residual tests - the
+head pack's scratch word is discarded on purpose, and
+the pack-tininess-leak mutant is named and refused.
+**Tier 2 closes at 66/66; the library stands at 849
+counted instantiations (783 Tier 1 + 66 Tier 2), every
+one correctly rounded under its clause.** Evidence:
+binary16 **exhaustive pairs** - 2^32 operand pairs
+per operation, 12,884,901,888 pair checks in total,
+zero mismatches, per-kind censuses sum-checked (incl.
+754M add / 488M mul exact-tiny R2 cells); all-first-
+operand pool 5,505,024; all six mutants refused (incl.
+the P1-opposite R1 reading); 138,392 committed aug
+vector lines (committed total 411,213; standard PASS
+incl. 1,117,504). Planted verification **5 of 5**
+(105 of 110 cumulative): the verifier re-executed a
+full 2^32 pairs-add against its own integer reference
+(105,938,944 plant mismatches isolated to the five
+plants). Board: 2,945/2,945 stride-47-sampled pair
+vectors replay bit-identically on the genuine board
+(hash `cbed2eed...7d61`, UF2 `b927f01e...6e3a`) -
+which also executes the `msf64_pair_t` hidden-pointer
+ABI on silicon. The interval workload does not yet
+consume these operations: the op-count benefit
+(616,754 -> 394,666 in the study's count) remains a
+study model, not a shipped claim. SF-2's four steps
+are all merged; what remains of Wave 5 is the close
+(metrics refresh, README/site numbers, final audit).
