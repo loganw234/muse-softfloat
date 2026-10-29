@@ -63,7 +63,8 @@ def parse_dispatch() -> list[dict]:
     pat = re.compile(
         r'\{\s*"([^"]+)",\s*"([^"]+)",\s*(MSF_SIG_\w+),\s*(MSF_RK_\w+),'
         r'\s*\{\s*(MSF_AK_\w+),\s*(MSF_AK_\w+),\s*(MSF_AK_\w+)\s*\},'
-        r'\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+),\s*(\w+)\s*\}')
+        r'\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+),\s*(\w+),'
+        r'\s*(\w+)\s*\}')
     ops = []
     for idx, m in enumerate(pat.finditer(text[i:j])):
         name, std, sig, retk, a0, a1, a2 = m.group(1, 2, 3, 4, 5, 6, 7)
@@ -71,6 +72,7 @@ def parse_dispatch() -> list[dict]:
             int(m.group(8)), int(m.group(9)), int(m.group(10)),
             int(m.group(11)), int(m.group(12)))
         call = m.group(13)
+        pair_call = m.group(14)
         strip = lambda k: k.replace("MSF_AK_", "").replace("MSF_RK_", "")
         ops.append({
             "i": idx, "name": name, "std": std,
@@ -78,9 +80,15 @@ def parse_dispatch() -> list[dict]:
             "args": [strip(a) for a in (a0, a1, a2)][:nargs],
             "nargs": nargs, "rm": bool(has_rm), "flags": bool(has_flags),
             "status": status, "wave": wave,
-            # call == "0": character conversions + flag-management ops.
-            # They are not hex-drivable and stay out of the UI/replay.
+            # call != "0": single-result ops the glue drives. call ==
+            # "0" with pair_call != "0": Clause 9.5 augmented pairs
+            # (head+tail, clause-fixed rounding) - the page's
+            # single-result shape cannot hold two results, so they
+            # stay out of the UI/replay with the exclusion printed.
+            # Both "0": character conversions + flag-management ops,
+            # not hex-drivable.
             "runnable": call != "0",
+            "pair": call == "0" and pair_call != "0",
         })
     if not ops:
         raise SystemExit("no ops parsed from tests/msf_dispatch.h")
@@ -140,9 +148,10 @@ def main() -> int:
         arrow = tok.index("->")
         op = runnable[op_name]
         args = tok[2:arrow]
-        if len(args) != op["nargs"] or arrow + 3 >= len(tok) + 1:
-            pass
-        if len(args) != op["nargs"] or len(tok) < arrow + 4:
+        # Single-result lines only: exactly result, flags, prov after
+        # the arrow. A two-result pair line (head, tail, flags, prov)
+        # must never be misread as result=head, flags=tail.
+        if len(args) != op["nargs"] or len(tok) != arrow + 4:
             continue
         by_op[op_name].append({
             "op": op_name, "rm": tok[1], "args": args,
@@ -203,13 +212,17 @@ def main() -> int:
             "ops_covered": sample_ops_covered,
             "ops_runnable": len(runnable),
             "ops_total": len(ops),
+            "ops_pair_excluded": sum(1 for op in ops if op["pair"]),
+            "ops_nonhex_excluded": sum(
+                1 for op in ops if not op["runnable"] and not op["pair"]),
             "source": "tests/vectors/*.vec via site/build_data.py",
         },
     }
 
     ops_out = [{k: op[k] for k in (
         "i", "name", "std", "sig", "ret", "args", "nargs", "rm", "flags",
-        "runnable", "dest", "clause", "tier", "authority", "retw", "argw")}
+        "runnable", "pair", "dest", "clause", "tier", "authority",
+        "retw", "argw")}
         for op in ops]
 
     def dump(name: str, obj) -> None:
