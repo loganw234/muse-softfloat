@@ -896,3 +896,39 @@ INEXACT bit, a flags-column lie, a fabricated vector
 flag. Board: 1,984/1,984 stride-23-sampled explog
 vectors replay bit-identically on the genuine board
 (hash `55aca9a6...76ef`, UF2 `50bb3b7a...0334`).
+
+**Wave 5 Step 3b landed (appended 2026-10-29):**
+correctly rounded `log2`/`log2p1` at all three formats
+(`826f836`, merged `cf81644`), extending the Step 3a
+machinery - exact `mm^2 >= 2` recentring, wide
+s-division with its own named error line, integer
+K+T composition at pack scale (so `log2(2^k) = k` is
+exact by construction, subnormal inputs included),
+`log2p1` by exact wide 1+x with the sticky carried and
+the pole at -1 exact. **Tier 2 is 57/57 - the exp/log
+family and the SF-1/SF-2 elementary scope are closed**
+(849 counted instantiations at SF-2 closure pending
+Step 4). Evidence: binary32 **exhaustive** again -
+42,949,672,960 mode-checks, 256 shards, zero
+mismatches, `final_undecided` 0 in every shard
+(11h16m wall, four BelowNormal workers, exact re-sum;
+the shard driver's awk stage aggregate is field-
+shifted, disclosed by the parcel and not quoted);
+binary64 100% of the published hardest cases
+(`log2` 33,238 unique inputs, `log2p1` 1,263,797)
+re-decided, forced-stage 1/2 legs identical; binary16
+exhaustive over all four explog functions; 90,315
+committed explog vector lines with the Step-3a exp
+lines byte-prefix preserved (committed total 272,833;
+standard PASS incl. 1,117,504). Every negative
+control refused, including the design-predicted
+division-sticky cell (`log2p1(2^1022)` fake-exact).
+Planted verification **5 of 5** (100 of 105
+cumulative): two independent deciders, 671M sampled
+binary32 checks, twin byte-stable regenerations
+(full re-exhaustion stated as not re-executed).
+Board: 2,203/2,203 stride-41-sampled explog vectors
+(all 12 ops) replay bit-identically on the genuine
+board (hash `a49e8680...765a`, UF2 `1159ac71...e529`).
+One debt named by the parcel: Step 3a's `briefs.jsonl`
+row never landed - owed to the Wave 5 close.
