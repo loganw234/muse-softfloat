@@ -115,6 +115,10 @@ printed, never silent (SF-0 §4.3).
 | `mpfr-explog:domain` | log negative-domain samples and largest-finite anchors (default-qNaN + invalid cells decided by the table on both sides), same decider |
 | `mpfr-explog:lattice`/`hardest`/`seeded` (log lines) | log2/log2p1 share the exp bundle's lattice shape; hardest = spike plain-class maxima patterns (log2 0x7fe61555f75885b4, log2p1 0x44ee499f19ecc9fb, inputs only) +-2 ulp; seeded = per-function seeds in the generator; log `ta` lines are independently decided exactly as the exp rows state (no relabel, although the log tie set is empty) |
 
+| `exact-py-t2:augmented-directed` | Clause 9.5 directed families (specials matrix both orders, RTTZ ties incl. binade crossings and the algebraic mul-tie family, overflow-threshold tie and one step each side (mul tie by the `2^(p+1)-1` factorisation), huge-gap verbatim pairs, zero signs, P1 tiny-exact-residual cells, mul below-step cells, boundary pool cross product) at all 3 formats, expectations from the exact Fraction reference in `tests/gen_vectors_aug.py`, every line re-decided by that file's independent neighbour checker; P1=R2 flags (SF-2 Step 4) |
+| `exact-py-t2:augmented-seeded` | Clause 9.5 seeded sweeps (per-format seeds in `tests/gen_vectors_aug.py`: raw, finite-biased, close-exponent, tiny-biased encodings), same decider split |
+| (no tag; standing leg) | binary16 augmented pool differential is generated and decided at gate time by `tests/aug_exhaustive.c` under `standard` (every first operand x its boundary pool, 3 ops, independent C reference in the harness); the one-time 2^32-per-name exhaustive pairs run is recorded evidence in the parcel report, not a budgeted vector file |
+
 Berkeley's flag bits are ordered differently from `MSF_FLAG_*`
 (inexact=1, underflow=2, overflow=4, infinite/divide-by-zero=8,
 invalid=16, measured from its header at P0 bring-up). Berkeley
