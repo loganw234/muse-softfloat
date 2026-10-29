@@ -846,3 +846,53 @@ demo page now (owner side parcel, planted-verified 5 of
 WebAssembly behind an instrument UI, proven by replaying
 1,596 committed vectors through the WASM build with zero
 mismatches - https://loganw234.github.io/muse-softfloat/
+
+**Six-board IAS15 (appended 2026-10-28):** with data
+cables on all five clones, the figure-8 equality now
+holds across six chips: the genuine Pico
+(`e66440a2cb6f5c2b`) and five RP2040-Zero clones
+(`5303284740c0ac1c`, `5303284740e09a9c`,
+`5303284718e6579c`, `5303284738b5859c`,
+`50543165208e249c`), three of which first enumerated in
+BOOTSEL. Each board: AEABI selftest PASS (48,181
+checks), `IAS15-READY 1`, `R 2000 1` comparing equal on
+all 2,001 records against the desktop reference (step
+2000 state hash `4d4530a6...f48abb`, verified verbatim
+on a clone), and `T 2000` at 1.60 steps/s at 125 MHz on
+every chip - zero failures in the sweep manifest. The
+same session added an onboard-LED activity indicator at
+the owner's request (`board/msf_led.h`: GP25 GPIO for
+the Pico, a PIO-driven WS2812 on GP16 for the Zeros,
+~2 Hz while working, off when idle, calls outside every
+timed region); after the reflash all six boards
+re-passed 968/968 harness vectors (hash
+`4573ac09...28a7`) and a parallel `R 200`/`T 200`
+IAS15 proof, so the LED build is itself hash-verified
+on silicon.
+
+**Wave 5 Step 3a landed (appended 2026-10-28):**
+correctly rounded `exp2`/`exp2m1` at all three formats
+(`2618b34`, merged `7772da7`) - Ziv staging over
+generated tables (`src/msf_explog_tables.h`) with an
+exact final-stage decision, five attributes from birth.
+Tier 2 is now 57 registered / 51 implemented / 6 planned
+(the `log2` pair is Step 3b). Evidence: binary32
+**exhaustive** - 42,949,672,960 mode-checks over 256
+hash-recorded shards, zero mismatches (7h49m wall at
+reduced priority by owner request; the verifier
+re-added the shard arithmetic exactly and sampled
+~0.058% independently); binary64 100% of the published
+hardest-case inputs for both functions re-decided
+(385,880 + 1,204,140); binary16 exhaustive 655,360;
+45,610 committed vector lines (committed total 228,128;
+standard gate PASS incl. 1,117,504 generated checks).
+Planted verification **5 of 5** (95 of 100 cumulative) -
+the second-attempt verifier (the first child died
+mid-probes without reporting) re-executed every probe
+itself and found exactly the five plants: an
+underflow-cut tie swallowed in all formats, a stage-3
+error bound narrowed past its proof, a wrong generator
+INEXACT bit, a flags-column lie, a fabricated vector
+flag. Board: 1,984/1,984 stride-23-sampled explog
+vectors replay bit-identically on the genuine board
+(hash `55aca9a6...76ef`, UF2 `50bb3b7a...0334`).
