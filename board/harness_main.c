@@ -2,7 +2,8 @@
  *
  * Protocol (board/README.md): the host sends vector lines in the
  * tests/VECTORS.md format; the board executes each implemented
- * operation, replies "R <result-hex> <flags-hex>", and folds a
+ * operation, replies "R <result-hex> <flags-hex>" (Clause 9.5
+ * pair operations: "R <head-hex> <tail-hex> <flags-hex>"), and folds a
  * canonical result line into a running SHA-256 that "H" reports.
  * The canonical line is byte-identical to the host runner's hash
  * mode, so host and board digests compare directly.
@@ -91,6 +92,25 @@ static void hash_result(const char *opname, const uint64_t *args, int nargs,
     }
 }
 
+/* Two-result canonical hash line (Clause 9.5 pairs), byte-
+ * identical to tests/runner.c hash_pair_result. */
+static void hash_pair_result(const char *opname, const uint64_t *args,
+                             uint64_t head, uint64_t tail, uint32_t flags)
+{
+    char line[256];
+    int n = 0;
+    n += snprintf(line + n, sizeof(line) - (size_t)n,
+                  "%s %016llx %016llx -> %016llx %016llx %02x\n", opname,
+                  (unsigned long long)args[0], (unsigned long long)args[1],
+                  (unsigned long long)head, (unsigned long long)tail,
+                  (unsigned)flags);
+    msf_sha256_update(&g_hash, line, (size_t)n);
+    g_count++;
+    if ((g_count & 255u) == 0u) {
+        msf_led_busy();
+    }
+}
+
 static void handle_line(char *line)
 {
     char *tok[16];
@@ -164,6 +184,32 @@ static void handle_line(char *line)
         int arrow = -1, i, rm = -2;
         if (op == NULL) { printf("E unknown\n"); return; }
         if (op->status == 0) { printf("E planned\n"); return; }
+        if (op->sig == MSF_SIG_AUG_PAIR) {
+            /* Clause 9.5 pair line: op - a b -> head tail flags
+             * prov; reply carries both results. */
+            uint64_t pargs[2], head = 0u, tail = 0u;
+            msf_flags_t pflags = 0u;
+            int prm = -2, pw;
+            if (ntok != 9 || strcmp(tok[4], "->") != 0
+                || parse_rm(tok[1], &prm) != 0 || prm != -1
+                || op->pair_call == NULL) {
+                printf("E malformed\n");
+                return;
+            }
+            pargs[0] = strtoull(tok[2], NULL, 16);
+            pargs[1] = strtoull(tok[3], NULL, 16);
+            op->pair_call(pargs, &pflags, &head, &tail);
+            pw = kind_width((uint8_t)op->retkind);
+            if (pw < 64) {
+                head &= (1ULL << pw) - 1u;
+                tail &= (1ULL << pw) - 1u;
+            }
+            hash_pair_result(op->name, pargs, head, tail, pflags);
+            printf("R %016llx %016llx %02x\n",
+                   (unsigned long long)head, (unsigned long long)tail,
+                   (unsigned)pflags);
+            return;
+        }
         for (i = 0; i < ntok; i++) {
             if (strcmp(tok[i], "->") == 0) {
                 arrow = i;

@@ -845,3 +845,12 @@ msf64_log2	log2	9.2	f64	f64	attr	yes	5	implemented	mpfr-exact	directed-cuts;ties
 msf16_log2p1	log2p1	9.2	f16	f16	attr	yes	5	implemented	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
 msf32_log2p1	log2p1	9.2	f32	f32	attr	yes	5	implemented	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
 msf64_log2p1	log2p1	9.2	f64	f64	attr	yes	5	implemented	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+msf16_augmented_add	augmentedAddition	9.5	f16	f16,f16	fixed	yes	5	implemented	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754
+msf32_augmented_add	augmentedAddition	9.5	f32	f32,f32	fixed	yes	5	implemented	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754
+msf64_augmented_add	augmentedAddition	9.5	f64	f64,f64	fixed	yes	5	implemented	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754
+msf16_augmented_sub	augmentedSubtraction	9.5	f16	f16,f16	fixed	yes	5	implemented	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754
+msf32_augmented_sub	augmentedSubtraction	9.5	f32	f32,f32	fixed	yes	5	implemented	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754
+msf64_augmented_sub	augmentedSubtraction	9.5	f64	f64,f64	fixed	yes	5	implemented	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754
+msf16_augmented_mul	augmentedMultiplication	9.5	f16	f16,f16	fixed	yes	5	implemented	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754
+msf32_augmented_mul	augmentedMultiplication	9.5	f32	f32,f32	fixed	yes	5	implemented	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754
+msf64_augmented_mul	augmentedMultiplication	9.5	f64	f64,f64	fixed	yes	5	implemented	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754

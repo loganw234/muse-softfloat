@@ -17,7 +17,9 @@
 #   clause      defining subclause(s)
 #   sig         signature class driving code generation (gen_tables.py)
 #   rounding    attr = takes msf_rounding_t; named = direction in the
-#               operation name; none = not subject to rounding
+#               operation name; none = not subject to rounding;
+#               fixed = direction fixed by the clause itself, caller
+#               attribute forbidden (9.5 aug_pair only, pin P4)
 #   flags       yes = takes msf_flags_t * (non-null, SF-0 Section 2.4);
 #               state = 5.7.4 flag operation with its own fixed signature
 #               over caller-owned state; no = never signals, no pointer
@@ -141,3 +143,6 @@ exp2	exp2	9.2	math_un	attr	yes	5	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-ra
 exp2m1	exp2m1	9.2	math_un	attr	yes	5	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
 log2	log2	9.2	math_un	attr	yes	5	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
 log2p1	log2p1	9.2	math_un	attr	yes	5	mpfr-exact	directed-cuts;ties;wc-mpfr;seeded-random	exact	2	C-754
+augmented_add	augmentedAddition	9.5	aug_pair	fixed	yes	5	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754
+augmented_sub	augmentedSubtraction	9.5	aug_pair	fixed	yes	5	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754
+augmented_mul	augmentedMultiplication	9.5	aug_pair	fixed	yes	5	project-exact	augmented-directed;augmented-seeded;exhaustive-f16-pairs	exact	2	C-754

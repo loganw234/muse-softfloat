@@ -92,10 +92,31 @@ def main():
             print("line %d: board replied %r to %s" % (i, reply, s))
             bad += 1
             continue
-        got = int(reply.split()[1], 16)
+        parts = reply.split()
         width = 64 if tok[0].startswith("msf64") or tok[0].startswith("internal") else (
             16 if tok[0].startswith("msf16") else 32)
-        if (got & ((1 << width) - 1)) != (expect & ((1 << width) - 1)):
+        mask = (1 << width) - 1
+        if "_augmented_" in tok[0]:
+            # Clause 9.5 pair line: -> <head> <tail> <flags>
+            # <prov>, board replies "R <head> <tail> <flags>".
+            # Both results compare here; flags ride the
+            # whole-run hash compared below.
+            expect_tail = int(tok[arrow + 2], 16)
+            if len(parts) != 4:
+                print("line %d: board pair reply %r to %s" % (i, reply, s))
+                bad += 1
+                continue
+            got_head = int(parts[1], 16)
+            got_tail = int(parts[2], 16)
+            if (got_head & mask) != (expect & mask) or (
+                    got_tail & mask) != (expect_tail & mask):
+                print("line %d: board pair %016x %016x != expected "
+                      "%016x %016x | %s"
+                      % (i, got_head, got_tail, expect, expect_tail, s))
+                bad += 1
+            continue
+        got = int(parts[1], 16)
+        if (got & mask) != (expect & mask):
             print("line %d: board %016x != expected %016x | %s" % (i, got, expect, s))
             bad += 1
     ser.write(b"H\n")

@@ -57,6 +57,11 @@ static int round_inc(int rm, int sign, uint64_t cand, int guard,
         return guard && (round_bit || stick || (cand & 1u));
     case MSF_IROUND_TIES_TO_AWAY:
         return guard;
+    case MSF_IROUND_RTTZ:
+        /* strictly above the midpoint only; an exact tie
+         * keeps the candidate, which is the smaller
+         * magnitude of the two neighbours */
+        return guard && (round_bit || stick);
     case MSF_IROUND_TOWARD_POSITIVE:
         return !sign && inexact;
     case MSF_IROUND_TOWARD_NEGATIVE:
@@ -116,6 +121,7 @@ uint64_t msf_pack_generic(const msf_fmt_params_t *fp, int sign, int32_t exp2,
     if (e > fp->emax) {
         int to_inf = (rm == MSF_IROUND_TIES_TO_EVEN)
                   || (rm == MSF_IROUND_TIES_TO_AWAY)
+                  || (rm == MSF_IROUND_RTTZ)
                   || (rm == MSF_IROUND_TOWARD_POSITIVE && !sign)
                   || (rm == MSF_IROUND_TOWARD_NEGATIVE && sign);
         *flags |= MSF_FLAG_OVERFLOW | MSF_FLAG_INEXACT;

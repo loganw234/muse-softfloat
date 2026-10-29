@@ -846,3 +846,12 @@ msf64_log2	5
 msf16_log2p1	5
 msf32_log2p1	5
 msf64_log2p1	5
+msf16_augmented_add	5
+msf32_augmented_add	5
+msf64_augmented_add	5
+msf16_augmented_sub	5
+msf32_augmented_sub	5
+msf64_augmented_sub	5
+msf16_augmented_mul	5
+msf32_augmented_mul	5
+msf64_augmented_mul	5

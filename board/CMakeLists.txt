@@ -27,7 +27,8 @@ set(MSF_SRC
     ${MSF_ROOT}/src/msf_roundpack.c
     ${MSF_ROOT}/src/msf_string.c
     ${MSF_ROOT}/src/msf_math.c
-    ${MSF_ROOT}/src/msf_alg.c)
+    ${MSF_ROOT}/src/msf_alg.c
+    ${MSF_ROOT}/src/msf_aug.c)
 
 add_library(msf_core STATIC ${MSF_SRC})
 target_include_directories(msf_core PUBLIC ${MSF_ROOT}/include ${MSF_ROOT}/src)
