@@ -1208,3 +1208,483 @@ DEF_EXPLOG(msf64_exp2, MSF_FMT_F64, msf64_t, 0)
 DEF_EXPLOG(msf16_exp2m1, MSF_FMT_F16, msf16_t, 1)
 DEF_EXPLOG(msf32_exp2m1, MSF_FMT_F32, msf32_t, 1)
 DEF_EXPLOG(msf64_exp2m1, MSF_FMT_F64, msf64_t, 1)
+
+/* ---- log2 / log2p1 (SF-2 Step 3b) ----
+ *
+ * Design record: ledger/parcel-w5log2.md (design entry,
+ * written before this code). One general path: w (x itself,
+ * or exact wide 1+x) = 2^k * mm exactly in big integers,
+ * recentre by the exact mm^2 >= 2 square compare,
+ * s = (mm-1)/(mm+1) by floor-exact wide division from
+ * separately normalized NUM/DEN bigs (the log2p1 wide-span
+ * truncation is the charged sticky Ek line), atanh series,
+ * endpoints k + (t +- Ek) materialised exactly at pack
+ * scale (integer composition decides the attractor tail;
+ * log2(2^k) = k exact by construction, subnormal x too).
+ * log2p1 tiny |x| takes a relative x*(1/ln2)*B(x) path.
+ * Exact results are exactly the powers of two (log2 of a
+ * dyadic is an integer or irrational: tie set empty), so
+ * kernel results are always inexact, as proven there. */
+
+#define LOG_WLIMB 40
+
+/* Floor-exact wide division: out = trunc(a/b), a,b positive
+ * normalized wf at n limbs (a zero delivers zero). Restoring
+ * bit division on the significand integers; quotient
+ * normalized by the M_a/M_b compare (design Sec. 5). Error
+ * under 1 ulp at stage width: one truncating op in Ek. */
+static void wf_div(wf_t *out, const wf_t *a, const wf_t *b, int n)
+{
+    uint32_t r[2 * MSF_TRIG_MAXL + 1], t[2 * MSF_TRIG_MAXL + 1];
+    int32_t w = (int32_t)n * 32;
+    int m = 2 * n + 1, ge = 1, i, limb, off;
+    int32_t shift, bit;
+    if (wf_is_zero(a, n)) {
+        wf_set_zero(out);
+        return;
+    }
+    for (i = n - 1; i >= 0; i--) {
+        if (a->m[i] != b->m[i]) {
+            ge = a->m[i] > b->m[i];
+            break;
+        }
+    }
+    shift = ge ? w - 1 : w;
+    for (i = 0; i < m; i++) {
+        r[i] = 0u;
+    }
+    limb = (int)(shift >> 5);
+    off = (int)(shift & 31);
+    for (i = 0; i < n; i++) {
+        r[limb + i] |= a->m[i] << off;
+        if (off != 0) {
+            r[limb + i + 1] |= a->m[i] >> (32 - off);
+        }
+    }
+    for (i = 0; i < MSF_TRIG_MAXL; i++) {
+        out->m[i] = 0u;
+    }
+    out->e = a->e - b->e + (ge ? 0 : -1);
+    /* Trial divisor t = M_b << bit, built once at bit w-1 and
+     * shifted down one bit per step (exact: t is even while
+     * bit >= 1), instead of rebuilt per bit. */
+    for (i = 0; i < m; i++) {
+        t[i] = 0u;
+    }
+    limb = (int)((w - 1) >> 5);
+    off = (int)((w - 1) & 31);
+    for (i = 0; i < n; i++) {
+        t[limb + i] |= b->m[i] << off;
+        if (off != 0 && limb + i + 1 < m) {
+            t[limb + i + 1] |= b->m[i] >> (32 - off);
+        }
+    }
+    for (bit = w - 1; bit >= 0; bit--) {
+        int cmp = 0;
+        uint64_t borrow;
+        for (i = m - 1; i >= 0; i--) {
+            if (r[i] != t[i]) {
+                cmp = r[i] > t[i] ? 1 : -1;
+                break;
+            }
+        }
+        if (cmp >= 0) {
+            borrow = 0u;
+            for (i = 0; i < m; i++) {
+                uint64_t sub = (uint64_t)t[i] + borrow;
+                borrow = (uint64_t)r[i] < sub ? 1u : 0u;
+                r[i] = (uint32_t)((uint64_t)r[i] - sub);
+            }
+            out->m[bit >> 5] |= 1u << (bit & 31);
+        }
+        for (i = 0; i < m; i++) {
+            uint32_t hi = i + 1 < m ? t[i + 1] : 0u;
+            t[i] = (t[i] >> 1) | (hi << 31);
+        }
+    }
+}
+
+static void log_big_zero(uint32_t *a, int n)
+{
+    int i;
+    for (i = 0; i < n; i++) {
+        a[i] = 0u;
+    }
+}
+
+static void log_big_add_u32_at(uint32_t *a, int n, uint32_t v, int32_t shift)
+{
+    int limb = (int)(shift >> 5), off = (int)(shift & 31), i;
+    uint64_t carry = (uint64_t)(v << off) >> 32;
+    uint64_t sum = (uint64_t)a[limb] + (uint32_t)(v << off);
+    a[limb] = (uint32_t)sum;
+    carry += sum >> 32;
+    if (off != 0) {
+        carry += v >> (32 - off);
+    }
+    for (i = limb + 1; i < n && carry != 0u; i++) {
+        sum = (uint64_t)a[i] + carry;
+        a[i] = (uint32_t)sum;
+        carry = sum >> 32;
+    }
+}
+
+/* a += v * 2^shift */
+static void log_big_add_shift(uint32_t *a, int n, uint64_t v, int32_t shift)
+{
+    log_big_add_u32_at(a, n, (uint32_t)v, shift);
+    log_big_add_u32_at(a, n, (uint32_t)(v >> 32), shift + 32);
+}
+
+/* a -= v; caller guarantees a >= v. */
+static void log_big_sub_u64(uint32_t *a, int n, uint64_t v)
+{
+    uint64_t borrow = 0u;
+    int i;
+    for (i = 0; i < n; i++) {
+        uint64_t sub = (i == 0 ? (uint32_t)v
+                        : i == 1 ? (uint32_t)(v >> 32) : 0u) + borrow;
+        borrow = (uint64_t)a[i] < sub ? 1u : 0u;
+        a[i] = (uint32_t)((uint64_t)a[i] - sub);
+        if (i >= 1 && borrow == 0u) {
+            break;
+        }
+    }
+}
+
+/* NOTE on convention: the shipped big_top_bit returns the
+ * bit LENGTH (index of the top set bit plus one; probe-
+ * verified against clz32 as shipped - the whole wf world
+ * is value-consistent under it). Log helpers need index
+ * semantics, hence this wrapper. */
+static int32_t log_top_index(const uint32_t *a, int n)
+{
+    return big_top_bit(a, n) - 1;
+}
+
+/* Compare a against 2^bit: -1/0/+1. */
+static int log_big_cmp_pow2(const uint32_t *a, int n, int32_t bit)
+{
+    int32_t top = log_top_index(a, n);
+    if (top != bit) {
+        return top > bit ? 1 : -1;
+    }
+    return big_any_below(a, n, bit) ? 1 : 0;
+}
+
+/* out = |a - 2^bit|; sets *a_less when a < 2^bit. */
+static void log_big_absdiff_pow2(uint32_t *out, const uint32_t *a, int n,
+                                 int32_t bit, int *a_less)
+{
+    int cmp = log_big_cmp_pow2(a, n, bit), i;
+    uint64_t borrow = 0u;
+    *a_less = cmp < 0;
+    for (i = 0; i < n; i++) {
+        uint32_t pv = (i == (bit >> 5) ? 1u << (bit & 31) : 0u);
+        uint32_t hi = cmp < 0 ? pv : a[i];
+        uint32_t lo = cmp < 0 ? a[i] : pv;
+        uint64_t sub = (uint64_t)lo + borrow;
+        borrow = (uint64_t)hi < sub ? 1u : 0u;
+        out[i] = (uint32_t)((uint64_t)hi - sub);
+    }
+}
+
+/* out = a + 2^bit. */
+static void log_big_add_pow2(uint32_t *out, const uint32_t *a, int n,
+                             int32_t bit)
+{
+    int i;
+    for (i = 0; i < n; i++) {
+        out[i] = a[i];
+    }
+    log_big_add_u32_at(out, n, 1u, bit);
+}
+
+/* Exact recentring test: a^2 >= 2^bit2 (bit2 = 2*top+1 for
+ * mm^2 >= 2). Full schoolbook square over the used limbs;
+ * a^2 >= 2^bit2 iff bitlen(a^2) > bit2 (shipped
+ * big_top_bit is a bit length, see log_top_index). */
+static int log_big_sq_ge_pow2(const uint32_t *a, int nu, int32_t bit2)
+{
+    uint32_t sq[2 * LOG_WLIMB];
+    int i, j;
+    for (i = 0; i < 2 * nu; i++) {
+        sq[i] = 0u;
+    }
+    for (i = 0; i < nu; i++) {
+        uint64_t carry = 0u;
+        for (j = 0; j < nu; j++) {
+            uint64_t t = (uint64_t)sq[i + j]
+                       + (uint64_t)a[i] * (uint64_t)a[j] + carry;
+            sq[i + j] = (uint32_t)t;
+            carry = t >> 32;
+        }
+        sq[i + nu] = (uint32_t)carry;
+    }
+    return big_top_bit(sq, 2 * nu) > bit2;
+}
+
+/* Pack the exact endpoint K + (-1)^t_sign * |T| (integer
+ * composition at pack scale, design Sec. 5). |T| <= 1 here;
+ * span proven under 1473 bits inside the 64-limb big. */
+static uint64_t log_pack_kplus(const msf_fmt_params_t *fp, int32_t kk,
+                               const wf_t *tmag, int t_sign, int n,
+                               int rm, msf_flags_t *flags)
+{
+    uint32_t big[EXPLOG_BIGL];
+    int32_t w = (int32_t)n * 32;
+    int sign = kk > 0 ? 0 : kk < 0 ? 1 : t_sign;
+    uint32_t magk = kk < 0 ? (uint32_t)-kk : (uint32_t)kk;
+    int have_t = !wf_is_zero(tmag, n);
+    int32_t tlsb = have_t ? tmag->e - (w - 1) : 0;
+    int32_t b = tlsb < 0 ? tlsb : 0;
+    int sub = kk != 0 && ((kk > 0) == (t_sign != 0));
+    int i;
+    log_big_zero(big, EXPLOG_BIGL);
+    if (magk != 0u) {
+        log_big_add_u32_at(big, EXPLOG_BIGL, magk, -b);
+    }
+    if (have_t) {
+        int32_t s = tlsb - b;
+        int limb = (int)(s >> 5), off = (int)(s & 31);
+        uint64_t carry = 0u;
+        for (i = 0; i < EXPLOG_BIGL; i++) {
+            uint32_t tv = 0u;
+            int qi = i - limb;
+            if (qi >= 0 && qi < n) {
+                tv = tmag->m[qi] << off;
+                if (off != 0 && qi > 0) {
+                    tv |= tmag->m[qi - 1] >> (32 - off);
+                }
+            } else if (off != 0 && qi == n) {
+                tv = tmag->m[n - 1] >> (32 - off);
+            }
+            if (sub) {
+                uint64_t need = (uint64_t)tv + carry;
+                carry = (uint64_t)big[i] < need ? 1u : 0u;
+                big[i] = (uint32_t)((uint64_t)big[i] - need);
+            } else {
+                uint64_t sum = (uint64_t)big[i] + tv + carry;
+                big[i] = (uint32_t)sum;
+                carry = sum >> 32;
+            }
+        }
+    }
+    return trig_pack_big(fp, sign, big, EXPLOG_BIGL, b, 0, rm, flags);
+}
+
+/* One truncating stage approximation of |t| for the general
+ * path. NUM/DEN are the exact bigs; their wf conversions
+ * carry the Ek sticky line. Proven bound EK_LOG[stage]. */
+static void log_eval(wf_t *out, const uint32_t *num, const uint32_t *den,
+                     int stage)
+{
+    int n = MSF_EXPLOG_STAGE_LIMBS[stage];
+    int jterms = MSF_EXPLOG_NTERMS_LOG[stage];
+    wf_t nw, dw, s, z, acc, prod, term, c2, tmp;
+    int j;
+    wf_normalize(&nw, num, LOG_WLIMB, 0, 0, n, 0);
+    wf_normalize(&dw, den, LOG_WLIMB, 0, 0, n, 0);
+    wf_div(&s, &nw, &dw, n);
+    wf_mul(&z, &s, &s, n, 0);
+    wf_from_xentry(&acc, &MSF_EXPLOG_AC[jterms - 1], n);
+    for (j = jterms - 2; j >= 0; j--) {
+        wf_mul(&prod, &z, &acc, n, 0);
+        wf_from_xentry(&term, &MSF_EXPLOG_AC[j], n);
+        wf_addsub(&acc, &term, &prod, n, 0, 0);
+    }
+    wf_from_xentry(&c2, &MSF_EXPLOG_TWO_OVER_LN2, n);
+    wf_mul(&tmp, &c2, &s, n, 0);
+    wf_mul(out, &tmp, &acc, n, 0);
+}
+
+/* Tiny-path magnitude |x| * (1/ln2) * B(|x|); alt != 0 is
+ * the alternating Bm form (original x > 0). EK_TINY. */
+static void log_eval_tiny(wf_t *out, uint64_t sig, int32_t e, int alt,
+                          int stage)
+{
+    int n = MSF_EXPLOG_STAGE_LIMBS[stage];
+    int jterms = MSF_EXPLOG_NTERMS_TINY[stage];
+    wf_t x, acc, prod, term, c1, tmp;
+    uint32_t xbig[2];
+    int j;
+    xbig[0] = (uint32_t)sig;
+    xbig[1] = (uint32_t)(sig >> 32);
+    wf_normalize(&x, xbig, 2, e, 0, n, 0);
+    wf_from_xentry(&acc, &MSF_EXPLOG_PC[jterms - 1], n);
+    for (j = jterms - 2; j >= 0; j--) {
+        wf_mul(&prod, &x, &acc, n, 0);
+        wf_from_xentry(&term, &MSF_EXPLOG_PC[j], n);
+        wf_addsub(&acc, &term, &prod, n, alt, 0);
+    }
+    wf_from_xentry(&c1, &MSF_EXPLOG_INV_LN2, n);
+    wf_mul(&tmp, &x, &c1, n, 0);
+    wf_mul(out, &tmp, &acc, n, 0);
+}
+
+/* Interval decision: pack K+t endpoints (kplus) or plain
+ * magnitude endpoints (tiny path); bits+flags agreement
+ * decides. Inexact always (design Sec. 3). */
+static int log_decide(const msf_fmt_params_t *fp, int kplus, int32_t kk,
+                      int sign, const wf_t *a, int n, int ek, int rm,
+                      uint64_t *bits_out, msf_flags_t *flags)
+{
+    wf_t d, lo, hi;
+    msf_flags_t flo = 0u, fhi = 0u;
+    uint64_t blo, bhi;
+    d = *a;
+    d.e -= ek - MSF_EXPLOG_EK_NARROW;
+    wf_addsub(&lo, a, &d, n, 1, 0);
+    wf_addsub(&hi, a, &d, n, 0, 1);
+    if (kplus) {
+        blo = log_pack_kplus(fp, kk, &lo, sign, n, rm, &flo);
+        bhi = log_pack_kplus(fp, kk, &hi, sign, n, rm, &fhi);
+    } else {
+        blo = trig_pack_wf(fp, sign, &lo, n, rm, &flo);
+        bhi = trig_pack_wf(fp, sign, &hi, n, rm, &fhi);
+    }
+    if (blo == bhi && flo == fhi) {
+        *bits_out = blo;
+        *flags |= flo | MSF_FLAG_INEXACT;
+        return 1;
+    }
+    *bits_out = blo;
+    *flags |= flo | MSF_FLAG_INEXACT;
+    return 0;
+}
+
+static uint64_t log_core(int fmt, int is_p1, uint64_t bits, int rm,
+                         msf_flags_t *flags)
+{
+    const msf_fmt_params_t *fp = &MSF_FMT_PARAMS[fmt];
+    msf_decoded_t d = msf_decode(fmt, bits);
+    msf_decoded_t ops[1];
+    int fmts[1];
+    uint64_t out = 0u, sig;
+    uint32_t wint[LOG_WLIMB], num[LOG_WLIMB], den[LOG_WLIMB];
+    int32_t e, wexp = 0, top, ref_bit, kk;
+    int domain_invalid = 0, t_sign = 0, stage, num_zero, i;
+
+    if (d.cls == MSF_VC_SUBNORMAL || d.cls == MSF_VC_NORMAL
+        || d.cls == MSF_VC_INFINITY) {
+        if (!is_p1) {
+            domain_invalid = d.sign;
+        } else if (d.cls == MSF_VC_INFINITY) {
+            domain_invalid = d.sign;
+        } else {
+            domain_invalid = explog_cmp_int(&d, -1) < 0;
+        }
+    }
+    ops[0] = d;
+    fmts[0] = fmt;
+    if (msf_nan_delivery(fmt, ops, fmts, 1, domain_invalid,
+                         &out, flags)) {
+        return out;
+    }
+    if (d.cls == MSF_VC_INFINITY) {  /* +inf only reaches here */
+        return fp->infinity;
+    }
+    if (d.cls == MSF_VC_ZERO) {
+        if (!is_p1) {
+            *flags |= MSF_FLAG_DIVISION_BY_ZERO;
+            return fp->sign_mask | fp->infinity;
+        }
+        return msf_pack_generic(fp, d.sign, 0, msf_u128_from_u64(0u), 0,
+                                rm, flags);
+    }
+    if (is_p1 && explog_cmp_int(&d, -1) == 0) {
+        *flags |= MSF_FLAG_DIVISION_BY_ZERO;
+        return fp->sign_mask | fp->infinity;
+    }
+    sig = msf_u128_to_u64_trunc(d.sig);
+    e = d.exp;
+    /* log2p1 tiny path: floor(log2|x|) <= -9 */
+    if (is_p1 && e + u64_bitlen(sig) - 1 <= -9) {
+        for (stage = EXPLOG_START_STAGE; stage < 3; stage++) {
+            wf_t approx;
+            int n = MSF_EXPLOG_STAGE_LIMBS[stage];
+            msf_flags_t tflags = 0u;
+            EXPLOG_COUNT_STAGE(stage);
+            log_eval_tiny(&approx, sig, e, !d.sign, stage);
+            if (log_decide(fp, 0, 0, d.sign, &approx, n,
+                           MSF_EXPLOG_EK_TINY[stage], rm, &out, &tflags)) {
+                *flags |= tflags;
+                return out;
+            }
+            if (stage == 2) {
+                EXPLOG_COUNT_FINAL();
+                *flags |= tflags;
+                return out;
+            }
+        }
+        return out;
+    }
+    /* exact wide formation of w (design Sec. 4) */
+    log_big_zero(wint, LOG_WLIMB);
+    if (!is_p1) {
+        wint[0] = (uint32_t)sig;
+        wint[1] = (uint32_t)(sig >> 32);
+        wexp = e;
+    } else if (!d.sign && e >= 0) {
+        log_big_add_shift(wint, LOG_WLIMB, sig, e);
+        log_big_add_shift(wint, LOG_WLIMB, 1u, 0);
+        wexp = 0;
+    } else if (!d.sign) {
+        log_big_add_u32_at(wint, LOG_WLIMB, 1u, -e);
+        log_big_add_shift(wint, LOG_WLIMB, sig, 0);
+        wexp = e;
+    } else {
+        log_big_add_u32_at(wint, LOG_WLIMB, 1u, -e);
+        log_big_sub_u64(wint, LOG_WLIMB, sig);
+        wexp = e;
+    }
+    top = log_top_index(wint, LOG_WLIMB);
+    kk = wexp + top;
+    ref_bit = top;
+    if (log_big_sq_ge_pow2(wint, (int)(top / 32 + 1), 2 * top + 1)) {
+        ref_bit = top + 1;
+        kk += 1;
+    }
+    log_big_absdiff_pow2(num, wint, LOG_WLIMB, ref_bit, &t_sign);
+    num_zero = 1;
+    for (i = 0; i < LOG_WLIMB; i++) {
+        num_zero &= num[i] == 0u;
+    }
+    if (num_zero) {  /* exact: w is a power of two, result K */
+        uint32_t kbig[1];
+        kbig[0] = kk < 0 ? (uint32_t)-kk : (uint32_t)kk;
+        return trig_pack_big(fp, kk < 0, kbig, 1, 0, 0, rm, flags);
+    }
+    log_big_add_pow2(den, wint, LOG_WLIMB, ref_bit);
+    for (stage = EXPLOG_START_STAGE; stage < 3; stage++) {
+        wf_t approx;
+        int n = MSF_EXPLOG_STAGE_LIMBS[stage];
+        msf_flags_t tflags = 0u;
+        EXPLOG_COUNT_STAGE(stage);
+        log_eval(&approx, num, den, stage);
+        if (log_decide(fp, 1, kk, t_sign, &approx, n,
+                       MSF_EXPLOG_EK_LOG[stage], rm, &out, &tflags)) {
+            *flags |= tflags;
+            return out;
+        }
+        if (stage == 2) {
+            /* Unreachable under the leg-(c) margin argument;
+             * counted: any hit in evidence is a STOP. */
+            EXPLOG_COUNT_FINAL();
+            *flags |= tflags;
+            return out;
+        }
+    }
+    return out;
+}
+
+#define DEF_LOG(NAME, FMT, TYPE, ISP1) \
+    TYPE NAME(TYPE a, msf_rounding_t rm, msf_flags_t *fl) \
+    { return (TYPE)log_core(FMT, ISP1, (uint64_t)a, (int)rm, fl); }
+
+DEF_LOG(msf16_log2, MSF_FMT_F16, msf16_t, 0)
+DEF_LOG(msf32_log2, MSF_FMT_F32, msf32_t, 0)
+DEF_LOG(msf64_log2, MSF_FMT_F64, msf64_t, 0)
+DEF_LOG(msf16_log2p1, MSF_FMT_F16, msf16_t, 1)
+DEF_LOG(msf32_log2p1, MSF_FMT_F32, msf32_t, 1)
+DEF_LOG(msf64_log2p1, MSF_FMT_F64, msf64_t, 1)

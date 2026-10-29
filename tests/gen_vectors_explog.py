@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Committed directed vectors for exp2/exp2m1 (SF-2 Step 3a).
+"""Committed directed vectors for exp2/exp2m1 (SF-2 Step 3a)
+and log2/log2p1 (Step 3b extension; log families per
+ledger/parcel-w5log2.md Sec. 7, settled table restated
+in expected_table_log; log tie set is empty by proof
+there, ta still independently decided).
 
 Expected values are decided by the adaptive-precision MPFR
 bracket decider in tests/explog_decider.c, driven through
@@ -46,9 +50,10 @@ FMTS = {
     "f32": (32, 8),
     "f64": (64, 11),
 }
-FNS = ("exp2", "exp2m1")
+FNS = ("exp2", "exp2m1", "log2", "log2p1")
 RMS = ("te", "tz", "tp", "tn", "ta")
 INVALID = 0x01
+DIVBYZERO = 0x02
 OVERFLOW = 0x04
 UNDERFLOW = 0x08
 INEXACT = 0x10
@@ -235,6 +240,46 @@ def expected_table(fmt, fn, x):
     return None
 
 
+def expected_table_log(fmt, fn, x):
+    """Settled-table expectation for log2/log2p1 specials,
+    domain/pole cells, and power-of-two exacts, or None.
+    Independent restatement of ledger/parcel-w5log2.md
+    Secs. 2-3 (tie set empty: powers deliver the integer
+    k exactly, everything else here is a table cell)."""
+    sign, e, frac, q = fields(fmt, x)
+    sbit = sign << (q["bits"] - 1)
+    neginf = q["sign"] | q["inf"]
+    defqnan = q["inf"] | q["qbit"]
+    is_p1 = fn == "log2p1"
+    if e == q["emaxf"]:
+        if frac == 0:
+            if sign:
+                return [(defqnan, INVALID)] * 5
+            return [(q["inf"], 0)] * 5
+        r = x | q["qbit"]
+        fl = 0 if frac & q["qbit"] else INVALID
+        return [(r, fl)] * 5
+    v = decode_value(fmt, x)
+    if v == 0:
+        if is_p1:
+            return [(sbit, 0)] * 5
+        return [(neginf, DIVBYZERO)] * 5
+    if not is_p1 and v < 0:
+        return [(defqnan, INVALID)] * 5
+    if is_p1:
+        if v < -1:
+            return [(defqnan, INVALID)] * 5
+        if v == -1:
+            return [(neginf, DIVBYZERO)] * 5
+    w = v if not is_p1 else 1 + v
+    # w > 0 dyadic: power of two iff numerator is one.
+    n, d = w.numerator, w.denominator
+    if n & (n - 1) == 0:  # d is a power of two (dyadic)
+        kk = (n.bit_length() - 1) - (d.bit_length() - 1)
+        return [round_fraction(fmt, Fraction(kk), rm) for rm in RMS]
+    return None
+
+
 def specials(fmt):
     q = params(fmt)
     s = q["sign"]
@@ -335,15 +380,131 @@ def strips(fmt, fn):
     return sorted(out)
 
 
+def log_powers(fmt, fn):
+    """Exact-power encodings with +-1 ulp neighbours:
+    log2 x=2^k (incl. subnormal x), log2p1 x=2^k-1."""
+    q = params(fmt)
+    p, emin, emax = q["p"], q["emin"], q["emax"]
+    kmin = emin - p + 1
+    ks = set(range(kmin, kmin + 6)) | set(range(emax - 5, emax + 1))
+    ks |= set(range(-65, 66))
+    ks |= set(range(kmin, emax + 1, 16))
+    ks |= {-(p - 1), -p, p - 1, p}
+    out = set()
+    for k in sorted(ks):
+        if k < kmin or k > emax:
+            continue
+        target = Fraction(2) ** k
+        v = target if fn == "log2" else target - 1
+        x = encode_value(fmt, v)
+        if x is not None:
+            out.update(neighbours(fmt, x, 1))
+    return sorted(out)
+
+
+def log_sqrt2(fmt, fn):
+    """Significands straddling sqrt(2)*2^(p-1) (the exact
+    recentring compare boundary) at several exponents."""
+    import math as _math
+    q = params(fmt)
+    p, emin, emax = q["p"], q["emin"], q["emax"]
+    s0 = _math.isqrt(2 * (1 << (2 * p - 2)))  # floor(sqrt2 2^(p-1))
+    out = set()
+    for eunb in (emin, -3, -1, 0, 1, 7, emax - 1):
+        for s in range(s0 - 3, s0 + 5):
+            if not (1 << (p - 1)) <= s < (1 << p):
+                continue
+            x = encode_value(fmt, Fraction(s) * Fraction(2) ** (eunb - (p - 1)))
+            if x is not None:
+                out.add(x)
+            if fn == "log2p1":
+                # w-side: 1+x with mm near sqrt2 (small spans)
+                w = Fraction(s) * Fraction(2) ** (eunb - (p - 1))
+                x2 = encode_value(fmt, w - 1)
+                if x2 is not None:
+                    out.add(x2)
+    return sorted(out)
+
+
+def log_near1(fmt):
+    q = params(fmt)
+    one = q["one"]
+    out = set()
+    for dlt in range(-6, 7):
+        out.add(one + dlt)
+    return sorted(out)
+
+
+def log_tiny_ladder(fmt):
+    """+-2^-j ladder across the log2p1 tiny threshold
+    (2^-8/2^-9) with +-1 ulp neighbours."""
+    q = params(fmt)
+    p = q["p"]
+    out = set()
+    for j in range(1, p + 13):
+        for vv in (Fraction(2) ** -j, -(Fraction(2) ** -j)):
+            x = encode_value(fmt, vv)
+            if x is not None:
+                out.update(neighbours(fmt, x, 1))
+    return sorted(out)
+
+
+def log_pole(fmt):
+    """log2p1 pole neighbourhood: x=-1 encodings +-6 and
+    x = -1 + 2^-j approaches."""
+    q = params(fmt)
+    p = q["p"]
+    out = set()
+    neg_one = encode_value(fmt, Fraction(-1))
+    if neg_one is not None:
+        out.update(neighbours(fmt, neg_one, 6))
+    for j in range(1, p + 1):
+        x = encode_value(fmt, Fraction(-1) + Fraction(2) ** -j)
+        if x is not None:
+            out.update(neighbours(fmt, x, 1))
+    return sorted(out)
+
+
+def log_sticky(fmt):
+    """log2p1 x = 2^k: w = 2^k+1 wide-span attractor (the
+    s-division sticky line lives here)."""
+    q = params(fmt)
+    emax = q["emax"]
+    out = set()
+    for k in (8, 16, 32, 64, 128, 256, 512, 1000, emax - 1, emax - 2):
+        if k < 1 or k > emax:
+            continue
+        x = encode_value(fmt, Fraction(2) ** k)
+        if x is not None:
+            out.update(neighbours(fmt, x, 2))
+    return sorted(out)
+
+
+def log_domain(fmt):
+    out = set()
+    for vv in (Fraction(-3, 2), Fraction(-2), Fraction(-100),
+               Fraction(-1, 2), Fraction(-1, 8)):
+        x = encode_value(fmt, vv)
+        if x is not None:
+            out.update(neighbours(fmt, x, 2))
+    q = params(fmt)
+    maxfin = ((q["emaxf"] - 1) << q["t"]) | q["fracmask"]
+    out.add(maxfin | q["sign"])
+    out.add(maxfin)
+    return sorted(out)
+
+
 # Spike-measured plain-class f64 maxima (input patterns only;
 # scratch/sf2-explog/report.md Sec. 2.1).
 HARDEST = {
     "f64": {
         "exp2": [0x3F5E4596526BF94D],
         "exp2m1": [0xBF73918E8608BD5B],
+        "log2": [0x7FE61555F75885B4],
+        "log2p1": [0x44EE499F19ECC9FB],
     },
-    "f32": {"exp2": [], "exp2m1": []},
-    "f16": {"exp2": [], "exp2m1": []},
+    "f32": {"exp2": [], "exp2m1": [], "log2": [], "log2p1": []},
+    "f16": {"exp2": [], "exp2m1": [], "log2": [], "log2p1": []},
 }
 
 
@@ -364,7 +525,38 @@ def opname(fmt, fn):
     return f"msf{fmt[1:]}_{fn}"
 
 
+def build_inputs_log(fmt, fn):
+    fams = []
+    fams.append(("specials", specials(fmt)))
+    fams.append(("powers", log_powers(fmt, fn)))
+    fams.append(("sqrt2", log_sqrt2(fmt, fn)))
+    fams.append(("near1", log_near1(fmt)))
+    fams.append(("tiny", sorted(set(tiny(fmt)) | set(log_tiny_ladder(fmt)))))
+    fams.append(("lattice", lattice(fmt)))
+    if fn == "log2p1":
+        fams.append(("pole", log_pole(fmt)))
+        fams.append(("sticky", log_sticky(fmt)))
+    fams.append(("domain", log_domain(fmt)))
+    hard = []
+    for x in HARDEST[fmt][fn]:
+        hard.extend(neighbours(fmt, x, 2))
+    fams.append(("hardest", sorted(set(hard))))
+    seed = 20261028 + (3333 if fn == "log2" else 4444) + int(fmt[1:])
+    have = sum(len(v) for _, v in fams)
+    fams.append(("seeded", seeded(fmt, fn, max(0, 1600 - have), seed)))
+    seen = set()
+    out = []
+    for fam, xs in fams:
+        for x in xs:
+            if x not in seen:
+                seen.add(x)
+                out.append((fam, x))
+    return out
+
+
 def build_inputs(fmt, fn):
+    if fn in ("log2", "log2p1"):
+        return build_inputs_log(fmt, fn)
     fams = []
     fams.append(("specials", specials(fmt)))
     fams.append(("integers", integers(fmt)))
@@ -428,7 +620,9 @@ def main():
     for fmt, fn, fam, x in jobs:
         op = opname(fmt, fn)
         exp = decided[(op, f"{x:x}")]
-        mine = expected_table(fmt, fn, x)
+        mine = (expected_table_log(fmt, fn, x)
+                if fn in ("log2", "log2p1")
+                else expected_table(fmt, fn, x))
         if mine is not None and mine != exp:
             print(f"TABLE DISAGREE {op} {x:x}: settled {mine} "
                   f"decider {exp}", file=sys.stderr)

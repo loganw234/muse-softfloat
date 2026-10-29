@@ -57,6 +57,8 @@ static const xfmt_t XFMTS[3] = {
 
 /* public mode order te tz tp tn ta == msf_rounding_t */
 static const char *XRM_NAME[5] = { "te", "tz", "tp", "tn", "ta" };
+/* function ids: Step 3a pair + Step 3b pair (extension) */
+static const char *XFN_NAME[4] = { "exp2", "exp2m1", "log2", "log2p1" };
 static const mpfr_rnd_t XRND[4] = { MPFR_RNDN, MPFR_RNDZ, MPFR_RNDU,
                                     MPFR_RNDD };
 
@@ -273,14 +275,149 @@ static void x_narrow_oneminus(const xfmt_t *f, long m, int rm,
     x_narrow(f, v, rm, rb, rf);
 }
 
+/* Step 3b decided table (log2 fn=2, log2p1 fn=3): Clause
+ * 9.2 specials/domain/poles and the power-of-two exacts of
+ * ledger/parcel-w5log2.md Secs. 2-3, decided independently
+ * of the kernel (log2 powers by sig test; log2p1 powers by
+ * exact common-exponent integer test on (sig, exp2)). The
+ * default qNaN here is inf|qbit positive (generated
+ * MSF_F*_DEFAULT_QNAN, verified). No far-cut shortcuts. */
+static int x_decide_table_log(const xfmt_t *f, int is_p1, uint64_t bits,
+                              uint64_t rb[5], uint32_t rf[5],
+                              int *via_shortcut)
+{
+    int sign, exp2, cls, rm;
+    uint64_t sig;
+    uint64_t emaxf = (1ULL << (f->w - 1 - f->t)) - 1ULL;
+    uint64_t inf = emaxf << f->t;
+    uint64_t sbit, qnan_def = inf | (1ULL << (f->t - 1));
+    x_decode(f, bits, &sign, &sig, &exp2, &cls);
+    *via_shortcut = 0;
+    sbit = (uint64_t)sign << (f->w - 1);
+    for (rm = 0; rm < 5; rm++) {
+        rb[rm] = 0u;
+        rf[rm] = 0u;
+    }
+    if (cls == 3 || cls == 4) {
+        uint64_t r = bits | (1ULL << (f->t - 1));
+        for (rm = 0; rm < 5; rm++) {
+            rb[rm] = r;
+            rf[rm] = cls == 4 ? 0x01u : 0u;
+        }
+        return 1;
+    }
+    if (cls == 2) {
+        for (rm = 0; rm < 5; rm++) {
+            rb[rm] = sign ? qnan_def : inf;
+            rf[rm] = sign ? 0x01u : 0u;
+        }
+        return 1;
+    }
+    if (cls == 0) {
+        for (rm = 0; rm < 5; rm++) {
+            if (!is_p1) {
+                rb[rm] = (1ULL << (f->w - 1)) | inf;
+                rf[rm] = 0x02u;
+            } else {
+                rb[rm] = sbit;
+            }
+        }
+        return 1;
+    }
+    if (!is_p1 && sign) {
+        for (rm = 0; rm < 5; rm++) {
+            rb[rm] = qnan_def;
+            rf[rm] = 0x01u;
+        }
+        return 1;
+    }
+    if (is_p1 && sign) {
+        /* |x| vs 1 exactly: top = floor(log2|x|) */
+        long top = (long)exp2 + x_bitlen(sig) - 1;
+        int gt1 = top >= 1;
+        int eq1 = 0;
+        if (top == 0) {
+            eq1 = exp2 <= 0 && -exp2 < 64
+               && sig == (1ULL << (unsigned)-exp2);
+            gt1 = !eq1;
+        }
+        if (gt1) {
+            for (rm = 0; rm < 5; rm++) {
+                rb[rm] = qnan_def;
+                rf[rm] = 0x01u;
+            }
+            return 1;
+        }
+        if (eq1) {
+            for (rm = 0; rm < 5; rm++) {
+                rb[rm] = (1ULL << (f->w - 1)) | inf;
+                rf[rm] = 0x02u;
+            }
+            return 1;
+        }
+    }
+    /* power-of-two exacts: result integer K */
+    {
+        long kk = 0;
+        int is_pow = 0;
+        if (!is_p1) {
+            if ((sig & (sig - 1u)) == 0u) {
+                is_pow = 1;
+                kk = (long)exp2 + x_bitlen(sig) - 1;
+            }
+        } else {
+            /* Exact integer test: w = 1+x is a power of two.
+             * x = +-sig*2^exp2 (sig < 2^53). By cases on the
+             * common-exponent integer N with w = N*2^exp2:
+             * x>0,exp2>=0: w = sig*2^exp2+1 is a power only
+             * for exp2==0 and sig+1 a power (else odd > 1).
+             * exp2<0, -exp2<64: N = 2^-exp2 +- sig in u64.
+             * exp2<0, -exp2>=64: |x| <= 2^-11 puts w strictly
+             * between consecutive powers around 1: never. */
+            if (!sign && exp2 >= 0) {
+                if (exp2 == 0 && ((sig + 1u) & sig) == 0u) {
+                    is_pow = 1;
+                    kk = x_bitlen(sig);
+                }
+            } else if (exp2 < 0 && -exp2 < 64) {
+                uint64_t nn = (1ULL << (unsigned)-exp2);
+                nn = sign ? nn - sig : nn + sig;
+                if (nn != 0u && (nn & (nn - 1u)) == 0u) {
+                    is_pow = 1;
+                    kk = (long)exp2 + x_bitlen(nn) - 1;
+                }
+            }
+        }
+        if (is_pow) {
+            static mpfr_t kv;
+            static int kinit = 0;
+            if (!kinit) {
+                mpfr_init2(kv, 256);
+                kinit = 1;
+            }
+            mpfr_set_si(kv, kk, MPFR_RNDN);
+            for (rm = 0; rm < 5; rm++) {
+                x_narrow(f, kv, rm, &rb[rm], &rf[rm]);
+            }
+            return 1;
+        }
+    }
+    (void)sbit;
+    return 0;
+}
+
 /* Decided table: NaN/inf/zero specials, far-cut structural
  * proxies (>= 60 bits beyond kernel thresholds), and all
  * integer inputs by exact dyadic construction. Returns 1
  * and fills rb[5]/rf[5] when decided here. */
-static int x_decide_table(const xfmt_t *f, int is_m1, uint64_t bits,
+static int x_decide_table(const xfmt_t *f, int fn, uint64_t bits,
                           uint64_t rb[5], uint32_t rf[5], int *via_shortcut)
 {
+    int is_m1 = fn == 1;
     int sign, exp2, cls, rm;
+    if (fn >= 2) {
+        return x_decide_table_log(f, fn == 3, bits, rb, rf, via_shortcut);
+    }
     uint64_t sig;
     uint64_t emaxf = (1ULL << (f->w - 1 - f->t)) - 1ULL;
     long etie = (long)f->emin - f->p;
@@ -406,9 +543,10 @@ static int x_decide_table(const xfmt_t *f, int is_m1, uint64_t bits,
 
 /* MPFR bracket decision for one finite non-table input.
  * Returns 0 decided, -1 undecided at the widest precision. */
-static int x_decide_mpfr(const xfmt_t *f, int is_m1, uint64_t bits,
+static int x_decide_mpfr(const xfmt_t *f, int fn, uint64_t bits,
                          long p0, uint64_t rb[5], uint32_t rf[5])
 {
+    int is_m1 = fn == 1;
     static const long ESC[4] = { 384, 768, 1536, 3072 };
     int sign, exp2, cls, attempt, rm;
     uint64_t sig;
@@ -449,9 +587,13 @@ static int x_decide_mpfr(const xfmt_t *f, int is_m1, uint64_t bits,
          * precision when |m| < 2^-prec (spike Sec. 2.4), so
          * bracket m = exp2m1(x) relatively and compose the
          * ends 1 + m_end exactly in a wide workspace. */
-        int compose1 = !is_m1
+        int compose1 = fn == 0
             && ((long)exp2 + x_bitlen(sig) - 1) <= -9;
-        if (is_m1 || compose1) {
+        if (fn == 2) {
+            mpfr_log2(y, x, MPFR_RNDN);
+        } else if (fn == 3) {
+            mpfr_log2p1(y, x, MPFR_RNDN);
+        } else if (is_m1 || compose1) {
             mpfr_exp2m1(y, x, MPFR_RNDN);
         } else {
             mpfr_exp2(y, x, MPFR_RNDN);
@@ -506,7 +648,7 @@ static int x_decide_mpfr(const xfmt_t *f, int is_m1, uint64_t bits,
                     dbg++;
                     printf("ESCAL %s in=%016llx rm=%d blo=%016llx/%02x "
                            "bhi=%016llx/%02x\n",
-                           is_m1 ? "exp2m1" : "exp2",
+                           XFN_NAME[fn],
                            (unsigned long long)bits, rm,
                            (unsigned long long)blo, (unsigned)flo,
                            (unsigned long long)bhi, (unsigned)fhi);
@@ -539,7 +681,7 @@ static int x_decide_mpfr(const xfmt_t *f, int is_m1, uint64_t bits,
                         g_x_audit_fail++;
                         printf("X-AUDIT-FAIL %s %s %s in=%016llx "
                                "grid=%016llx conv=%016llx\n",
-                               f->name, is_m1 ? "exp2m1" : "exp2",
+                               f->name, XFN_NAME[fn],
                                XRM_NAME[rm],
                                (unsigned long long)bits,
                                (unsigned long long)rb[rm],
@@ -555,12 +697,12 @@ static int x_decide_mpfr(const xfmt_t *f, int is_m1, uint64_t bits,
 }
 
 /* Full decider for one input. 0 = decided. */
-static int explog_expected(int fi, int is_m1, uint64_t bits, long p0,
+static int explog_expected(int fi, int fn, uint64_t bits, long p0,
                            uint64_t rb[5], uint32_t rf[5])
 {
     const xfmt_t *f = &XFMTS[fi];
     int via = 0;
-    if (x_decide_table(f, is_m1, bits, rb, rf, &via)) {
+    if (x_decide_table(f, fn, bits, rb, rf, &via)) {
         if (via) {
             g_x_shortcut++;
         } else {
@@ -568,5 +710,5 @@ static int explog_expected(int fi, int is_m1, uint64_t bits, long p0,
         }
         return 0;
     }
-    return x_decide_mpfr(f, is_m1, bits, p0, rb, rf);
+    return x_decide_mpfr(f, fn, bits, p0, rb, rf);
 }

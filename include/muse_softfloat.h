@@ -1783,17 +1783,17 @@ msf16_t msf16_exp2m1(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
 msf32_t msf32_exp2m1(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* exp2m1 (754-2019 9.2), wave 5, implemented */
 msf64_t msf64_exp2m1(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* log2 (754-2019 9.2), wave 5, planned */
+/* log2 (754-2019 9.2), wave 5, implemented */
 msf16_t msf16_log2(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* log2 (754-2019 9.2), wave 5, planned */
+/* log2 (754-2019 9.2), wave 5, implemented */
 msf32_t msf32_log2(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* log2 (754-2019 9.2), wave 5, planned */
+/* log2 (754-2019 9.2), wave 5, implemented */
 msf64_t msf64_log2(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* log2p1 (754-2019 9.2), wave 5, planned */
+/* log2p1 (754-2019 9.2), wave 5, implemented */
 msf16_t msf16_log2p1(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* log2p1 (754-2019 9.2), wave 5, planned */
+/* log2p1 (754-2019 9.2), wave 5, implemented */
 msf32_t msf32_log2p1(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
-/* log2p1 (754-2019 9.2), wave 5, planned */
+/* log2p1 (754-2019 9.2), wave 5, implemented */
 msf64_t msf64_log2p1(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
 
 #endif /* MUSE_SOFTFLOAT_H */
