@@ -90,6 +90,15 @@ printed, never silent (SF-0 §4.3).
 | `mpfr-explog:hardest` | exp2+exp2m1 spike-measured plain-class hardest binary64 patterns (inputs only, SF-2 spike Sec. 2.1) with +-2 ulp neighbours, same decider |
 | `mpfr-explog:seeded` | exp2+exp2m1 seeded finite-encoding class sweep (seeds in the generator), same decider |
 | `mpfr-explog:*` (all families) | `ta` lines are INDEPENDENTLY decided by the five-mode decider (exact ties exist at integer inputs), never relabeled from `te` - the deliberate contrast with `mpfr640-trig:<family>-ta-relabel` |
+| `mpfr-explog:specials` (log2/log2p1 lines) | Clause 9.2 log specials incl. the divideByZero poles (log2 at +-0, log2p1 at -1), domain-invalid cells (x<0 / x<-1 incl. -inf -> default qNaN), signed zeros (log2p1), +inf, NaN payload samples; same decider, cross-checked by the generator's independent settled-table restatement (SF-2 Step 3b) |
+| `mpfr-explog:powers` | log2/log2p1 exact-power anchors (x=2^k incl. subnormal x; log2p1 x=2^k-1) with +-1 ulp neighbours - the only exact results (log2 of a dyadic is an integer or irrational; tie set empty, so no tie cells exist to anchor), same decider split |
+| `mpfr-explog:sqrt2` | log significands straddling floor(sqrt2*2^(p-1)) - the exact recentring square-compare boundary - at several exponents (log2p1 both x-side and 1+x-side), same decider |
+| `mpfr-explog:near1` | log x = 1 at -6..+6 ulp (log2 near-0 results; log2p1 w-near-2 attractor), same decider |
+| `mpfr-explog:tiny` (log lines) | log smallest/largest subnormal neighbourhoods plus the +-2^-j ladder across the log2p1 tiny-path threshold 2^-8/2^-9 with +-1 ulp neighbours (identity-attractor family), same decider |
+| `mpfr-explog:pole` | log2p1 pole neighbourhood: x=-1 at +-6 ulp and x=-1+2^-j approaches, same decider |
+| `mpfr-explog:sticky` | log2p1 x=2^k (w=2^k+1 wide-span attractor; the s-division sticky Ek line decides these in directed modes) with +-2 ulp neighbours, same decider |
+| `mpfr-explog:domain` | log negative-domain samples and largest-finite anchors (default-qNaN + invalid cells decided by the table on both sides), same decider |
+| `mpfr-explog:lattice`/`hardest`/`seeded` (log lines) | log2/log2p1 share the exp bundle's lattice shape; hardest = spike plain-class maxima patterns (log2 0x7fe61555f75885b4, log2p1 0x44ee499f19ecc9fb, inputs only) +-2 ulp; seeded = per-function seeds in the generator; log `ta` lines are independently decided exactly as the exp rows state (no relabel, although the log tie set is empty) |
 
 Berkeley's flag bits are ordered differently from `MSF_FLAG_*`
 (inexact=1, underflow=2, overflow=4, infinite/divide-by-zero=8,
