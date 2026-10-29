@@ -887,6 +887,12 @@ static uint64_t msf_call_msf64_r_sqrt(const uint64_t *args, int rm, msf_flags_t 
 static uint64_t msf_call_msf16_hypot(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf16_hypot((msf16_t)args[0], (msf16_t)args[1], (msf_rounding_t)rm, flags)); }
 static uint64_t msf_call_msf32_hypot(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf32_hypot((msf32_t)args[0], (msf32_t)args[1], (msf_rounding_t)rm, flags)); }
 static uint64_t msf_call_msf64_hypot(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf64_hypot((msf64_t)args[0], (msf64_t)args[1], (msf_rounding_t)rm, flags)); }
+static uint64_t msf_call_msf16_exp2(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf16_exp2((msf16_t)args[0], (msf_rounding_t)rm, flags)); }
+static uint64_t msf_call_msf32_exp2(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf32_exp2((msf32_t)args[0], (msf_rounding_t)rm, flags)); }
+static uint64_t msf_call_msf64_exp2(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf64_exp2((msf64_t)args[0], (msf_rounding_t)rm, flags)); }
+static uint64_t msf_call_msf16_exp2m1(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf16_exp2m1((msf16_t)args[0], (msf_rounding_t)rm, flags)); }
+static uint64_t msf_call_msf32_exp2m1(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf32_exp2m1((msf32_t)args[0], (msf_rounding_t)rm, flags)); }
+static uint64_t msf_call_msf64_exp2m1(const uint64_t *args, int rm, msf_flags_t *flags) { return (uint64_t)(msf64_exp2m1((msf64_t)args[0], (msf_rounding_t)rm, flags)); }
 
 static const msf_op_desc_t MSF_OPS[] = {
     { "msf16_round_to_integral_ties_to_even", "roundToIntegralTiesToEven", MSF_SIG_RINT_NAMED, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 0, 1, 1, 2, msf_call_msf16_round_to_integral_ties_to_even },
@@ -1717,7 +1723,19 @@ static const msf_op_desc_t MSF_OPS[] = {
     { "msf16_hypot", "hypot", MSF_SIG_MATH_BIN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_F16, MSF_AK_NONE }, 2, 1, 1, 1, 5, msf_call_msf16_hypot },
     { "msf32_hypot", "hypot", MSF_SIG_MATH_BIN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_F32, MSF_AK_NONE }, 2, 1, 1, 1, 5, msf_call_msf32_hypot },
     { "msf64_hypot", "hypot", MSF_SIG_MATH_BIN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_F64, MSF_AK_NONE }, 2, 1, 1, 1, 5, msf_call_msf64_hypot },
+    { "msf16_exp2", "exp2", MSF_SIG_MATH_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 5, msf_call_msf16_exp2 },
+    { "msf32_exp2", "exp2", MSF_SIG_MATH_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 5, msf_call_msf32_exp2 },
+    { "msf64_exp2", "exp2", MSF_SIG_MATH_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 5, msf_call_msf64_exp2 },
+    { "msf16_exp2m1", "exp2m1", MSF_SIG_MATH_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 5, msf_call_msf16_exp2m1 },
+    { "msf32_exp2m1", "exp2m1", MSF_SIG_MATH_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 5, msf_call_msf32_exp2m1 },
+    { "msf64_exp2m1", "exp2m1", MSF_SIG_MATH_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 1, 5, msf_call_msf64_exp2m1 },
+    { "msf16_log2", "log2", MSF_SIG_MATH_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 5, 0 },
+    { "msf32_log2", "log2", MSF_SIG_MATH_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 5, 0 },
+    { "msf64_log2", "log2", MSF_SIG_MATH_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 5, 0 },
+    { "msf16_log2p1", "log2p1", MSF_SIG_MATH_UN, MSF_RK_F16, { MSF_AK_F16, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 5, 0 },
+    { "msf32_log2p1", "log2p1", MSF_SIG_MATH_UN, MSF_RK_F32, { MSF_AK_F32, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 5, 0 },
+    { "msf64_log2p1", "log2p1", MSF_SIG_MATH_UN, MSF_RK_F64, { MSF_AK_F64, MSF_AK_NONE, MSF_AK_NONE }, 1, 1, 1, 0, 5, 0 },
 };
-#define MSF_OP_COUNT 828
+#define MSF_OP_COUNT 840
 
 #endif /* MSF_DISPATCH_H */
