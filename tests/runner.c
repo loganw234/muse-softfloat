@@ -157,6 +157,22 @@ static void hash_result(const char *opname, const uint64_t *args, int nargs,
     msf_sha256_update(&g_hash, line, (size_t)n);
 }
 
+/* Two-result canonical hash line (Clause 9.5 pairs). Byte-
+ * identical in board/harness_main.c so host and board digests
+ * compare directly: op, both operands, head, tail, flags. */
+static void hash_pair_result(const char *opname, const uint64_t *args,
+                             uint64_t head, uint64_t tail, uint32_t flags)
+{
+    char line[256];
+    int n = 0;
+    n += snprintf(line + n, sizeof(line) - (size_t)n,
+                  "%s %016llx %016llx -> %016llx %016llx %02x\n", opname,
+                  (unsigned long long)args[0], (unsigned long long)args[1],
+                  (unsigned long long)head, (unsigned long long)tail,
+                  (unsigned)flags);
+    msf_sha256_update(&g_hash, line, (size_t)n);
+}
+
 static void fail_line(const char *file, unsigned long lno, const char *raw,
                       const char *why, struct stats *st)
 {
@@ -391,6 +407,61 @@ static void process_char_line(char **tok, int ntok, const msf_op_desc_t *op,
     }
 }
 
+/* Clause 9.5 two-result vectors:
+ *   op - <a> <b> -> <head> <tail> <flags> <prov>
+ * The "-" token is required (the clause fixes the rounding
+ * direction; there is no attribute to state). Both results
+ * and the flag delta compare exactly; no masking mode
+ * applies to pair lines. */
+static void process_pair_line(char **tok, int ntok, const msf_op_desc_t *op,
+                              const char *file, unsigned long lno,
+                              const char *raw, struct stats *st)
+{
+    uint64_t args[2], head = 0u, tail = 0u, want_head, want_tail, mask;
+    msf_flags_t flags = 0u, expect_flags;
+    int w, rm = -2;
+    if (ntok != 9 || strcmp(tok[4], "->") != 0
+        || parse_rm(tok[1], &rm) != 0 || rm != -1 || op->has_rm
+        || !op->has_flags) {
+        st->malformed++;
+        fail_line(file, lno, raw, "malformed pair line", st);
+        return;
+    }
+    if (op->pair_call == NULL) {
+        fail_line(file, lno, raw, "implemented but no pair trampoline", st);
+        st->total++;
+        return;
+    }
+    args[0] = strtoull(tok[2], NULL, 16);
+    args[1] = strtoull(tok[3], NULL, 16);
+    want_head = strtoull(tok[5], NULL, 16);
+    want_tail = strtoull(tok[6], NULL, 16);
+    expect_flags = (msf_flags_t)strtoul(tok[7], NULL, 16);
+    op->pair_call(args, &flags, &head, &tail);
+    w = kind_width((uint8_t)op->retkind);
+    mask = w >= 64 ? ~0ULL : ((1ULL << w) - 1u);
+    head &= mask;
+    tail &= mask;
+    want_head &= mask;
+    want_tail &= mask;
+    st->total++;
+    count_prov(tok[8]);
+    if (g_hash_mode) {
+        hash_pair_result(op->name, args, head, tail, flags);
+    }
+    if (head != want_head || tail != want_tail || flags != expect_flags) {
+        char why[200];
+        snprintf(why, sizeof(why),
+                 "got %016llx %016llx/%02x want %016llx %016llx/%02x",
+                 (unsigned long long)head, (unsigned long long)tail,
+                 (unsigned)flags, (unsigned long long)want_head,
+                 (unsigned long long)want_tail, (unsigned)expect_flags);
+        fail_line(file, lno, raw, why, st);
+        return;
+    }
+    st->passed++;
+}
+
 static void process_line(char *line, const char *file, unsigned long lno,
                          struct stats *st)
 {
@@ -441,6 +512,10 @@ static void process_line(char *line, const char *file, unsigned long lno,
     if (op->sig == MSF_SIG_CHAR_FROM || op->sig == MSF_SIG_CHAR_TO_DEC
         || op->sig == MSF_SIG_CHAR_TO_HEX) {
         process_char_line(tok, ntok, op, file, lno, raw, st);
+        return;
+    }
+    if (op->sig == MSF_SIG_AUG_PAIR) {
+        process_pair_line(tok, ntok, op, file, lno, raw, st);
         return;
     }
     for (i = 0; i < ntok; i++) {

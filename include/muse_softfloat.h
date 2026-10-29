@@ -53,6 +53,22 @@ typedef uint16_t msf16_t;
 typedef uint32_t msf32_t;
 typedef uint64_t msf64_t;
 
+/* Clause 9.5 augmented result pairs (head, tail), returned by
+ * value so a pair cannot be half-consumed. The rounding
+ * direction is fixed by the clause (roundTiesTowardZero); no
+ * msf_rounding_t argument exists on these operations. The
+ * inexact flag on a pair tracks exactness of the PAIR, not of
+ * the head alone: a head that rounded with an exact tail
+ * signals nothing. Board ABI note: under the ARM AAPCS
+ * softfloat calling convention msf16_pair_t (4 bytes) and
+ * msf32_pair_t (8 bytes) return in registers, while
+ * msf64_pair_t (16 bytes) returns through a caller-allocated
+ * hidden pointer - still allocation-free (caller stack), but
+ * not two register returns. */
+typedef struct msf16_pair { msf16_t head; msf16_t tail; } msf16_pair_t;
+typedef struct msf32_pair { msf32_t head; msf32_t tail; } msf32_pair_t;
+typedef struct msf64_pair { msf64_t head; msf64_t tail; } msf64_pair_t;
+
 /* Binary rounding-direction attributes (754-2019 4.3): the four
  * required for binary, plus roundTiesToAway (required for decimal,
  * provided here for binary as a permitted extension with the
@@ -1795,5 +1811,23 @@ msf16_t msf16_log2p1(msf16_t a, msf_rounding_t rm, msf_flags_t *flags);
 msf32_t msf32_log2p1(msf32_t a, msf_rounding_t rm, msf_flags_t *flags);
 /* log2p1 (754-2019 9.2), wave 5, implemented */
 msf64_t msf64_log2p1(msf64_t a, msf_rounding_t rm, msf_flags_t *flags);
+/* augmentedAddition (754-2019 9.5), wave 5, planned */
+msf16_pair_t msf16_augmented_add(msf16_t a, msf16_t b, msf_flags_t *flags);
+/* augmentedAddition (754-2019 9.5), wave 5, planned */
+msf32_pair_t msf32_augmented_add(msf32_t a, msf32_t b, msf_flags_t *flags);
+/* augmentedAddition (754-2019 9.5), wave 5, planned */
+msf64_pair_t msf64_augmented_add(msf64_t a, msf64_t b, msf_flags_t *flags);
+/* augmentedSubtraction (754-2019 9.5), wave 5, planned */
+msf16_pair_t msf16_augmented_sub(msf16_t a, msf16_t b, msf_flags_t *flags);
+/* augmentedSubtraction (754-2019 9.5), wave 5, planned */
+msf32_pair_t msf32_augmented_sub(msf32_t a, msf32_t b, msf_flags_t *flags);
+/* augmentedSubtraction (754-2019 9.5), wave 5, planned */
+msf64_pair_t msf64_augmented_sub(msf64_t a, msf64_t b, msf_flags_t *flags);
+/* augmentedMultiplication (754-2019 9.5), wave 5, planned */
+msf16_pair_t msf16_augmented_mul(msf16_t a, msf16_t b, msf_flags_t *flags);
+/* augmentedMultiplication (754-2019 9.5), wave 5, planned */
+msf32_pair_t msf32_augmented_mul(msf32_t a, msf32_t b, msf_flags_t *flags);
+/* augmentedMultiplication (754-2019 9.5), wave 5, planned */
+msf64_pair_t msf64_augmented_mul(msf64_t a, msf64_t b, msf_flags_t *flags);
 
 #endif /* MUSE_SOFTFLOAT_H */

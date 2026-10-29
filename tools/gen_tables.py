@@ -67,6 +67,12 @@ def validate_family(row):
     if row.get("authority") not in AUTHORITIES:
         raise SystemExit("unknown authority %r for family %s"
                          % (row.get("authority"), row.get("op")))
+    if row.get("rounding") not in ("attr", "named", "none", "fixed"):
+        raise SystemExit("unknown rounding token %r for family %s"
+                         % (row.get("rounding"), row.get("op")))
+    if row.get("rounding") == "fixed" and row.get("sig") != "aug_pair":
+        raise SystemExit("rounding=fixed is reserved for aug_pair (9.5): %s"
+                         % row.get("op"))
 
 
 FORMATS = read_tsv(ROOT / "tables" / "formats.tsv")
@@ -135,6 +141,14 @@ def expand(row):
             emit("msf%s_%s" % (f[1:], op), "bool" if ret else f, [f, f],
                  "%s msf%s_%s(%s a, %s b%s%s);" % (r, f[1:], op, MTYPE[f], MTYPE[f], rm, fl),
                  [f], retkind="MSF_RK_BOOL" if ret else None)
+    elif sig == "aug_pair":
+        # Clause 9.5: two same-format results, struct return, no
+        # caller rounding attribute (rounding=fixed in the table).
+        for f in FMT:
+            emit("msf%s_%s" % (f[1:], op), f, [f, f],
+                 "msf%s_pair_t msf%s_%s(%s a, %s b%s);" %
+                 (f[1:], f[1:], op, MTYPE[f], MTYPE[f], fl),
+                 [f])
     elif sig == "scaleb":
         for f in FMT:  # second operand in logBFormat = binary64 (SF-0 2.2)
             emit("msf%s_scale_b" % f[1:], f, [f, "f64"],
@@ -271,6 +285,22 @@ def wrapper_for(o):
             " {%s return %s; }" % (o["name"], voids, expr))
 
 
+def wrapper_pair_for(o):
+    """Two-result trampoline for aug_pair (Clause 9.5). The
+    single-result msf_call_fn shape cannot carry a pair, so
+    aug_pair rows bind here instead and keep call == 0."""
+    if o["status"] != "implemented" or o["sig"] != "aug_pair":
+        return None
+    srcs = o["sources"].split(",")
+    assert len(srcs) == 2 and srcs[0] == srcs[1] == o["dest"]
+    t = ctype(srcs[0])
+    return ("static void msf_pair_%s(const uint64_t *args, msf_flags_t *flags,"
+            " uint64_t *head, uint64_t *tail)"
+            " { msf%s_pair_t r = %s((%s)args[0], (%s)args[1], flags);"
+            " *head = (uint64_t)r.head; *tail = (uint64_t)r.tail; }"
+            % (o["name"], srcs[0][1:], o["name"], t, t))
+
+
 def instantiate():
     ops = []
     for row in read_tsv(ROOT / "tables" / "operations.tsv"):
@@ -347,6 +377,22 @@ HEADER_PRELUDE = """/* muse_softfloat.h - Muse-Softfloat public API.
 typedef uint16_t msf16_t;
 typedef uint32_t msf32_t;
 typedef uint64_t msf64_t;
+
+/* Clause 9.5 augmented result pairs (head, tail), returned by
+ * value so a pair cannot be half-consumed. The rounding
+ * direction is fixed by the clause (roundTiesTowardZero); no
+ * msf_rounding_t argument exists on these operations. The
+ * inexact flag on a pair tracks exactness of the PAIR, not of
+ * the head alone: a head that rounded with an exact tail
+ * signals nothing. Board ABI note: under the ARM AAPCS
+ * softfloat calling convention msf16_pair_t (4 bytes) and
+ * msf32_pair_t (8 bytes) return in registers, while
+ * msf64_pair_t (16 bytes) returns through a caller-allocated
+ * hidden pointer - still allocation-free (caller stack), but
+ * not two register returns. */
+typedef struct msf16_pair { msf16_t head; msf16_t tail; } msf16_pair_t;
+typedef struct msf32_pair { msf32_t head; msf32_t tail; } msf32_pair_t;
+typedef struct msf64_pair { msf64_t head; msf64_t tail; } msf64_pair_t;
 
 /* Binary rounding-direction attributes (754-2019 4.3): the four
  * required for binary, plus roundTiesToAway (required for decimal,
@@ -473,7 +519,7 @@ SIGS = ["rint_named", "rint_exact", "next", "remainder", "scaleb", "logb",
         "char_from", "char_to_dec", "char_to_hex", "sign_un", "sign_bin",
         "compare", "totalorder", "classify", "class_op", "radix_op",
         "version_op", "flag_op", "minmax", "payload_un", "math_un",
-        "math_bin"]
+        "math_bin", "aug_pair"]
 KINDS = ["F16", "F32", "F64", "I8", "U8", "I16", "U16", "I32", "U32",
          "I64", "U64", "BOOL", "CLASS", "INT", "SPECIAL"]
 
@@ -502,6 +548,8 @@ enum msf_kind {
 %s
 };
 typedef uint64_t (*msf_call_fn)(const uint64_t *args, int rm, msf_flags_t *flags);
+typedef void (*msf_pair_fn)(const uint64_t *args, msf_flags_t *flags,
+                            uint64_t *head, uint64_t *tail);
 typedef struct msf_op_desc {
     const char *name;
     const char *std_name;
@@ -514,6 +562,7 @@ typedef struct msf_op_desc {
     uint8_t status; /* 0 planned, 1 implemented */
     uint8_t wave;
     msf_call_fn call;
+    msf_pair_fn pair_call; /* aug_pair only; call is 0 there */
 } msf_op_desc_t;
 
 """ % (",\n".join("    MSF_SIG_%s = %d" % (s.upper(), n) for n, s in enumerate(SIGS)),
@@ -523,17 +572,21 @@ typedef struct msf_op_desc {
         w = wrapper_for(o)
         if w is not None:
             lines.append(w)
+        wp = wrapper_pair_for(o)
+        if wp is not None:
+            lines.append(wp)
     lines.append("\nstatic const msf_op_desc_t MSF_OPS[] = {")
     for o in ops:
         aks = o["argkinds"] + ["MSF_AK_NONE"] * (3 - len(o["argkinds"]))
-        lines.append('    { "%s", "%s", MSF_SIG_%s, %s, { %s }, %d, %d, %d, %d, %d, %s },' %
+        lines.append('    { "%s", "%s", MSF_SIG_%s, %s, { %s }, %d, %d, %d, %d, %d, %s, %s },' %
                      (o["name"], o["std_name"], o["sig"].upper(), o["retkind"],
                       ", ".join(aks), len(o["argkinds"]),
                       1 if o["rounding"] == "attr" else 0,
                       1 if o["flags"] == "yes" else 0,
                       1 if o["status"] == "implemented" else 0,
                       o["wave"],
-                      "msf_call_%s" % o["name"] if wrapper_for(o) is not None else "0"))
+                      "msf_call_%s" % o["name"] if wrapper_for(o) is not None else "0",
+                      "msf_pair_%s" % o["name"] if wrapper_pair_for(o) is not None else "0"))
     lines.append("};\n#define MSF_OP_COUNT %d\n\n#endif /* MSF_DISPATCH_H */\n" % len(ops))
     return "\n".join(lines)
 

@@ -35,6 +35,21 @@ Example:
 msf16_class - 7e01 -> 1 -- exact-py:f16-exhaustive
 ```
 
+## Augmented pairs (Clause 9.5, SF-2 Step 4)
+
+```
+<op> - <a> <b> -> <head> <tail> <flags> <provenance>
+```
+
+Two-result lines for the `aug_pair` signature only. `-` is
+required: the clause fixes the rounding direction
+(roundTiesTowardZero), so there is no attribute to state.
+Both results and the flag delta compare exactly; no masking
+mode applies. The board harness replies to a pair line with
+`R <head> <tail> <flags>` and folds the two-result canonical
+line (`<op> <a> <b> -> <head> <tail> <flags>`) into the
+whole-run hash, byte-identical to the host runner's.
+
 ## The round-and-pack kernel (internal)
 
 ```
