@@ -1,4 +1,43 @@
-# MUSIC.md - options for the (still silent) final cut
+# MUSIC.md - the soundtrack decision and its licensing record
+
+## Decision (2026-10-30, owner)
+
+Chosen track: **"Sunflower Dance" by Helmut Schenker**, courtesy of
+Epidemic Sound (track page:
+https://www.epidemicsound.com/music/tracks/5002d052-2046-4b83-b126-5f4de70ea97e/;
+ISRC SE5Q52402720; natively 124 BPM, 183.9 s), downloaded under the
+owner's Epidemic Sound **Pro** subscription. Credit line (recommended
+practice on the study below): Helmut Schenker / Sunflower Dance /
+courtesy of www.epidemicsound.com.
+
+Licensing posture, from a terms study against Epidemic's own pages
+(full evidence in the project ledger, `study-epidemic-license`,
+2026-10-30; verdict PARTLY on both owner readings — not legal advice):
+
+- The muxed sync use (music bed under the demo video) is inside the
+  Pro grant; cutting/looping/fading to fit is explicitly allowed,
+  and the ~2.7% time-compression used to fit the 179.0 s cut sits
+  within "cut or looped to fit content" on a plain reading.
+- Publication must happen while the subscription is active, with
+  the video URL/channel safelisted in the owner's account; content
+  published while active stays cleared permanently.
+- **The raw track must never be committed to this repo** (standalone
+  distribution is prohibited), and this repo is not a venue named in
+  the grant — so **every cut in this repo stays silent**. The
+  soundtrack version is hosted as an unlisted video on the owner's
+  YouTube account.
+- If Meta/organisers republish the video, the owner safelists their
+  published video URLs from his Pro account (the sublicence
+  clearing mechanism); organiser resharing is not explicitly
+  covered in the fetched terms, so that step is the owner's to
+  confirm with Epidemic support if it arises.
+
+The free-licence options recorded below were the pre-decision survey
+(retained as history); none was used.
+
+---
+
+(Original options survey, 2026-10-27:)
 
 `out/final.mp4` ships silent by brief: music/VO is an owner decision.
 No audio was downloaded in the video-final pass. The timeline is built

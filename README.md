@@ -27,8 +27,13 @@ enough.
    runs 179 seconds at 2560x1440 (cut on a 124 BPM grid for
    music sync) and tells the whole story:
    the library, the orbit integrator running on the Pico,
-   and how every answer was checked. It is silent on
-   purpose — music is still the owner's decision, so there
+   and how every answer was checked. The copy in this repo
+   is silent for music licensing: the soundtrack
+   ("Sunflower Dance" by Helmut Schenker, courtesy of
+   Epidemic Sound, under the owner's Pro subscription) is
+   cleared for the owner's channels, so the version with
+   sound is hosted as an unlisted video on the owner's
+   YouTube account (link added here once uploaded). There
    is nothing wrong with your speakers. How it was made:
    [video/README.md](video/README.md).
 2. **Try the library in your browser (a minute).** The
@@ -225,15 +230,22 @@ before it is briefed.
 
 ## Demo video
 
-The current silent cut is the 179.0-second, 2560x1440
+The current cut is the 179.0-second, 2560x1440
 [video/out/assembly_v6.mp4](video/out/assembly_v6.mp4) (the v5
 169-second cut remains beside it; the original 180-second
 1080p cut is [video/out/final.mp4](video/out/final.mp4)). Its
 frame-rendering pipeline, data loaders, timelines, and
 source-traced storyboard live in [video/](video/README.md).
-Music remains an owner decision; segments are built on a
-120 BPM grid and the assembly is tempo-scaled to 124 BPM so
-every cut lands on a beat of a future track.
+The repo copy is silent for music licensing. Segments are
+built on a 120 BPM grid and the assembly is tempo-scaled to
+124 BPM; the chosen track ("Sunflower Dance" by Helmut
+Schenker, courtesy of Epidemic Sound; natively 124 BPM,
+183.9 s) was time-compressed ~2.7% to fit the 179.0-second
+cut exactly, and that soundtrack version is hosted as an
+unlisted video on the owner's YouTube account — the owner's
+Pro licence covers his channels, not redistribution from
+this repo, and the raw track is never committed here
+([video/MUSIC.md](video/MUSIC.md) has the licensing record).
 
 ## Where things live
 

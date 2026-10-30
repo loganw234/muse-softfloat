@@ -1177,3 +1177,25 @@ Remaining item-5 work after the owner's watch of
 the retimed cut: music decision, captions/stills,
 final metrics refresh, final adherence audit,
 audit-bundle v2, release tag.
+
+**Music decided; repo stays silent (appended
+2026-10-30):** owner chose "Sunflower Dance" by
+Helmut Schenker (Epidemic Sound, owner's Pro
+subscription; natively 124 BPM, 183.9 s). A Spark
+terms study (`study-epidemic-license`) read the
+Pro grant as PARTLY on both owner clauses: muxed
+sync use covered and cut/fit edits allowed, but
+publication must be while subscribed with the
+video URL safelisted, the raw track may never be
+distributed standalone, and this repo is not a
+named venue. Owner disposition: every repo cut
+stays silent for licensing; the soundtrack version
+(track time-compressed ~2.7% to fit 179.03 s,
+owner's chosen variant) is hosted as an unlisted
+video on the owner's YouTube account. README and
+`video/MUSIC.md` restated to that posture; the
+raw track and the music muxes live outside the
+repo. Remaining item-5 seal: owner's YouTube link
+into the README once uploaded, captions/stills,
+final metrics refresh, final adherence audit,
+audit-bundle v2, release tag.

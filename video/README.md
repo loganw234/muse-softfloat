@@ -10,8 +10,10 @@ the previous segment-based cut) and `out/assembly_v6.mp4` (179.0 s,
 dwell-retimed to the 3-minute cap with SS=2 phone zooms,
 tempo-scaled 120 -> 124 BPM in `assemble.py`; STORYBOARD.md's v6
 and retime sections).
-The 26.5 s proof (`out/proof.mp4`) remains as the machinery proof. Music
-options (owner decision, nothing downloaded): [MUSIC.md](MUSIC.md).
+The 26.5 s proof (`out/proof.mp4`) remains as the machinery proof. Music:
+the chosen track and licensing posture are in [MUSIC.md](MUSIC.md) — repo
+cuts stay silent for licensing; the soundtrack version is hosted on the
+owner's YouTube account.
 
 Zero new installs. The stack is whatever this machine already has — run
 `inventory.py` to see it; at first render: workspace `.venv` Python 3.12.15,
@@ -32,7 +34,7 @@ system Arial/Segoe/Consolas).
 | `probe.py` | ffprobe substitute (there is none bundled): duration/codec/size via `ffmpeg -i`, exact frame count via full decode, still grabs. |
 | `inventory.py` | Prints exact versions/paths of the render stack found on this machine. |
 | `STORYBOARD.md` | The as-built 3-minute record; every number names its repo source. |
-| `MUSIC.md` | Licence-checked music options + cue sheet (final is silent by brief). |
+| `MUSIC.md` | The soundtrack decision + licensing record (chosen track, why repo cuts stay silent), the pre-decision options survey, and the original cue sheet. |
 | `segments/` | The segment renderers + data: `intro_outro.py`, `idea.py`, `why.py` (+ `render_why.py` base), `gitvisual.py` (v7 process-graph renderer; `history.json`, `process_graph.json` + `prep_process_graph.py`, `augint_sample.json` + `prep_augint_sample.py`, spectrum/twiddle JSONs; `gate2_numbers.json` retained for the v5 cut only). Production copies of the study scripts in `scratch/study-video-*` (paths repointed HERE-local); each writes its MP4 beside itself. |
 | `assemble.py` | Renders any missing segment, concatenates intro → idea → why → git → outro at 2560x1440, tempo-scales 120 -> 124 BPM, into `out/assembly_v6.mp4`, pixel-checks the joins. `--force` re-renders. |
 | `out/proof.mp4` | The rendered proof (26.5 s, 1920x1080, H.264, silent). |
