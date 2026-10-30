@@ -14,7 +14,7 @@ is a 169-second programmatic video; this repository is the library, the video
 pipeline and rendered cut, and the record that stands beside them.
 
 **Live demo:** [loganw234.github.io/muse-softfloat](https://loganw234.github.io/muse-softfloat/) — the actual library compiled to WebAssembly, runnable against the committed test vectors ([site/](site/README.md)).
-**Reproduce the workloads:** `bash demo/run_demo.sh host` ([demo/](demo/README.md)) — fetches the pinned REBOUND/KissFFT archives into a gitignored cache and re-proves the workload hashes on your machine (one stale interval expectation is named in step 4 below).
+**Reproduce the workloads:** `bash demo/run_demo.sh host` ([demo/](demo/README.md)) — fetches the pinned REBOUND/KissFFT archives into a gitignored cache and re-proves all three workload hashes on your machine.
 
 ## Start here
 
@@ -85,17 +85,9 @@ enough.
    its one named change (12 configurations compared; the
    change is described in [demo/README.md](demo/README.md)
    and [docs/TWIDDLES.md](docs/TWIDDLES.md)), and a 710-row
-   interval-geometry catalogue. One known gap, stated
-   plainly: the interval leg currently reports FAIL because
-   its committed expected file still carries the older
-   `ce81d66e…a9aec` hash, while the program now prints
-   `ae04caf0…c1422` — the newer recorded value from when
-   that workload started using the augmented operations
-   (its per-row answers did not change; its counted calls
-   did, and the count is part of the hash). The other two
-   legs passed when this map was written; the script as a
-   whole will keep exiting FAIL until that one expected
-   file catches up.
+   interval-geometry catalogue (hash `ae04caf0…c1422`;
+   counted library calls are part of that hash). All
+   three legs passed when this map was written.
 5. **Audit how it was made (as deep as you like).** Start
    with [docs/RECORD.md](docs/RECORD.md), the dated history
    of what was claimed and when — failures stay in it.
@@ -180,13 +172,7 @@ Pico, its host output pinned and diff-enforced by
 `examples/host/build.sh`; the Pico program printed every
 host-expected line on the genuine board at its merge
 gate, a RECORD entry), Linux CI, and a `sanitize` gate
-budget (both below). The demo script's interval
-expectation did not follow the augmented-consumption
-hash move above: `demo/expected-interval.txt` still
-expects `ce81d66e…a9aec`, so `demo/run_demo.sh host`
-fails that one leg while its IAS15 and KissFFT legs pass
-(named in step 4 of the map; the board scripts do not
-read that file). Per-instantiation status lives in
+budget (both below). Per-instantiation status lives in
 [docs/COVERAGE.tsv](docs/COVERAGE.tsv); the story, with
 its slips attributed, is [docs/RECORD.md](docs/RECORD.md).
 
