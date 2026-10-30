@@ -98,8 +98,8 @@ STUDY_LABELS = {e["id"] for e in LANE_EPS if e["role"] == "surveyor" and (
 # that follows shows the specifics), each card carrying its project
 # total; plain register: title + <=2 short lines.
 POPUP5 = [
-    ("PARCELS", ["work is divided", "20 parcels total"]),
-    ("ESCALATIONS", ["questions go up to lead", "3 escalations total"]),
+    ("PARCELS", ["work is divided", "19 parcels total"]),
+    ("ESCALATIONS", ["questions go to lead", "20 filed, 3 fixes"]),
     ("VERIFIERS", ["recheck every parcel independently",
                    "36 verifiers total"]),
     ("PLANTS", ["traps test the checkers", "150 planted bugs"]),
