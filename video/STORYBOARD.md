@@ -280,3 +280,28 @@ owner-directed across three study rounds
   and the flyby's numbered section titles are gone; counters,
   popups, branch/sendback labels, source tags and the role
   legend remain.
+
+## The retimed v6 cut (2026-10-30, `out/assembly_v6.mp4` replaced, 179.0 s, 2560x1440, silent)
+
+Three owner items on the 163.5 s cut above (parcel-w6filmretime,
+verified on a planted copy by verifier-w6filmretime, 5 of 5
+plants caught):
+
+- The duplicate question is gone: `why.py`'s title scene is
+  deleted, so "WHY NOT USE WHAT ALREADY SHIPS?" is posed once
+  (idea's closing scene) and why opens white -> spec.
+- Phone-zoom pixelation: `intro_outro.py`'s camera crops now
+  render on an SS=2 internal canvas (5120x2880) and downscale
+  to the 2560x1440 output; period centroid re-measured at
+  SS=2 (proof error 0.2 px), join solids exact. No other
+  segment changed resolution.
+- Dwell-only retime to the 180 s submission cap: native
+  segments intro 7.0 + idea 26.0 + why 32.0 + gitvisual 108.0
+  + outro 12.0 = 185.0 s, all added time as holds (scene-end
+  holds, popup dwell +0.5 s x7, gate windows 9/9/8.5 s with
+  legs still 8/5/7 s, outro panels at 1.0 s spacing); typing,
+  dive, pull-back and marble speeds unchanged. Lead-assembled
+  product probed at 179.03 s (185.0 x 120/124), joins
+  pixel-checked in scaled time. Segment boundaries in the
+  scaled film: intro 0-6.8, idea 6.8-31.9, why 31.9-62.9,
+  gitvisual 62.9-167.4, outro 167.4-179.0.

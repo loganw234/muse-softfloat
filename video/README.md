@@ -5,10 +5,11 @@ frames, pipes them raw to ffmpeg, gets an H.264 MP4. Two cuts exist:
 `out/final.mp4` (180.0 s, 1920x1080, silent — the original 3-minute cut,
 documented as-built in [STORYBOARD.md](STORYBOARD.md) with a source per
 on-screen number), `out/assembly_v5.mp4` (169.0 s, 2560x1440, silent —
-the previous segment-based cut) and `out/assembly_v6.mp4` (163.5 s,
+the previous segment-based cut) and `out/assembly_v6.mp4` (179.0 s,
 2560x1440, silent — the current cut: process-graph git segment,
+dwell-retimed to the 3-minute cap with SS=2 phone zooms,
 tempo-scaled 120 -> 124 BPM in `assemble.py`; STORYBOARD.md's v6
-section).
+and retime sections).
 The 26.5 s proof (`out/proof.mp4`) remains as the machinery proof. Music
 options (owner decision, nothing downloaded): [MUSIC.md](MUSIC.md).
 
@@ -37,7 +38,7 @@ system Arial/Segoe/Consolas).
 | `out/proof.mp4` | The rendered proof (26.5 s, 1920x1080, H.264, silent). |
 | `out/final.mp4` | The original final cut (180.0 s, 1920x1080, H.264, silent) + `out/stills/` (12 MP4 grabs). |
 | `out/assembly_v5.mp4` | The previous segment-based cut (169.0 s, 2560x1440, H.264, silent). |
-| `out/assembly_v6.mp4` | The current cut (163.5 s at 124 BPM, 2560x1440, H.264, silent). |
+| `out/assembly_v6.mp4` | The current cut (179.0 s at 124 BPM, 2560x1440, H.264, silent). |
 
 ## Render
 

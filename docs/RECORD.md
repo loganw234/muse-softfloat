@@ -1156,3 +1156,24 @@ and assembled as `assembly_v6.mp4` tempo-scaled to
 124 BPM for music sync (163.5 s; study reports in
 `scratch/study-video-gitvisual-v6/`). The six-board
 panel in that epilogue gate is this sweep.
+
+**Film retime to the cap (appended 2026-10-30):**
+owner items on the v6 cut, parcel-w6filmretime:
+the duplicate "why not use what already ships"
+title scene deleted from why (idea poses it once);
+intro/outro phone-camera crops supersampled SS=2
+(5120x2880 internal, output stays 2560x1440,
+centroid re-measured, proof error 0.2 px); dwell-
+only retime to exactly 185.0 s native (7/26/32/
+108/12), lead-assembled `assembly_v6.mp4` probed
+179.03 s at 124 BPM under the 180 s cap, joins
+pixel-checked. verifier-w6filmretime caught 5 of
+5 plants on copy `a1e83d9` (key hash recorded on
+main before dispatch); non-plant notes stand as
+pre-existing (dead `scene_workloads` in why.py;
+`scale_K` in measurements3.json records the base
+K). Cumulative plants 148/155, Wave 6 30/30.
+Remaining item-5 work after the owner's watch of
+the retimed cut: music decision, captions/stills,
+final metrics refresh, final adherence audit,
+audit-bundle v2, release tag.

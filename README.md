@@ -10,7 +10,7 @@ Meta Global AI Developer Hackathon, 2026-10-26 to 2026-11-04.
 The workload that proves it in public: **REBOUND's IAS15 integrator running on a
 Raspberry Pi Pico through this library, bit-identical to the unmodified desktop
 run** — same integrator source, same bits out, on a chip with no FPU. The demo
-is a 163-second programmatic video; this repository is the library, the video
+is a 179-second programmatic video; this repository is the library, the video
 pipeline and rendered cut, and the record that stands beside them.
 
 **Live demo:** [loganw234.github.io/muse-softfloat](https://loganw234.github.io/muse-softfloat/) — the actual library compiled to WebAssembly, runnable against the committed test vectors ([site/](site/README.md)).
@@ -24,7 +24,7 @@ enough.
 
 1. **Watch the film (about three minutes).**
    [video/out/assembly_v6.mp4](video/out/assembly_v6.mp4)
-   runs 163 seconds at 2560x1440 (cut on a 124 BPM grid for
+   runs 179 seconds at 2560x1440 (cut on a 124 BPM grid for
    music sync) and tells the whole story:
    the library, the orbit integrator running on the Pico,
    and how every answer was checked. It is silent on
@@ -105,8 +105,8 @@ enough.
    work merged, an independent verifier checked it against
    a copy carrying deliberate hidden defects. Counting the
    rows in [docs/metrics/plants.jsonl](docs/metrics/plants.jsonl)
-   in this tree gives 138 caught of 145 (the latest round
-   of work: 20 of 20) — recount it yourself; there is one
+   in this tree gives 148 caught of 155 (the latest round
+   of work, Wave 6: 30 of 30) — recount it yourself; there is one
    line per plant.
 
 ## Status
@@ -138,9 +138,10 @@ its authority names (411,213 committed vectors;
 `standard` adds 1,117,504 generated checks plus a
 5,505,024-check binary16 augmented-pool differential),
 and verified wave by wave on planted copies by
-independent verifiers (138 of 145 plants caught, as
+independent verifiers (148 of 155 plants caught, as
 counted from `docs/metrics/plants.jsonl` in this tree;
-the SF-2-close text here pinned 114 of 120 at `bc807e6`).
+earlier text here pinned 138 of 145 at the judge-map
+landing and 114 of 120 at `bc807e6`).
 Recorded one-time evidence beyond the budgets: binary32 exhaustive for each of the `exp2` and
 `log2` pairs (42,949,672,960 mode-checks each, zero
 mismatches) and binary16 augmented pairs exhaustive
@@ -224,7 +225,7 @@ before it is briefed.
 
 ## Demo video
 
-The current silent cut is the 163.5-second, 2560x1440
+The current silent cut is the 179.0-second, 2560x1440
 [video/out/assembly_v6.mp4](video/out/assembly_v6.mp4) (the v5
 169-second cut remains beside it; the original 180-second
 1080p cut is [video/out/final.mp4](video/out/final.mp4)). Its
