@@ -1121,3 +1121,21 @@ a sanitizer finding). verifier-w6examples and
 verifier-w6sanitize each caught 5 of 5 plants;
 cumulative plants 138/145. Wave 6 queue items 1-4
 are complete; submission packaging follows.
+
+**Judge's map landed (appended 2026-10-30):** the
+README opens with a five-step start-here map whose
+numbers, links, and commands were all re-derived
+and executed. The parcel's top finding was a real
+regression from the augint landing (the demo's
+committed interval expectation still carried the
+pre-augint hash, so `demo/run_demo.sh host` failed
+that leg on main); restamped to `ae04caf0...c1422`
+and re-proven all-legs PASS. verifier-w6judgemap
+caught 5 of 5 plants by walking the map exactly
+as written; cumulative plants 143/150. Remaining
+item-5 work is sequenced after the owner's film
+review: captions/stills, final metrics refresh,
+final adherence audit, audit-bundle v2 (v1's
+manifest is CRLF, which breaks a literal
+`sha256sum -c` under Git Bash - contents verify;
+v2 should be LF), and a release tag.
