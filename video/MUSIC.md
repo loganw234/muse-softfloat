@@ -6,7 +6,10 @@ Chosen track: **"Sunflower Dance" by Helmut Schenker**, courtesy of
 Epidemic Sound (track page:
 https://www.epidemicsound.com/music/tracks/5002d052-2046-4b83-b126-5f4de70ea97e/;
 ISRC SE5Q52402720; natively 124 BPM, 183.9 s), downloaded under the
-owner's Epidemic Sound **Pro** subscription. Credit line (recommended
+owner's Epidemic Sound **Pro** subscription. The soundtrack version
+is published as an unlisted video on the owner's YouTube account:
+https://www.youtube.com/watch?v=IzLtd2_OIFo ("Muse-Softfloat | Meta
+Global AI Developer Hackathon"). Credit line (recommended
 practice on the study below): Helmut Schenker / Sunflower Dance /
 courtesy of www.epidemicsound.com.
 

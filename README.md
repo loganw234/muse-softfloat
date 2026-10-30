@@ -32,9 +32,9 @@ enough.
    ("Sunflower Dance" by Helmut Schenker, courtesy of
    Epidemic Sound, under the owner's Pro subscription) is
    cleared for the owner's channels, so the version with
-   sound is hosted as an unlisted video on the owner's
-   YouTube account (link added here once uploaded). There
-   is nothing wrong with your speakers. How it was made:
+   sound is hosted as an
+   [unlisted video on the owner's YouTube account](https://www.youtube.com/watch?v=IzLtd2_OIFo).
+   There is nothing wrong with your speakers. How it was made:
    [video/README.md](video/README.md).
 2. **Try the library in your browser (a minute).** The
    [live site](https://loganw234.github.io/muse-softfloat/)
@@ -242,7 +242,7 @@ built on a 120 BPM grid and the assembly is tempo-scaled to
 Schenker, courtesy of Epidemic Sound; natively 124 BPM,
 183.9 s) was time-compressed ~2.7% to fit the 179.0-second
 cut exactly, and that soundtrack version is hosted as an
-unlisted video on the owner's YouTube account — the owner's
+[unlisted video on the owner's YouTube account](https://www.youtube.com/watch?v=IzLtd2_OIFo) — the owner's
 Pro licence covers his channels, not redistribution from
 this repo, and the raw track is never committed here
 ([video/MUSIC.md](video/MUSIC.md) has the licensing record).
