@@ -13,8 +13,13 @@ symbol/type scans, the negative controls), `standard` (~1 min: smoke
 plus exhaustive binary16 and the seeded pack64 sweep; the merge gate),
 `board` (~20 s plus builds: lead-only under `<ledger>/board.lock`,
 CDC replay + interposition hello on the RP2040), `bench` (~75 s:
-skeleton only, never a correctness verdict). Every budget prints its
-inventory before any verdict; a green run that cannot name its
+skeleton only, never a correctness verdict), `sanitize` (~44-56 s
+measured 2026-10-30, trap flavour: `MSF_SANITIZE=trap|full`,
+default trap — host runners under sanitizer instrumentation,
+canaries watched trapping first, then unit + committed vectors +
+standard extras + aug pool; `full` needs a sanitizer runtime
+this host lacks, SKIPs-BY-NAME here, runs in Linux CI). Every
+budget prints its inventory before any verdict; a green run that cannot name its
 vectors has failed. The plan of record is `docs/studies/SF-0.md`
 (approved 2026-10-26); per-instantiation status and authorities are
 in `docs/COVERAGE.tsv`.
