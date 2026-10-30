@@ -212,7 +212,7 @@ All repo paths are relative to `muse-softfloat/` unless stated.
 2. **Stills package:** `out/stills/` - frames grabbed from the
    rendered MP4 (not from the scene renderer) at the named times in
    the final report, each visually inspected.
-3. **Re-render:** `..\.venv\Scripts\python.exe render.py --which
+3. **Re-render:** `..\..\.venv\Scripts\python.exe render.py --which
    final --out out\final.mp4` from `video/` (or `--timeline
    final.timeline.json`). Live data (metrics, git log, IAS15 hash
    files) is re-read then; if the metrics grow, segment 4/6 figures
@@ -239,6 +239,6 @@ multiple ≥ max(1.5 s, 0.5 + words/2.5); headlines ≤6 words, body ≤10,
 ≤2 new lines per beat; word counts cut 39–49% vs first drafts. Named
 residual deviations: four cursor-paced sendback labels sit at 1.0–1.8 s
 (welded to replay speed); Agent A's dwell is persistence-from-reveal.
-Render: `..\.venv\Scripts\python.exe assemble.py` from `video/`
+Render: `..\..\.venv\Scripts\python.exe assemble.py` from `video/`
 (re-renders missing segments, concatenates, pixel-checks joins).
 Silent; music per MUSIC.md is still an owner decision.

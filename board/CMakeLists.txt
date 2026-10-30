@@ -45,7 +45,8 @@ add_executable(msf_hello hello_main.c ${MSF_ROOT}/compat/msf_wrap.c)
 # Our flavour replaces the SDK's for the wrapped names: select the
 # empty "compiler" flavour so the SDK's own __wrap_copysign(f) bodies
 # are absent, then apply our --wrap (measured duplicate otherwise).
-# Wave 3 registers a full flavour library in this same switch shape.
+# (A full flavour library was once planned for this switch shape;
+# none is registered - Waves 3 and 5 closed without one.)
 pico_set_float_implementation(msf_hello compiler)
 pico_set_double_implementation(msf_hello compiler)
 target_include_directories(msf_hello PRIVATE ${MSF_ROOT} ${MSF_ROOT}/compat)

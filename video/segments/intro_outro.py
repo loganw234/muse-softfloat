@@ -9,7 +9,7 @@ ends on source white (255,255,255), outro opens on source near-black
 THE RULE (dwell from word count; see BLOCKS_INTRO/BLOCKS_OUTRO).
 Frames stream to ffmpeg one at a time (v2 buffered; at 1440p that
 would break the memory ceiling). v1/v2 artifacts never written.
-Run: $MSF_PYTHON render_v3.py
+Run: $MSF_PYTHON intro_outro.py
 """
 from __future__ import annotations
 

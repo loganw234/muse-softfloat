@@ -10,7 +10,7 @@ Meta Global AI Developer Hackathon, 2026-10-26 to 2026-11-04.
 The workload that proves it in public: **REBOUND's IAS15 integrator running on a
 Raspberry Pi Pico through this library, bit-identical to the unmodified desktop
 run** — same integrator source, same bits out, on a chip with no FPU. The demo
-is a 3-minute programmatic video; this repository is the library, the video
+is a 169-second programmatic video; this repository is the library, the video
 pipeline and rendered cut, and the record that stands beside them.
 
 **Live demo:** [loganw234.github.io/muse-softfloat](https://loganw234.github.io/muse-softfloat/) — the actual library compiled to WebAssembly, runnable against the committed test vectors ([site/](site/README.md)).
@@ -99,8 +99,10 @@ before it is briefed.
 
 ## Demo video
 
-The silent 180-second cut is
-[video/out/final.mp4](video/out/final.mp4). Its frame-rendering
+The current silent cut is the 169-second, 2560x1440
+[video/out/assembly_v5.mp4](video/out/assembly_v5.mp4) (the earlier
+180-second 1080p cut remains at
+[video/out/final.mp4](video/out/final.mp4)). Its frame-rendering
 pipeline, data loaders, timelines, and source-traced storyboard live in
 [video/](video/README.md). Music remains an owner decision; the timeline
 is built on a 120 BPM grid so a licensed track can be dropped in later.

@@ -1,8 +1,8 @@
 /* msf32.c - binary32 translation unit (SF-0 Section 3.1).
  *
  * Wave 1 parcel-f32: every binary32-destination instantiation whose
- * sources stay inside {binary32, binary64} (ledger design entry,
- * parcel-f32). Shape per the brief: msf_decode to exact sig*2^exp,
+ * sources stay inside {binary32, binary64} (design entry:
+ * audit-bundle/ledger/parcel-f32.md). Shape per the brief: msf_decode to exact sig*2^exp,
  * NaN delivery via msf_nan_delivery, exact integer work over
  * msf_u128, then ONE rounding through msf_pack_f32 (the logB result
  * is the single exception, packed as binary64 because logBFormat

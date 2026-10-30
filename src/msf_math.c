@@ -1,7 +1,8 @@
 /* msf_math.c - Clause 9.2 sinPi/cosPi, correctly rounded in
- * all four attributes at binary16/32/64 (SF-1 Step 2c).
+ * all five attributes at binary16/32/64 (SF-1 Step 2c;
+ * the fifth, roundTiesToAway, arrived at SF-2 Step 1).
  *
- * Design record: ledger/parcel-w4trig.md (design entry).
+ * Design record: audit-bundle/ledger/parcel-w4trig.md (design entry).
  * Reduction is exact integer work: decode, split |x| into
  * integer and fraction by shifts, take the nearest-integer
  * remainder r with |r| <= 1/2, fold to t in [0, 1/4]. Integer
@@ -704,7 +705,7 @@ DEF_TRIG(msf64_cos_pi, MSF_FMT_F64, msf64_t, 1)
 
 /* ---- exp2 / exp2m1 (SF-2 Step 3a) ----
  *
- * Design record: ledger/parcel-w5exp2.md (design entry,
+ * Design record: audit-bundle/ledger/parcel-w5exp2.md (design entry,
  * written before this code). Exact n+f split (n the nearest
  * integer to x, |f| <= 1/2 an exact dyadic), 2^n delivered
  * as a pack exponent input, never a multiply. Kernel
@@ -1211,7 +1212,7 @@ DEF_EXPLOG(msf64_exp2m1, MSF_FMT_F64, msf64_t, 1)
 
 /* ---- log2 / log2p1 (SF-2 Step 3b) ----
  *
- * Design record: ledger/parcel-w5log2.md (design entry,
+ * Design record: audit-bundle/ledger/parcel-w5log2.md (design entry,
  * written before this code). One general path: w (x itself,
  * or exact wide 1+x) = 2^k * mm exactly in big integers,
  * recentre by the exact mm^2 >= 2 square compare,

@@ -2,7 +2,7 @@
 
 Uses the bundled ffmpeg itself: `-i` banner for duration/codec/size, a full
 decode to null for the exact frame count, and -ss grabs for stills.
-Usage: ..\\.venv\\Scripts\\python.exe probe.py out/proof.mp4 --stills dir --at 1.5 7 16 25
+Usage: ..\\..\\.venv\\Scripts\\python.exe probe.py out/proof.mp4 --stills dir --at 1.5 7 16 25
 """
 from __future__ import annotations
 

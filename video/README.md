@@ -41,13 +41,13 @@ system Arial/Segoe/Consolas).
 From the workspace root, with the project venv (PowerShell):
 
 ```powershell
-.\.venv\Scripts\python.exe video\inventory.py          # what renders here
-.\.venv\Scripts\python.exe video\data.py               # real numbers the charts will show
-.\.venv\Scripts\python.exe video\timeline.py           # validate both timelines
-.\.venv\Scripts\python.exe video\render.py             # -> video\out\proof.mp4
-.\.venv\Scripts\python.exe video\render.py --which final --out video\out\final.mp4
-.\.venv\Scripts\python.exe video\assemble.py           # -> video\out\assembly_v5.mp4 (segments + joins)
-.\.venv\Scripts\python.exe video\probe.py video\out\final.mp4 --stills video\out\stills --at 2.5 13.0 34.5 66.0 102.0 108.5 120.0 128.0 141.5 160.0 172.5 178.0
+.\.venv\Scripts\python.exe muse-softfloat\video\inventory.py          # what renders here
+.\.venv\Scripts\python.exe muse-softfloat\video\data.py               # real numbers the charts will show
+.\.venv\Scripts\python.exe muse-softfloat\video\timeline.py           # validate both timelines
+.\.venv\Scripts\python.exe muse-softfloat\video\render.py             # -> muse-softfloat\video\out\proof.mp4
+.\.venv\Scripts\python.exe muse-softfloat\video\render.py --which final --out muse-softfloat\video\out\final.mp4
+.\.venv\Scripts\python.exe muse-softfloat\video\assemble.py           # -> muse-softfloat\video\out\assembly_v5.mp4 (segments + joins)
+.\.venv\Scripts\python.exe muse-softfloat\video\probe.py muse-softfloat\video\out\final.mp4 --stills muse-softfloat\video\out\stills --at 2.5 13.0 34.5 66.0 102.0 108.5 120.0 128.0 141.5 160.0 172.5 178.0
 ```
 
 The final render reads live data (metrics jsonl, git log, IAS15 hash

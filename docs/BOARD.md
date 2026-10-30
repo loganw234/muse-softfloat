@@ -37,6 +37,14 @@ name its artifact is not evidence.
 | what the lock file's path is | `<ledger>/board.lock` (ledger root is defined in docs/HARNESS.md) |
 | who may hold it besides the lead, if anyone | nobody yet; a parcel may be granted a named slot by the lead, recorded in the ledger |
 
+**Update (2026-10-28):** five RP2040-Zero clones joined the genuine
+Pico above - `5303284740c0ac1c`, `5303284740e09a9c`,
+`5303284718e6579c`, `5303284738b5859c`, `50543165208e249c`. Their
+activity LED is a PIO-driven WS2812 on GP16 (the Pico uses GP25);
+see `board/msf_led.h` and the six-board IAS15 entry in
+[docs/RECORD.md](RECORD.md). The COM8 row above is the genuine
+board's port on this machine, not a property of the clones.
+
 ## IAS15 demo firmware (SF-0 Sec.9)
 
 Two further targets beside the P0 harness/hello/bench, both lead-run
@@ -134,7 +142,7 @@ prints and hashes its own artifacts):
     bit-for-bit under the same patched source. The full
     derivation - claim scope, patch algebra, field census,
     decider, controls, and reproduction - is retained in
-    [docs/TWIDDLES.md](../TWIDDLES.md).
+    [docs/TWIDDLES.md](TWIDDLES.md).
   - Run: `board/kissfft_run.sh` (lock, serial-targeted flash
     via `MSF_BOARD_SERIAL`, capture/compare via
     `board/kissfft_host.py`, port by VID or `MSF_BOARD_PORT`).

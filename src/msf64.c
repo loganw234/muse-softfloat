@@ -1,7 +1,7 @@
 /* msf64.c - binary64 translation unit (SF-0 Section 3.1).
  *
- * Wave 1 binary64-destination instantiations (ledger parcel-f64
- * design entry). Every operation: decode, NaN delivery, special
+ * Wave 1 binary64-destination instantiations (design entry:
+ * audit-bundle/ledger/parcel-f64.md). Every operation: decode, NaN delivery, special
  * cases, exact integer work over msf_u128, one rounding pack.
  * Clause citations are to IEEE 754-2019 by number only.
  *

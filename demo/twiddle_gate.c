@@ -2,9 +2,10 @@
  * SPDX-License-Identifier: MIT
  *
  * Provenance: verbatim the scratch gate driver
- * scratch/parcel-w4kissfft/gate_main.c from the SF-1 Step 2c
- * workload parcel (ledger/parcel-w4kissfft.md), which produced
- * the recorded PROVENANCE checked_fields=8856 mismatches=0.
+ * (parcel-w4kissfft's gate_main.c) from the SF-1 Step 2c
+ * workload parcel, which produced the recorded PROVENANCE
+ * checked_fields=8856 mismatches=0; the derivation is
+ * retained in docs/TWIDDLES.md (which names this file).
  * Only this header comment was added; the gate logic below is
  * unchanged. It builds against today's tree with no source
  * edits (checked 2026-10-29: compat still provides

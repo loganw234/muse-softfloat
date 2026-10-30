@@ -1034,3 +1034,16 @@ day. Two false universals restated in place in README
 actually happens. The library work is finished; the
 demo-video rework (with the two withheld visual
 studies) is the next owner-gated phase.
+
+**Post-close polish erratum (appended 2026-10-29):**
+the Wave 5 close entries above say the metrics
+refresh took `briefs 27->30`, and an earlier entry
+left the Step 3a briefs row owed to the close.
+Both were overtaken inside the same close:
+`498a916` landed the Step 3a row (parcel-w5exp2),
+so briefs stood at 31 rows at the close, not 30,
+and nothing remained owed. The earlier lines stand
+as written; this appendix is the current reading.
+A Spark stale-information audit the same day
+(frozen audit bundle excluded) drove the
+polish-stale1 cleanup recorded with that parcel.
