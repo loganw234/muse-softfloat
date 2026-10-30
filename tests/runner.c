@@ -474,8 +474,12 @@ static void process_line(char *line, const char *file, unsigned long lno,
     uint64_t expect = 0u, got = 0u;
     int arrow = -1, i;
 
-    strncpy(raw, line, sizeof(raw) - 1u);
-    raw[sizeof(raw) - 1u] = '\0';
+    {
+        const char *nul = memchr(line, '\0', sizeof(raw) - 1u);
+        size_t n = nul ? (size_t)(nul - line) : sizeof(raw) - 1u;
+        memcpy(raw, line, n);
+        memset(raw + n, 0, sizeof(raw) - n);
+    }
     for (p = strtok(line, " \t\r\n"); p && ntok < 16; p = strtok(NULL, " \t\r\n")) {
         tok[ntok++] = p;
     }
