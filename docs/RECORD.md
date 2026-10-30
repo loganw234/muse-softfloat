@@ -1082,3 +1082,23 @@ only through the hashed stage-3 ops counts).
 verifier-w6augint caught 5 of 5 plants (NOT READY
 on the planted copy as constructed); cumulative
 plants 123/130 at this landing.
+
+**Wave 6 CI landed (appended 2026-10-30):** the
+library gate now runs on Ubuntu in GitHub Actions
+(smoke + standard, .github/workflows/ci.yml). The
+first Ubuntu run was red with every library vector
+passing: CRLF vector files left a CR on awk's last
+field under Linux, so the wrong-nan-expectation
+control mutated nothing and was NOT REFUSED - a
+gate-mechanism defect MSYS text mode had masked on
+Windows since P0. Two awk sites now compare/print a
+CR-stripped copy; what the gate checks is unchanged.
+Observed runs: 41052508849 failure (the control),
+41054249115 and 41057237264 success with full
+totals in the logs. verifier-w6ci caught 5 of 5
+plants plus one real finding (inventory pipefail
+left implicit), fixed before merge; cumulative
+plants 128/135. The sanitizer study the same day
+found zero findings on both legs it could run
+(trap-UBSan and MSVC ASan over 411,213 + 1,117,504
+cases); its S1/S3 parcel follows.
