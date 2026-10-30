@@ -1,7 +1,8 @@
 /* interval_workload.c - see interval_workload.h. Original code;
  * interval operations are built here from directed scalar calls,
- * the exact stage from error-free transformations (TwoSum /
- * FMA TwoProduct) with a flags guard, per the Step 1c brief. */
+ * the exact stage from Clause 9.5 augmented pairs consumed as
+ * error-free transformations, with a flags guard re-derived for
+ * augmented semantics (ledger/parcel-w6augint.md). */
 #include "interval_workload.h"
 
 #ifndef IW_RM_LO
@@ -34,8 +35,10 @@ static msf64_t m64(iw_ctx_t *c, msf64_t x, msf64_t y, msf_rounding_t rm, msf_fla
 { c->ops++; return msf64_mul(x, y, rm, fl); }
 static msf64_t d64(iw_ctx_t *c, msf64_t x, msf64_t y, msf_rounding_t rm, msf_flags_t *fl)
 { c->ops++; return msf64_div(x, y, rm, fl); }
-static msf64_t f64fma(iw_ctx_t *c, msf64_t x, msf64_t y, msf64_t z, msf_flags_t *fl)
-{ c->ops++; return msf64_fma(x, y, z, IW_RN, fl); }
+static msf64_pair_t augadd64(iw_ctx_t *c, msf64_t x, msf64_t y, msf_flags_t *fl)
+{ c->ops++; return msf64_augmented_add(x, y, fl); }
+static msf64_pair_t augmul64(iw_ctx_t *c, msf64_t x, msf64_t y, msf_flags_t *fl)
+{ c->ops++; return msf64_augmented_mul(x, y, fl); }
 static msf64_t neg64(iw_ctx_t *c, msf64_t x)
 { c->ops++; return msf64_negate(x); }
 static msf64_t abs64(iw_ctx_t *c, msf64_t x)
@@ -284,26 +287,40 @@ iw_class_t iw_sphere_stage2_f64(iw_ctx_t *ctx,
 }
 
 /* ---- stage 3: exact sign by error-free expansion ---- */
-/* Knuth TwoSum: s = fl(a+b), e exact with s + e = a + b, valid in
- * ties-to-even absent overflow/underflow (guarded by flags). */
-static void two_sum(iw_ctx_t *c, msf64_t a, msf64_t b,
-                    msf64_t *s_out, msf64_t *e_out, msf_flags_t *fl)
+/* The two primitives are the Clause 9.5 augmented operations
+ * consumed as error-free transformations: head + tail equals the
+ * exact sum/product, with the head rounded by the clause-fixed
+ * roundTiesTowardZero. Nothing below needs the head's rounding
+ * to be to-nearest, only that the pair be exact; the flags guard
+ * (guard_tripped) checks exactly that. An exact infinity or a
+ * quiet NaN from an augmented call raises no flag in the
+ * library, so a non-finite pair member poisons the guard word
+ * here (bit test only, no library call). */
+static int nonfinite64(msf64_t x)
 {
-    msf64_t s = a64(c, a, b, IW_RN, fl);
-    msf64_t bb = s64(c, s, a, IW_RN, fl);
-    msf64_t da = s64(c, a, s64(c, s, bb, IW_RN, fl), IW_RN, fl);
-    msf64_t db = s64(c, b, bb, IW_RN, fl);
-    *s_out = s;
-    *e_out = a64(c, da, db, IW_RN, fl);
+    return ((x >> 52) & 0x7FFu) == 0x7FFu;
 }
 
-/* FMA TwoProduct: p = fl(a*b), e = fma(a, b, -p) exact error. */
-static void two_product(iw_ctx_t *c, msf64_t a, msf64_t b,
-                        msf64_t *p_out, msf64_t *e_out, msf_flags_t *fl)
+static void aug_sum(iw_ctx_t *c, msf64_t a, msf64_t b,
+                    msf64_t *s_out, msf64_t *e_out, msf_flags_t *fl)
 {
-    msf64_t p = m64(c, a, b, IW_RN, fl);
-    *p_out = p;
-    *e_out = f64fma(c, a, b, neg64(c, p), fl);
+    msf64_pair_t pr = augadd64(c, a, b, fl);
+    if (nonfinite64(pr.head) || nonfinite64(pr.tail)) {
+        *fl |= MSF_FLAG_INVALID;
+    }
+    *s_out = pr.head;
+    *e_out = pr.tail;
+}
+
+static void aug_prod(iw_ctx_t *c, msf64_t a, msf64_t b,
+                     msf64_t *p_out, msf64_t *e_out, msf_flags_t *fl)
+{
+    msf64_pair_t pr = augmul64(c, a, b, fl);
+    if (nonfinite64(pr.head) || nonfinite64(pr.tail)) {
+        *fl |= MSF_FLAG_INVALID;
+    }
+    *p_out = pr.head;
+    *e_out = pr.tail;
 }
 
 typedef struct { msf64_t *v; int n; int cap; int bad; } tlist_t;
@@ -318,7 +335,7 @@ static void tpush_prod(iw_ctx_t *c, tlist_t *t, msf64_t a, msf64_t b,
                        int negate, msf_flags_t *fl)
 {
     msf64_t p, e;
-    two_product(c, a, b, &p, &e, fl);
+    aug_prod(c, a, b, &p, &e, fl);
     if (negate) { p = neg64(c, p); e = neg64(c, e); }
     tpush(t, p);
     tpush(t, e);
@@ -332,7 +349,7 @@ static void vecsum(iw_ctx_t *c, msf64_t *v, int n, msf_flags_t *fl)
     if (n < 2) return;
     s = v[0];
     for (i = 1; i < n; i++) {
-        two_sum(c, s, v[i], &ns, &e, fl);
+        aug_sum(c, s, v[i], &ns, &e, fl);
         v[i - 1] = e;
         s = ns;
     }
@@ -392,11 +409,19 @@ static int sign_of_terms(iw_ctx_t *c, msf64_t *v, int n,
     return 0;
 }
 
+/* Guard for augmented semantics: every write to the stage-3
+ * flags word now comes from an augmented call (or the
+ * non-finite poison above), and there inexact is raised exactly
+ * when a pair itself is inexact - an overflowed head, or a mul
+ * residual below the subnormal step (underflow+inexact). An
+ * exact tiny residual raises nothing (P1 = R2) and must not
+ * trip: it is an exact expansion term. So the guard is quiet
+ * iff every pair consumed was exact and finite. */
 static int guard_tripped(msf_flags_t fl)
 {
 #if IW_STAGE3_GUARD
     return (fl & (MSF_FLAG_OVERFLOW | MSF_FLAG_UNDERFLOW |
-                  MSF_FLAG_INVALID)) != 0;
+                  MSF_FLAG_INVALID | MSF_FLAG_INEXACT)) != 0;
 #else
     (void)fl;
     return 0;
@@ -421,7 +446,7 @@ iw_class_t iw_sphere_stage3_exact(iw_ctx_t *ctx,
     ld.v = ctx->terms;   ld.n = 0; ld.cap = IW_MAX_TERMS;       ld.bad = 0;
 
     for (i = 0; i < 3; i++) {
-        two_sum(ctx, O[i], neg64(ctx, C[i]), &s, &e, &fl);
+        aug_sum(ctx, O[i], neg64(ctx, C[i]), &s, &e, &fl);
         lhi[i] = s;
         llo[i] = e;
         tpush_prod(ctx, &la, D[i], D[i], 0, &fl);
