@@ -29,8 +29,8 @@ import imageio_ffmpeg  # noqa: E402
 
 S = B.S
 W, H, FPS = B.W, B.H, B.FPS
-DUR = 22.5
-NFRAMES = int(DUR * FPS)  # 675
+DUR = 26.0
+NFRAMES = int(DUR * FPS)  # 780
 WHITE, INKD, DIMD = B.WHITE, B.INKD, B.DIMD
 GREEND, REDD, CYAND, VIOLETD, PINKD, BORDER = (
     B.GREEND, B.REDD, B.CYAND, B.VIOLETD, B.PINKD, B.BORDER)
@@ -73,8 +73,12 @@ Q_H1 = "WHY NOT USE WHAT"
 Q_H2 = "ALREADY SHIPS?"
 
 # ---- timeline (absolute seconds; scene ends) ----
-T_IDEA, T_COR, T_PROVE, T_METH, T_Q = 0.5, 4.5, 9.5, 14.5, 18.5
-FADE_T = 21.5
+# wave6 retime (185.0 s native total): scene-end dwell only. Each
+# scene is drawn at (t - SH_*) so its internal beats are unchanged;
+# the added seconds are holds after its lines complete.
+T_IDEA, T_COR, T_PROVE, T_METH, T_Q = 0.5, 5.0, 11.0, 17.0, 21.5
+SH_COR, SH_PROVE, SH_METH, SH_Q = 0.5, 1.5, 2.5, 3.0
+FADE_T = 25.0
 
 # (scene, t0, t_gone, lines) -- t_gone = scene cut (or fade start)
 BLOCKS = [
@@ -104,6 +108,12 @@ BLOCKS = [
     ("question", 18.5, 21.5, [Q_KICK, Q_H1]),
     ("question", 19.0, 21.5, [Q_H2]),
 ]
+# wave6 dwell remap to the retimed timeline above (audit values):
+_BSH = {"idea": 0.0, "correct": SH_COR, "prove": SH_PROVE,
+        "method": SH_METH, "question": SH_Q}
+_BGONE = {"idea": T_COR, "correct": T_PROVE, "prove": T_METH,
+          "method": T_Q, "question": FADE_T}
+BLOCKS = [(s, a + _BSH[s], _BGONE[s], lines) for (s, a, _b, lines) in BLOCKS]
 
 
 def scene_idea(d, t):
@@ -214,13 +224,13 @@ def frame(t: float) -> Image.Image:
     if t >= T_IDEA and t < T_COR:
         scene_idea(d, t)
     elif t >= T_COR and t < T_PROVE:
-        scene_correct(d, t)
+        scene_correct(d, t - SH_COR)
     elif t >= T_PROVE and t < T_METH:
-        scene_prove(d, t)
+        scene_prove(d, t - SH_PROVE)
     elif t >= T_METH and t < T_Q:
-        scene_method(d, t)
+        scene_method(d, t - SH_METH)
     elif t >= T_Q:
-        scene_question(d, t)
+        scene_question(d, t - SH_Q)
     if t >= FADE_T:
         a = S.ease_in_out(min(1.0, (t - FADE_T) / 0.25))
         img = Image.blend(img, Image.new("RGB", (W, H), WHITE), a)

@@ -28,10 +28,12 @@ S = B.S
 W, H, FPS = B.W, B.H, B.FPS
 # Production trim (2026-10-29, owner): the workloads scene duplicated
 # the idea segment's three workload cards. It is deleted; everything
-# after the title runs SHIFT seconds earlier via frame()'s time map.
-SHIFT = 4.5  # E_WORK(8.0) - E_TITLE(3.5) in the untrimmed timeline
-DUR = 33.5 - SHIFT  # 29.0
-NFRAMES = int(DUR * FPS)  # 870
+# (wave6 supersedes that time map; see frame() below.)
+# Wave6 (185.0 s native total): the title scene is deleted (idea.py
+# already poses the question) and each remaining scene gains dwell.
+# frame() maps output time to each scene's internal beats below.
+DUR = 32.0
+NFRAMES = int(DUR * FPS)  # 960
 WHITE, INKD, DIMD, CARD = B.WHITE, B.INKD, B.DIMD, B.CARD
 GREEND, REDD, AMBERD, QUEST, BORDER = B.GREEND, B.REDD, B.AMBERD, B.QUEST, B.BORDER
 CYAND, VIOLETD, PINKD = B.CYAND, B.VIOLETD, B.PINKD
@@ -40,8 +42,8 @@ text, card, pop, fade, header, stamp = B.text, B.card, B.pop, B.fade, B.header, 
 draw_sym = B.draw_sym
 
 # ---- copy ----
-T_H = ("WHY NOT USE WHAT", "ALREADY SHIPS?")
-T_SUB = "RP2040: no maths hardware (FPU)"
+# (title copy deleted in wave6: idea.py poses the question once)
+# (title subtitle copy likewise deleted)
 HD_WORK = ("FIRST: THE WORKLOADS", "what must run on the chip")
 WORK = [
     ("IAS15", CYAND, "Desktop bits (binary64)"),
@@ -92,19 +94,28 @@ ST_LINES = [
 ]
 
 # ---- timeline ----
-E_TITLE, E_WORK, E_SPEC = 3.5, 8.0, 13.5
+# internal scene boundaries (scene functions keep these beats):
+E_SPEC = 13.5
+# output boundaries: white lead, spec, opt1, opt2, opt3, settle
+O_SPEC, O_O1, O_O2, O_O3, O_SETTLE = 0.5, 7.0, 13.5, 20.5, 25.5
 E_O1, E_O2, E_O3 = 18.5, 24.0, 28.0
-FADE_T = 32.5
+FADE_T = 31.0  # output time
 
-# BLOCKS: audit truth in TRIMMED segment time (post-title blocks are the
-# untrimmed times minus SHIFT; the workloads scene is deleted - see top).
+# BLOCKS: audit truth in output segment time (_MAP converts the
+# internal scene beats; title and workloads scenes are deleted).
+_MAP = {"spec": (8.0, O_SPEC, O_O1), "opt1": (13.5, O_O1, O_O2),
+        "opt2": (18.5, O_O2, O_O3), "opt3": (24.0, O_O3, O_SETTLE),
+        "settle": (28.0, O_SETTLE, FADE_T)}
+
+
 def _sh(blocks):
-    return [(s, a - SHIFT, b - SHIFT, lines) for (s, a, b, lines) in blocks]
+    return [(s, a - _MAP[s][0] + _MAP[s][1], _MAP[s][2], lines)
+            for (s, a, b, lines) in blocks]
 
 
 BLOCKS = [
-    ("title", 0.5, E_TITLE, list(T_H)),
-    ("title", 1.0, E_TITLE, [T_SUB]),
+    # title rows deleted in wave6 (duplicate question)
+    # (subtitle row likewise deleted)
 ] + _sh([
     ("spec", 8.0, E_SPEC, list(HD_SPEC)),
 ] + [("spec", 8.5 + i * 0.5, E_SPEC, [r]) for i, r in enumerate(SPEC3)] + [
@@ -128,17 +139,6 @@ BLOCKS = [
     ("settle", 30.0, FADE_T, [ST_LINES[3]]),
 ])
 
-
-def scene_title(d, t):
-    a = fade(t, 0.5)
-    if a <= 0:
-        return
-    c = S.blend(WHITE, INKD, a)
-    text(d, (W / 2, 600), T_H[0], "black", 150, c)
-    text(d, (W / 2, 790), T_H[1], "black", 150, c)
-    b = fade(t, 1.0)
-    if b > 0:
-        text(d, (W / 2, 960), T_SUB, "body", 42, S.blend(WHITE, DIMD, b))
 
 
 def scene_workloads(d, t):
@@ -247,29 +247,27 @@ def scene_settle(d, t):
 def frame(t: float) -> Image.Image:
     img = Image.new("RGB", (W, H), WHITE)
     d = ImageDraw.Draw(img)
-    if t < E_TITLE:
-        scene_title(d, t)
+    if t < O_SPEC:
         return img
-    ts = t + SHIFT  # untrimmed-timeline time for all later scenes
-    if ts < E_SPEC:
-        scene_spec(d, ts)
-    elif ts < E_O1:
-        scene_opt1(d, ts)
-    elif ts < E_O2:
-        scene_opt2(d, ts)
-    elif ts < E_O3:
-        scene_opt3(d, ts)
+    if t < O_O1:
+        scene_spec(d, 8.0 + (t - O_SPEC))
+    elif t < O_O2:
+        scene_opt1(d, 13.5 + (t - O_O1))
+    elif t < O_O3:
+        scene_opt2(d, 18.5 + (t - O_O2))
+    elif t < O_SETTLE:
+        scene_opt3(d, 24.0 + (t - O_O3))
     else:
-        scene_settle(d, ts)
-    if ts >= FADE_T:
-        a = S.ease_in_out(min(1.0, (ts - FADE_T) / 0.25))
+        scene_settle(d, 28.0 + (t - O_SETTLE))
+    if t >= FADE_T:
+        a = S.ease_in_out(min(1.0, (t - FADE_T) / 0.25))
         img = Image.blend(img, Image.new("RGB", (W, H), WHITE), a)
     return img
 
 
 def main() -> int:
     out = HERE / "why3-1440p.mp4"
-    first_white = int((FADE_T - SHIFT + 0.25) * FPS) + 1
+    first_white = int((FADE_T + 0.25) * FPS) + 1
     exe = imageio_ffmpeg.get_ffmpeg_exe()
     cmd = [exe, "-y", "-hide_banner", "-loglevel", "error",
            "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",

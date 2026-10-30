@@ -18,7 +18,7 @@ their merge. A compact DEEP legend and an agent counter
 (Waves 0-5, n/93) persist through the replay. Everything r2 fixed
 stays fixed: chase replay camera, spine clipping, bridge
 cross-fade, red persistence, falling opening + on-plate label,
-interval epilogue gate, gate ranks [44, 69, 140], TOTAL 102.0 s,
+interval epilogue gate, gate ranks [44, 69, 140], TOTAL 108.0 s (wave6 dwell),
 open white, end near-black, sync = pure function of cursor_rank
 (episode activity is a function of the same fractional rank - no
 second clock).
@@ -119,7 +119,7 @@ def rule_dwell(words):
 
 POPUP_WORDS = [word_count(t) + sum(word_count(ln) for ln in lines)
                for t, lines in POPUP5]
-POPUP_DWELL = [rule_dwell(w) for w in POPUP_WORDS]
+POPUP_DWELL = [rule_dwell(w) + 0.5 for w in POPUP_WORDS]  # wave6 dwell +0.5 each
 # Chase arrivals: first node as v4 (6.5 s), 1.0 s travel legs as v4,
 # holds = rule dwell (the marble waits on its node; lighting is still
 # gated on head_x, so the event itself cannot move).
@@ -128,20 +128,20 @@ _a = 6.5
 for _dw in POPUP_DWELL:
     ARRIVALS.append(_a)
     _a += _dw + 1.0
-T_BRIDGE = ARRIVALS[-1] + POPUP_DWELL[-1]          # 42.5 (v4: 28.6)
-T_REPLAY = math.ceil((T_BRIDGE + 2.4) * 2.0) / 2.0  # 45.0 (v4: 31.0)
+T_BRIDGE = ARRIVALS[-1] + POPUP_DWELL[-1]          # 46.0 wave6 (v5: 42.5)
+T_REPLAY = math.ceil((T_BRIDGE + 2.4) * 2.0) / 2.0  # 48.5 wave6 (v5: 45.0)
 BRIDGE_DUR = T_REPLAY - T_BRIDGE                    # 2.5 (v4: 2.4)
 BRIDGE_TAIL = 2.0   # r2: chase geometry fades OUT over 45.0-47.0 s
-SHIFT = T_REPLAY - 31.0                             # 14.0
+SHIFT = T_REPLAY - 31.0                             # 17.5 wave6 (v5: 14.0)
 # r2 item 1: the r1 end parked 89->93 s at HEAD, then travelled
 # 2.6 s before the first tip - 6.75 s of hang between the interval
 # gate closing (89.0) and the first fall (95.75). Funded from that
 # dead settle: opening scene starts 90.5 (1.5 s breath), the wider
 # pack stagger (PACK_STAGGER below) spreads the drops 93.25-96.4,
 # dimming moves to lt 6.8 (97.3). T_FADE/TOTAL unchanged.
-T_BOX = 90.5                                        # r1: 93.0
-T_FADE = 86.0 + SHIFT                               # 100.0
-TOTAL = 88.0 + SHIFT                                # 102.0
+T_BOX = 79.0 + SHIFT  # wave6: aug gate close + 1.5 (was 90.5)
+T_FADE = T_BOX + 9.5  # wave6 (was 86.0+SHIFT=100.0)
+TOTAL = T_FADE + 2.0  # wave6: 108.0 (was 102.0)
 
 def px(v):
     return int(round(v * Q))
@@ -609,15 +609,15 @@ def clip_rs(pts_rs, rlo, rhi):
 # HEAD - cursor_rank stays on LAST_RANK through both, so the gate hold
 # sits exactly on its rank like every other gate.
 GATES = [
-    {"id": "ias15", "rank": float(IAS_RANK), "t0": 39.0 + SHIFT, "t1": 47.0 + SHIFT,
+    {"id": "ias15", "rank": float(IAS_RANK), "t0": 39.0 + SHIFT, "t1": 48.0 + SHIFT,
      "title": "IAS15 RUNS ON THE CHIP",
      "sub": "merge d9718cf - the stream waits",
      "src": "src: project record, Wave 3"},
-    {"id": "kissfft", "rank": float(G1_RANK), "t0": 52.0 + SHIFT, "t1": 60.0 + SHIFT,
+    {"id": "kissfft", "rank": float(G1_RANK), "t0": 53.0 + SHIFT, "t1": 62.0 + SHIFT,
      "title": "KISSFFT STUDY",
      "sub": "merge 32bbd93 - the stream waits",
      "src": "src: KissFFT study report"},
-    {"id": "augint", "rank": float(LAST_RANK), "t0": 67.0 + SHIFT, "t1": 75.0 + SHIFT,
+    {"id": "augint", "rank": float(LAST_RANK), "t0": 69.0 + SHIFT, "t1": 77.5 + SHIFT,
      "title": "AUGMENTED INTERVALS",
      "sub": "epilogue - Wave 6, after HEAD",
      # r2 item 6: the interval proof ran on all six boards
@@ -625,8 +625,8 @@ GATES = [
      "src": "src: BOARD, Wave 6 - six boards"},
 ]
 LEGS = [(T_REPLAY, 39.0 + SHIFT, 0.0, float(IAS_RANK)),
-        (47.0 + SHIFT, 52.0 + SHIFT, float(IAS_RANK), float(G1_RANK)),
-        (60.0 + SHIFT, 67.0 + SHIFT, float(G1_RANK), float(LAST_RANK))]
+        (48.0 + SHIFT, 53.0 + SHIFT, float(IAS_RANK), float(G1_RANK)),
+        (62.0 + SHIFT, 69.0 + SHIFT, float(G1_RANK), float(LAST_RANK))]
 
 def cursor_rank(t):
     if t < T_REPLAY:
@@ -1288,7 +1288,7 @@ def draw_gate_window(img, t, cam, gate, lt):
     gp = R3(gate["rank"], 0.0)
     (gx, gy), dep, _ = cam.one(gp)
     rise = ss(lt / 0.8)
-    close = ss((lt - 7.2) / 0.8)
+    close = ss((lt - (gate["t1"] - gate["t0"] - 0.8)) / 0.8)  # wave6: dwell before close
     open_u = rise * (1.0 - close)
     # darken (not erase) the world: blend manually - a translucent RGBA rect
     # would REPLACE pixels and convert("RGB") would resurrect it full-strength

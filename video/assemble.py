@@ -9,7 +9,7 @@ muse-softfloat/video/out/assembly_v6.mp4 and pixel-checks the joins.
 The concatenation is tempo-scaled by 120/124: every segment
 length is a whole number of 120 BPM beats, so after scaling
 every cut lands exactly on a 124 BPM beat (music sync;
-169.0 s -> 163.5 s, a uniform 3.3% motion speedup).
+185.0 s -> 179.0 s, a uniform 3.3% motion speedup).
 
 Run from the workspace root with the project venv:
     .venv\\Scripts\\python.exe muse-softfloat\\video\\assemble.py [--force]
@@ -34,10 +34,10 @@ FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
 # (script, expected mp4, expected seconds)
 SEGMENTS = [
     ("intro_outro.py", "intro3.mp4", 7.0),
-    ("idea.py", "idea2-1440p.mp4", 22.5),
-    ("why.py", "why3-1440p.mp4", 29.0),  # workloads scene trimmed (dup of idea)
-    ("gitvisual.py", "gitvisual7.mp4", 102.0),  # v7 process-graph renderer
-    ("intro_outro.py", "outro3.mp4", 8.5),  # same script renders both
+    ("idea.py", "idea2-1440p.mp4", 26.0),
+    ("why.py", "why3-1440p.mp4", 32.0),  # title scene deleted (dup question)
+    ("gitvisual.py", "gitvisual7.mp4", 108.0),  # v7 process-graph renderer
+    ("intro_outro.py", "outro3.mp4", 12.0),  # same script renders both
 ]
 ORDER = ["intro3.mp4", "idea2-1440p.mp4", "why3-1440p.mp4",
          "gitvisual7.mp4", "outro3.mp4"]
