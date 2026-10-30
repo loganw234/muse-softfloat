@@ -1,29 +1,31 @@
-"""Git-visual segment v5 (v4 + text/pacing revision): marble-track
-model in ONE continuous space at 2560x1440. v5 changes vs v4: TEXT
-ONLY, per ledger/briefs/study-video-textpacing.md (Agent B) - plainer,
-shorter copy everywhere (popup = title + <=2 short lines, headlines
-<=6 words, body <=10 words, <=2 new lines per beat, one short source
-tag per scene), and every text block's dwell set by THE RULE:
-smallest 0.5 s-grid multiple >= max(1.5 s, 0.5 s + words/2.5). Popup
-holds therefore grow (2.3 s -> rule dwell); the head marble simply
-WAITS on its node - no event moves: every marble position is still
-a pure function of the same clock that lights its event (chase:
-head_x; replay: cursor_rank), gates/windows/topology/packaging are
-v4's, shifted later in wall time by the bought dwell (SHIFT). Sync
-re-measured by measure_sync5.py; copy/dwell audited by audit_text5.py.
+"""Git-visual segment v7 (owner-directed redesign of v6/r2, per
+ledger/briefs/study-video-gitvisual-v7.md): the replay becomes the
+real PROCESS graph. v6/r2 showed merged git topology only (25 branch
+lanes coloured by wave); the records say 93 agent episodes ran
+through Wave 5 (docs/metrics/passes.jsonl: 94 rows = 93 lane
+episodes + the lead spine episode). v7 draws one lane + one marble
+per episode from process_graph.json (prep_process_graph.py, full
+accounting: every passes row one episode, every plants verifier
+attached or named unmapped), coloured by the introduction's DEEP
+role legend EVERYWHERE (author=parcels teal, verifier=pink,
+surveyor=studies purple, fixer=escalations red, lead=lead/main
+blue; wave lane colouring deleted - waves survive only as day
+separators). Author episodes ride the existing git lane geometry to
+their merge (no double-draw); verifier lanes stop at their verdict
+with plant ticks (orange, filled=caught, hollow=missed); surveyor
+lanes terminate in a document node; fixer lanes are red returns to
+their merge. A compact DEEP legend and an agent counter
+(Waves 0-5, n/93) persist through the replay. Everything r2 fixed
+stays fixed: chase replay camera, spine clipping, bridge
+cross-fade, red persistence, falling opening + on-plate label,
+interval epilogue gate, gate ranks [44, 69, 140], TOTAL 102.0 s,
+open white, end near-black, sync = pure function of cursor_rank
+(episode activity is a function of the same fractional rank - no
+second clock).
 
 2560x1440 @ 30 fps, video/style.py fonts/palette, 0.5 s / 120 BPM grid.
-Every camera move renders the scene parametrically at output scale
-(vector projection + native-size text) - max crop-upscale factor 1.0.
-Handoffs (VALUES unchanged, now 1440p): open pure white (255,255,255);
-end near-black source (3,4,9) -> (2,3,8) after encode (= outro2).
-Data: history.json (real git history at a73e97d), gate2_numbers.json
-(regen at a73e97d), KissFFT study JSONs, video/data.py IAS15 digests
-+ figure-8 ICs (orbit integrated in float64, labelled illustration;
-the hash rows are the proof). Frames stream to ffmpeg; never buffered.
-
-Run: $MSF_PYTHON gitvisual.py --still 12.0 --out stills5/test.png
-     $MSF_PYTHON gitvisual.py --out gitvisual5.mp4
+Run: $MSF_PYTHON gitvisual.py --still 12.0 --out stills7/test.png
+     $MSF_PYTHON gitvisual.py --out gitvisual7.mp4
 """
 from __future__ import annotations
 
@@ -34,7 +36,13 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent.parent
+# production layout: ROOT = muse-softfloat/ (HERE.parent.parent);
+# the scratch study copy sat two levels below the workspace root,
+# so resolve whichever layout is present (kept for study reuse).
+if (HERE.parent.parent / "video" / "style.py").exists():
+    ROOT = HERE.parent.parent
+else:
+    ROOT = HERE.parent.parent / "muse-softfloat"
 sys.path.insert(0, str(ROOT / "video"))
 import style as S  # noqa: E402
 import data as VDATA  # noqa: E402
@@ -56,14 +64,32 @@ HIST = json.loads((HERE / "history.json").read_text(encoding="utf-8"))
 COMMITS, MERGES, NODES = HIST["commits"], HIST["merges"], HIST["node_events"]
 IAS_RANK = next(m["rank"] for m in MERGES if m["short"] == "d9718cf")   # 44, true beat
 G1_RANK = next(m["rank"] for m in MERGES if m["short"] == HIST["gate_anchors"]["gate1_kissfft_merge"])
-G2_RANK = next(m["rank"] for m in MERGES if m["short"] == HIST["gate_anchors"]["gate2_metrics_merge"])
 LAST_RANK = HIST["commit_count_all"] - 1
 _spec = json.loads((HERE / "spectrum_n256.json").read_text())
 _inp = json.loads((HERE / "input_n256.json").read_text())
 SPEC, WAVE_RE = _spec["mag"], _inp["re"]
-G2N = json.loads((HERE / "gate2_numbers.json").read_text(encoding="utf-8"))
+# v6: Wave 6 epilogue sample (prep_augint_sample.py, exact arithmetic;
+# stage-3 value cross-checked there against the catalogue oracle)
+AUG = json.loads((HERE / "augint_sample.json").read_text(encoding="utf-8"))
 IAS15 = VDATA.ias15_digests()          # asserts 2001 rows + step0/2000 pins
 FIG8 = VSC.simulate_fig8(int(8 * FPS) + 2, VDATA.FIG8_T_FINAL)  # [frame,3,2]
+# v7: the process graph (prep_process_graph.py; accounting inside).
+# DEEP role colours are the ONLY lane colours in both halves.
+PG = json.loads((HERE / "process_graph.json").read_text(encoding="utf-8"))
+EPISODES = PG["episodes"]
+LANE_EPS = [e for e in EPISODES if e["kind"] == "lane"]
+ROLE_COL = {"lead": DEEP["lead / main"], "author": DEEP["parcels"],
+            "verifier": DEEP["verifiers"], "surveyor": DEEP["studies"],
+            "fixer": DEEP["escalations"]}
+N_AGENTS = PG["accounting"]["lane_episodes"]  # 93 (lead spine excluded)
+SLOT_MAX = max(abs(e["slot"]) for e in LANE_EPS)
+GIT_OWNER = {e["git_lane"]: e for e in LANE_EPS if e.get("git_lane")}
+# study labels: SF-0/1/2-class surveyors that gate a later parcel
+# (Tier-2/SF-1 input studies, SF-2 input studies, SF-0 evidence).
+# study-kissfft-visual / study-tokens-visual deliberately excluded:
+# feasibility doodles for gates, not plan-gating studies.
+STUDY_LABELS = {e["id"] for e in LANE_EPS if e["role"] == "surveyor" and (
+    e["agent"].startswith(("study-tier2", "study-sf2")) or "SF-0" in e["work"])}
 
 # ---------- v5 text/pacing: popup copy + THE RULE ----------
 # Popup copy overrides history.json node_events title/lines on screen
@@ -82,7 +108,7 @@ POPUP5 = [
 ]
 # One short source tag per scene (full sourcing in the report).
 SRC_CHASE = "src: project RECORD + git log"
-SRC_REPLAY = "src: git log @ a73e97d"
+SRC_REPLAY = "src: git log @ a73e97d + metrics passes/plants"
 
 def word_count(s):
     return len(s.split())
@@ -105,8 +131,15 @@ for _dw in POPUP_DWELL:
 T_BRIDGE = ARRIVALS[-1] + POPUP_DWELL[-1]          # 42.5 (v4: 28.6)
 T_REPLAY = math.ceil((T_BRIDGE + 2.4) * 2.0) / 2.0  # 45.0 (v4: 31.0)
 BRIDGE_DUR = T_REPLAY - T_BRIDGE                    # 2.5 (v4: 2.4)
+BRIDGE_TAIL = 2.0   # r2: chase geometry fades OUT over 45.0-47.0 s
 SHIFT = T_REPLAY - 31.0                             # 14.0
-T_BOX = 79.0 + SHIFT                                # 93.0
+# r2 item 1: the r1 end parked 89->93 s at HEAD, then travelled
+# 2.6 s before the first tip - 6.75 s of hang between the interval
+# gate closing (89.0) and the first fall (95.75). Funded from that
+# dead settle: opening scene starts 90.5 (1.5 s breath), the wider
+# pack stagger (PACK_STAGGER below) spreads the drops 93.25-96.4,
+# dimming moves to lt 6.8 (97.3). T_FADE/TOTAL unchanged.
+T_BOX = 90.5                                        # r1: 93.0
 T_FADE = 86.0 + SHIFT                               # 100.0
 TOTAL = 88.0 + SHIFT                                # 102.0
 
@@ -155,6 +188,7 @@ class Cam:
             c, s = math.cos(roll), math.sin(roll)
             r, u = r * c + u * s, u * c - r * s
         self.f, self.r, self.u = f, r, u
+        self.roll = roll  # r2: bridge interpolates it (see master_cam)
 
     def proj(self, pts):
         p = np.atleast_2d(np.asarray(pts, float)) - self.pos
@@ -168,20 +202,58 @@ class Cam:
         sc, dep, scl = self.proj(np.array([p3], float))
         return (float(sc[0, 0]), float(sc[0, 1])), float(dep[0]), float(scl[0])
 
+NEAR_Z = 41.0
+
 def proj_line(d, cam, pts3, core, width=7, pulse=0.0, ghost=False, alpha=None):
+    """Project a 3D polyline, CLIPPING segments at the near plane.
+
+    r2 item 4 root cause: the old filter simply dropped vertices
+    with depth <= 40. A long line along the view direction drawn
+    from two endpoints (the replay spine: rlo -> cursor) then
+    vanished whole the moment its far-behind endpoint crossed
+    behind the camera, even though most of the line was visible.
+    Segments are now clipped in camera space at z = NEAR_Z, so the
+    visible remainder always draws (possibly in several runs)."""
     if len(pts3) < 2:
         return
-    sc, dep, scl = cam.proj(np.array(pts3, float))
-    ok = [(float(sc[i, 0]), float(sc[i, 1])) for i in range(len(sc)) if dep[i] > 40]
-    if len(ok) < 2:
-        return
-    med = float(np.median(scl[dep > 40])) if np.any(dep > 40) else 1.0
-    wdt = max(2, int(px(width) * clamp(med, 0.25, 1.15)))
-    if ghost or alpha is not None:
-        d.line(ok, fill=tuple(core) + (60 if alpha is None else alpha,), width=wdt, joint="curve")
-    else:
-        # glow_poly already applies px(); feed it design-unit width back-scaled
-        glow_poly(d, ok, core, max(2.0, width * clamp(med, 0.25, 1.15)), pulse)
+    p = np.array(pts3, float) - cam.pos
+    cx, cy, cz = p @ cam.r, p @ cam.u, p @ cam.f
+    runs, run = [], []
+    for i in range(len(cx) - 1):
+        a = np.array([cx[i], cy[i], cz[i]]); b = np.array([cx[i + 1], cy[i + 1], cz[i + 1]])
+        if a[2] < NEAR_Z and b[2] < NEAR_Z:
+            if len(run) >= 2:
+                runs.append(run)
+            run = []
+            continue
+        if a[2] < NEAR_Z:  # entering: clip start onto the near plane
+            a = a + (b - a) * ((NEAR_Z - a[2]) / (b[2] - a[2]))
+            if run:
+                if len(run) >= 2:
+                    runs.append(run)
+                run = []
+        if not run:
+            run = [a]
+        if b[2] < NEAR_Z:  # leaving: clip end onto the near plane
+            b = a + (b - a) * ((NEAR_Z - a[2]) / (b[2] - a[2]))
+            run.append(b)
+            runs.append(run)
+            run = []
+        else:
+            run.append(b)
+    if len(run) >= 2:
+        runs.append(run)
+    for run in runs:
+        arr = np.array(run)
+        ok = [(float(W / 2 + cam.focal * q[0] / q[2]),
+               float(H / 2 - cam.focal * q[1] / q[2])) for q in arr]
+        med = float(np.median(cam.focal / arr[:, 2]))
+        wdt = max(2, int(px(width) * clamp(med, 0.25, 1.15)))
+        if ghost or alpha is not None:
+            d.line(ok, fill=tuple(core) + (60 if alpha is None else alpha,), width=wdt, joint="curve")
+        else:
+            # glow_poly already applies px(); feed it design-unit width back-scaled
+            glow_poly(d, ok, core, max(2.0, width * clamp(med, 0.25, 1.15)), pulse)
 
 def draw_marble(d, cam, p3, core, r_world=26.0, pulse=0.0, bed_z=None, shadow=(24, 30, 50)):
     """A marble: shaded sphere (screen circle scaled by 1/depth) + bed shadow.
@@ -417,33 +489,70 @@ BOX_RANK = LAST_RANK + 16.0
 def R3(rank, slot):
     return (X0R + rank * DX, slot * DY, Z0R + rank * DZ)
 
-def lane_color(branch):
-    if branch.startswith("w1-"):
-        return S.CYAN
-    if branch.startswith("w2-"):
-        return (45, 212, 191)
-    if branch.startswith(("w3-", "w-ias15")):
-        return S.AMBER
-    if branch.startswith("wave4-"):
-        return S.VIOLET
-    if branch.startswith("wave5-"):
-        return S.PINK
-    return (96, 165, 250)
-
-_LANES = {}
+# v7: wave lane colouring DELETED (r2's lane_color). Colour = DEEP
+# role everywhere; waves survive only as day separators/background.
 def assign_lanes():
-    if _LANES:
-        return _LANES
-    taken = []
-    cycle, order = [-1, 1, -2, 2, -3, 3, -1, 2, -2, 1], [-1, 1, -2, 2, -3, 3, -4, 4]
-    for k, m in enumerate([m for m in MERGES if m["target"] == "main"]):
-        first = cycle[k % len(cycle)]
-        for slot in [first] + [s for s in order if s != first]:
-            if not any(s == slot and not (m["rank"] < a - 1 or m["merge_base_rank"] > b + 1)
-                       for s, a, b in taken):
-                _LANES[m["short"]] = slot
-                taken.append((slot, m["merge_base_rank"], m["rank"])); break
-    return _LANES
+    """Git lane slots from process_graph.json (prep replicates the
+    r2 algorithm exactly; single source of truth for v7 geometry)."""
+    return PG["git_slots"]
+
+_EP_PTS = {}
+def ep_pts_rs(ep):
+    """Episode lane polyline in (rank, slot), monotonic in rank.
+    Authors on a git lane reuse the git lane_pts_rs (no double-draw).
+    Others: fork from the spine at draw_start, elbow to the episode
+    slot, then by endpoint: merge -> back to slot 0 at draw_end;
+    verdict/doc -> stay at slot (the lane STOPS; a node marks it).
+    Sub-rank spans get proportional elbows; near-instant probes
+    (span < 0.05 ranks, seconds long in the records) collapse to a
+    short spur so the endpoint node still has a lane to sit on."""
+    eid = ep["id"]
+    if eid in _EP_PTS:
+        return _EP_PTS[eid]
+    if ep.get("git_lane"):
+        m = next(m for m in MERGES if m["short"] == ep["git_lane"])
+        pts = lane_pts_rs(m)
+    else:
+        s, e, slot = ep["draw_start"], ep["draw_end"], float(ep["slot"])
+        span = max(0.0, e - s)
+        elb = min(0.9, span / 3.0) if span > 0.05 else 0.02
+        if ep["endpoint"] == "merge":
+            pts = [(s, 0.0), (s + elb, slot), (e - elb, slot), (e, 0.0)]
+        else:
+            pts = [(s, 0.0), (s + elb, slot), (e, slot)]
+        pts = sorted(pts)
+        # keep strictly increasing rank for slot_at
+        fixed = [pts[0]]
+        for p in pts[1:]:
+            if p[0] <= fixed[-1][0]:
+                p = (fixed[-1][0] + 1e-4, p[1])
+            fixed.append(p)
+        pts = fixed
+    _EP_PTS[eid] = pts
+    return pts
+
+FIX_BUMP = 110.0  # world-units height of the fixer return loop arc
+
+def ep_zoff(ep, rank):
+    """Fixer lanes are red RETURN LOOPS: the return elbow arcs up
+    (raised loop in Z over the last stretch before rejoining at the
+    merge rank). Pure function of rank; 0 at both ends of the arc,
+    so spawn/return events stay exactly on the spine nodes."""
+    if ep["role"] != "fixer" or ep["endpoint"] != "merge":
+        return 0.0
+    s, e = ep["draw_start"], ep["draw_end"]
+    elb = min(0.9, max(0.0, e - s) / 3.0)
+    lo = e - max(elb, 0.6)
+    if rank <= lo or rank >= e:
+        return 0.0
+    return FIX_BUMP * math.sin(math.pi * (rank - lo) / (e - lo))
+
+def ep_marble_pos(ep, cur):
+    """Episode marble centre: PURE function of (episode lane, cursor
+    rank) - the v4 sync model extended to episodes."""
+    p = R3(cur, slot_at(ep_pts_rs(ep), cur))
+    z = ep_zoff(ep, cur)
+    return (p[0], p[1], p[2] + z) if z else p
 
 def lane_pts_rs(m):
     """Lane polyline in (rank, slot): fork at true merge-base, true merge rank.
@@ -492,6 +601,13 @@ def clip_rs(pts_rs, rlo, rhi):
     return out
 
 # timeline: cursor rank + gate windows (all boundaries on the 0.5 s grid)
+# v6: the TOKENS window is gone. The augmented-interval gate is an
+# EPILOGUE after the last frozen-history rank (history.json is frozen
+# at a73e97d; the augint merge is Wave 6, later), reusing the tokens
+# window's wall time (67-75+SHIFT): replay leg C now runs straight to
+# HEAD, and the old leg D (75+SHIFT -> T_BOX) is the parked settle at
+# HEAD - cursor_rank stays on LAST_RANK through both, so the gate hold
+# sits exactly on its rank like every other gate.
 GATES = [
     {"id": "ias15", "rank": float(IAS_RANK), "t0": 39.0 + SHIFT, "t1": 47.0 + SHIFT,
      "title": "IAS15 RUNS ON THE CHIP",
@@ -501,15 +617,16 @@ GATES = [
      "title": "KISSFFT STUDY",
      "sub": "merge 32bbd93 - the stream waits",
      "src": "src: KissFFT study report"},
-    {"id": "tokens", "rank": float(G2_RANK), "t0": 67.0 + SHIFT, "t1": 75.0 + SHIFT,
-     "title": "TOKENS, RECOUNTED",
-     "sub": "metrics merge a1a888f (chosen anchor)",
-     "src": "src: usage.jsonl @ a73e97d"},
+    {"id": "augint", "rank": float(LAST_RANK), "t0": 67.0 + SHIFT, "t1": 75.0 + SHIFT,
+     "title": "AUGMENTED INTERVALS",
+     "sub": "epilogue - Wave 6, after HEAD",
+     # r2 item 6: the interval proof ran on all six boards
+     # 2026-10-30, all PASS (scratch/lead/interval_six_summary.txt)
+     "src": "src: BOARD, Wave 6 - six boards"},
 ]
 LEGS = [(T_REPLAY, 39.0 + SHIFT, 0.0, float(IAS_RANK)),
         (47.0 + SHIFT, 52.0 + SHIFT, float(IAS_RANK), float(G1_RANK)),
-        (60.0 + SHIFT, 67.0 + SHIFT, float(G1_RANK), float(G2_RANK)),
-        (75.0 + SHIFT, T_BOX, float(G2_RANK), float(LAST_RANK))]
+        (60.0 + SHIFT, 67.0 + SHIFT, float(G1_RANK), float(LAST_RANK))]
 
 def cursor_rank(t):
     if t < T_REPLAY:
@@ -532,18 +649,32 @@ def gate_at(t):
     return None, 0.0
 
 def replay_cam(t, cur):
-    """Closer angled chase of the cursor: behind-side-above, looking up-ramp.
-    Near (old) sits low in frame, far (new) high: marbles travel UP-screen."""
-    cx, cz = X0R + cur * DX, Z0R + cur * DZ
-    sway = 60.0 * math.sin(t * 0.35)
-    pos = np.array([cx - 1900.0, -1080.0 + sway, cz + 1050.0])
-    tgt = np.array([cx + 900.0, 130.0, cz + 330.0])
-    if t >= T_BOX:  # box dolly: ease toward the box on the same spine
-        bx, bz = X0R + BOX_RANK * DX, Z0R + BOX_RANK * DZ
+    """v6: the replay shot in the introduction's chase language (owner
+    change 1). Same close-follow offset and look-ahead as chase_cam
+    once lifted (-980,-760,+500, looking ~380 units ahead of the head
+    marble, focal px(1150)), riding ON the climbing track: the offset
+    is taken from the cursor point R3(cur,0), so the camera climbs DZ
+    per rank with the head marble and the track ahead stays
+    near-horizontal in frame instead of v5's distant up-ramp framing
+    ((-1900,-1080,+1050) looking 900 ahead). The gate holds get the
+    chase's node-arrival emphasis: a 20% close-in while a gate window
+    is up, damped roll. Camera only - cursor_rank, gate holds, leg
+    wall times and every marble position are unchanged."""
+    cp = np.array(R3(cur, 0.0), float)
+    close = 0.0
+    for g in GATES:
+        close = max(close, ss((t - (g["t0"] - 0.5)) / 0.7)
+                    * (1 - ss((t - (g["t1"] - 0.4)) / 0.6)))
+    off = np.array([-980.0, -760.0, 500.0]) * (1.0 - 0.20 * close)
+    pos = cp + off
+    tgt = cp + np.array([380.0, 0.0, 380.0 * DZ / DX - 55.0])
+    if t >= T_BOX:  # opening dolly: ease to the end framing on the same spine
+        oc = np.array(R3(BOX_RANK, 0.0), float)
         u = ss((t - T_BOX) / 3.0)
-        pos = pos * (1 - u) + np.array([bx - 2100.0, -1350.0, bz + 1000.0]) * u
-        tgt = tgt * (1 - u) + np.array([bx, 0.0, bz + 220.0]) * u
-    return Cam(pos, tgt, roll=0.05 * math.sin(t * 0.4), focal=px(1200))
+        pos = pos * (1 - u) + (oc + np.array([-1500.0, -1050.0, 850.0])) * u
+        tgt = tgt * (1 - u) + (oc + np.array([0.0, 0.0, 40.0])) * u
+    roll = 0.08 * math.sin(t * 0.5) * (1.0 - 0.6 * close)
+    return Cam(pos, tgt, roll=roll, focal=px(1150))
 
 def master_cam(t):
     if t < T_BRIDGE:
@@ -553,7 +684,14 @@ def master_cam(t):
         a, b = chase_cam(t), replay_cam(t, 0.0)
         pos = a.pos * (1 - u) + b.pos * u
         tgt = a.tgt * (1 - u) + b.tgt * u
-        return Cam(pos, tgt, focal=px(1150 + 150 * u))
+        # v6: both ends now speak chase (same focal) - constant focal
+        # keeps the landing free of v5's small 1300->1200 focal step.
+        # r2 item 3: interpolate ROLL too - r1 built the bridge Cam
+        # with roll=0, so the whole frame snapped ~4 deg the frame
+        # replay_cam's roll (0.08*sin(t/2) = -0.070 rad at 45 s)
+        # switched on, and likewise dropped chase_cam's roll at 42.5.
+        roll = a.roll * (1 - u) + b.roll * u
+        return Cam(pos, tgt, roll=roll, focal=px(1150))
     return replay_cam(t, cursor_rank(t))
 
 # corrections/sendbacks: real commits (history.json) + RECORD/ledger sources.
@@ -631,40 +769,138 @@ def all_lane_pts():
 def draw_replay_world(img, t, cam, cur, gate=None, gate_lt=0.0):
     d = ImageDraw.Draw(img, "RGBA")
     pulse = beat_pulse(t)
-    rlo, rhi = cur - 18.0, cur + 48.0   # close window: the tree is implied
-    # track bed: cross ties + lane guides following the ramp
-    for r in range(max(0, int(rlo) // 4 * 4), min(LAST_RANK + 16, int(rhi) + 1), 4):
-        proj_line(d, cam, [R3(r, -4.6), R3(r, 4.6)], (70, 80, 110), 2, ghost=True)
-    for sl in (-4, -2, 0, 2, 4):
-        proj_line(d, cam, [R3(max(rlo, 0), sl), R3(min(rhi, BOX_RANK), sl)], (52, 62, 92), 2, ghost=True)
+    # v6: window recentred on the cursor for the close chase framing
+    # (v5's cur-18..cur+48 suited the distant up-ramp camera; total
+    # span kept, so draw cost is unchanged)
+    rlo, rhi = cur - 30.0, cur + 36.0   # close window: the tree is implied
+    # track bed: cross ties + lane guides following the ramp (v7:
+    # widened to the episode slot range the layout actually needed)
+    bed = SLOT_MAX + 0.6
+    for r in range(max(-4, int(rlo) // 4 * 4), min(LAST_RANK + 16, int(rhi) + 1), 4):
+        proj_line(d, cam, [R3(r, -bed), R3(r, bed)], (70, 80, 110), 2, ghost=True)
+    for sl in range(-SLOT_MAX, SLOT_MAX + 1, 2):
+        proj_line(d, cam, [R3(max(rlo, -2.0), sl), R3(min(rhi, BOX_RANK), sl)], (52, 62, 92), 2, ghost=True)
     # day separators (first commit of each day, S7)
     seen = {}
     for c in COMMITS:
         seen.setdefault(c["date"][:10], c["rank"])
     for day, r in seen.items():
         if rlo <= r <= rhi:
-            proj_line(d, cam, [R3(r, -4.6), R3(r, 4.6)], (120, 130, 165), 2, alpha=80)
-            (lx, ly), dep, _ = cam.one(R3(r, -4.6))
+            proj_line(d, cam, [R3(r, -bed), R3(r, bed)], (120, 130, 165), 2, alpha=80)
+            (lx, ly), dep, _ = cam.one(R3(r, -bed))
             if dep > 40:
                 text(d, (lx + px(8), ly - px(12)), day[5:], "mono_reg", 20, (120, 130, 160, 255), anchor="la")
     lanes = all_lane_pts()
     by_short = {m["short"]: m for m in MERGES if m["target"] == "main"}
-    # ghost future + lit past per lane
+    # v7 process graph: one lane per EPISODE, DEEP role colours.
+    # Git lanes owned by an author episode are drawn HERE as that
+    # episode (same geometry, no double-draw); the 6 lead-authored
+    # git lanes with no author episode draw thin in lead blue.
     for short, pts in lanes.items():
-        m = by_short[short]; col = lane_color(m["branch"])
+        if short in GIT_OWNER:
+            continue
+        m = by_short[short]; col = ROLE_COL["lead"]
         gp = [R3(r, s) for r, s in clip_rs(pts, max(rlo, cur), rhi)]
-        proj_line(d, cam, gp, col, 4, ghost=True)
+        proj_line(d, cam, gp, col, 3, ghost=True)
         lp = [R3(r, s) for r, s in clip_rs(pts, rlo, min(cur, float(m["rank"])))]
-        proj_line(d, cam, lp, col, 5, pulse * 0.5)
+        proj_line(d, cam, lp, col, 4, pulse * 0.4)
         for r in m["exclusive_ranks"]:
             if rlo <= r <= cur:
                 (sx, sy), dep, scl = cam.one(R3(r, slot_at(pts, r)))
                 if dep > 40:
-                    rr = clamp(9.0 * scl, 2.0, px(9))
+                    rr = clamp(8.0 * scl, 2.0, px(8))
                     d.ellipse([sx - rr, sy - rr, sx + rr, sy + rr], fill=tuple(col) + (255,))
-    # spine: ghost ahead to the box, lit behind cursor
-    proj_line(d, cam, [R3(max(cur, 0), 0), R3(min(rhi, BOX_RANK), 0)], (147, 197, 253), 4, ghost=True)
-    proj_line(d, cam, [R3(max(rlo, 0), 0), R3(max(min(cur, LAST_RANK), 0), 0)], (147, 197, 253), 6, pulse * 0.4)
+    for ep in LANE_EPS:
+        if ep["draw_end"] < rlo or ep["draw_start"] > rhi:
+            continue
+        pts = ep_pts_rs(ep); col = ROLE_COL[ep["role"]]
+        def _p3(rs_pts, ep=ep):
+            out = []
+            for r, s in rs_pts:
+                p = R3(r, s); z = ep_zoff(ep, r)
+                out.append((p[0], p[1], p[2] + z) if z else p)
+            return out
+        gp = _p3(clip_rs(pts, max(rlo, cur), rhi))
+        proj_line(d, cam, gp, col, 3, ghost=True)
+        # sample the lit part so the fixer return arc reads as a loop
+        lit_rs = clip_rs(pts, rlo, min(cur, ep["draw_end"]))
+        if ep["role"] == "fixer" and len(lit_rs) >= 2:
+            dense, (ra, rb) = [], (lit_rs[0][0], lit_rs[-1][0])
+            steps = max(2, int((rb - ra) / 0.25))
+            for i_ in range(steps + 1):
+                rr_ = ra + (rb - ra) * i_ / steps
+                dense.append((rr_, slot_at(pts, rr_)))
+            lit_rs = dense
+        proj_line(d, cam, _p3(lit_rs), col, 5, pulse * 0.5)
+        if ep.get("git_lane"):  # exclusive-commit dots on the git geometry
+            for r in by_short[ep["git_lane"]]["exclusive_ranks"]:
+                if rlo <= r <= cur:
+                    (sx, sy), dep, scl = cam.one(R3(r, slot_at(pts, r)))
+                    if dep > 40:
+                        rr = clamp(9.0 * scl, 2.0, px(9))
+                        d.ellipse([sx - rr, sy - rr, sx + rr, sy + rr], fill=tuple(col) + (255,))
+    # episode endpoints: surveyor = document node (lane stops);
+    # verifier = verdict node + plant ticks at the lane end
+    for ep in LANE_EPS:
+        if ep["endpoint"] == "merge" or not (rlo <= ep["draw_end"] <= rhi):
+            continue
+        p_end = R3(ep["draw_end"], float(ep["slot"]))
+        (sx, sy), dep, scl = cam.one(p_end)
+        if dep <= 40:
+            continue
+        col = ROLE_COL[ep["role"]]
+        rr = clamp(13.0 * scl, 3.0, px(12))
+        lit_end = cur >= ep["draw_end"]
+        if ep["endpoint"] == "doc":
+            # a small standing document: pale diamond, purple edge;
+            # outline-only until the cursor reaches it (ghost future)
+            if lit_end:
+                d.polygon([(sx, sy - rr * 1.5), (sx + rr, sy), (sx, sy + rr * 1.5), (sx - rr, sy)],
+                          fill=(232, 236, 248, 255), outline=tuple(col) + (255,))
+            else:
+                d.polygon([(sx, sy - rr * 1.5), (sx + rr, sy), (sx, sy + rr * 1.5), (sx - rr, sy)],
+                          outline=tuple(col) + (160,))
+        else:  # verdict
+            if lit_end:
+                d.ellipse([sx - rr, sy - rr, sx + rr, sy + rr], fill=tuple(col) + (255,))
+                d.ellipse([sx - rr * 0.45, sy - rr * 0.45, sx + rr * 0.45, sy + rr * 0.45],
+                          fill=(28, 8, 18, 255))
+            else:
+                d.ellipse([sx - rr, sy - rr, sx + rr, sy + rr], outline=tuple(col) + (150,), width=max(2, px(2)))
+        if ep["endpoint"] == "verdict" and ep["plants"] and lit_end:
+            # plant ticks: small orange marks fanning from the verdict
+            # node along +rank, filled = caught, hollow = missed
+            ocol = DEEP["plants"]
+            for k, tk in enumerate(ep["plants"]):
+                tp = R3(ep["draw_end"] + 0.28 + 0.30 * k, float(ep["slot"]))
+                tp = (tp[0], tp[1], tp[2] + 30.0)
+                (tx, ty), tdep, tscl = cam.one(tp)
+                if tdep <= 40:
+                    continue
+                tr = clamp(10.0 * tscl, 2.5, px(10))
+                if tk["grade"] == "caught":
+                    d.rectangle([tx - tr, ty - tr, tx + tr, ty + tr], fill=tuple(ocol) + (255,))
+                else:
+                    d.rectangle([tx - tr, ty - tr, tx + tr, ty + tr],
+                                outline=tuple(ocol) + (255,), width=max(2, px(3)))
+    # spine: ghost ahead (to the opening's near rim once the end scene
+    # owns the track - the track ends at the opening, not across it).
+    # r2 item 4: sampled every 2 ranks (was two endpoints only, so
+    # near-plane culling dropped the whole lit spine at chase
+    # distance); lit behind the cursor, ghost ahead, whole replay.
+    ghost_end = BOX_RANK - OPEN_HX / DX if t >= T_BOX else BOX_RANK
+    def spine_pts(ra, rb):
+        if rb <= ra:
+            return []
+        rs = [ra + 2.0 * i for i in range(int((rb - ra) / 2.0) + 1)]
+        if rs[-1] < rb:
+            rs.append(rb)
+        return [R3(r, 0) for r in rs]
+    # v7: spine in DEEP lead blue, extended to rank -2 for the
+    # pre-root Wave 0 episodes (their forks precede the root commit)
+    proj_line(d, cam, spine_pts(max(cur, -2.0), min(rhi, ghost_end)), ROLE_COL["lead"], 4, ghost=True)
+    proj_line(d, cam, spine_pts(max(rlo, -2.0), min(cur, float(LAST_RANK))),
+              ROLE_COL["lead"], 6, pulse * 0.4)
     for c in COMMITS:
         if c["on_main_first_parent"] and not c["is_merge"] and rlo <= c["rank"] <= cur:
             (sx, sy), dep, scl = cam.one(R3(c["rank"], 0))
@@ -680,7 +916,7 @@ def draw_replay_world(img, t, cam, cur, gate=None, gate_lt=0.0):
         if not host:
             continue
         p2 = next(c["rank"] for c in COMMITS if c["hash"] == m["second_parent"])
-        proj_line(d, cam, [R3(p2, 0), R3(m["rank"], assign_lanes()[host["short"]])], S.RED, 3, alpha=230)
+        proj_line(d, cam, [R3(p2, 0), R3(m["rank"], assign_lanes()[host["short"]])], DEEP["escalations"], 3, alpha=230)
     # merge pops (green) + persistent dots
     for m in MERGES:
         if m["target"] == "main" and m["rank"] <= cur and rlo <= m["rank"] <= rhi:
@@ -701,7 +937,7 @@ def draw_replay_world(img, t, cam, cur, gate=None, gate_lt=0.0):
             continue
         passed = t >= g["t1"] or (gate is g and gate_lt >= 6.5)
         col = S.GREEN if passed else S.AMBER
-        proj_line(d, cam, [R3(gr, -4.6), R3(gr, 4.6)], col, 5, alpha=235)
+        proj_line(d, cam, [R3(gr, -bed), R3(gr, bed)], col, 5, alpha=235)
         if passed:
             gp = R3(gr, 0.0); gp = (gp[0], gp[1], gp[2] + 90.0)
             (sx, sy), dep, scl = cam.one(gp)
@@ -719,26 +955,28 @@ def draw_replay_world(img, t, cam, cur, gate=None, gate_lt=0.0):
         ph = sb_phase(sb, cur)
         if ph is not None:
             sb_active[id(sb)] = ph
-    for back in (18.0, 12.0, 6.0):  # trailing spine marbles (box scene owns them later)
+    for back in (18.0, 12.0, 6.0):  # trailing spine marbles (opening scene owns them later)
         r = cur - back
         if r >= 0 and t < T_BOX:
-            draw_marble(d, cam, marble_pos(r, 0.0), (96, 165, 250), 22.0, 0.0, bed_z=Z0R + r * DZ)
-    for short, pts in lanes.items():
-        m = by_short[short]
-        if float(m["merge_base_rank"]) <= cur < float(m["rank"]):
-            col = lane_color(m["branch"])
-            # sendback detour overrides the straight ride on its lane
-            detour = None
-            for sb in SENDBACKS:
-                if sb["lane"] == short and id(sb) in sb_active:
-                    detour = sb
-            if detour is not None:
-                lp3 = loop_pts3(detour)
-                p = interp_poly(lp3, sb_active[id(detour)])
-                draw_marble(d, cam, p, col, 26.0, pulse, bed_z=Z0R + cur * DZ)
-            else:
-                draw_marble(d, cam, marble_pos(cur, slot_at(pts, cur)), col, 26.0, pulse * 0.6,
-                            bed_z=Z0R + cur * DZ)
+            draw_marble(d, cam, marble_pos(r, 0.0), ROLE_COL["lead"], 22.0, 0.0, bed_z=Z0R + r * DZ)
+    # v7: one travelling marble per ACTIVE episode (smaller than the
+    # head marble), pure function of the cursor rank. Sendback
+    # detours override the ride of the marble on their lane, as r2.
+    for ep in LANE_EPS:
+        if not (ep["draw_start"] <= cur < ep["draw_end"]) or t >= T_BOX:
+            continue
+        col = ROLE_COL[ep["role"]]
+        detour = None
+        lane_key = ep.get("git_lane")
+        for sb in SENDBACKS:
+            if sb["lane"] and sb["lane"] == lane_key and id(sb) in sb_active:
+                detour = sb
+        if detour is not None:
+            p = interp_poly(loop_pts3(detour), sb_active[id(detour)])
+            draw_marble(d, cam, p, col, 18.0, pulse, bed_z=Z0R + cur * DZ)
+        else:
+            draw_marble(d, cam, ep_marble_pos(ep, cur), col, 18.0, pulse * 0.6,
+                        bed_z=Z0R + cur * DZ)
     # spine sendback detour for the head marble (loop ends coincide
     # with the straight ride at both ends, so entry/exit are seamless)
     head_p = marble_pos(cur, 0.0)
@@ -748,14 +986,21 @@ def draw_replay_world(img, t, cam, cur, gate=None, gate_lt=0.0):
     if t < T_BOX:
         draw_marble(d, cam, head_p, S.AMBER, 34.0, pulse, bed_z=Z0R + cur * DZ)
     # sendback loops + stamps + labels (after marbles so badges read on top)
+    sb_label_rects = []  # v6: branch labels must not overdraw these
     for sb in SENDBACKS:
         if not (rlo <= sb["rank"] <= rhi):
             continue
         lp3 = loop_pts3(sb)
         done = cur > sb["rank"] - 1.0 + LOOP_SPAN
-        proj_line(d, cam, lp3, S.RED if not done else (160, 90, 90), 3,
-                  ghost=False, alpha=None) if id(sb) in sb_active else \
-            proj_line(d, cam, lp3, S.RED, 3, alpha=70)
+        # r2 item 5: a completed loop keeps the SAME persistence as a
+        # completed lane (full glow, width 5, pulse*0.5 - the lit-lane
+        # call above); r1 drew inactive loops at alpha=70, width 3,
+        # so every red loop faded to thin/dark the frame it finished.
+        # Only a loop the cursor has not reached yet is a ghost.
+        if done or id(sb) in sb_active:
+            proj_line(d, cam, lp3, DEEP["escalations"], 5, pulse * 0.5)
+        else:
+            proj_line(d, cam, lp3, DEEP["escalations"], 3, alpha=70)
         apex = lp3[2]
         (ax, ay), dep, scl = cam.one(apex)
         ax = clamp(ax, px(430), W - px(430))  # keep the label block on-frame
@@ -773,11 +1018,22 @@ def draw_replay_world(img, t, cam, cur, gate=None, gate_lt=0.0):
             dimmed = cur > sb["rank"] + SB_LABEL_TAIL
             ink = S.FAINT if dimmed else S.INK
             sub_c = S.FAINT if dimmed else S.DIM
-            ly = ay - px(150)
+            # v6: keep the whole label block on-frame in the closer
+            # chase framing (v5's fixed offset could crop at the edges)
+            ly = clamp(ay - px(150), px(150), H - px(310))
+            sb_label_rects.append((ax - px(330), ly - px(8), ax + px(330), ly + px(150)))
+            # r2: dark backing so lanes/marbles behind can no longer
+            # strike through the glyphs (r1: the "4cdb912" hash had
+            # a lane + marble across it at 48.5 s). Draw-order fix.
+            f1, f2 = S.font("black", px(25)), S.font("body", px(21))
+            half = max(d.textlength(sb["label"], font=f1),
+                       d.textlength(sb["sub"], font=f2)) / 2 + px(16)
+            d.rounded_rectangle([ax - half, ly - px(10), ax + half, ly + px(80)],
+                                px(10), fill=(5, 8, 16, 170 if dimmed else 218))
             text(d, (ax, ly), sb["label"], "black", 25, ink, anchor="ma")
             text(d, (ax, ly + px(36)), sb["sub"], "body", 21, sub_c, anchor="ma")
             if not dimmed:
-                draw_badge(d, ax, ay - px(36), "FIXED - REJOINS", S.RED, 0.7 + 0.3 * pop, -6.0)
+                draw_badge(d, ax, ly + px(114), "FIXED - REJOINS", (248, 150, 150), 0.7 + 0.3 * pop, -6.0)
         elif done:
             draw_check(d, ax, ay, clamp(22.0 * scl, px(8), px(18)), col=(248, 150, 150))
     # branch labels near their merge (billboards, S9)
@@ -786,10 +1042,50 @@ def draw_replay_world(img, t, cam, cur, gate=None, gate_lt=0.0):
         if float(m["merge_base_rank"]) <= cur <= float(m["rank"]) + 16 and rlo <= m["rank"] <= rhi:
             (sx, sy), dep, _ = cam.one(R3(min(cur, float(m["rank"])), slot_at(pts, min(cur, float(m["rank"])))))
             if dep > 40:
+                # v6: in the close chase framing a branch label can land
+                # exactly on a sendback label block; the sendback text
+                # wins (it is the timed reading load), the branch name
+                # reappears as soon as the block moves off
+                if any(rx0 <= sx <= rx1 and ry0 <= sy - px(64) <= ry1
+                       for rx0, ry0, rx1, ry1 in sb_label_rects):
+                    continue
                 anch = "ra" if sx < W / 2 else "la"
                 xo = -px(36) if anch == "ra" else px(36)
+                # r2: same backing treatment for branch billboards
+                bw_ = d.textlength(m["branch"], font=S.font("mono_reg", px(21)))
+                bx0 = sx + xo - bw_ - px(10) if anch == "ra" else sx + xo - px(10)
+                d.rounded_rectangle([bx0, sy - px(70), bx0 + bw_ + px(20), sy - px(34)],
+                                    px(8), fill=(5, 8, 16, 195))
+                _own = GIT_OWNER.get(short)
+                _lc = ROLE_COL[_own["role"]] if _own else ROLE_COL["lead"]
                 text(d, (sx + xo, sy - px(64)), m["branch"], "mono_reg", 21,
-                     lane_color(m["branch"]) + (255,), anchor=anch)
+                     tuple(int(c + (255 - c) * 0.35) for c in _lc) + (255,), anchor=anch)
+    # v7: study-node labels (SF-0/1/2 class only - sparse by design):
+    # agent name at the document node while active and 8 ranks after
+    if gate is None:
+        study_rects = []
+        for ep in LANE_EPS:
+            if ep["id"] not in STUDY_LABELS:
+                continue
+            if not (ep["draw_start"] <= cur <= ep["draw_end"] + 8.0):
+                continue
+            if not (rlo <= ep["draw_end"] <= rhi):
+                continue
+            (sx, sy), dep, _ = cam.one(R3(ep["draw_end"], float(ep["slot"])))
+            if dep <= 40 or not (px(80) < sx < W - px(80) and px(140) < sy < H - px(160)):
+                continue
+            if any(rx0 <= sx <= rx1 and ry0 <= sy - px(58) <= ry1
+                   for rx0, ry0, rx1, ry1 in sb_label_rects):
+                continue
+            bw_ = d.textlength(ep["agent"], font=S.font("mono_reg", px(20)))
+            rect = (sx - bw_ / 2 - px(10), sy - px(64), sx + bw_ / 2 + px(10), sy - px(30))
+            if any(not (rect[2] < a[0] or rect[0] > a[2] or rect[3] < a[1] or rect[1] > a[3])
+                   for a in study_rects):
+                continue  # clustered studies: first label wins this frame
+            study_rects.append(rect)
+            d.rounded_rectangle(rect, px(8), fill=(5, 8, 16, 195))
+            text(d, (sx, sy - px(58)), ep["agent"], "mono_reg", 20,
+                 tuple(int(c + (255 - c) * 0.4) for c in ROLE_COL["surveyor"]) + (255,), anchor="ma")
 
 # ---------- gate windows (rise from the track plane; no scene exit) ----------
 WIN_FULL = (px(255), px(150), px(1665), px(855))  # design 1920-wide -> 1440p px
@@ -863,51 +1159,69 @@ def viz_kissfft(d, rect, lt, sc):
         T(((x0 + x1) / 2, y0 + (y1 - y0) * 0.40), "check-values recorded",
           "mono_reg", 18, S.DIM, anchor="ma")
 
-def viz_tokens(d, rect, lt, sc):
+def viz_augint(d, rect, lt, sc):
+    """Wave 6 epilogue: one real catalogue row tightening stage by
+    stage to the exact stage-3 sign. Bars are a labelled illustration
+    on a signed-log scale around zero (the stage widths span ~9
+    decades, so no linear scale can show all three); the stage-3
+    value and verdict are exact (prep_augint_sample.py, cross-checked
+    against the catalogue oracle row)."""
     x0, y0, x1, y1 = rect
     def T(xy, s, kind, size, color, anchor=None):
         d.text(xy, s, font=S.font(kind, max(9, int(px(size) * sc))), fill=color, anchor=anchor)
-    billed, inp, outp = G2N["project_billed_in_plus_out"], G2N["input_tokens"], G2N["output_tokens"]
-    T((x0, y0), "recounted at a73e97d", "mono_reg", 19, S.AMBER)
-    p = S.ease_out_cubic(clamp(lt / 2.4))
-    T((x0, y0 + (y1 - y0) * 0.07), f"{int(billed * p):,}", "mono", 58, S.INK)
-    if lt > 0.6:
-        T((x0, y0 + (y1 - y0) * 0.20), "billed = input + output (93 rows)",
-          "body", 22, S.DIM)
-    if lt > 1.2:
-        T((x0, y0 + (y1 - y0) * 0.255),
-          f"input {inp:,} + output {outp:,}",
-          "mono_reg", 19, S.FAINT)
-        T((x0, y0 + (y1 - y0) * 0.295),
-          f"cached {G2N['cached_tokens_inside_input']:,} sits inside input",
-          "mono_reg", 19, S.FAINT)
-    by = y0 + (y1 - y0) * 0.33
-    d.rectangle([x0, by, x0 + (x1 - x0) * p, by + (y1 - y0) * 0.09], fill=S.CYAN)
-    d.rectangle([x0, by, x0 + 2, by + (y1 - y0) * 0.09], fill=S.AMBER)
-    if lt > 1.8:
-        T((x0, by + (y1 - y0) * 0.11), "you typed ~1,928 tokens (amber, to scale)",
-          "body", 21, S.AMBER)
-    if lt > 2.5:
-        zp = S.ease_out_back(clamp((lt - 2.5) / 1.1))
-        zx, zy = x0 + (x1 - x0) * 0.20, y0 + (y1 - y0) * 0.52
-        zw, zh = (x1 - x0) * 0.52 * max(0.05, zp), (y1 - y0) * 0.27 * max(0.05, zp)
-        d.rectangle([x0 - 4, by - 6, x0 + 12, by + (y1 - y0) * 0.09 + 6], outline=S.AMBER, width=2)
-        d.line([(x0 + 12, by + (y1 - y0) * 0.09 + 6), (zx, zy)], fill=S.AMBER, width=2)
-        d.rounded_rectangle([zx, zy, zx + zw, zy + zh], px(9), fill=(20, 18, 10, 245),
-                            outline=S.AMBER, width=max(2, px(2)))
-        if zp > 0.6:
-            T((zx + px(18) * sc, zy + px(10) * sc), "x500,000 ZOOM", "mono", 21, S.AMBER)
-            T((zx + px(18) * sc, zy + px(40) * sc), "YOU: ~1,928 tokens", "black", 27, S.INK)
-            if lt > 4.2:  # third line is its own later beat
-                T((zx + px(18) * sc, zy + px(76) * sc), "40 prompts, 7,713 characters", "body", 21, S.DIM)
-            d.rectangle([zx + px(18) * sc, zy + zh * 0.74, zx + px(18) * sc + zw * 0.39 * zp,
-                         zy + zh * 0.74 + px(16) * sc], fill=S.AMBER)
-    if lt > 2.6:  # v5: earlier than v4's 4.8 so the lines get their dwell
-        T((x0, y1 - (y1 - y0) * 0.13),
-          f"~1 : {G2N['ratio_billed_per_owner_token']:,} - {G2N['messages']:,} messages",
-          "black", 27, S.GREEN)
-        T((x0, y1 - (y1 - y0) * 0.075),
-          f"your share: {G2N['human_share_pct']:.5f}%", "body", 21, S.GREEN)
+    s1, s2 = AUG["stage1_f32"], AUG["stage2_f64"]
+    T((x0, y0), f"catalogue row {AUG['row_id']} of 710: one grazing ray", "mono_reg", 19, S.AMBER)
+    if lt > 0.4:
+        T((x0, y0 + (y1 - y0) * 0.055), "does it touch the sphere?", "body", 21, S.DIM)
+    cx = (x0 + x1) / 2
+    hw = (x1 - x0) * 0.34
+
+    def sx(v):  # signed-log axis: sign * log10(1+|v|/v0), v0 = 1e-8
+        return cx + math.copysign(math.log10(1.0 + abs(v) / 1e-8), v) / 11.21 * hw
+
+    def bar(frac_y, lo, hi, col, grow, label, lo_s, hi_s):
+        by = y0 + (y1 - y0) * frac_y
+        bh = px(15) * sc
+        xa, xb = sx(lo), sx(hi)
+        xa, xb = cx + (xa - cx) * grow, cx + (xb - cx) * grow
+        d.rounded_rectangle([xa, by - bh / 2, xb, by + bh / 2], px(6), fill=tuple(col) + (235,))
+        d.line([(cx, by - bh), (cx, by + bh)], fill=S.INK + (255,), width=max(2, px(2)))
+        T((x0, by - px(44) * sc), label, "mono", 20, col)
+        if grow > 0.85:
+            T((xa - px(10) * sc, by - px(12) * sc), lo_s, "mono_reg", 18, S.DIM, anchor="ra")
+            T((xb + px(10) * sc, by - px(12) * sc), hi_s, "mono_reg", 18, S.DIM)
+        return by
+
+    if lt > 1.0:
+        g = S.ease_out_cubic(clamp((lt - 1.0) / 0.7))
+        bar(0.24, s1["lo"], s1["hi"], S.CYAN, g, "STAGE 1 - binary32",
+            s1["lo_screen"], "+" + s1["hi_screen"])
+    if lt > 1.7:
+        T((cx, y0 + (y1 - y0) * 0.305), "crosses zero: no answer yet", "body", 20, S.DIM, anchor="ma")
+    if lt > 3.2:
+        g = S.ease_out_cubic(clamp((lt - 3.2) / 0.7))
+        bar(0.42, s2["lo"], s2["hi"], S.VIOLET, g, "STAGE 2 - binary64",
+            s2["lo_screen"], "+" + s2["hi_screen"])
+    if lt > 3.9:
+        T((cx, y0 + (y1 - y0) * 0.485), "tighter, still crosses zero", "body", 20, S.DIM, anchor="ma")
+    if lt > 5.4:
+        ex = AUG["exact_disc_float"]; mx = sx(ex)
+        my = y0 + (y1 - y0) * 0.58
+        pop = S.ease_out_back(clamp((lt - 5.4) / 0.4))
+        rr = px(13) * sc * max(0.2, pop)
+        d.line([(cx, my - px(20) * sc), (cx, my + px(20) * sc)], fill=S.INK + (255,), width=max(2, px(2)))
+        d.ellipse([mx - rr, my - rr, mx + rr, my + rr], fill=S.GREEN + (255,))
+        T((x0, my - px(13) * sc), "STAGE 3 - exact (augmented)", "mono", 20, S.GREEN)
+        T((mx + px(22) * sc, my - px(13) * sc), AUG["exact_disc_screen"], "mono", 20, S.GREEN)
+    if lt > 6.1:
+        T((cx, y0 + (y1 - y0) * 0.665), "negative: a true MISS", "black", 26, S.GREEN, anchor="ma")
+    if lt > 2.4:  # the sourced aggregates close the window (own beat)
+        ay = y0 + (y1 - y0) * 0.76
+        T((x0, ay), "710 / 710 rows - same answers", "black", 25, S.INK)
+        T((x0, ay + (y1 - y0) * 0.065), "stage-3 calls: 283,314 -> 63,305", "mono", 21, S.CYAN)
+        T((x0, ay + (y1 - y0) * 0.125), "all six boards: ae04caf0...c1422", "mono", 21, S.GREEN)
+    if lt > 0.8:
+        T((x1, y1 - px(6) * sc), "bars: illustration (log scale)", "mono_reg", 16, S.FAINT, anchor="rs")
 
 def viz_ias15(d, rect, lt, sc, t):
     x0, y0, x1, y1 = rect
@@ -1016,13 +1330,25 @@ def draw_gate_window(img, t, cam, gate, lt):
     elif gate["id"] == "kissfft":
         viz_kissfft(d, viz, lt, sc)
     else:
-        viz_tokens(d, viz, lt, sc)
+        viz_augint(d, viz, lt, sc)
+    # r2 item 6: "mockup" now describes the DRAWING only. On the
+    # interval gate the panel states the six-board proof plainly
+    # (all six PASS 2026-10-30, BOARD_SHA256 ae04caf0...c1422).
+    # Pacing RULE: line 1 = 4 words (need 2.5 s), proof line = 5
+    # words (need 2.5 s); both land at lt 0.8 as <=2 new lines and
+    # stay to the window close (~7.2 s).
+    is_aug = gate["id"] == "augint"
     if lt > 0.8:  # own beat, after the title bar (<=2 new lines/beat)
-        d.text((split + px(6) * sc, cy0), "SIX BOARDS (mockup)",
+        d.text((split + px(6) * sc, cy0), "SIX BOARDS (drawing: mockup)",
                font=S.font("mono", max(9, int(px(19) * sc))), fill=S.AMBER)
+        if is_aug:
+            d.text((split + px(6) * sc, cy0 + px(27) * sc),
+                   "all six PASS - interval proof",
+                   font=S.font("mono", max(9, int(px(19) * sc))), fill=S.GREEN)
+    head_h = px(61 if is_aug else 34) * sc
     pw_ = ((cx1 - split) - px(18) * sc) / 2
-    ph_ = ((cy1 - cy0 - px(34) * sc) - 2 * px(30) * sc) / 3
-    draw_picos_mini(d, t, state, split + px(6) * sc, cy0 + px(34) * sc,
+    ph_ = ((cy1 - cy0 - head_h) - 2 * px(30) * sc) / 3
+    draw_picos_mini(d, t, state, split + px(6) * sc, cy0 + head_h,
                     max(18.0, pw_), max(12.0, ph_), sc)
     # stem from the track plane into the window base (visible below the window)
     if gy > wy1:
@@ -1050,100 +1376,272 @@ def draw_gate_window(img, t, cam, gate, lt):
         pop = S.ease_out_back(clamp((close - 0.55) / 0.45))
         draw_check(d, (wx0 + wx1) / 2, (wy0 + wy1) / 2, px(44) * max(0.2, pop))
 
-# ---------- box ending (in-world, on the spine past HEAD) ----------
-# v4 packaging: EVERY legend system marble travels into the box, one
-# by one (lead last), each a pure function of the box clock lt; as
-# they land, the box front stamps what the process retains - only
-# real artefacts of this repo: RECORD, the ledgers, the test
-# vectors, the session metrics (usage.jsonl). The lid then shuts on
-# its hinge arc and the neon dims to the near-black handoff (the
-# t>86 fade in frame_at is untouched, values identical to v1-v3).
+# ---------- opening ending (in-world, on the spine past HEAD) ----------
+# v6 (owner change 2): no box, no lid - an opening in the track plane
+# at the same end position (BOX_RANK). EVERY legend system marble
+# travels in one by one (lead last, same PACK_ORDER/labels as v5),
+# tips over the near rim and falls in under gravity; as they land,
+# the standing plate beyond the opening stamps what the process
+# retains - only real artefacts of this repo: RECORD, the ledgers,
+# the test vectors, the session metrics (usage.jsonl). What falls in
+# is kept; nothing is scattered. The muse-softfloat label stands on
+# the plate beside/above the opening through the fade to the
+# near-black handoff (frame_at fade untouched). T_FADE / TOTAL are
+# v5's; T_BOX moved 93.0 -> 90.5 in r2 (item 1, see report_r2.md).
 PACK_ORDER = ["parcels", "verifiers", "plants", "gates", "studies",
               "escalations", "lead / main"]
 PACK_STAMPS = [(1, "RECORD"), (3, "LEDGERS"), (5, "VECTORS"), (7, "METRICS")]
+OPEN_HX, OPEN_HY, OPEN_DEPTH = 300.0, 320.0, 520.0  # half extents + shaft depth
+FALL_G = 3400.0      # world units / s^2: plane -> shaft floor in ~0.55 s
+TIP_T = 0.15         # s tipping over the rim before free fall
+# r2 item 1: funded from the r1 89->93 s parked settle (T_BOX 90.5),
+# the drops are SPACED wider instead of ending earlier: stagger
+# 0.35 -> 0.55 s, travel stays 2.6 s. First rim 93.1, first fall
+# 93.25 (r1: 95.75), last rim 96.4, all in ~96.7, dim lt 6.8.
+PACK_STAGGER = 0.55
+PACK_TRAVEL = 2.6
+PACK_DIM_LT = 6.8    # lt at which the end dimming starts (r1: 5.8)
 
 def _bright(col, f=0.30):
     return tuple(int(c + (255 - c) * f) for c in col)
 
+def plane_z(x):
+    """The (climbing) track plane: z of the spine at world x."""
+    return Z0R + (x - X0R) * DZ / DX
+
 def pack_state(lt):
-    """[(system, rank, hop, inside)] for the 7 packaging marbles."""
+    """[(system, rank, z_off, inside)] for the 7 packaging marbles.
+    Pure functions of the end-scene clock lt: travel (PACK_STAGGER
+    stagger, PACK_TRAVEL smootherstep legs) to the near rim, a 0.15 s tip
+    just inside it, then free fall z_off = -(8 + FALL_G*dt^2/2) -
+    believable gravity, accelerating, no bounce. inside flips once
+    the marble is dropping below the plane (stamp counter)."""
     out = []
-    dest = BOX_RANK - 2.0
+    rim = BOX_RANK - OPEN_HX / DX
     for k, name in enumerate(PACK_ORDER):
         # front-most marble departs first, lead (back-most) last, so
         # the queue files in without marbles passing through each other
         start = float(LAST_RANK) - 3.0 * k
-        p = ss(clamp((lt - 0.35 * k) / 2.6))
-        r = start + (dest - start) * p
-        hop, inside = 0.0, False
-        # hop crests the front rim BEFORE the front plane (rank
-        # BOX-330/85 ~= BOX-3.9) so the whole arc stays visible;
-        # the marble is inside once it crosses that plane dropping
-        if r > BOX_RANK - 9.0:
-            f = clamp((r - (BOX_RANK - 9.0)) / 5.2)
-            inside = f > 0.98
-            hop = math.sin(min(f, 1.0) * math.pi) * 430.0 * 1.30
-        out.append((name, r, hop, inside))
+        p = ss(clamp((lt - PACK_STAGGER * k) / PACK_TRAVEL))
+        r = start + (rim - start) * p
+        z_off, inside = 0.0, False
+        tf = lt - (PACK_STAGGER * k + PACK_TRAVEL)  # since this marble reached the rim
+        if tf > 0.0:
+            if tf <= TIP_T:          # tip: ease just inside the rim, dipping
+                u = tf / TIP_T
+                r = rim + (90.0 / DX) * (u * u)
+                z_off = -8.0 * u * u
+            else:                    # free fall into the shaft
+                dt = tf - TIP_T
+                r = rim + 90.0 / DX
+                z_off = -(8.0 + 0.5 * FALL_G * dt * dt)
+                inside = z_off < -60.0
+        out.append((name, r, z_off, inside))
     return out
 
-def draw_box(img, t, cam, cur):
+# ---------- plate label: text IN the plate plane (r2 item 2) ----------
+# r1 drew the label with screen-space text() at the projected plate
+# centre: glyphs stayed screen-aligned (not on the slanted plate)
+# and the stamps line, wider than the plate, crossed its border.
+# r2 renders the two lines into a texture (font size shrunk until
+# each line measurably fits its margins) and perspective-warps that
+# texture onto an inset of the plate quad, so the text shares the
+# plate's perspective and cannot cross the border by construction.
+PLATE_TEX_W, PLATE_TEX_H = 1200, 440   # plate world 680x250 -> same aspect
+PLATE_MARGIN_U = 70.0                  # tex px kept clear each side
+PLATE_INSET_U, PLATE_INSET_V = 0.07, 0.12  # quad inset before warp
+
+def plate_texture(n_in, dim):
+    tex = Image.new("RGBA", (PLATE_TEX_W, PLATE_TEX_H), (0, 0, 0, 0))
+    td = ImageDraw.Draw(tex)
+    lab = tuple(int(c * (1 - dim * 0.55) + 30 * dim) for c in S.INK) + (255,)
+    grn = tuple(int(c * (1 - dim * 0.55)) for c in S.GREEN) + (255,)
+    avail = PLATE_TEX_W - 2 * PLATE_MARGIN_U
+
+    def fit_font(s, size):
+        while size > 18 and td.textlength(s, font=S.font("mono", size)) > avail:
+            size -= 2
+        return S.font("mono", size)
+
+    td.text((PLATE_TEX_W / 2, 66), "muse-softfloat",
+            font=fit_font("muse-softfloat", 118), fill=lab, anchor="ma")
+    kept = "  ".join(s for need, s in PACK_STAMPS if n_in >= need)
+    if kept:
+        td.text((PLATE_TEX_W / 2, 252), kept, font=fit_font(kept, 68),
+                fill=grn, anchor="ma")
+    return tex
+
+def _persp_coeffs(src_quad, dst_quad):
+    """PIL PERSPECTIVE coeffs mapping output px -> input px."""
+    m = []
+    for (x, y), (u, v) in zip(dst_quad, src_quad):
+        m.append([x, y, 1, 0, 0, 0, -u * x, -u * y])
+        m.append([0, 0, 0, x, y, 1, -v * x, -v * y])
+    rhs = np.array([c for uv in src_quad for c in uv], float)
+    return np.linalg.solve(np.array(m, float), rhs)
+
+def paste_on_quad(img, tex, quad_tl_tr_br_bl):
+    """Warp tex onto the screen quad (TL,TR,BR,BL), bbox-local."""
+    xs = [q[0] for q in quad_tl_tr_br_bl]; ys = [q[1] for q in quad_tl_tr_br_bl]
+    bx, by = int(math.floor(min(xs))), int(math.floor(min(ys)))
+    bw, bh = int(math.ceil(max(xs))) - bx + 1, int(math.ceil(max(ys))) - by + 1
+    if bw < 4 or bh < 4:
+        return
+    src = [(0, 0), (tex.width, 0), (tex.width, tex.height), (0, tex.height)]
+    a, b, c, dd, e, f, g, h = _persp_coeffs(src, quad_tl_tr_br_bl)
+    den = g * bx + h * by + 1.0
+    coeffs = (a / den, b / den, (a * bx + b * by + c) / den,
+              dd / den, e / den, (dd * bx + e * by + f) / den,
+              g / den, h / den)
+    warped = tex.transform((bw, bh), Image.PERSPECTIVE, coeffs, Image.BICUBIC)
+    mask = Image.new("L", tex.size, 255).transform(
+        (bw, bh), Image.PERSPECTIVE, coeffs, Image.BICUBIC)
+    arr = np.array(warped)
+    arr[..., 3] = np.minimum(arr[..., 3], np.array(mask))
+    img.alpha_composite(Image.fromarray(arr, "RGBA"), (bx, by))
+
+def plate_quads(cam, lx):
+    """(plate quad, inset text quad) as TL,TR,BR,BL screen points.
+    The end camera looks along +X with up ~+Z, so screen-right is
+    world -Y: texture-left must sit at world +Y or the text mirrors
+    (caught on the first r2 still)."""
+    def pt(y, dz):
+        (sx, sy), _dep, _s = cam.one((lx, y, plane_z(lx) + dz))
+        return np.array([sx, sy])
+    tl, tr, br, bl = pt(340, 250), pt(-340, 250), pt(-340, 0), pt(340, 0)
+    def bil(u, v):
+        return tuple((tl * (1 - u) + tr * u) * (1 - v)
+                     + (bl * (1 - u) + br * u) * v)
+    iu, iv = PLATE_INSET_U, PLATE_INSET_V
+    return ([tuple(tl), tuple(tr), tuple(br), tuple(bl)],
+            [bil(iu, iv), bil(1 - iu, iv), bil(1 - iu, 1 - iv), bil(iu, 1 - iv)])
+
+def draw_opening(img, t, cam, cur):
+    """The opening in the track plane + falling marbles + label plate.
+    Painter order is depth order for this camera (behind-side-above):
+    label plate and shaft interior first, then marbles already below
+    the plane (so the near slab can swallow them), then the slab
+    frame around the hole, then marbles still on the plane."""
     d = ImageDraw.Draw(img, "RGBA")
     lt = t - T_BOX
-    bx, bz = X0R + BOX_RANK * DX, Z0R + BOX_RANK * DZ
-    hw, hh, hd = 330.0, 430.0, 330.0  # half-width (Y), height (Z), half-depth (X)
-    dim = clamp((lt - 5.8) / 1.4)
-    boxcol = tuple(int(S.INK[i] * (1 - dim * 0.75)) for i in range(3))
+    bx = X0R + BOX_RANK * DX
+    dim = clamp((lt - PACK_DIM_LT) / 1.4)  # r2: starts after all 7 are in
+    rimcol = tuple(int(S.INK[i] * (1 - dim * 0.75)) for i in range(3))
     def P(x, y, z):
         (sx, sy), dep, _ = cam.one((x, y, z))
         return (sx, sy)
-    front = [P(bx - hd, -hw, bz), P(bx - hd, hw, bz), P(bx - hd, hw, bz + hh), P(bx - hd, -hw, bz + hh)]
-    side = [P(bx - hd, -hw, bz), P(bx + hd, -hw, bz), P(bx + hd, -hw, bz + hh), P(bx - hd, -hw, bz + hh)]
-    top = [P(bx - hd, -hw, bz + hh), P(bx - hd, hw, bz + hh), P(bx + hd, hw, bz + hh), P(bx + hd, -hw, bz + hh)]
-    d.polygon(side, fill=(18, 24, 46, 255), outline=boxcol, width=max(2, px(4)))
-    shut = ss(clamp((lt - 5.0) / 1.3))  # lid waits until every marble is in
-    if shut < 0.9:
-        d.polygon(top, fill=(5, 8, 18, 255), outline=boxcol, width=max(2, px(3)))
-    # front face BEFORE the marbles: every not-yet-inside marble is
-    # still in front of that plane (inside flips as it crosses), so
-    # painter order matches depth and the hop arc stays visible
-    d.polygon(front, fill=(22, 28, 52, 255), outline=boxcol, width=max(3, px(5)))
-    # the seven system marbles file in along the spine (back to front)
+    def Q(x, y, dz=0.0):
+        return P(x, y, plane_z(x) + dz)
+    x0, x1 = bx - OPEN_HX, bx + OPEN_HX          # hole extent in X
+    sx0, sx1 = bx - 560.0, bx + 560.0            # slab extent in X
+    sy = 560.0                                    # slab half-extent in Y
     packs = pack_state(lt)
-    n_in = sum(1 for _n, _r, _h, ins in packs if ins)
+    n_in = sum(1 for _n, _r, _z, ins in packs if ins)
+    # label plate standing beyond the opening (farthest: drawn first;
+    # clear of the slab so its face is never overdrawn)
+    lx = bx + 650.0
+    plate = [Q(lx, -340), Q(lx, 340), Q(lx, 340, 250), Q(lx, -340, 250)]
+    d.polygon(plate, fill=(16, 22, 42, 255), outline=rimcol, width=max(2, px(4)))
+    # shaft interior: far wall, side walls, floor (darkens with depth)
+    d.polygon([Q(x1, -OPEN_HY), Q(x1, OPEN_HY), Q(x1, OPEN_HY, -OPEN_DEPTH),
+               Q(x1, -OPEN_HY, -OPEN_DEPTH)], fill=(16, 21, 40, 255))
+    for yy in (-OPEN_HY, OPEN_HY):
+        d.polygon([Q(x0, yy), Q(x1, yy), Q(x1, yy, -OPEN_DEPTH),
+                   Q(x0, yy, -OPEN_DEPTH)], fill=(11, 15, 30, 255))
+    d.polygon([Q(x0, -OPEN_HY, -OPEN_DEPTH), Q(x1, -OPEN_HY, -OPEN_DEPTH),
+               Q(x1, OPEN_HY, -OPEN_DEPTH), Q(x0, OPEN_HY, -OPEN_DEPTH)],
+              fill=(14, 18, 34, 255))
+    # what is already kept glints on the shaft floor (same colours)
+    for k, (name, r, z_off, inside) in enumerate(packs):
+        if inside and z_off <= -(OPEN_DEPTH - 60.0):
+            fx = bx - 150.0 + (k % 4) * 100.0
+            fy = -110.0 + (k // 4) * 170.0 + (k % 2) * 40.0
+            draw_marble(d, cam, (fx, fy, plane_z(fx) - OPEN_DEPTH + 26.0),
+                        _bright(DEEP[name], 0.35), 28.0, 0.0)
+    # marbles below the plane, still falling (swallowed by slab next)
+    for name, r, z_off, inside in packs:
+        if z_off < -8.0 and z_off > -(OPEN_DEPTH - 60.0):
+            p = R3(r, 0.0)
+            draw_marble(d, cam, (p[0], p[1], p[2] + z_off), _bright(DEEP[name]),
+                        28.0, beat_pulse(t) * (1 - dim))
+    # slab frame around the hole (top follows the climbing plane)
+    slab = (20, 26, 48, 255)
+    d.polygon([Q(sx0, -sy), Q(x0, -sy), Q(x0, sy), Q(sx0, sy)], fill=slab)          # near
+    d.polygon([Q(x1, -sy), Q(sx1, -sy), Q(sx1, sy), Q(x1, sy)], fill=slab)          # far
+    d.polygon([Q(x0, -sy), Q(x1, -sy), Q(x1, -OPEN_HY), Q(x0, -OPEN_HY)], fill=slab)
+    d.polygon([Q(x0, OPEN_HY), Q(x1, OPEN_HY), Q(x1, sy), Q(x0, sy)], fill=slab)
+    d.polygon([Q(sx0, -sy), Q(sx1, -sy), Q(sx1, -sy, -80), Q(sx0, -sy, -80)],
+              fill=(14, 18, 36, 255))                                                # side face
+    d.polygon([Q(sx0, -sy), Q(sx0, sy), Q(sx0, sy, -80), Q(sx0, -sy, -80)],
+              fill=(12, 16, 32, 255))                                                # front face
+    rim = [Q(x0, -OPEN_HY), Q(x1, -OPEN_HY), Q(x1, OPEN_HY), Q(x0, OPEN_HY)]
+    d.line(rim + [rim[0]], fill=tuple(rimcol) + (255,), width=max(2, px(4)), joint="curve")
+    glow = tuple(int(c * (1 - dim * 0.8)) for c in S.CYAN)
+    d.line(rim + [rim[0]], fill=glow + (150,), width=max(2, px(2)), joint="curve")
+    # the seven system marbles still on the plane (back to front)
     labels = []
-    for k, (name, r, hop, inside) in enumerate(reversed(packs)):
-        if inside:
+    rim_r = BOX_RANK - OPEN_HX / DX
+    for k, (name, r, z_off, inside) in enumerate(reversed(packs)):
+        if z_off < -8.0:
             continue
         p = R3(r, 0.0)
         mcol = _bright(DEEP[name])
-        got = draw_marble(d, cam, (p[0], p[1], p[2] + hop), mcol, 28.0,
+        got = draw_marble(d, cam, (p[0], p[1], p[2] + z_off), mcol, 28.0,
                           beat_pulse(t) * (1 - dim), bed_z=p[2])
-        if got and r < BOX_RANK - 8.0:
+        if got and r < rim_r - 1.0:
             # stagger alternate labels upward so the queue reads clean
             labels.append((got[0], got[1] - got[2] - px(10 + (k % 2) * 30), name, mcol))
-    ang = (1 - shut) * 1.25
-    lx = bx - hd + math.cos(ang) * 2 * hd
-    lz = bz + hh + math.sin(ang) * 2 * hd * 0.72
-    lid = [P(bx - hd, -hw, bz + hh), P(bx - hd, hw, bz + hh), P(lx, hw, lz), P(lx, -hw, lz)]
-    d.polygon(lid, fill=(30, 38, 70, 255), outline=boxcol, width=max(3, px(5)))
-    for sx, sy, name, mcol in labels:
+    for sx_, sy_, name, mcol in labels:
         if dim < 0.9:
-            text(d, (sx, sy), name, "mono", 19, mcol, anchor="ms")
+            text(d, (sx_, sy_), name, "mono", 19, mcol, anchor="ms")
+    # the retained label: IN the plate plane, legible through the
+    # fade (r2 item 2 - texture warped onto the inset plate quad;
+    # border re-stroked on top so the rim stays crisp)
+    _p, dep, _s = cam.one((lx, 0.0, plane_z(lx) + 125.0))
+    if dep > 40:
+        plate_q, text_q = plate_quads(cam, lx)
+        paste_on_quad(img, plate_texture(n_in, dim), text_q)
+        d = ImageDraw.Draw(img, "RGBA")
+        d.line(plate_q + [plate_q[0]], fill=tuple(rimcol) + (255,),
+               width=max(2, px(4)), joint="curve")
     if dim < 0.9:
-        (sx, sy), dep, _ = cam.one((bx - hd, 0.0, bz + hh * 0.62))
-        text(d, (sx, sy), "muse-softfloat", "mono", 28, S.DIM, anchor="ma")
-        (sx, sy), dep, _ = cam.one((bx - hd, 0.0, bz + hh * 0.36))
-        kept = "  ".join(s for need, s in PACK_STAMPS if n_in >= need)
-        if kept:
-            text(d, (sx, sy), kept, "mono", 18, S.GREEN, anchor="ma")
-        text(d, (px(48), px(42)), "3 - BOXED", "black", 44, S.INK)
-        text(d, (px(48), px(98)), "every system packed away", "mono", 24, S.CYAN)
-        text(d, (px(48), px(136)), f"marbles in: {n_in} / 7", "mono", 21, S.DIM)
+        text(d, (px(48), px(42)), "every system drops in, kept", "mono", 24, S.CYAN)
+        text(d, (px(48), px(80)), f"marbles in: {n_in} / 7", "mono", 21, S.DIM)
 
 # ---------- HUD ----------
+def draw_replay_legend(d):
+    """v7: compact DEEP role legend persisting through the replay -
+    the same words/colours the introduction teaches (DEEP keys), so
+    the replay keeps meaning them. Bottom-right, above the strip."""
+    rows = [("lead / main", DEEP["lead / main"]), ("parcels (authors)", DEEP["parcels"]),
+            ("verifiers", DEEP["verifiers"]), ("studies (surveyors)", DEEP["studies"]),
+            ("escalations (fixers)", DEEP["escalations"])]
+    pw_, rh = px(400), px(33)
+    x1, y1 = W - px(40), H - px(124)
+    x0, y0 = x1 - pw_, y1 - (rh * (len(rows) + 1) + px(20))
+    d.rounded_rectangle([x0, y0, x1, y1], px(12), fill=(8, 11, 22, 215),
+                        outline=(70, 80, 110), width=2)
+    text(d, (x0 + px(18), y0 + px(8)), "AGENTS BY ROLE", "mono", 19, (200, 170, 90))
+    for j, (name, col) in enumerate(rows):
+        cy = y0 + px(46) + rh * j
+        d.rounded_rectangle([x0 + px(18), cy - px(8), x0 + px(54), cy + px(8)], px(7),
+                            fill=tuple(col) + (255,))
+        text(d, (x0 + px(68), cy - px(13)), name, "body", 22, S.INK)
+    cy = y0 + px(46) + rh * len(rows)
+    oc = DEEP["plants"]
+    d.rectangle([x0 + px(24), cy - px(8), x0 + px(40), cy + px(8)], fill=tuple(oc) + (255,))
+    d.rectangle([x0 + px(44), cy - px(8), x0 + px(60), cy + px(8)],
+                outline=tuple(oc) + (255,), width=2)
+    text(d, (x0 + px(72), cy - px(13)), "plants: filled caught, hollow missed", "body", 20, S.DIM)
+
 def draw_hud(img, t, cur, gate):
     d = ImageDraw.Draw(img, "RGBA")
     merges_done = sum(1 for m in MERGES if m["target"] == "main" and m["rank"] <= cur)
+    # v7 agent counter: lane episodes whose lane has lit (pure
+    # function of the cursor); scope stated on screen - Wave 6
+    # episodes are outside passes.jsonl and are NOT in the 93
+    agents_lit = sum(1 for e in LANE_EPS if e["draw_start"] <= cur)
+    agents_active = sum(1 for e in LANE_EPS if e["draw_start"] <= cur < e["draw_end"])
     ci = max(0, min(LAST_RANK, int(cur))); c = COMMITS[ci]
     if t < T_REPLAY:
         beat = "same track, real history ahead" if t >= T_BRIDGE else "teaching diagram"
@@ -1151,17 +1649,23 @@ def draw_hud(img, t, cur, gate):
     elif t < T_BOX:
         beat = ("next: IAS15 window" if t < GATES[0]["t1"] else
                 "next: KissFFT window" if t < GATES[1]["t1"] else
-                "next: tokens window" if t < GATES[2]["t1"] else "close: HEAD a73e97d")
+                "next: interval epilogue" if t < GATES[2]["t1"] else "close: HEAD a73e97d")
         title = "2 - AS IT HAPPENED"
     else:
-        return  # box draws its own titles
+        return  # opening draws its own titles
     ink = S.INK if dark_u_at(t) > 0.4 else TEXT_DARK
     sub = S.CYAN if dark_u_at(t) > 0.4 else DEEP["lead / main"]
     if t >= T_BRIDGE:  # during the chase the legend owns this corner (v2 idiom)
-        text(d, (px(48), px(42)), title, "black", 42, ink)
-        text(d, (px(48), px(96)),
-             f"{beat}   commit {ci + 1}/{HIST['commit_count_all']}   merges {merges_done}/{HIST['merges_into_main']}",
+        text(d, (px(48), px(42)),
+             f"{beat}   commit {ci + 1}/{HIST['commit_count_all']}   merges {merges_done}/{HIST['merges_into_main']}"
+             f"   agents {agents_lit}/{N_AGENTS} (Waves 0-5)   active {agents_active}",
              "mono", 25, sub)
+        # legend from bridge start (not T_REPLAY): appearing at the
+        # 45.0 seam would re-introduce a one-frame pop there (r2
+        # item 3). Hidden while a gate window is up - the r2 house
+        # rule "one reading load at a time"; it returns with the track.
+        if gate is None:
+            draw_replay_legend(d)
         du_ = dark_u_at(t)
         strip = tuple(int((236, 240, 250)[i] * (1 - du_) + S.BG[i] * du_) for i in range(3))
         d.rectangle([0, H - px(104), W, H], fill=strip + (255,))
@@ -1172,9 +1676,28 @@ def draw_hud(img, t, cur, gate):
              f"{SRC_REPLAY}  |  green = merge  |  red loop = fix",
              "mono_reg", 18, S.FAINT, anchor="ra")
         text(d, (W - px(48), px(56)), "NEWEST ^", "mono", 23, S.AMBER, anchor="ra")
-        text(d, (W - px(48), H - px(150)), "OLDEST v", "mono", 23, S.FAINT, anchor="ra")
+        # v7: OLDEST steps left of the persistent role legend
+        text(d, (W - px(468), H - px(150)), "OLDEST v", "mono", 23, S.FAINT, anchor="ra")
 
 # ---------- dispatch ----------
+def _bridge_blend(t, cam, cur):
+    """r2 item 3: ONE continuous cross-fade of the two finished
+    world frames from T_BRIDGE to T_REPLAY+BRIDGE_TAIL (a=0.57 at
+    the old seam), so the chase track is carried across the bridge
+    and fades out over ~4.5 s instead of vanishing in the seam
+    frame as in r1. The blend is of finished opaque frames, not
+    transparent layers: PIL's RGBA draw-blending double-attenuates
+    glow halos drawn onto a transparent layer, which itself popped
+    at the seam (measured 5.51 vs 0.63 median frame diff - see
+    report_r2.md)."""
+    a = ss((t - T_BRIDGE) / (BRIDGE_DUR + BRIDGE_TAIL))
+    du = dark_u_at(t)
+    img_c = base_bg(du).convert("RGBA")
+    draw_chase_world(img_c, t, cam)
+    img_r = base_bg(du).convert("RGBA")
+    draw_replay_world(img_r, t, cam, cur if t >= T_REPLAY else 0.0)
+    return Image.blend(img_c, img_r, a)
+
 def frame_at(t):
     if t < 1.0:
         return Image.new("RGB", (W, H), WHITE)
@@ -1183,10 +1706,12 @@ def frame_at(t):
     cam = master_cam(t)
     cur = cursor_rank(t)
     gate, glt = gate_at(t)
+    if T_BRIDGE <= t < T_REPLAY + BRIDGE_TAIL:
+        img = _bridge_blend(t, cam, cur)  # r2: no world switch at the seam
+        draw_hud(img, t, cur, gate)
+        return img.convert("RGB")
     if t < T_REPLAY:
         active, node_scr = draw_chase_world(img, t, cam)
-        if t >= T_BRIDGE:  # real tracks fade in ahead during the bridge
-            draw_replay_world(img, t, cam, 0.0)
         if active is not None and active in node_scr and t < T_BRIDGE:
             p = clamp((t - (node_arrival(active) - 0.1)) / 0.35)
             sx, sy = node_scr[active]
@@ -1196,15 +1721,12 @@ def frame_at(t):
             d = ImageDraw.Draw(img, "RGBA")
             u = lift_u(t)
             ph = "flat plane" if u < 0.02 else ("lifting into 3D..." if u < 0.98 else "marbles split at branches")
-            d.rounded_rectangle([px(36), H - px(76), px(1100), H - px(24)], px(12), fill=(255, 255, 255, 215))
-            text(d, (px(52), H - px(64)), f"1 - THE CHASE  |  {ph}",
-                 "mono_reg", 23, (110, 118, 145))
             # v5: the chase scene's one short source tag
             text(d, (W - px(48), H - px(64)), SRC_CHASE, "mono_reg", 20, (120, 128, 150), anchor="ra")
     else:
         draw_replay_world(img, t, cam, cur, gate, glt)
         if t >= T_BOX:
-            draw_box(img, t, cam, cur)
+            draw_opening(img, t, cam, cur)
         if gate is not None:
             draw_gate_window(img, t, cam, gate, glt)
     draw_hud(img, t, cur, gate)
@@ -1215,7 +1737,7 @@ def frame_at(t):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=str(HERE / "gitvisual5.mp4"))
+    ap.add_argument("--out", default=str(HERE / "gitvisual7.mp4"))
     ap.add_argument("--still", type=float)
     ap.add_argument("--crf", type=int, default=18)
     a = ap.parse_args()

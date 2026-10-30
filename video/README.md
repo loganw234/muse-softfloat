@@ -4,9 +4,11 @@ Frame-render pipeline for the Muse-Softfloat hackathon film: Python draws
 frames, pipes them raw to ffmpeg, gets an H.264 MP4. Two cuts exist:
 `out/final.mp4` (180.0 s, 1920x1080, silent — the original 3-minute cut,
 documented as-built in [STORYBOARD.md](STORYBOARD.md) with a source per
-on-screen number) and `out/assembly_v5.mp4` (169.0 s, 2560x1440, silent —
-the current segment-based cut, assembled by `assemble.py` from the
-renderers in `segments/`; storyboarded in STORYBOARD.md's v5 section).
+on-screen number), `out/assembly_v5.mp4` (169.0 s, 2560x1440, silent —
+the previous segment-based cut) and `out/assembly_v6.mp4` (163.5 s,
+2560x1440, silent — the current cut: process-graph git segment,
+tempo-scaled 120 -> 124 BPM in `assemble.py`; STORYBOARD.md's v6
+section).
 The 26.5 s proof (`out/proof.mp4`) remains as the machinery proof. Music
 options (owner decision, nothing downloaded): [MUSIC.md](MUSIC.md).
 
@@ -30,11 +32,12 @@ system Arial/Segoe/Consolas).
 | `inventory.py` | Prints exact versions/paths of the render stack found on this machine. |
 | `STORYBOARD.md` | The as-built 3-minute record; every number names its repo source. |
 | `MUSIC.md` | Licence-checked music options + cue sheet (final is silent by brief). |
-| `segments/` | The v5 segment renderers + data: `intro_outro.py`, `idea.py`, `why.py` (+ `render_why.py` base), `gitvisual.py` (+ `history.json`, `gate2_numbers.json`, spectrum/twiddle JSONs). Production copies of the study scripts in `scratch/study-video-*` (paths repointed HERE-local); each writes its MP4 beside itself. |
-| `assemble.py` | Renders any missing segment, concatenates intro → idea → why → git → outro at 2560x1440 into `out/assembly_v5.mp4`, pixel-checks the joins. `--force` re-renders. |
+| `segments/` | The segment renderers + data: `intro_outro.py`, `idea.py`, `why.py` (+ `render_why.py` base), `gitvisual.py` (v7 process-graph renderer; `history.json`, `process_graph.json` + `prep_process_graph.py`, `augint_sample.json` + `prep_augint_sample.py`, spectrum/twiddle JSONs; `gate2_numbers.json` retained for the v5 cut only). Production copies of the study scripts in `scratch/study-video-*` (paths repointed HERE-local); each writes its MP4 beside itself. |
+| `assemble.py` | Renders any missing segment, concatenates intro → idea → why → git → outro at 2560x1440, tempo-scales 120 -> 124 BPM, into `out/assembly_v6.mp4`, pixel-checks the joins. `--force` re-renders. |
 | `out/proof.mp4` | The rendered proof (26.5 s, 1920x1080, H.264, silent). |
 | `out/final.mp4` | The original final cut (180.0 s, 1920x1080, H.264, silent) + `out/stills/` (12 MP4 grabs). |
-| `out/assembly_v5.mp4` | The current segment-based cut (169.0 s, 2560x1440, H.264, silent). |
+| `out/assembly_v5.mp4` | The previous segment-based cut (169.0 s, 2560x1440, H.264, silent). |
+| `out/assembly_v6.mp4` | The current cut (163.5 s at 124 BPM, 2560x1440, H.264, silent). |
 
 ## Render
 
@@ -46,7 +49,7 @@ From the workspace root, with the project venv (PowerShell):
 .\.venv\Scripts\python.exe muse-softfloat\video\timeline.py           # validate both timelines
 .\.venv\Scripts\python.exe muse-softfloat\video\render.py             # -> muse-softfloat\video\out\proof.mp4
 .\.venv\Scripts\python.exe muse-softfloat\video\render.py --which final --out muse-softfloat\video\out\final.mp4
-.\.venv\Scripts\python.exe muse-softfloat\video\assemble.py           # -> muse-softfloat\video\out\assembly_v5.mp4 (segments + joins)
+.\.venv\Scripts\python.exe muse-softfloat\video\assemble.py           # -> muse-softfloat\video\out\assembly_v6.mp4 (segments + joins, 124 BPM)
 .\.venv\Scripts\python.exe muse-softfloat\video\probe.py muse-softfloat\video\out\final.mp4 --stills muse-softfloat\video\out\stills --at 2.5 13.0 34.5 66.0 102.0 108.5 120.0 128.0 141.5 160.0 172.5 178.0
 ```
 

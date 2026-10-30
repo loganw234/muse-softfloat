@@ -242,3 +242,41 @@ residual deviations: four cursor-paced sendback labels sit at 1.0–1.8 s
 Render: `..\..\.venv\Scripts\python.exe assemble.py` from `video/`
 (re-renders missing segments, concatenates, pixel-checks joins).
 Silent; music per MUSIC.md is still an owner decision.
+
+## The v6 segment cut (2026-10-30, `out/assembly_v6.mp4`, 163.5 s, 2560x1440, silent)
+
+Same five segments; `gitvisual.py` is now the v7 renderer and the
+assembly is tempo-scaled 120 -> 124 BPM (uniform `setpts` x120/124
+in assemble.py: every segment length is a whole number of 120 BPM
+beats, so every cut lands exactly on a 124 BPM beat; 169.0 s ->
+163.5 s). Segment boundaries in the scaled film: intro 0-6.8,
+idea 6.8-28.5, why 28.5-56.6, gitvisual 56.6-155.3, outro
+155.3-163.5. Changes inside the gitvisual segment, all
+owner-directed across three study rounds
+(`scratch/study-video-gitvisual-v6/report*.md`):
+
+- The replay is handled like the introduction (close chase
+  camera follows the head marble; no distant up-ramp), and it
+  now draws the real **process graph**: one lane + marble per
+  agent episode from `docs/metrics/passes.jsonl` (93 episodes,
+  Waves 0-5: 19 authors, 36 verifiers with orange plant ticks
+  filled=caught/hollow=missed, 35 studies ending in document
+  nodes, 3 fixers as red returns), coloured by the
+  introduction's role legend everywhere; wave colouring is
+  gone. Data: `segments/prep_process_graph.py` ->
+  `segments/process_graph.json`, full accounting (every passes
+  row one episode; unmapped plant rows named in the study
+  report). The process was mostly sequential (median
+  concurrency 1) and the film says so by showing it.
+- The tokens gate is removed; the third window is a Wave 6
+  epilogue (after the frozen a73e97d HEAD): one real interval
+  catalogue row tightening to the exact augmented stage-3
+  sign, 710/710, stage-3 calls 283,314 -> 63,305, all six
+  boards `ae04caf0...c1422` (six-board sweep run 2026-10-30).
+- The box ending is now an opening in the slab: the seven
+  system marbles fall in and are kept, `muse-softfloat` plate
+  retained with its text on the plate's own plane.
+- Text load cut per owner: the chase's bottom-left phase strip
+  and the flyby's numbered section titles are gone; counters,
+  popups, branch/sendback labels, source tags and the role
+  legend remain.

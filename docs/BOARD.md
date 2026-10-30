@@ -116,7 +116,11 @@ Wave 6 (2026-10-30): stage 3 now consumes the Clause 9.5
 augmented pairs; all 710 rows again host == board on the
 genuine board, IW1 `ae04caf0...66c1422` (moves only through
 the hashed stage-3 ops counts), `compute_us` 6,659,219 for
-396,745 counted ops (measurement records, not claims).
+396,745 counted ops (measurement records, not claims). The
+same day, at owner request, the run was repeated on all six
+boards (genuine + five Zero clones, serials in the details
+update above): every board printed the identical IW1
+`ae04caf0...66c1422`, PASS 710 rows each.
 
 ## KissFFT Fork B workload firmware (SF-1 Step 2c)
 

@@ -10,7 +10,7 @@ Meta Global AI Developer Hackathon, 2026-10-26 to 2026-11-04.
 The workload that proves it in public: **REBOUND's IAS15 integrator running on a
 Raspberry Pi Pico through this library, bit-identical to the unmodified desktop
 run** — same integrator source, same bits out, on a chip with no FPU. The demo
-is a 169-second programmatic video; this repository is the library, the video
+is a 163-second programmatic video; this repository is the library, the video
 pipeline and rendered cut, and the record that stands beside them.
 
 **Live demo:** [loganw234.github.io/muse-softfloat](https://loganw234.github.io/muse-softfloat/) — the actual library compiled to WebAssembly, runnable against the committed test vectors ([site/](site/README.md)).
@@ -23,8 +23,9 @@ Each step stands on its own, so stop whenever you have seen
 enough.
 
 1. **Watch the film (about three minutes).**
-   [video/out/assembly_v5.mp4](video/out/assembly_v5.mp4)
-   runs 169 seconds at 2560x1440 and tells the whole story:
+   [video/out/assembly_v6.mp4](video/out/assembly_v6.mp4)
+   runs 163 seconds at 2560x1440 (cut on a 124 BPM grid for
+   music sync) and tells the whole story:
    the library, the orbit integrator running on the Pico,
    and how every answer was checked. It is silent on
    purpose — music is still the owner's decision, so there
@@ -223,13 +224,15 @@ before it is briefed.
 
 ## Demo video
 
-The current silent cut is the 169-second, 2560x1440
-[video/out/assembly_v5.mp4](video/out/assembly_v5.mp4) (the earlier
-180-second 1080p cut remains at
-[video/out/final.mp4](video/out/final.mp4)). Its frame-rendering
-pipeline, data loaders, timelines, and source-traced storyboard live in
-[video/](video/README.md). Music remains an owner decision; the timeline
-is built on a 120 BPM grid so a licensed track can be dropped in later.
+The current silent cut is the 163.5-second, 2560x1440
+[video/out/assembly_v6.mp4](video/out/assembly_v6.mp4) (the v5
+169-second cut remains beside it; the original 180-second
+1080p cut is [video/out/final.mp4](video/out/final.mp4)). Its
+frame-rendering pipeline, data loaders, timelines, and
+source-traced storyboard live in [video/](video/README.md).
+Music remains an owner decision; segments are built on a
+120 BPM grid and the assembly is tempo-scaled to 124 BPM so
+every cut lands on a beat of a future track.
 
 ## Where things live
 

@@ -1139,3 +1139,20 @@ final adherence audit, audit-bundle v2 (v1's
 manifest is CRLF, which breaks a literal
 `sha256sum -c` under Git Bash - contents verify;
 v2 should be LF), and a release tag.
+
+**Six-board interval sweep + film v6 (appended
+2026-10-30):** at owner request the interval proof
+was run on all six boards under the lock (genuine
+E66440A2CB6F5C2B + five Zero clones): every board
+PASS, identical IW1 `ae04caf0...66c1422`. The film's
+git segment was reworked across three owner rounds:
+chase-style replay, falling-opening ending, tokens
+gate replaced by the augmented-interval epilogue,
+then rebuilt as the real process graph (93 agent
+episodes from passes.jsonl, role colours consistent
+with the introduction's legend, plant ticks at
+verifier lane ends), section-title text removed,
+and assembled as `assembly_v6.mp4` tempo-scaled to
+124 BPM for music sync (163.5 s; study reports in
+`scratch/study-video-gitvisual-v6/`). The six-board
+panel in that epilogue gate is this sweep.
