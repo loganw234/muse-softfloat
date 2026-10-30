@@ -1,0 +1,4 @@
+# Plant key hashes, committed hash-only before verifier dispatch
+# (Wave 5 going-forward rule, docs/RECORD.md). The keys themselves
+# stay in scratch/lead/keys/ until a future audit-bundle version.
+26c14c815d39970335de42010a09df19ee0da7eb340dabb88bfb2fe8bee7cbdd  polish-stale1 (verifier-polish1, copy fa8a27a, base 400b271, 2026-10-29)
