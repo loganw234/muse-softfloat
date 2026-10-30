@@ -15,7 +15,7 @@ true < stored + 1 ulp, verified per entry with Fractions
 Taylor tails <= 2^-(W+24) by exact-rational geometric
 bounds at U = ln2/2 (U itself the bracket hi endpoint over
 2). The Ek exponents are integers proven here by the
-scalar recurrence of ledger/parcel-w5exp2.md Sec. 5 (one
+scalar recurrence of audit-bundle/ledger/parcel-w5exp2.md Sec. 5 (one
 truncating op or truncated constant <= 2^(1-W) relative,
 Horner weights from the same geometric bounds, 9-bit
 reserve as in the trig generator) and printed at
@@ -117,7 +117,7 @@ def ek_exp(u, w, kterms):
     """Relative-error bound for the scalar truncating
     evaluations (exp Horner and z*M(z)), as a bit count B
     with Ek <= 2^-B after the 9-bit reserve. Recurrence of
-    ledger/parcel-w5exp2.md Sec. 5."""
+    audit-bundle/ledger/parcel-w5exp2.md Sec. 5."""
     eps = Fraction(2, 2**w)
     e_u = 2 * eps + eps * eps
     e = eps
@@ -154,7 +154,7 @@ def ek_exp(u, w, kterms):
     return bits - 9
 
 
-# ---- log2/log2p1 (SF-2 Step 3b, ledger/parcel-w5log2.md) ----
+# ---- log2/log2p1 (SF-2 Step 3b, audit-bundle/ledger/parcel-w5log2.md) ----
 # |s| <= (sqrt2-1)/(sqrt2+1): sqrt2 < 14143/10000 (integer
 # check below) and s increasing in mm give the rational
 # ceiling SRAT; the low side follows by |s(mm)|=|s(1/mm)|.

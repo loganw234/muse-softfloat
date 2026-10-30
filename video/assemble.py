@@ -1,13 +1,14 @@
 """Assemble the segment-based cut (v5) at 2560x1440.
 
-Segments live in video/segments/ (production copies of the
+Segments live in muse-softfloat/video/segments/ (production copies
+of the
 study renderers; history in scratch/study-video-*). This
 script renders each segment if its MP4 is missing, then
 concatenates intro -> idea -> why -> gitvisual -> outro into
-video/out/assembly_v5.mp4 and pixel-checks the joins.
+muse-softfloat/video/out/assembly_v5.mp4 and pixel-checks the joins.
 
 Run from the workspace root with the project venv:
-    .venv\\Scripts\\python.exe video\\assemble.py [--force]
+    .venv\\Scripts\\python.exe muse-softfloat\\video\\assemble.py [--force]
 """
 from __future__ import annotations
 

@@ -9,7 +9,7 @@ it restated spec+option rows cell-for-cell (no unique claim) and
 its dwell cost could not be bought honestly (see textrev report).
 Writes ONLY why3-1440p.mp4; all v1/v2 artifacts untouched.
 Opens/closes pure white. Frames stream one at a time.
-BLOCKS is the audit source of truth. Run: $MSF_PYTHON render_why3.py
+BLOCKS is the audit source of truth. Run: $MSF_PYTHON why.py
 """
 from __future__ import annotations
 

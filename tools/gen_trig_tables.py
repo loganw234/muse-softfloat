@@ -12,8 +12,8 @@ agreement is printed). Every stored entry is the exact floor
 of the true constant at 384 bits: stored <= true < stored +
 1 ulp, verified per entry with Fractions (for pi, against the
 bracket above). The kernel forms coefficient intervals from
-these floors; see ledger/parcel-w4trig.md design entry and
-scratch/parcel-w4trig/error_budget.py for the budget that
+these floors; see audit-bundle/ledger/parcel-w4trig.md
+(design entry) for the error budget that
 fixes the stage widths, term counts, and tail bounds emitted
 here. Regeneration must be byte-identical.
 
@@ -111,8 +111,9 @@ def scalar_ek_exp(w, n_sin, n_del):
     evaluation (one truncating op or truncated constant errs
     by <= 2^(1-W) relative), as a bit count B with Ek <=
     2^-B. Recurrence re-derived in the parcel ledger design
-    entry; must match scratch/parcel-w4trig/error_budget.py,
-    checked by the printed values at generation time."""
+    entry; must match the error budget recorded with that
+    entry, checked by the printed values at generation
+    time."""
     eps = Fraction(2, 2**w)
     e_u = 2 * eps + eps * eps
     e_z = 2 * e_u + e_u * e_u + eps

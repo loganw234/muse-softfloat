@@ -111,7 +111,8 @@ typedef enum msf_class {
 /* Decimal character conversion specification (SF-0 Section 2.6):
  * precision = significant digits (<= 0 selects the format's Pmin);
  * style = selector below; min_digits = minimum digit count to emit.
- * Exact field semantics are the Wave 3 gate's to freeze. */
+ * Exact field semantics were frozen at the Wave 3 gate
+ * (docs/RECORD.md, Wave 3 close). */
 enum {
     MSF_DECIMAL_STYLE_SCIENTIFIC = 0,
     MSF_DECIMAL_STYLE_FIXED = 1

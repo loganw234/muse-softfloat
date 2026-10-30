@@ -22,8 +22,8 @@ Data: history.json (real git history at a73e97d), gate2_numbers.json
 + figure-8 ICs (orbit integrated in float64, labelled illustration;
 the hash rows are the proof). Frames stream to ffmpeg; never buffered.
 
-Run: $MSF_PYTHON render_gitvisual5.py --still 12.0 --out stills5/test.png
-     $MSF_PYTHON render_gitvisual5.py --out gitvisual5.mp4
+Run: $MSF_PYTHON gitvisual.py --still 12.0 --out stills5/test.png
+     $MSF_PYTHON gitvisual.py --out gitvisual5.mp4
 """
 from __future__ import annotations
 

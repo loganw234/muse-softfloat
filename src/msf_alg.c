@@ -2,7 +2,7 @@
  * This TU carries rSqrt (Step 2a) and hypot (Step 2b) at
  * binary16/32/64.
  *
- * Design record: ledger/parcel-w5alg1.md (design entry),
+ * Design record: audit-bundle/ledger/parcel-w5alg1.md (design entry),
  * realising docs/studies/SF-2.md Sec. 3 and the SF-2
  * algebraic study Sec. 3.1. rSqrt(x) = 1/sqrt(x) is decided
  * by exact integer arithmetic: normalize the operand to
@@ -34,7 +34,7 @@
  * table-decided in both kernel and vector generation,
  * never oracle-sourced).
  *
- * hypot (design record: ledger/parcel-w5alg2.md, realising
+ * hypot (design record: audit-bundle/ledger/parcel-w5alg2.md, realising
  * study Sec. 3.2): order the finite magnitudes, anchor a
  * window at the top of the larger square inside the existing
  * u128 (window sum < 2^122), align the smaller square by

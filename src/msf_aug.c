@@ -10,7 +10,7 @@
  * characterised below-step cell, where tail is the residual
  * itself rounded by roundTiesTowardZero). Definitions and
  * the representability proof: docs/WIDTHS.md augmented rows;
- * design record ledger/parcel-w5aug.md.
+ * design record audit-bundle/ledger/parcel-w5aug.md.
  *
  * Flags (ratified table, default handling only): invalid
  * from the SF-0 2.5 matrix; overflow + inexact exactly when

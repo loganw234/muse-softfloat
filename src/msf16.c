@@ -2,8 +2,8 @@
  *
  * Wave 2 parcel-f16: every binary16-destination instantiation of
  * the homogeneous core, with sources spanning the full
- * {binary16, binary32, binary64} grid (ledger design entry,
- * parcel-f16). Shape per the brief: msf_decode to exact sig*2^exp,
+ * {binary16, binary32, binary64} grid (design entry:
+ * audit-bundle/ledger/parcel-f16.md). Shape per the brief: msf_decode to exact sig*2^exp,
  * NaN delivery via msf_nan_delivery, exact integer work over
  * msf_u128, then ONE rounding through msf_pack_f16 (the logB result
  * is the single exception, packed as binary64 because logBFormat

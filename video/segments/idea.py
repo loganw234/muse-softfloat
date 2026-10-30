@@ -11,7 +11,7 @@ All motion parametric; frames stream to ffmpeg one at a time.
 BLOCKS below is the audit source of truth (one entry per beat of new
 text; words = whitespace tokens containing a letter/digit). Scene code
 draws exactly these strings at exactly these times.
-Run: $MSF_PYTHON render_idea2.py
+Run: $MSF_PYTHON idea.py
 """
 from __future__ import annotations
 
