@@ -1102,3 +1102,22 @@ plants 128/135. The sanitizer study the same day
 found zero findings on both legs it could run
 (trap-UBSan and MSVC ASan over 411,213 + 1,117,504
 cases); its S1/S3 parcel follows.
+
+**Wave 6 examples + sanitize landed (appended
+2026-10-30):** examples/ gives a host programme and
+a Pico programme over the public API with
+independently derived, pinned expectations and a
+one-command enforced-diff build; the Pico example
+printed every host-expected line verbatim on the
+genuine board at the merge gate (lead, board.lock,
+serial E66440A2CB6F5C2B). tools/run.sh gains a
+fifth budget, `sanitize`: canaries watched trapping
+first, then unit + committed + extras + aug pool
+with zero findings on this host (trap flavour) and
+on Ubuntu CI (full ASan+UBSan, run 41064095464
+after a runner.c byte-equivalent idiom fix for a
+gcc-15 -Werror build warning - a build defect, not
+a sanitizer finding). verifier-w6examples and
+verifier-w6sanitize each caught 5 of 5 plants;
+cumulative plants 138/145. Wave 6 queue items 1-4
+are complete; submission packaging follows.
