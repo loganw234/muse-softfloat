@@ -22,7 +22,10 @@ cd "$(dirname "$0")/.." || exit 9
 BUDGET="${1:-}"
 case "$BUDGET" in smoke|standard|board|bench) ;; *) echo "usage: tools/run.sh smoke|standard|board|bench"; exit 2;; esac
 
-export PATH="/c/msys64/mingw64/bin:/c/msys64/usr/bin:$PATH"
+# MSYS2 toolchain first on the Windows host; those directories do
+# not exist on Linux (CI), where the compilers come from the
+# system PATH, so only prepend when they are actually there.
+[ -d /c/msys64/mingw64/bin ] && export PATH="/c/msys64/mingw64/bin:/c/msys64/usr/bin:$PATH"
 BUILD=build/$BUDGET
 mkdir -p "$BUILD/tmp"
 export TMPDIR=$PWD/$BUILD/tmp
@@ -30,6 +33,10 @@ export TMP="$(cygpath -w "$TMPDIR" 2>/dev/null || echo "$TMPDIR")"
 export TEMP="$TMP"
 PY="${MSF_PYTHON:-}"
 [ -z "$PY" ] && [ -x ../.venv/Scripts/python.exe ] && PY=../.venv/Scripts/python.exe
+# Ubuntu provides python3, not python (CI also pins MSF_PYTHON);
+# only reached when the two resolutions above both missed, so the
+# Windows host resolution is unchanged.
+[ -z "$PY" ] && ! command -v python >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1 && PY=python3
 [ -z "$PY" ] && PY=python
 HOST_CC="${MSF_HOST_CC:-gcc}"
 ARM_CC="${MSF_ARM_CC:-arm-none-eabi-gcc}"
