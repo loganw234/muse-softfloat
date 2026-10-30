@@ -1047,3 +1047,18 @@ as written; this appendix is the current reading.
 A Spark stale-information audit the same day
 (frozen audit bundle excluded) drove the
 polish-stale1 cleanup recorded with that parcel.
+
+**Polish-stale1 landed (appended 2026-10-29):**
+verifier-polish1 returned NOT READY on the planted
+copy as constructed; 4 of 5 plants caught
+(cumulative 118/125) - the attribute-count plant
+was missed, reconciled by the verifier against its
+own continuation line. The key hash was committed
+hash-only (`c558fb5`) before dispatch, first use of
+the going-forward rule above. The verifier's one
+real observation (`demo/twiddle_gate.c` paths) was
+fixed pre-merge; a lead-side line-ending slip in
+briefs.jsonl was caught at the merge gate and the
+original row bytes restored. Site data was
+regenerated at landing so the published plant
+figures include these grades.
