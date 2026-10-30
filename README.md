@@ -110,8 +110,8 @@ enough.
    work merged, an independent verifier checked it against
    a copy carrying deliberate hidden defects. Counting the
    rows in [docs/metrics/plants.jsonl](docs/metrics/plants.jsonl)
-   in this tree gives 148 caught of 155 (the latest round
-   of work, Wave 6: 30 of 30) — recount it yourself; there is one
+   in this tree gives 153 caught of 160 (the latest round
+   of work, Wave 6: 35 of 35) — recount it yourself; there is one
    line per plant.
 
 ## Status
@@ -143,10 +143,10 @@ its authority names (411,213 committed vectors;
 `standard` adds 1,117,504 generated checks plus a
 5,505,024-check binary16 augmented-pool differential),
 and verified wave by wave on planted copies by
-independent verifiers (148 of 155 plants caught, as
+independent verifiers (153 of 160 plants caught, as
 counted from `docs/metrics/plants.jsonl` in this tree;
-earlier text here pinned 138 of 145 at the judge-map
-landing and 114 of 120 at `bc807e6`).
+earlier text here pinned 148 of 155 and 138 of 145 at
+earlier Wave 6 landings and 114 of 120 at `bc807e6`).
 Recorded one-time evidence beyond the budgets: binary32 exhaustive for each of the `exp2` and
 `log2` pairs (42,949,672,960 mode-checks each, zero
 mismatches) and binary16 augmented pairs exhaustive

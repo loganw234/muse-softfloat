@@ -305,3 +305,13 @@ plants caught):
   pixel-checked in scaled time. Segment boundaries in the
   scaled film: intro 0-6.8, idea 6.8-31.9, why 31.9-62.9,
   gitvisual 62.9-167.4, outro 167.4-179.0.
+- Popup cards generalised (2026-10-30, parcel-w6popups): the
+  chase's seven cards switched from one historical example
+  each to a general description plus the system's project
+  total (19 parcels; 20 escalation filings, 3 fixes;
+  36 verifiers; 150 planted bugs; 411,213 smoke +
+  1,117,504 standard; 35 studies; 25 merges to main),
+  counts derived from the frozen process graph / HEAD tree.
+  Per-card word budgets were held identical, so no dwell,
+  arrival, gate, or TOTAL moved; the assembly above was
+  re-made from the regenerated segment at the same 179.03 s.

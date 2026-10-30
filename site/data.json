@@ -1,5 +1,5 @@
 {
- "base": "3dfa3d8",
+ "base": "f36e171",
  "instantiations": {
   "total": 849,
   "tier1": 783,
@@ -65,8 +65,8 @@
   "source": "tests/vectors/*.vec (counted lines)"
  },
  "plants": {
-  "caught": 148,
-  "total": 155,
+  "caught": 153,
+  "total": 160,
   "by_wave": [
    {
     "wave": "wave1",
@@ -110,8 +110,8 @@
    },
    {
     "wave": "wave6",
-    "caught": 30,
-    "total": 30
+    "caught": 35,
+    "total": 35
    }
   ],
   "source": "docs/metrics/plants.jsonl"

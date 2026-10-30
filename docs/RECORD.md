@@ -1199,3 +1199,27 @@ repo. Remaining item-5 seal: owner's YouTube link
 into the README once uploaded, captions/stills,
 final metrics refresh, final adherence audit,
 audit-bundle v2, release tag.
+
+**Popup cards generalised (appended 2026-10-30):**
+owner asked the chase's seven method cards to read
+as general descriptions with each system's project
+total (the replay after them shows the specifics).
+parcel-w6popups (Spark) rewrote the `POPUP5` copy
+only: 19 parcels, 20 escalation filings with
+3 fixes, 36 verifiers, 150 planted bugs, 411,213
+smoke + 1,117,504 standard, 35 studies, 25 merges
+to main — every count script-derived from the
+frozen process graph or HEAD tree. A lead send-
+back fixed two counts pre-verification (parcels
+had counted the lead spine pass; escalations paired
+a filings description with the fixer count).
+Per-card word budgets held identical, so no timing
+moved: TOTAL stays 108.0 s and the film 179.03 s.
+verifier-w6popups caught 5 of 5 plants on copy
+`8507695` (key hash recorded on main before
+dispatch); cumulative plants 153/160, Wave 6
+35/35. Silent cut re-assembled and the local music
+muxes re-made from it (owner re-uploads).
+Remaining seal: YouTube link, captions/stills,
+metrics refresh, adherence audit, audit-bundle
+v2, release tag.
