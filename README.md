@@ -65,10 +65,14 @@ one named Fork B change (exact cycle fractions into
 `sinpi`/`cospi`; derivation in
 [docs/TWIDDLES.md](docs/TWIDDLES.md)) — matches all 12
 configuration hashes at the gated sizes N=256/1024/4096.
-The interval workload does not yet consume the augmented
-operations: the op-count benefit in the SF-2 study
-(616,754 → 394,666) remains a study model, not a shipped
-claim. Per-instantiation status lives in
+The interval workload's exact stage now consumes the
+augmented operations (Wave 6): over the frozen catalogue
+its counted library calls measured 616,754 → 396,745
+(stage 3 alone 283,314 → 63,305; the SF-2 study model
+predicted 394,666 — the difference is three kept negates
+per sphere row), with classifications identical on every
+row and the new host == board IW1 hash `ae04caf0…c1422`.
+These are counted records, not timing claims. Per-instantiation status lives in
 [docs/COVERAGE.tsv](docs/COVERAGE.tsv); the story, with
 its slips attributed, is [docs/RECORD.md](docs/RECORD.md).
 

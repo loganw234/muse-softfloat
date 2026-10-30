@@ -1062,3 +1062,23 @@ briefs.jsonl was caught at the merge gate and the
 original row bytes restored. Site data was
 regenerated at landing so the published plant
 figures include these grades.
+
+**Wave 6 augint landed (appended 2026-10-30):**
+the interval workload's stage-3 exact expansions
+now consume the Clause 9.5 augmented pairs
+(guard re-derived: INEXACT trips, an exact tiny
+residual raises nothing under P1=R2 and enters
+the expansion, non-finite pair members poison
+INVALID). Classifications are identical to the
+FMA implementation over all 710 frozen catalogue
+rows; counted library calls over the catalogue
+measured 616,754 -> 396,745 (stage 3: 283,314 ->
+63,305), records not timing claims. On-silicon:
+genuine board under `ledger/board.lock`, serial
+E66440A2CB6F5C2B, host == board IW1
+`ae04caf01229...66c1422`, 710/710 PASS (new hash
+replaces `ce81d66e...` for this workload; it moves
+only through the hashed stage-3 ops counts).
+verifier-w6augint caught 5 of 5 plants (NOT READY
+on the planted copy as constructed); cumulative
+plants 123/130 at this landing.
