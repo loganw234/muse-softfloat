@@ -69,9 +69,11 @@ iw_class_t iw_sphere_stage2_f64(iw_ctx_t *ctx,
                                 const msf64_t C[3], msf64_t r,
                                 msf64_t *lo_out, msf64_t *hi_out,
                                 uint64_t *ops_out);
-/* Exact sign by FMA error-free expansion over binary64, guarded
- * by a fresh flags word: an exact stage whose proof overflows or
- * underflows yields UNCERTAIN, never a sign. */
+/* Exact sign by error-free expansion over binary64 built from
+ * the Clause 9.5 augmented pairs, guarded by a fresh flags word:
+ * any inexact pair (overflowed head, unrepresentable mul
+ * residual), invalid, or non-finite pair yields UNCERTAIN, never
+ * a sign. An exact tiny residual is an exact expansion term. */
 iw_class_t iw_sphere_stage3_exact(iw_ctx_t *ctx,
                                   const msf64_t O[3], const msf64_t D[3],
                                   const msf64_t C[3], msf64_t r,

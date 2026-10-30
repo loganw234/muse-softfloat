@@ -28,7 +28,7 @@ cmp "$BOARD_BUILD/interval_catalogue.tsv" tests/interval_catalogue.tsv \
 # (a sampled run); its expected hash is computed from that file.
 gcc -std=c11 -O2 -Wall -Wextra -Werror -ffp-contract=off \
     src/msf16.c src/msf32.c src/msf64.c src/msf_flags.c src/msf_wide.c \
-    src/msf_roundpack.c src/msf_string.c tests/sha256.c \
+    src/msf_roundpack.c src/msf_string.c src/msf_aug.c tests/sha256.c \
     board/interval_workload.c board/interval_host.c \
     -o "$BOARD_BUILD/interval_host.exe" \
     > "$BOARD_BUILD/interval-host-build.log" 2>&1 || board_fail "host runner build"
