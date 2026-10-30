@@ -1,0 +1,12 @@
+muse-softfloat example (public API, bit patterns in/out)
+f64 div 1/10 TE bits=3fb999999999999a flags=10 dec=0.10000000000000001
+f64 div 1/10 TZ bits=3fb9999999999999 flags=10 dec=0.099999999999999991
+f32 div 1/10 TE bits=3dcccccd flags=10 dec=0.100000001
+f32 div 1/10 TZ bits=3dcccccc flags=10 dec=0.0999999940
+f64 mul 1.5*2 TE bits=4008000000000000 flags=00 dec=3.0000000000000000
+f64 sqrt 2 TE bits=3ff6a09e667f3bcd flags=10 dec=1.4142135623730951
+f32 sqrt 2 TE bits=3fb504f3 flags=10 dec=1.41421354
+f32 augmul (1+2^-23)^2 head=3f800002 tail=28800000 flags=00
+augcheck exact-product prod=400001000001 head+tail=400001000001 PASS
+f64 div 0/0 TE bits=7ff8000000000000 flags=01 invalid=1 inexact=0
+EXAMPLE PASS

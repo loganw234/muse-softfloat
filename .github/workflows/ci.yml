@@ -85,3 +85,16 @@ jobs:
             build/standard/*.out
             build/standard/controls/*.log
           if-no-files-found: warn
+
+  example-host:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc libc6-dev
+      - name: Build and run host example (output diff enforced)
+        run: bash examples/host/build.sh
