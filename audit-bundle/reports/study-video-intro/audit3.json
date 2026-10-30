@@ -1,0 +1,2361 @@
+{
+ "segments": {
+  "intro": {
+   "old_words": 6,
+   "new_words": 6,
+   "cut_pct": 0.0,
+   "new_blocks": [
+    {
+     "scene": "intro",
+     "t0": 1.5,
+     "t_gone": 4.5,
+     "lines": [
+      "Hey Muse, I've got an idea..."
+     ],
+     "words": 6,
+     "dwell": 3.0,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": true
+    }
+   ],
+   "old_blocks": [
+    {
+     "scene": "intro",
+     "t0": 2.0,
+     "t_gone": 2.5,
+     "lines": [
+      "Hey Muse, I've got an idea..."
+     ],
+     "words": 6,
+     "dwell": 0.5,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": false
+    }
+   ]
+  },
+  "idea": {
+   "old_words": 195,
+   "new_words": 132,
+   "cut_pct": 32.3,
+   "new_blocks": [
+    {
+     "scene": "idea",
+     "t0": 0.5,
+     "t_gone": 4.5,
+     "lines": [
+      "THE IDEA",
+      "for the RP2040 chip"
+     ],
+     "words": 6,
+     "dwell": 4.0,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "idea",
+     "t0": 1.0,
+     "t_gone": 4.5,
+     "lines": [
+      "Precise number maths in software (IEEE 754)"
+     ],
+     "words": 7,
+     "dwell": 3.5,
+     "rule_min": 3.5,
+     "n_lines": 1,
+     "max_line_words": 7,
+     "ok": true
+    },
+    {
+     "scene": "idea",
+     "t0": 1.5,
+     "t_gone": 4.5,
+     "lines": [
+      "for a chip without maths hardware"
+     ],
+     "words": 6,
+     "dwell": 3.0,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": true
+    },
+    {
+     "scene": "idea",
+     "t0": 2.0,
+     "t_gone": 4.5,
+     "lines": [
+      "All maths there is software."
+     ],
+     "words": 5,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "idea",
+     "t0": 2.5,
+     "t_gone": 4.5,
+     "lines": [
+      "Same answer everywhere."
+     ],
+     "words": 3,
+     "dwell": 2.0,
+     "rule_min": 2.0,
+     "n_lines": 1,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "correct",
+     "t0": 4.5,
+     "t_gone": 9.5,
+     "lines": [
+      "WHAT \u201cCORRECT\u201d MEANS",
+      "the nearest answer, every time"
+     ],
+     "words": 8,
+     "dwell": 5.0,
+     "rule_min": 4.0,
+     "n_lines": 2,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "correct",
+     "t0": 5.0,
+     "t_gone": 9.5,
+     "lines": [
+      "value A",
+      "the next number the chip can hold"
+     ],
+     "words": 9,
+     "dwell": 4.5,
+     "rule_min": 4.5,
+     "n_lines": 2,
+     "max_line_words": 7,
+     "ok": true
+    },
+    {
+     "scene": "correct",
+     "t0": 6.0,
+     "t_gone": 9.5,
+     "lines": [
+      "exact answer",
+      "(no rounding yet)"
+     ],
+     "words": 5,
+     "dwell": 3.5,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "correct",
+     "t0": 6.5,
+     "t_gone": 9.5,
+     "lines": [
+      "correctly rounded \u2192 A"
+     ],
+     "words": 3,
+     "dwell": 3.0,
+     "rule_min": 2.0,
+     "n_lines": 1,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "correct",
+     "t0": 7.0,
+     "t_gone": 9.5,
+     "lines": [
+      "A neighbour is wrong.",
+      "(illustrative)"
+     ],
+     "words": 5,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "correct",
+     "t0": 7.5,
+     "t_gone": 9.5,
+     "lines": [
+      "Exact, not close."
+     ],
+     "words": 3,
+     "dwell": 2.0,
+     "rule_min": 2.0,
+     "n_lines": 1,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "prove",
+     "t0": 9.5,
+     "t_gone": 14.5,
+     "lines": [
+      "WHAT WILL PROVE IT",
+      "three real jobs on the chip"
+     ],
+     "words": 10,
+     "dwell": 5.0,
+     "rule_min": 4.5,
+     "n_lines": 2,
+     "max_line_words": 6,
+     "ok": true
+    },
+    {
+     "scene": "prove",
+     "t0": 10.0,
+     "t_gone": 14.5,
+     "lines": [
+      "IAS15",
+      "tracks planets"
+     ],
+     "words": 3,
+     "dwell": 4.5,
+     "rule_min": 2.0,
+     "n_lines": 2,
+     "max_line_words": 2,
+     "ok": true
+    },
+    {
+     "scene": "prove",
+     "t0": 10.5,
+     "t_gone": 14.5,
+     "lines": [
+      "Desktop bits, every step",
+      "(binary64)"
+     ],
+     "words": 5,
+     "dwell": 4.0,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "prove",
+     "t0": 11.0,
+     "t_gone": 14.5,
+     "lines": [
+      "INTERVAL GEOMETRY",
+      "answers with guarantees"
+     ],
+     "words": 5,
+     "dwell": 3.5,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "prove",
+     "t0": 11.5,
+     "t_gone": 14.5,
+     "lines": [
+      "Down one end,",
+      "up the other"
+     ],
+     "words": 6,
+     "dwell": 3.0,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "prove",
+     "t0": 12.0,
+     "t_gone": 14.5,
+     "lines": [
+      "KISSFFT \u2014 FORK B",
+      "live signals"
+     ],
+     "words": 5,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "prove",
+     "t0": 12.5,
+     "t_gone": 14.5,
+     "lines": [
+      "Correctly rounded",
+      "sinPi/cosPi"
+     ],
+     "words": 3,
+     "dwell": 2.0,
+     "rule_min": 2.0,
+     "n_lines": 2,
+     "max_line_words": 2,
+     "ok": true
+    },
+    {
+     "scene": "method",
+     "t0": 14.5,
+     "t_gone": 18.5,
+     "lines": [
+      "HOW IT GETS BUILT",
+      "the short version"
+     ],
+     "words": 7,
+     "dwell": 4.0,
+     "rule_min": 3.5,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "method",
+     "t0": 15.0,
+     "t_gone": 18.5,
+     "lines": [
+      "1",
+      "Agents build it piece by piece"
+     ],
+     "words": 7,
+     "dwell": 3.5,
+     "rule_min": 3.5,
+     "n_lines": 2,
+     "max_line_words": 6,
+     "ok": true
+    },
+    {
+     "scene": "method",
+     "t0": 15.5,
+     "t_gone": 18.5,
+     "lines": [
+      "2",
+      "Each piece checked independently"
+     ],
+     "words": 5,
+     "dwell": 3.0,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "method",
+     "t0": 16.0,
+     "t_gone": 18.5,
+     "lines": [
+      "3",
+      "Verifiers try disproving it"
+     ],
+     "words": 5,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "method",
+     "t0": 16.5,
+     "t_gone": 18.5,
+     "lines": [
+      "Watch it land."
+     ],
+     "words": 3,
+     "dwell": 2.0,
+     "rule_min": 2.0,
+     "n_lines": 1,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "question",
+     "t0": 18.5,
+     "t_gone": 21.5,
+     "lines": [
+      "BUT FIRST \u2014",
+      "WHY NOT USE WHAT"
+     ],
+     "words": 6,
+     "dwell": 3.0,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "question",
+     "t0": 19.0,
+     "t_gone": 21.5,
+     "lines": [
+      "ALREADY SHIPS?"
+     ],
+     "words": 2,
+     "dwell": 2.5,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 2,
+     "ok": true
+    }
+   ],
+   "old_blocks": [
+    {
+     "scene": "idea",
+     "t0": 0.5,
+     "t_gone": 3.0,
+     "lines": [
+      "THE IDEA",
+      "one sentence, then what it demands"
+     ],
+     "words": 8,
+     "dwell": 2.5,
+     "rule_min": 4.0,
+     "n_lines": 2,
+     "max_line_words": 6,
+     "ok": false
+    },
+    {
+     "scene": "idea",
+     "t0": 0.5,
+     "t_gone": 3.0,
+     "lines": [
+      "A software IEEE 754 floating-point library"
+     ],
+     "words": 6,
+     "dwell": 2.5,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": false
+    },
+    {
+     "scene": "idea",
+     "t0": 1.0,
+     "t_gone": 3.0,
+     "lines": [
+      "for the RP2040 \u2014 a chip with no FPU,"
+     ],
+     "words": 8,
+     "dwell": 2.0,
+     "rule_min": 4.0,
+     "n_lines": 1,
+     "max_line_words": 8,
+     "ok": false
+    },
+    {
+     "scene": "idea",
+     "t0": 1.5,
+     "t_gone": 3.0,
+     "lines": [
+      "where every float is already software \u2014"
+     ],
+     "words": 6,
+     "dwell": 1.5,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": false
+    },
+    {
+     "scene": "idea",
+     "t0": 2.0,
+     "t_gone": 3.0,
+     "lines": [
+      "so real science code runs bit-identically:"
+     ],
+     "words": 6,
+     "dwell": 1.0,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": false
+    },
+    {
+     "scene": "idea",
+     "t0": 2.5,
+     "t_gone": 3.0,
+     "lines": [
+      "same source on desktop and chip, same bits out."
+     ],
+     "words": 9,
+     "dwell": 0.5,
+     "rule_min": 4.5,
+     "n_lines": 1,
+     "max_line_words": 9,
+     "ok": false
+    },
+    {
+     "scene": "correct",
+     "t0": 3.0,
+     "t_gone": 6.5,
+     "lines": [
+      "WHAT \u201cCORRECT\u201d MEANS HERE",
+      "every result the correctly rounded one \u2014 every flag exact"
+     ],
+     "words": 13,
+     "dwell": 3.5,
+     "rule_min": 6.0,
+     "n_lines": 2,
+     "max_line_words": 9,
+     "ok": false
+    },
+    {
+     "scene": "correct",
+     "t0": 3.0,
+     "t_gone": 6.5,
+     "lines": [
+      "representable",
+      "value A",
+      "next value",
+      "A + 1 ULP"
+     ],
+     "words": 8,
+     "dwell": 3.5,
+     "rule_min": 4.0,
+     "n_lines": 4,
+     "max_line_words": 3,
+     "ok": false
+    },
+    {
+     "scene": "correct",
+     "t0": 3.0,
+     "t_gone": 5.0,
+     "lines": [
+      "one operation, done exactly \u2014 where must it land?"
+     ],
+     "words": 8,
+     "dwell": 2.0,
+     "rule_min": 4.0,
+     "n_lines": 1,
+     "max_line_words": 8,
+     "ok": false
+    },
+    {
+     "scene": "correct",
+     "t0": 4.0,
+     "t_gone": 6.5,
+     "lines": [
+      "exact result",
+      "(infinitely precise)"
+     ],
+     "words": 4,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 2,
+     "ok": true
+    },
+    {
+     "scene": "correct",
+     "t0": 5.0,
+     "t_gone": 6.5,
+     "lines": [
+      "correctly rounded \u2192 A",
+      "a neighbour is a wrong answer"
+     ],
+     "words": 9,
+     "dwell": 1.5,
+     "rule_min": 4.5,
+     "n_lines": 2,
+     "max_line_words": 6,
+     "ok": false
+    },
+    {
+     "scene": "correct",
+     "t0": 5.5,
+     "t_gone": 6.5,
+     "lines": [
+      "not close \u2014 exact: right value, right flags, every time  (illustrative)"
+     ],
+     "words": 10,
+     "dwell": 1.0,
+     "rule_min": 4.5,
+     "n_lines": 1,
+     "max_line_words": 10,
+     "ok": false
+    },
+    {
+     "scene": "prove",
+     "t0": 6.5,
+     "t_gone": 10.0,
+     "lines": [
+      "WHAT WILL PROVE IT",
+      "three real workloads, run on the chip"
+     ],
+     "words": 11,
+     "dwell": 3.5,
+     "rule_min": 5.0,
+     "n_lines": 2,
+     "max_line_words": 7,
+     "ok": false
+    },
+    {
+     "scene": "prove",
+     "t0": 6.5,
+     "t_gone": 10.0,
+     "lines": [
+      "IAS15",
+      "orbital integrator",
+      "binary64, bit-identical",
+      "desktop = chip,",
+      "every bit, every step"
+     ],
+     "words": 11,
+     "dwell": 3.5,
+     "rule_min": 5.0,
+     "n_lines": 5,
+     "max_line_words": 4,
+     "ok": false
+    },
+    {
+     "scene": "prove",
+     "t0": 7.5,
+     "t_gone": 10.0,
+     "lines": [
+      "INTERVAL GEOMETRY",
+      "guaranteed enclosures",
+      "directed rounding:",
+      "down for one end,",
+      "up for the other"
+     ],
+     "words": 14,
+     "dwell": 2.5,
+     "rule_min": 6.5,
+     "n_lines": 5,
+     "max_line_words": 4,
+     "ok": false
+    },
+    {
+     "scene": "prove",
+     "t0": 8.5,
+     "t_gone": 10.0,
+     "lines": [
+      "KISSFFT \u2014 FORK B",
+      "exact-angle FFT",
+      "sinPi / cosPi twiddles",
+      "made at runtime,",
+      "correctly rounded"
+     ],
+     "words": 13,
+     "dwell": 1.5,
+     "rule_min": 6.0,
+     "n_lines": 5,
+     "max_line_words": 3,
+     "ok": false
+    },
+    {
+     "scene": "method",
+     "t0": 10.0,
+     "t_gone": 12.0,
+     "lines": [
+      "HOW IT GETS BUILT",
+      "the short version \u2014 the film shows the rest"
+     ],
+     "words": 12,
+     "dwell": 2.0,
+     "rule_min": 5.5,
+     "n_lines": 2,
+     "max_line_words": 8,
+     "ok": false
+    },
+    {
+     "scene": "method",
+     "t0": 10.0,
+     "t_gone": 12.0,
+     "lines": [
+      "1",
+      "briefed agents build it, parcel by parcel"
+     ],
+     "words": 8,
+     "dwell": 2.0,
+     "rule_min": 4.0,
+     "n_lines": 2,
+     "max_line_words": 7,
+     "ok": false
+    },
+    {
+     "scene": "method",
+     "t0": 10.5,
+     "t_gone": 12.0,
+     "lines": [
+      "2",
+      "every piece independently verified \u2014"
+     ],
+     "words": 5,
+     "dwell": 1.5,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": false
+    },
+    {
+     "scene": "method",
+     "t0": 11.0,
+     "t_gone": 12.0,
+     "lines": [
+      "3",
+      "a verifier whose only job is to disconfirm"
+     ],
+     "words": 9,
+     "dwell": 1.0,
+     "rule_min": 4.5,
+     "n_lines": 2,
+     "max_line_words": 8,
+     "ok": false
+    },
+    {
+     "scene": "method",
+     "t0": 11.5,
+     "t_gone": 12.0,
+     "lines": [
+      "watch it land, commit by commit, in a minute."
+     ],
+     "words": 9,
+     "dwell": 0.5,
+     "rule_min": 4.5,
+     "n_lines": 1,
+     "max_line_words": 9,
+     "ok": false
+    },
+    {
+     "scene": "question",
+     "t0": 12.0,
+     "t_gone": 13.5,
+     "lines": [
+      "BUT FIRST \u2014",
+      "WHY NOT USE WHAT",
+      "ALREADY SHIPS?"
+     ],
+     "words": 8,
+     "dwell": 1.5,
+     "rule_min": 4.0,
+     "n_lines": 3,
+     "max_line_words": 4,
+     "ok": false
+    }
+   ]
+  },
+  "why": {
+   "old_words": 337,
+   "new_words": 198,
+   "cut_pct": 41.2,
+   "new_blocks": [
+    {
+     "scene": "title",
+     "t0": 0.5,
+     "t_gone": 3.5,
+     "lines": [
+      "WHY NOT USE WHAT",
+      "ALREADY SHIPS?"
+     ],
+     "words": 6,
+     "dwell": 3.0,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "title",
+     "t0": 1.0,
+     "t_gone": 3.5,
+     "lines": [
+      "RP2040: no maths hardware (FPU)"
+     ],
+     "words": 5,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "workloads",
+     "t0": 3.5,
+     "t_gone": 8.0,
+     "lines": [
+      "FIRST: THE WORKLOADS",
+      "what must run on the chip"
+     ],
+     "words": 9,
+     "dwell": 4.5,
+     "rule_min": 4.5,
+     "n_lines": 2,
+     "max_line_words": 6,
+     "ok": true
+    },
+    {
+     "scene": "workloads",
+     "t0": 4.0,
+     "t_gone": 8.0,
+     "lines": [
+      "IAS15",
+      "Desktop bits (binary64)"
+     ],
+     "words": 4,
+     "dwell": 4.0,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "workloads",
+     "t0": 4.5,
+     "t_gone": 8.0,
+     "lines": [
+      "INTERVAL GEOMETRY",
+      "Down / up per end"
+     ],
+     "words": 6,
+     "dwell": 3.5,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "workloads",
+     "t0": 5.0,
+     "t_gone": 8.0,
+     "lines": [
+      "KISSFFT \u2014 FORK B",
+      "Correctly rounded sinPi/cosPi"
+     ],
+     "words": 6,
+     "dwell": 3.0,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 8.0,
+     "t_gone": 13.5,
+     "lines": [
+      "TOGETHER: A JOB SPEC",
+      "what the three jobs need (IEEE 754-2019)"
+     ],
+     "words": 11,
+     "dwell": 5.5,
+     "rule_min": 5.0,
+     "n_lines": 2,
+     "max_line_words": 7,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 8.5,
+     "t_gone": 13.5,
+     "lines": [
+      "All five rounding choices"
+     ],
+     "words": 4,
+     "dwell": 5.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 9.0,
+     "t_gone": 13.5,
+     "lines": [
+      "Five warning flags, always exact"
+     ],
+     "words": 5,
+     "dwell": 4.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 9.5,
+     "t_gone": 13.5,
+     "lines": [
+      "Tiny numbers never zeroed (subnormals)"
+     ],
+     "words": 5,
+     "dwell": 4.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 10.0,
+     "t_gone": 13.5,
+     "lines": [
+      "Error values keep their details"
+     ],
+     "words": 5,
+     "dwell": 3.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 10.5,
+     "t_gone": 13.5,
+     "lines": [
+      "Three number sizes (binary16/32/64)"
+     ],
+     "words": 4,
+     "dwell": 3.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 11.0,
+     "t_gone": 13.5,
+     "lines": [
+      "Correctly rounded, even hard cases"
+     ],
+     "words": 5,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 11.5,
+     "t_gone": 13.5,
+     "lines": [
+      "Exact leftovers (augmented)"
+     ],
+     "words": 3,
+     "dwell": 2.0,
+     "rule_min": 2.0,
+     "n_lines": 1,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 13.5,
+     "t_gone": 18.5,
+     "lines": [
+      "OPTION 1 \u2014 THE DEFAULT",
+      "SDK \u2018pico\u2019 flavour \u2192 bootrom"
+     ],
+     "words": 8,
+     "dwell": 5.0,
+     "rule_min": 4.0,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 14.0,
+     "t_gone": 18.5,
+     "lines": [
+      "Five basic sums correctly rounded"
+     ],
+     "words": 5,
+     "dwell": 4.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 14.5,
+     "t_gone": 18.5,
+     "lines": [
+      "Tiny results silently become zero"
+     ],
+     "words": 5,
+     "dwell": 4.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 15.0,
+     "t_gone": 18.5,
+     "lines": [
+      "Error values turn into infinity"
+     ],
+     "words": 5,
+     "dwell": 3.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 15.5,
+     "t_gone": 18.5,
+     "lines": [
+      "One rounding choice only (ties-to-even)"
+     ],
+     "words": 5,
+     "dwell": 3.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 16.0,
+     "t_gone": 18.5,
+     "lines": [
+      "No warning flags exist"
+     ],
+     "words": 4,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 16.5,
+     "t_gone": 18.5,
+     "lines": [
+      "(SF-0 \u00a78)"
+     ],
+     "words": 2,
+     "dwell": 2.0,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 2,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 17.0,
+     "t_gone": 18.5,
+     "lines": [
+      "ELIMINATED"
+     ],
+     "words": 1,
+     "dwell": 1.5,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 1,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 18.5,
+     "t_gone": 24.0,
+     "lines": [
+      "OPTION 2 \u2014 THE FALL-THROUGH",
+      "SDK \u2018compiler\u2019 flavour \u2192 libgcc"
+     ],
+     "words": 8,
+     "dwell": 5.5,
+     "rule_min": 4.0,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 19.0,
+     "t_gone": 24.0,
+     "lines": [
+      "Rounding directions? Not measured"
+     ],
+     "words": 4,
+     "dwell": 5.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 19.5,
+     "t_gone": 24.0,
+     "lines": [
+      "Warning flags? Not measured"
+     ],
+     "words": 4,
+     "dwell": 4.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 20.0,
+     "t_gone": 24.0,
+     "lines": [
+      "Errors, tiny numbers, small size? Unmeasured"
+     ],
+     "words": 6,
+     "dwell": 4.0,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 20.5,
+     "t_gone": 24.0,
+     "lines": [
+      "Same code, different bits per target"
+     ],
+     "words": 6,
+     "dwell": 3.5,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 21.0,
+     "t_gone": 24.0,
+     "lines": [
+      "e.g. a\u00d7b+c differs by target."
+     ],
+     "words": 5,
+     "dwell": 3.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 21.5,
+     "t_gone": 24.0,
+     "lines": [
+      "Unmeasured proves nothing (SF-0)"
+     ],
+     "words": 4,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 22.5,
+     "t_gone": 24.0,
+     "lines": [
+      "NOT MEASURED"
+     ],
+     "words": 2,
+     "dwell": 1.5,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 2,
+     "ok": true
+    },
+    {
+     "scene": "opt3",
+     "t0": 24.0,
+     "t_gone": 28.0,
+     "lines": [
+      "OPTION 3",
+      "SDK \u2018none\u2019 flavour"
+     ],
+     "words": 5,
+     "dwell": 4.0,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "opt3",
+     "t0": 24.5,
+     "t_gone": 28.0,
+     "lines": [
+      "panic(\"float support is disabled\")"
+     ],
+     "words": 4,
+     "dwell": 3.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "opt3",
+     "t0": 25.0,
+     "t_gone": 28.0,
+     "lines": [
+      "Every number call stops here"
+     ],
+     "words": 5,
+     "dwell": 3.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "opt3",
+     "t0": 25.5,
+     "t_gone": 28.0,
+     "lines": [
+      "NO FLOATS AT ALL"
+     ],
+     "words": 4,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "settle",
+     "t0": 28.0,
+     "t_gone": 32.5,
+     "lines": [
+      "SO BUILD THE FOURTH OPTION",
+      "MUSE-SOFTFLOAT"
+     ],
+     "words": 6,
+     "dwell": 4.5,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "settle",
+     "t0": 28.5,
+     "t_gone": 32.5,
+     "lines": [
+      "Three sizes \u00b7 849 versions (IEEE 754-2019)"
+     ],
+     "words": 6,
+     "dwell": 4.0,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": true
+    },
+    {
+     "scene": "settle",
+     "t0": 29.0,
+     "t_gone": 32.5,
+     "lines": [
+      "Five roundings, five exact warnings"
+     ],
+     "words": 5,
+     "dwell": 3.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "settle",
+     "t0": 29.5,
+     "t_gone": 32.5,
+     "lines": [
+      "Tiny kept \u00b7 leftovers exact \u00b7 correctly rounded"
+     ],
+     "words": 6,
+     "dwell": 3.0,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": true
+    },
+    {
+     "scene": "settle",
+     "t0": 30.0,
+     "t_gone": 32.5,
+     "lines": [
+      "Proven bit-identical on the chip"
+     ],
+     "words": 5,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    }
+   ],
+   "old_blocks": [
+    {
+     "scene": "title",
+     "t0": 0.5,
+     "t_gone": 2.5,
+     "lines": [
+      "WHY NOT USE WHAT",
+      "ALREADY SHIPS?"
+     ],
+     "words": 6,
+     "dwell": 2.0,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": false
+    },
+    {
+     "scene": "title",
+     "t0": 1.0,
+     "t_gone": 2.5,
+     "lines": [
+      "The RP2040 has no FPU \u2014 every float is software. Three workloads go shopping."
+     ],
+     "words": 13,
+     "dwell": 1.5,
+     "rule_min": 6.0,
+     "n_lines": 1,
+     "max_line_words": 13,
+     "ok": false
+    },
+    {
+     "scene": "workloads",
+     "t0": 2.5,
+     "t_gone": 8.5,
+     "lines": [
+      "FIRST: THE WORKLOADS",
+      "what actually has to run on the chip"
+     ],
+     "words": 11,
+     "dwell": 6.0,
+     "rule_min": 5.0,
+     "n_lines": 2,
+     "max_line_words": 8,
+     "ok": true
+    },
+    {
+     "scene": "workloads",
+     "t0": 2.5,
+     "t_gone": 8.5,
+     "lines": [
+      "IAS15",
+      "orbital integrator",
+      "NEEDS:",
+      "binary64 bit-identical,",
+      "desktop = chip,",
+      "every bit, every step"
+     ],
+     "words": 12,
+     "dwell": 6.0,
+     "rule_min": 5.5,
+     "n_lines": 6,
+     "max_line_words": 4,
+     "ok": false
+    },
+    {
+     "scene": "workloads",
+     "t0": 4.5,
+     "t_gone": 8.5,
+     "lines": [
+      "INTERVAL GEOMETRY",
+      "guaranteed enclosures",
+      "NEEDS:",
+      "directed rounding on demand:",
+      "round down / round up,",
+      "chosen per call"
+     ],
+     "words": 16,
+     "dwell": 4.0,
+     "rule_min": 7.0,
+     "n_lines": 6,
+     "max_line_words": 4,
+     "ok": false
+    },
+    {
+     "scene": "workloads",
+     "t0": 6.5,
+     "t_gone": 8.5,
+     "lines": [
+      "KISSFFT \u2014 FORK B",
+      "exact-angle FFT",
+      "NEEDS:",
+      "sinPi / cosPi twiddles",
+      "generated at runtime,",
+      "correctly rounded"
+     ],
+     "words": 14,
+     "dwell": 2.0,
+     "rule_min": 6.5,
+     "n_lines": 6,
+     "max_line_words": 3,
+     "ok": false
+    },
+    {
+     "scene": "spec",
+     "t0": 8.5,
+     "t_gone": 12.5,
+     "lines": [
+      "TOGETHER, THAT'S A JOB SPEC",
+      "the IEEE 754-2019 semantics the three workloads stand on"
+     ],
+     "words": 14,
+     "dwell": 4.0,
+     "rule_min": 6.5,
+     "n_lines": 2,
+     "max_line_words": 9,
+     "ok": false
+    },
+    {
+     "scene": "spec",
+     "t0": 8.5,
+     "t_gone": 12.5,
+     "lines": [
+      "rounding attributes: all four, + tiesToAway"
+     ],
+     "words": 5,
+     "dwell": 4.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 9.0,
+     "t_gone": 12.5,
+     "lines": [
+      "exception flags: invalid \u00b7 div-by-zero \u00b7 overflow \u00b7 underflow \u00b7 inexact"
+     ],
+     "words": 7,
+     "dwell": 3.5,
+     "rule_min": 3.5,
+     "n_lines": 1,
+     "max_line_words": 7,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 9.5,
+     "t_gone": 12.5,
+     "lines": [
+      "subnormals kept \u2014 never flushed to zero"
+     ],
+     "words": 6,
+     "dwell": 3.0,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 10.0,
+     "t_gone": 12.5,
+     "lines": [
+      "NaN payloads preserved through arithmetic"
+     ],
+     "words": 5,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "spec",
+     "t0": 10.5,
+     "t_gone": 12.5,
+     "lines": [
+      "formats: binary16 + binary32 + binary64"
+     ],
+     "words": 4,
+     "dwell": 2.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": false
+    },
+    {
+     "scene": "spec",
+     "t0": 11.0,
+     "t_gone": 12.5,
+     "lines": [
+      "correctly rounded \u2014 FMA, sqrt, sinPi/cosPi, hard cases"
+     ],
+     "words": 7,
+     "dwell": 1.5,
+     "rule_min": 3.5,
+     "n_lines": 1,
+     "max_line_words": 7,
+     "ok": false
+    },
+    {
+     "scene": "spec",
+     "t0": 11.5,
+     "t_gone": 12.5,
+     "lines": [
+      "augmented add / sub / mul: head + exact tail"
+     ],
+     "words": 7,
+     "dwell": 1.0,
+     "rule_min": 3.5,
+     "n_lines": 1,
+     "max_line_words": 7,
+     "ok": false
+    },
+    {
+     "scene": "opt1",
+     "t0": 12.5,
+     "t_gone": 19.0,
+     "lines": [
+      "OPTION 1 \u2014 THE DEFAULT",
+      "SDK \u2018pico\u2019 flavour \u2192 bootrom"
+     ],
+     "words": 8,
+     "dwell": 6.5,
+     "rule_min": 4.0,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 13.0,
+     "t_gone": 19.0,
+     "lines": [
+      "five basic ops correctly rounded *  (+ \u2212 \u00d7 \u00f7 \u221a)"
+     ],
+     "words": 5,
+     "dwell": 6.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 14.0,
+     "t_gone": 19.0,
+     "lines": [
+      "subnormals flushed to zero \u2014 in and out"
+     ],
+     "words": 7,
+     "dwell": 5.0,
+     "rule_min": 3.5,
+     "n_lines": 1,
+     "max_line_words": 7,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 15.0,
+     "t_gone": 19.0,
+     "lines": [
+      "NaNs rendered as infinities \u2014 payloads gone"
+     ],
+     "words": 6,
+     "dwell": 4.0,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": true
+    },
+    {
+     "scene": "opt1",
+     "t0": 16.0,
+     "t_gone": 19.0,
+     "lines": [
+      "one rounding mode: ties-to-even. No directed modes"
+     ],
+     "words": 7,
+     "dwell": 3.0,
+     "rule_min": 3.5,
+     "n_lines": 1,
+     "max_line_words": 7,
+     "ok": false
+    },
+    {
+     "scene": "opt1",
+     "t0": 17.0,
+     "t_gone": 19.0,
+     "lines": [
+      "exception flags: none exist"
+     ],
+     "words": 4,
+     "dwell": 2.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": false
+    },
+    {
+     "scene": "opt1",
+     "t0": 17.5,
+     "t_gone": 19.0,
+     "lines": [
+      "e.g. a tiny subnormal result \u2192 0, silently.",
+      "* five basic ops, under the flush rules (SF-0 \u00a78)"
+     ],
+     "words": 16,
+     "dwell": 1.5,
+     "rule_min": 7.0,
+     "n_lines": 2,
+     "max_line_words": 9,
+     "ok": false
+    },
+    {
+     "scene": "opt1",
+     "t0": 18.5,
+     "t_gone": 19.0,
+     "lines": [
+      "ELIMINATED"
+     ],
+     "words": 1,
+     "dwell": 0.5,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 1,
+     "ok": false
+    },
+    {
+     "scene": "opt2",
+     "t0": 19.0,
+     "t_gone": 24.5,
+     "lines": [
+      "OPTION 2 \u2014 THE FALL-THROUGH",
+      "SDK \u2018compiler\u2019 flavour \u2192 libgcc"
+     ],
+     "words": 8,
+     "dwell": 5.5,
+     "rule_min": 4.0,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 19.5,
+     "t_gone": 24.5,
+     "lines": [
+      "directed rounding?  not measured"
+     ],
+     "words": 4,
+     "dwell": 5.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 20.5,
+     "t_gone": 24.5,
+     "lines": [
+      "exception flags?  not measured"
+     ],
+     "words": 4,
+     "dwell": 4.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 21.5,
+     "t_gone": 24.5,
+     "lines": [
+      "NaN payloads? subnormals? binary16?  not measured"
+     ],
+     "words": 6,
+     "dwell": 3.0,
+     "rule_min": 3.0,
+     "n_lines": 1,
+     "max_line_words": 6,
+     "ok": true
+    },
+    {
+     "scene": "opt2",
+     "t0": 22.5,
+     "t_gone": 24.5,
+     "lines": [
+      "compiler FMA contraction varies by target (SF-0 \u00a79)"
+     ],
+     "words": 8,
+     "dwell": 2.0,
+     "rule_min": 4.0,
+     "n_lines": 1,
+     "max_line_words": 8,
+     "ok": false
+    },
+    {
+     "scene": "opt2",
+     "t0": 23.0,
+     "t_gone": 24.5,
+     "lines": [
+      "e.g. a\u00d7b+c may fuse on one target, not another \u2014 different bits.",
+      "SF-0 gated none of it \u2014 unmeasured semantics can't carry a proof"
+     ],
+     "words": 22,
+     "dwell": 1.5,
+     "rule_min": 9.5,
+     "n_lines": 2,
+     "max_line_words": 11,
+     "ok": false
+    },
+    {
+     "scene": "opt2",
+     "t0": 24.0,
+     "t_gone": 24.5,
+     "lines": [
+      "NOT MEASURED"
+     ],
+     "words": 2,
+     "dwell": 0.5,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 2,
+     "ok": false
+    },
+    {
+     "scene": "opt3",
+     "t0": 24.5,
+     "t_gone": 26.5,
+     "lines": [
+      "OPTION 3",
+      "SDK \u2018none\u2019 flavour"
+     ],
+     "words": 5,
+     "dwell": 2.0,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 3,
+     "ok": false
+    },
+    {
+     "scene": "opt3",
+     "t0": 25.0,
+     "t_gone": 26.5,
+     "lines": [
+      "panic(\"float support is disabled\")"
+     ],
+     "words": 4,
+     "dwell": 1.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": false
+    },
+    {
+     "scene": "opt3",
+     "t0": 25.5,
+     "t_gone": 26.5,
+     "lines": [
+      "every float entry point is this stub",
+      "e.g. the first  a + b  in any workload never returns."
+     ],
+     "words": 17,
+     "dwell": 1.0,
+     "rule_min": 7.5,
+     "n_lines": 2,
+     "max_line_words": 10,
+     "ok": false
+    },
+    {
+     "scene": "opt3",
+     "t0": 26.0,
+     "t_gone": 26.5,
+     "lines": [
+      "NO FLOATS AT ALL"
+     ],
+     "words": 4,
+     "dwell": 0.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": false
+    },
+    {
+     "scene": "lineup",
+     "t0": 26.5,
+     "t_gone": 28.0,
+     "lines": [
+      "THE LINEUP vs THE SPEC",
+      "only what SF-0 actually measured or stated \u2014 ? means not measured"
+     ],
+     "words": 15,
+     "dwell": 1.5,
+     "rule_min": 6.5,
+     "n_lines": 2,
+     "max_line_words": 10,
+     "ok": false
+    },
+    {
+     "scene": "lineup",
+     "t0": 26.5,
+     "t_gone": 28.0,
+     "lines": [
+      "BOOTROM",
+      "LIBGCC",
+      "CUSTOM"
+     ],
+     "words": 3,
+     "dwell": 1.5,
+     "rule_min": 2.0,
+     "n_lines": 3,
+     "max_line_words": 1,
+     "ok": false
+    },
+    {
+     "scene": "lineup",
+     "t0": 26.5,
+     "t_gone": 28.0,
+     "lines": [
+      "rounding attrs"
+     ],
+     "words": 2,
+     "dwell": 1.5,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 2,
+     "ok": true
+    },
+    {
+     "scene": "lineup",
+     "t0": 26.65,
+     "t_gone": 28.0,
+     "lines": [
+      "5 flags"
+     ],
+     "words": 2,
+     "dwell": 1.35,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 2,
+     "ok": false
+    },
+    {
+     "scene": "lineup",
+     "t0": 26.8,
+     "t_gone": 28.0,
+     "lines": [
+      "subnormals"
+     ],
+     "words": 1,
+     "dwell": 1.2,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 1,
+     "ok": false
+    },
+    {
+     "scene": "lineup",
+     "t0": 26.95,
+     "t_gone": 28.0,
+     "lines": [
+      "NaN payloads"
+     ],
+     "words": 2,
+     "dwell": 1.05,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 2,
+     "ok": false
+    },
+    {
+     "scene": "lineup",
+     "t0": 27.1,
+     "t_gone": 28.0,
+     "lines": [
+      "b16+b32+b64"
+     ],
+     "words": 1,
+     "dwell": 0.9,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 1,
+     "ok": false
+    },
+    {
+     "scene": "lineup",
+     "t0": 27.25,
+     "t_gone": 28.0,
+     "lines": [
+      "correct rounding"
+     ],
+     "words": 2,
+     "dwell": 0.75,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 2,
+     "ok": false
+    },
+    {
+     "scene": "lineup",
+     "t0": 27.4,
+     "t_gone": 28.0,
+     "lines": [
+      "augmented ops"
+     ],
+     "words": 2,
+     "dwell": 0.6,
+     "rule_min": 1.5,
+     "n_lines": 1,
+     "max_line_words": 2,
+     "ok": false
+    },
+    {
+     "scene": "lineup",
+     "t0": 27.0,
+     "t_gone": 28.0,
+     "lines": [
+      "* five basic ops, under the flush rules"
+     ],
+     "words": 7,
+     "dwell": 1.0,
+     "rule_min": 3.5,
+     "n_lines": 1,
+     "max_line_words": 7,
+     "ok": false
+    },
+    {
+     "scene": "settle",
+     "t0": 28.0,
+     "t_gone": 31.0,
+     "lines": [
+      "SO BUILD THE FOURTH OPTION",
+      "MUSE-SOFTFLOAT"
+     ],
+     "words": 6,
+     "dwell": 3.0,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "settle",
+     "t0": 28.5,
+     "t_gone": 31.0,
+     "lines": [
+      "IEEE 754-2019 \u00b7 binary16 / 32 / 64 \u00b7 849 instantiations"
+     ],
+     "words": 7,
+     "dwell": 2.5,
+     "rule_min": 3.5,
+     "n_lines": 1,
+     "max_line_words": 7,
+     "ok": false
+    },
+    {
+     "scene": "settle",
+     "t0": 29.0,
+     "t_gone": 31.0,
+     "lines": [
+      "five rounding attributes \u00b7 five exact flags \u00b7 payloads preserved",
+      "subnormals kept \u00b7 augmented ops \u00b7 correctly rounded, hard cases in"
+     ],
+     "words": 17,
+     "dwell": 2.0,
+     "rule_min": 7.5,
+     "n_lines": 2,
+     "max_line_words": 9,
+     "ok": false
+    },
+    {
+     "scene": "settle",
+     "t0": 29.5,
+     "t_gone": 31.0,
+     "lines": [
+      "proven bit-identical on RP2040 silicon"
+     ],
+     "words": 5,
+     "dwell": 1.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": false
+    }
+   ]
+  },
+  "outro": {
+   "old_words": 91,
+   "new_words": 46,
+   "cut_pct": 49.5,
+   "new_blocks": [
+    {
+     "scene": "outro",
+     "t0": 2.5,
+     "t_gone": 8.5,
+     "lines": [
+      "Done \u2014 it held up."
+     ],
+     "words": 4,
+     "dwell": 6.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "outro",
+     "t0": 4.0,
+     "t_gone": 8.5,
+     "lines": [
+      "Identical on all 6 boards."
+     ],
+     "words": 5,
+     "dwell": 4.5,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "outro",
+     "t0": 3.5,
+     "t_gone": 8.5,
+     "lines": [
+      "HUMAN : AI SPLIT",
+      "PROJECT 1,196,128,770 tokens"
+     ],
+     "words": 6,
+     "dwell": 5.0,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "outro",
+     "t0": 4.0,
+     "t_gone": 8.5,
+     "lines": [
+      "OWNER ~1,928 typed (est.)",
+      "true bar <1 px wide"
+     ],
+     "words": 9,
+     "dwell": 4.5,
+     "rule_min": 4.5,
+     "n_lines": 2,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "outro",
+     "t0": 4.5,
+     "t_gone": 8.5,
+     "lines": [
+      "\u2248 1 : 620,000",
+      "Billed vs typed tokens (est.)"
+     ],
+     "words": 7,
+     "dwell": 4.0,
+     "rule_min": 3.5,
+     "n_lines": 2,
+     "max_line_words": 5,
+     "ok": true
+    },
+    {
+     "scene": "outro",
+     "t0": 5.0,
+     "t_gone": 8.5,
+     "lines": [
+      "849 / 849",
+      "versions across 3 sizes"
+     ],
+     "words": 6,
+     "dwell": 3.5,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "outro",
+     "t0": 5.5,
+     "t_gone": 8.5,
+     "lines": [
+      "411,213",
+      "checks before merging"
+     ],
+     "words": 4,
+     "dwell": 3.0,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 3,
+     "ok": true
+    },
+    {
+     "scene": "outro",
+     "t0": 6.0,
+     "t_gone": 8.5,
+     "lines": [
+      "6 boards",
+      "IAS15 \u00b7 2,001/2,001 checks"
+     ],
+     "words": 5,
+     "dwell": 2.5,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 3,
+     "ok": true
+    }
+   ],
+   "old_blocks": [
+    {
+     "scene": "outro",
+     "t0": 3.0,
+     "t_gone": 6.0,
+     "lines": [
+      "Done \u2014 it held up."
+     ],
+     "words": 4,
+     "dwell": 3.0,
+     "rule_min": 2.5,
+     "n_lines": 1,
+     "max_line_words": 4,
+     "ok": true
+    },
+    {
+     "scene": "outro",
+     "t0": 5.0,
+     "t_gone": 6.0,
+     "lines": [
+      "849/849 ops across b16/b32/b64. 411,213 vectors in the gate, IAS15 identical on all 6 boards. Small parcels; verifiers that only disconfirm."
+     ],
+     "words": 21,
+     "dwell": 1.0,
+     "rule_min": 9.0,
+     "n_lines": 1,
+     "max_line_words": 21,
+     "ok": false
+    },
+    {
+     "scene": "outro",
+     "t0": 3.5,
+     "t_gone": 6.0,
+     "lines": [
+      "HUMAN : AI \u2014 THE WORK SPLIT",
+      "PROJECT BILLED   1,196,128,770 tokens",
+      "OWNER TYPED   ~1,928 tokens (est.)",
+      "1 px is too wide \u2014 shown 3 px",
+      "\u2248 1 : 620,000",
+      "Owner: chars/4 \u00b130% over 40 typed prompts (tokens study, 2026-10-28). Project: API-billed input+output from docs/metrics/usage.jsonl @ a73e97d (93 rows, waves 0\u20135); cached is inside input, not added."
+     ],
+     "words": 50,
+     "dwell": 2.5,
+     "rule_min": 20.5,
+     "n_lines": 6,
+     "max_line_words": 26,
+     "ok": false
+    },
+    {
+     "scene": "outro",
+     "t0": 4.0,
+     "t_gone": 6.0,
+     "lines": [
+      "849 / 849",
+      "instantiations \u00b7 b16/b32/b64"
+     ],
+     "words": 4,
+     "dwell": 2.0,
+     "rule_min": 2.5,
+     "n_lines": 2,
+     "max_line_words": 2,
+     "ok": false
+    },
+    {
+     "scene": "outro",
+     "t0": 4.5,
+     "t_gone": 6.0,
+     "lines": [
+      "411,213",
+      "vectors in the merge gate"
+     ],
+     "words": 6,
+     "dwell": 1.5,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 5,
+     "ok": false
+    },
+    {
+     "scene": "outro",
+     "t0": 5.0,
+     "t_gone": 6.0,
+     "lines": [
+      "6 boards",
+      "IAS15 \u00b7 2,001/2,001 state hashes"
+     ],
+     "words": 6,
+     "dwell": 1.0,
+     "rule_min": 3.0,
+     "n_lines": 2,
+     "max_line_words": 4,
+     "ok": false
+    }
+   ]
+  }
+ },
+ "headline_checks": [
+  {
+   "line": "THE IDEA",
+   "words": 2,
+   "ok": true
+  },
+  {
+   "line": "WHAT \u201cCORRECT\u201d MEANS",
+   "words": 3,
+   "ok": true
+  },
+  {
+   "line": "WHAT WILL PROVE IT",
+   "words": 4,
+   "ok": true
+  },
+  {
+   "line": "HOW IT GETS BUILT",
+   "words": 4,
+   "ok": true
+  },
+  {
+   "line": "FIRST: THE WORKLOADS",
+   "words": 3,
+   "ok": true
+  },
+  {
+   "line": "TOGETHER: A JOB SPEC",
+   "words": 4,
+   "ok": true
+  },
+  {
+   "line": "OPTION 1 \u2014 THE DEFAULT",
+   "words": 4,
+   "ok": true
+  },
+  {
+   "line": "SDK \u2018pico\u2019 flavour \u2192 bootrom",
+   "words": 4,
+   "ok": true
+  },
+  {
+   "line": "OPTION 2 \u2014 THE FALL-THROUGH",
+   "words": 4,
+   "ok": true
+  },
+  {
+   "line": "SDK \u2018compiler\u2019 flavour \u2192 libgcc",
+   "words": 4,
+   "ok": true
+  },
+  {
+   "line": "OPTION 3",
+   "words": 2,
+   "ok": true
+  },
+  {
+   "line": "SDK \u2018none\u2019 flavour",
+   "words": 3,
+   "ok": true
+  },
+  {
+   "line": "SO BUILD THE FOURTH OPTION",
+   "words": 5,
+   "ok": true
+  },
+  {
+   "line": "MUSE-SOFTFLOAT",
+   "words": 1,
+   "ok": true
+  },
+  {
+   "line": "HUMAN : AI SPLIT",
+   "words": 3,
+   "ok": true
+  },
+  {
+   "line": "IAS15",
+   "words": 1,
+   "ok": true
+  },
+  {
+   "line": "INTERVAL GEOMETRY",
+   "words": 2,
+   "ok": true
+  },
+  {
+   "line": "KISSFFT \u2014 FORK B",
+   "words": 3,
+   "ok": true
+  },
+  {
+   "line": "IAS15",
+   "words": 1,
+   "ok": true
+  },
+  {
+   "line": "INTERVAL GEOMETRY",
+   "words": 2,
+   "ok": true
+  },
+  {
+   "line": "KISSFFT \u2014 FORK B",
+   "words": 3,
+   "ok": true
+  },
+  {
+   "line": "ELIMINATED",
+   "words": 1,
+   "ok": true
+  },
+  {
+   "line": "NOT MEASURED",
+   "words": 2,
+   "ok": true
+  },
+  {
+   "line": "NO FLOATS AT ALL",
+   "words": 4,
+   "ok": true
+  },
+  {
+   "line": "WHY NOT USE WHAT ALREADY SHIPS?",
+   "words": 6,
+   "ok": true
+  },
+  {
+   "line": "WHY NOT USE WHAT ALREADY SHIPS?",
+   "words": 6,
+   "ok": true
+  }
+ ],
+ "violations": [],
+ "headline_failures": [],
+ "totals": {
+  "old_words": 629,
+  "new_words": 382,
+  "cut_pct": 39.3
+ }
+}

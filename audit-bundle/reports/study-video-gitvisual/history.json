@@ -1,0 +1,2905 @@
+{
+ "repo": "muse-softfloat",
+ "extracted_from": "git -C muse-softfloat log --all --topo-order --reverse (+ branch / merge-base / rev-list reads)",
+ "axis": "rank = committer-date order, ties by topo order; asserted parent-before-child for all 141 commits (0 violations). Rank spacing is uniform per commit, NOT proportional to elapsed wall-clock.",
+ "head_main": "a73e97dfc882cd1318e10e0dcaed27108cbbfcf7",
+ "head_short": "a73e97d",
+ "commit_count_all": 141,
+ "main_first_parent_count": 92,
+ "merge_count": 27,
+ "merges_into_main": 25,
+ "branch_count": 26,
+ "date_first": "2026-10-26T10:50:22-07:00",
+ "date_last": "2026-10-29T14:21:21-07:00",
+ "branches": [
+  {
+   "name": "lead-readme",
+   "tip": "d87c87caf0f0ff885336d2430cb721e1ee014541",
+   "tip_short": "d87c87c"
+  },
+  {
+   "name": "lead-readme2",
+   "tip": "68e1bc96e57ddcae017726f21def29e417d44f1c",
+   "tip_short": "68e1bc9"
+  },
+  {
+   "name": "lead-sf2",
+   "tip": "f3eea917535245cef707d06db182ed432e22c77a",
+   "tip_short": "f3eea91"
+  },
+  {
+   "name": "main",
+   "tip": "a73e97dfc882cd1318e10e0dcaed27108cbbfcf7",
+   "tip_short": "a73e97d"
+  },
+  {
+   "name": "w-ias15",
+   "tip": "361bf05e39fd559f997a476d1f451909f53a3661",
+   "tip_short": "361bf05"
+  },
+  {
+   "name": "w1-f32",
+   "tip": "26c76aafae1daad27fade6e19df2764d96980dc8",
+   "tip_short": "26c76aa"
+  },
+  {
+   "name": "w1-f64",
+   "tip": "cb10ee298a25d92c4ab3da26d4d2f2d7a74f702a",
+   "tip_short": "cb10ee2"
+  },
+  {
+   "name": "w2-f16",
+   "tip": "44c770c7c57a394685f9a9a9bc3069ccd98af78a",
+   "tip_short": "44c770c"
+  },
+  {
+   "name": "w2-xf",
+   "tip": "7935fabe737e387b39f6eebb224c19d8074d4498",
+   "tip_short": "7935fab"
+  },
+  {
+   "name": "w3-str",
+   "tip": "8712ec1fccdf25b1dc12c3cfa9c18de5e8de5869",
+   "tip_short": "8712ec1"
+  },
+  {
+   "name": "wave4-interval",
+   "tip": "1d55a8a08366bfc8bfd3ee7bc7a305347c82c705",
+   "tip_short": "1d55a8a"
+  },
+  {
+   "name": "wave4-kissfft",
+   "tip": "d322d0791a59b02db8c451fcc546e716673d8b50",
+   "tip_short": "d322d07"
+  },
+  {
+   "name": "wave4-minmax",
+   "tip": "128e577e694bebacf11e0cb04548093e61366469",
+   "tip_short": "128e577"
+  },
+  {
+   "name": "wave4-seam",
+   "tip": "722172eac628d8a4fe6f6579d0c217e9446a7840",
+   "tip_short": "722172e"
+  },
+  {
+   "name": "wave4-trig",
+   "tip": "81b76357b357b802ebca9ba39a1e1d9005d5f485",
+   "tip_short": "81b7635"
+  },
+  {
+   "name": "wave5-alg1",
+   "tip": "b886e038d095bfad643ccb937f44abd03bcaaa7f",
+   "tip_short": "b886e03"
+  },
+  {
+   "name": "wave5-alg2",
+   "tip": "e858498242967f2ef4713e96521253dd6c7a088d",
+   "tip_short": "e858498"
+  },
+  {
+   "name": "wave5-attr",
+   "tip": "8bfc8776929eb123bf078da76ce2676cbb9c4e7a",
+   "tip_short": "8bfc877"
+  },
+  {
+   "name": "wave5-aug",
+   "tip": "37414532b82262dbdfdc54c67a7dcf49a5744194",
+   "tip_short": "3741453"
+  },
+  {
+   "name": "wave5-demo",
+   "tip": "3feebb976d4df2b4da972fa2810d4e25c0ba13d6",
+   "tip_short": "3feebb9"
+  },
+  {
+   "name": "wave5-exp2",
+   "tip": "2618b3454a5e439dd7b23531256ccb000c669128",
+   "tip_short": "2618b34"
+  },
+  {
+   "name": "wave5-log2",
+   "tip": "826f836c8b7c55a0e0ee0cf52666451a8f2aa4a1",
+   "tip_short": "826f836"
+  },
+  {
+   "name": "wave5-metrics",
+   "tip": "3f29682ef1bff6af263ba0f722af8aa65875499c",
+   "tip_short": "3f29682"
+  },
+  {
+   "name": "wave5-readme3",
+   "tip": "498a91667984a374c211ad2ef746618a012c570d",
+   "tip_short": "498a916"
+  },
+  {
+   "name": "wave5-site",
+   "tip": "cd0970032fa1f4c7ada0f20d5721c7d35564fa6d",
+   "tip_short": "cd09700"
+  },
+  {
+   "name": "wave5-twiddledoc",
+   "tip": "a41f026bf3e6b4b742d511179d12c837ec776e75",
+   "tip_short": "a41f026"
+  }
+ ],
+ "commits": [
+  {
+   "rank": 0,
+   "hash": "dfc7a0200993470adf8d52b7d4d6da4d830bded0",
+   "short": "dfc7a02",
+   "parents": [],
+   "date": "2026-10-26T10:50:22-07:00",
+   "decorations": "",
+   "subject": "Laid down the Phase 0 scaffold: harness and board maps, kickoff record, agent notes",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 1,
+   "hash": "2bac8e943c912217217cf784a648e91e06df3a49",
+   "short": "2bac8e9",
+   "parents": [
+    "dfc7a0200993470adf8d52b7d4d6da4d830bded0"
+   ],
+   "date": "2026-10-26T11:47:59-07:00",
+   "decorations": "",
+   "subject": "Recorded Wave 0 with transcript-measured metrics",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 2,
+   "hash": "828b8f13e63351ecdce5ca94a0550b4545a35160",
+   "short": "828b8f1",
+   "parents": [
+    "2bac8e943c912217217cf784a648e91e06df3a49"
+   ],
+   "date": "2026-10-26T13:35:27-07:00",
+   "decorations": "",
+   "subject": "Drafted SF-0: the plan of record for Muse-Softfloat",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 3,
+   "hash": "0bfa9642ace34495f085eaa5a4d1b42c5aa81513",
+   "short": "0bfa964",
+   "parents": [
+    "828b8f13e63351ecdce5ca94a0550b4545a35160"
+   ],
+   "date": "2026-10-26T14:01:09-07:00",
+   "decorations": "",
+   "subject": "Recorded SF-0 approval and the MIT licence",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 4,
+   "hash": "23a740f0d5d39f5bc0375a9537faf4ea877c6280",
+   "short": "23a740f",
+   "parents": [
+    "0bfa9642ace34495f085eaa5a4d1b42c5aa81513"
+   ],
+   "date": "2026-10-26T19:17:59-07:00",
+   "decorations": "",
+   "subject": "Built P0: the shared seam (SF-0 Section 6, all nine items)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 5,
+   "hash": "36ca82e9d8ae8db57431413c79323352032d03e6",
+   "short": "36ca82e",
+   "parents": [
+    "23a740f0d5d39f5bc0375a9537faf4ea877c6280"
+   ],
+   "date": "2026-10-26T19:31:52-07:00",
+   "decorations": "",
+   "subject": "Refused a PASS verdict when no vector passed (verifier-p0 note i)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 6,
+   "hash": "de2d48c59a11c3b1dc94ba88a6cb74d6817745da",
+   "short": "de2d48c",
+   "parents": [
+    "36ca82e9d8ae8db57431413c79323352032d03e6"
+   ],
+   "date": "2026-10-26T19:53:31-07:00",
+   "decorations": "",
+   "subject": "Wave 1 lead prep: shared kernels, ingest, per-instantiation status",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 7,
+   "hash": "4cdb912dbd5ebda4fa2bc29168883dc4527d4091",
+   "short": "4cdb912",
+   "parents": [
+    "de2d48c59a11c3b1dc94ba88a6cb74d6817745da"
+   ],
+   "date": "2026-10-26T20:27:36-07:00",
+   "decorations": "",
+   "subject": "Fixed unreachable truncate-to-default NaN branch (verifier-w1prep N1)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 8,
+   "hash": "6c1bc010b80a17629b180cd0280a20aedbd48960",
+   "short": "6c1bc01",
+   "parents": [
+    "4cdb912dbd5ebda4fa2bc29168883dc4527d4091"
+   ],
+   "date": "2026-10-26T22:19:26-07:00",
+   "decorations": "",
+   "subject": "Wave 1 parcel-f32: all 173 binary32 instantiations over shared kernels",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "2843792"
+  },
+  {
+   "rank": 9,
+   "hash": "51533243a29e3a026493b8e3e04d2b2711ac4b4a",
+   "short": "5153324",
+   "parents": [
+    "4cdb912dbd5ebda4fa2bc29168883dc4527d4091"
+   ],
+   "date": "2026-10-26T22:28:54-07:00",
+   "decorations": "",
+   "subject": "Implemented the Wave 1 binary64 parcel (173 instantiations)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "06fdec8"
+  },
+  {
+   "rank": 10,
+   "hash": "53acb1a7a2b5b07d0ec03e857367b82ebcf22fa7",
+   "short": "53acb1a",
+   "parents": [
+    "4cdb912dbd5ebda4fa2bc29168883dc4527d4091"
+   ],
+   "date": "2026-10-27T04:44:17-07:00",
+   "decorations": "",
+   "subject": "Fixed pack tininess to the Clause 7.5 unbounded-rounded definition",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": "9bb8723"
+  },
+  {
+   "rank": 11,
+   "hash": "b37fb1253f4ac33cb6309abd28b74d05ed6649f2",
+   "short": "b37fb12",
+   "parents": [
+    "53acb1a7a2b5b07d0ec03e857367b82ebcf22fa7"
+   ],
+   "date": "2026-10-27T04:50:00-07:00",
+   "decorations": "",
+   "subject": "Pointed the planned-only control at msf16_add; LF-normalised implemented.tsv",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": "9bb8723"
+  },
+  {
+   "rank": 12,
+   "hash": "9bb872382ea85a47627755af18637a49eb0ec0eb",
+   "short": "9bb8723",
+   "parents": [
+    "6c1bc010b80a17629b180cd0280a20aedbd48960",
+    "b37fb1253f4ac33cb6309abd28b74d05ed6649f2"
+   ],
+   "date": "2026-10-27T05:04:16-07:00",
+   "decorations": "",
+   "subject": "Merge lead kernel fix b37fb12 into w1-f32 for re-gate",
+   "is_merge": true,
+   "on_main_first_parent": false,
+   "lane_merge": "2843792"
+  },
+  {
+   "rank": 13,
+   "hash": "80cbc97b25e0ff2766e95bf52be447bab11a4ba1",
+   "short": "80cbc97",
+   "parents": [
+    "51533243a29e3a026493b8e3e04d2b2711ac4b4a",
+    "b37fb1253f4ac33cb6309abd28b74d05ed6649f2"
+   ],
+   "date": "2026-10-27T05:04:40-07:00",
+   "decorations": "",
+   "subject": "Merged lead Wave 1 fixes (b37fb12) into w1-f64 for the re-gate",
+   "is_merge": true,
+   "on_main_first_parent": false,
+   "lane_merge": "06fdec8"
+  },
+  {
+   "rank": 14,
+   "hash": "cb10ee298a25d92c4ab3da26d4d2f2d7a74f702a",
+   "short": "cb10ee2",
+   "parents": [
+    "80cbc97b25e0ff2766e95bf52be447bab11a4ba1"
+   ],
+   "date": "2026-10-27T05:13:16-07:00",
+   "decorations": "w1-f64",
+   "subject": "Re-gated the binary64 parcel after the lead tininess and ingest fixes",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "06fdec8"
+  },
+  {
+   "rank": 15,
+   "hash": "26c76aafae1daad27fade6e19df2764d96980dc8",
+   "short": "26c76aa",
+   "parents": [
+    "9bb872382ea85a47627755af18637a49eb0ec0eb"
+   ],
+   "date": "2026-10-27T05:14:03-07:00",
+   "decorations": "w1-f32",
+   "subject": "Re-gated parcel-f32 after the lead tininess/ingest fix (READY)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "2843792"
+  },
+  {
+   "rank": 16,
+   "hash": "52a6715077ef4033aa29a88e270c35892d855733",
+   "short": "52a6715",
+   "parents": [
+    "b37fb1253f4ac33cb6309abd28b74d05ed6649f2"
+   ],
+   "date": "2026-10-27T05:17:07-07:00",
+   "decorations": "",
+   "subject": "Recorded the Wave 1 briefs in the metrics inputs",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 17,
+   "hash": "28437923f641f4eacd9e72ed1b80c0fbef88ce10",
+   "short": "2843792",
+   "parents": [
+    "52a6715077ef4033aa29a88e270c35892d855733",
+    "26c76aafae1daad27fade6e19df2764d96980dc8"
+   ],
+   "date": "2026-10-27T05:17:07-07:00",
+   "decorations": "",
+   "subject": "Merged Wave 1 binary32 parcel (173 instantiations, READY 26c76aa)",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 18,
+   "hash": "704cf0ccfbd5e946adee40fbe2d390446a7f29e5",
+   "short": "704cf0c",
+   "parents": [
+    "28437923f641f4eacd9e72ed1b80c0fbef88ce10"
+   ],
+   "date": "2026-10-27T05:18:10-07:00",
+   "decorations": "",
+   "subject": "Wired the binary32 directed sets into the smoke budget",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 19,
+   "hash": "06fdec89ca18a6b2367d19b615c3a9dab1aa4103",
+   "short": "06fdec8",
+   "parents": [
+    "704cf0ccfbd5e946adee40fbe2d390446a7f29e5",
+    "cb10ee298a25d92c4ab3da26d4d2f2d7a74f702a"
+   ],
+   "date": "2026-10-27T05:18:44-07:00",
+   "decorations": "",
+   "subject": "Merged Wave 1 binary64 parcel (173 instantiations, READY cb10ee2)",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 20,
+   "hash": "8d8219ce7fda4701394552371dd612975f2b1748",
+   "short": "8d8219c",
+   "parents": [
+    "06fdec89ca18a6b2367d19b615c3a9dab1aa4103"
+   ],
+   "date": "2026-10-27T05:18:45-07:00",
+   "decorations": "",
+   "subject": "Wired the binary64 directed sets into the smoke budget",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 21,
+   "hash": "25d6b824bd6f35bc4c2cc7b4be925cd32d793804",
+   "short": "25d6b82",
+   "parents": [
+    "8d8219ce7fda4701394552371dd612975f2b1748"
+   ],
+   "date": "2026-10-27T06:40:06-07:00",
+   "decorations": "",
+   "subject": "Recorded Wave 1: binary32/binary64 arithmetic, plants graded, metrics extended",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 22,
+   "hash": "dd48b08c7cb2f1aa957d15972d919c6d3051ad78",
+   "short": "dd48b08",
+   "parents": [
+    "25d6b824bd6f35bc4c2cc7b4be925cd32d793804"
+   ],
+   "date": "2026-10-27T07:00:34-07:00",
+   "decorations": "",
+   "subject": "Moved the planned-only control to msf16_from_decimal for Wave 2",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 23,
+   "hash": "e1e079d43f632f13ba97bd6a49c6215c55df06b9",
+   "short": "e1e079d",
+   "parents": [
+    "dd48b08c7cb2f1aa957d15972d919c6d3051ad78"
+   ],
+   "date": "2026-10-27T07:01:35-07:00",
+   "decorations": "",
+   "subject": "Recorded the Wave 2 briefs in the metrics inputs",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 24,
+   "hash": "09c0acd6b4003b713e6bbc9ca6b8d55adb4a6792",
+   "short": "09c0acd",
+   "parents": [
+    "dd48b08c7cb2f1aa957d15972d919c6d3051ad78"
+   ],
+   "date": "2026-10-27T07:26:55-07:00",
+   "decorations": "",
+   "subject": "Wave 2 parcel-xf: 126 cross-format instantiations in msf32.c/msf64.c",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "71fbd53"
+  },
+  {
+   "rank": 25,
+   "hash": "44c770c7c57a394685f9a9a9bc3069ccd98af78a",
+   "short": "44c770c",
+   "parents": [
+    "dd48b08c7cb2f1aa957d15972d919c6d3051ad78"
+   ],
+   "date": "2026-10-27T07:33:03-07:00",
+   "decorations": "w2-f16",
+   "subject": "Implemented the binary16 core: all 236 wave-2 msf16_* instantiations",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "a05412f"
+  },
+  {
+   "rank": 26,
+   "hash": "7935fabe737e387b39f6eebb224c19d8074d4498",
+   "short": "7935fab",
+   "parents": [
+    "09c0acd6b4003b713e6bbc9ca6b8d55adb4a6792"
+   ],
+   "date": "2026-10-27T07:36:31-07:00",
+   "decorations": "w2-xf",
+   "subject": "Reword an msf32.c comment the smoke type scan refused",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "71fbd53"
+  },
+  {
+   "rank": 27,
+   "hash": "8a8021c56009d271d00d66839cfa156844ac61d2",
+   "short": "8a8021c",
+   "parents": [
+    "e1e079d43f632f13ba97bd6a49c6215c55df06b9"
+   ],
+   "date": "2026-10-27T07:42:31-07:00",
+   "decorations": "",
+   "subject": "Noted the libmingwex sqrt correctness trap in AGENTS.md",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 28,
+   "hash": "e393bb0bd563cba829415118560d1c5937224174",
+   "short": "e393bb0",
+   "parents": [
+    "8a8021c56009d271d00d66839cfa156844ac61d2"
+   ],
+   "date": "2026-10-27T08:12:45-07:00",
+   "decorations": "",
+   "subject": "Recorded Wave 2 plant grades (10/10) and brief corrections",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 29,
+   "hash": "a05412fa57e42ea4dd78165368df15e07212700e",
+   "short": "a05412f",
+   "parents": [
+    "e393bb0bd563cba829415118560d1c5937224174",
+    "44c770c7c57a394685f9a9a9bc3069ccd98af78a"
+   ],
+   "date": "2026-10-27T08:12:45-07:00",
+   "decorations": "",
+   "subject": "Merged Wave 2 binary16 parcel (236 instantiations, READY 44c770c)",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 30,
+   "hash": "6720f9a882c49639e219909b7e868e50f7cfaddf",
+   "short": "6720f9a",
+   "parents": [
+    "a05412fa57e42ea4dd78165368df15e07212700e"
+   ],
+   "date": "2026-10-27T08:13:45-07:00",
+   "decorations": "",
+   "subject": "Wired the binary16 directed sets into the smoke budget",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 31,
+   "hash": "71fbd5392af603687a4561de8fb42ca38bbc3a11",
+   "short": "71fbd53",
+   "parents": [
+    "6720f9a882c49639e219909b7e868e50f7cfaddf",
+    "7935fabe737e387b39f6eebb224c19d8074d4498"
+   ],
+   "date": "2026-10-27T08:14:27-07:00",
+   "decorations": "",
+   "subject": "Merged Wave 2 cross-format parcel (126 instantiations, READY 7935fab)",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 32,
+   "hash": "e905868c28986fa74e1a15427d6b896f9a332d81",
+   "short": "e905868",
+   "parents": [
+    "71fbd5392af603687a4561de8fb42ca38bbc3a11"
+   ],
+   "date": "2026-10-27T08:15:27-07:00",
+   "decorations": "",
+   "subject": "Wired the cross-format directed sets into the smoke budget",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 33,
+   "hash": "548a1b9aa7e71ab988cea77d9f2a1591ca84328e",
+   "short": "548a1b9",
+   "parents": [
+    "e905868c28986fa74e1a15427d6b896f9a332d81"
+   ],
+   "date": "2026-10-27T08:18:19-07:00",
+   "decorations": "",
+   "subject": "Recorded Wave 2: 771 of 783, IAS15 host proof, video tooling",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 34,
+   "hash": "cc71d73fa4a6d74793e22bc6403f2035fa8e8565",
+   "short": "cc71d73",
+   "parents": [
+    "548a1b9aa7e71ab988cea77d9f2a1591ca84328e"
+   ],
+   "date": "2026-10-27T08:20:04-07:00",
+   "decorations": "",
+   "subject": "Recorded the Wave 3 and IAS15-Pico briefs in the metrics inputs",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 35,
+   "hash": "4ceffa9af9cd1b9784280de57dc5765333ad5db0",
+   "short": "4ceffa9",
+   "parents": [
+    "cc71d73fa4a6d74793e22bc6403f2035fa8e8565"
+   ],
+   "date": "2026-10-27T08:24:19-07:00",
+   "decorations": "",
+   "subject": "Appended Wave 2 erratum: the same-step ledger claim was overstated",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 36,
+   "hash": "bc15b2c726e2ce8c452c5b9d8e0e097cd8bede9d",
+   "short": "bc15b2c",
+   "parents": [
+    "4ceffa9af9cd1b9784280de57dc5765333ad5db0"
+   ],
+   "date": "2026-10-27T08:33:16-07:00",
+   "decorations": "",
+   "subject": "Wave 3 lead prep: runner char-vector support + msf_string.c stub TU",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 37,
+   "hash": "f3c48b899b2f5706fb98df3918fe795f237e4a9e",
+   "short": "f3c48b8",
+   "parents": [
+    "bc15b2c726e2ce8c452c5b9d8e0e097cd8bede9d"
+   ],
+   "date": "2026-10-27T08:36:40-07:00",
+   "decorations": "",
+   "subject": "Fixed the char-from flags token index in the runner",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 38,
+   "hash": "83622cf18fb98319a4c60f8058395b71c53e7e05",
+   "short": "83622cf",
+   "parents": [
+    "f3c48b899b2f5706fb98df3918fe795f237e4a9e"
+   ],
+   "date": "2026-10-27T08:47:35-07:00",
+   "decorations": "",
+   "subject": "Fixed the char-to operand width in the runner (argkinds, not retkind)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 39,
+   "hash": "049361553fc90fa24b563c883ff82ffb7a93e2d3",
+   "short": "0493615",
+   "parents": [
+    "548a1b9aa7e71ab988cea77d9f2a1591ca84328e"
+   ],
+   "date": "2026-10-27T08:57:46-07:00",
+   "decorations": "",
+   "subject": "Added the AEABI binary64 compat surface over msf64 (ias15-pico)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "d9718cf"
+  },
+  {
+   "rank": 40,
+   "hash": "b09e572b7dad80520c31145948bddd9d69e55a4b",
+   "short": "b09e572",
+   "parents": [
+    "049361553fc90fa24b563c883ff82ffb7a93e2d3"
+   ],
+   "date": "2026-10-27T08:57:46-07:00",
+   "decorations": "",
+   "subject": "Added IAS15 board glue: AEABI selftest firmware, figure-8 demo firmware, host capture (ias15-pico)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "d9718cf"
+  },
+  {
+   "rank": 41,
+   "hash": "361bf05e39fd559f997a476d1f451909f53a3661",
+   "short": "361bf05",
+   "parents": [
+    "b09e572b7dad80520c31145948bddd9d69e55a4b"
+   ],
+   "date": "2026-10-27T08:57:47-07:00",
+   "decorations": "w-ias15",
+   "subject": "Documented the IAS15 firmware protocol in BOARD.md (ias15-pico)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "d9718cf"
+  },
+  {
+   "rank": 42,
+   "hash": "945217c0b1800662577d40c3d4a001d1cada3d27",
+   "short": "945217c",
+   "parents": [
+    "83622cf18fb98319a4c60f8058395b71c53e7e05"
+   ],
+   "date": "2026-10-27T09:02:58-07:00",
+   "decorations": "",
+   "subject": "Implemented the Wave 3 character conversions (12 instantiations, 783 of 783)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "1357863"
+  },
+  {
+   "rank": 43,
+   "hash": "8712ec1fccdf25b1dc12c3cfa9c18de5e8de5869",
+   "short": "8712ec1",
+   "parents": [
+    "945217c0b1800662577d40c3d4a001d1cada3d27"
+   ],
+   "date": "2026-10-27T09:02:58-07:00",
+   "decorations": "w3-str",
+   "subject": "Added the character-conversion references and committed vectors",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "1357863"
+  },
+  {
+   "rank": 44,
+   "hash": "d9718cf5f518b4cd8c1d818ee6411efe312787d3",
+   "short": "d9718cf",
+   "parents": [
+    "83622cf18fb98319a4c60f8058395b71c53e7e05",
+    "361bf05e39fd559f997a476d1f451909f53a3661"
+   ],
+   "date": "2026-10-27T09:45:02-07:00",
+   "decorations": "",
+   "subject": "Merged IAS15 Pico firmware + AEABI compat surface (ias15-pico, READY 361bf05)",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 45,
+   "hash": "13578637f69717be8519140bddb44d483bf3482c",
+   "short": "1357863",
+   "parents": [
+    "d9718cf5f518b4cd8c1d818ee6411efe312787d3",
+    "8712ec1fccdf25b1dc12c3cfa9c18de5e8de5869"
+   ],
+   "date": "2026-10-27T10:28:56-07:00",
+   "decorations": "",
+   "subject": "Merged Wave 3 string conversions (12 instantiations, READY 8712ec1)",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 46,
+   "hash": "6a5f95c857f9812248ad99c3cd021fd656d1cdab",
+   "short": "6a5f95c",
+   "parents": [
+    "13578637f69717be8519140bddb44d483bf3482c"
+   ],
+   "date": "2026-10-27T10:32:43-07:00",
+   "decorations": "",
+   "subject": "Wave 3 lead wiring: str vectors in smoke, control 9 retired, provenance cap",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 47,
+   "hash": "d1bfe387486aa265570ecd4260b55624b703983a",
+   "short": "d1bfe38",
+   "parents": [
+    "6a5f95c857f9812248ad99c3cd021fd656d1cdab"
+   ],
+   "date": "2026-10-27T10:35:21-07:00",
+   "decorations": "",
+   "subject": "Recorded Wave 3 and IAS15 on silicon: 783 of 783",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 48,
+   "hash": "f458f26f22468d2bb22d2d3e92a55312634743a5",
+   "short": "f458f26",
+   "parents": [
+    "d1bfe387486aa265570ecd4260b55624b703983a"
+   ],
+   "date": "2026-10-27T11:18:20-07:00",
+   "decorations": "",
+   "subject": "Final metrics fold: video-final/auditor-final rows, parcel-str corrections",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 49,
+   "hash": "b64ec9350c5e2c74c5022ee2fb13de75a7429c85",
+   "short": "b64ec93",
+   "parents": [
+    "f458f26f22468d2bb22d2d3e92a55312634743a5"
+   ],
+   "date": "2026-10-27T13:26:22-07:00",
+   "decorations": "",
+   "subject": "Published the demo-video pipeline and rendered cut",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 50,
+   "hash": "54e4bffea44aff6a9c2ab4b64e26707ad1e9779a",
+   "short": "54e4bff",
+   "parents": [
+    "b64ec9350c5e2c74c5022ee2fb13de75a7429c85"
+   ],
+   "date": "2026-10-27T13:45:07-07:00",
+   "decorations": "",
+   "subject": "Recorded the owner's closing decisions",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 51,
+   "hash": "32dac7dbe428f6a246236a6d8ad95cc128e04bf5",
+   "short": "32dac7d",
+   "parents": [
+    "54e4bffea44aff6a9c2ab4b64e26707ad1e9779a"
+   ],
+   "date": "2026-10-27T13:54:24-07:00",
+   "decorations": "",
+   "subject": "Recorded the Tier 2 study-round briefs",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 52,
+   "hash": "fe213fd256b54da2a73c57cc02c23e5030cfef3d",
+   "short": "fe213fd",
+   "parents": [
+    "32dac7dbe428f6a246236a6d8ad95cc128e04bf5"
+   ],
+   "date": "2026-10-27T15:49:43-07:00",
+   "decorations": "",
+   "subject": "Approved SF-1, the Tier 2 plan of record",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 53,
+   "hash": "722172eac628d8a4fe6f6579d0c217e9446a7840",
+   "short": "722172e",
+   "parents": [
+    "fe213fd256b54da2a73c57cc02c23e5030cfef3d"
+   ],
+   "date": "2026-10-27T16:24:13-07:00",
+   "decorations": "wave4-seam",
+   "subject": "Built the SF-1 Step 0a Tier 2 seam",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "b576c13"
+  },
+  {
+   "rank": 54,
+   "hash": "b576c1357a315f23913ae5fb7de7c400ab49a031",
+   "short": "b576c13",
+   "parents": [
+    "fe213fd256b54da2a73c57cc02c23e5030cfef3d",
+    "722172eac628d8a4fe6f6579d0c217e9446a7840"
+   ],
+   "date": "2026-10-27T16:32:00-07:00",
+   "decorations": "",
+   "subject": "Merged wave4-seam: SF-1 Step 0a Tier 2 seam",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 55,
+   "hash": "e12492e9fd281dfe90b4c92c46f0c2e518ff7e35",
+   "short": "e12492e",
+   "parents": [
+    "b576c1357a315f23913ae5fb7de7c400ab49a031"
+   ],
+   "date": "2026-10-27T16:37:00-07:00",
+   "decorations": "",
+   "subject": "Recorded Wave 4 opening: SF-1 approved, Step 0a seam landed",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 56,
+   "hash": "8578114a8bfce73173e484f0d345a87a8ba6d532",
+   "short": "8578114",
+   "parents": [
+    "e12492e9fd281dfe90b4c92c46f0c2e518ff7e35"
+   ],
+   "date": "2026-10-27T17:06:21-07:00",
+   "decorations": "",
+   "subject": "Closed SF-1 Step 0: oracle bring-up checked",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 57,
+   "hash": "128e577e694bebacf11e0cb04548093e61366469",
+   "short": "128e577",
+   "parents": [
+    "8578114a8bfce73173e484f0d345a87a8ba6d532"
+   ],
+   "date": "2026-10-27T17:22:49-07:00",
+   "decorations": "wave4-minmax",
+   "subject": "Built SF-1 Step 1: Clause 9.6 min/max + 9.7 payloads (33 rows)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "75309d4"
+  },
+  {
+   "rank": 58,
+   "hash": "75309d4580c8e2e42c4cbb2b32d379da32e18c66",
+   "short": "75309d4",
+   "parents": [
+    "8578114a8bfce73173e484f0d345a87a8ba6d532",
+    "128e577e694bebacf11e0cb04548093e61366469"
+   ],
+   "date": "2026-10-27T17:41:34-07:00",
+   "decorations": "",
+   "subject": "Merged wave4-minmax: SF-1 Step 1 min/max + payloads",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 59,
+   "hash": "b704b4c9b805b584a2e221c3fa889017d480ac88",
+   "short": "b704b4c",
+   "parents": [
+    "75309d4580c8e2e42c4cbb2b32d379da32e18c66"
+   ],
+   "date": "2026-10-27T17:42:11-07:00",
+   "decorations": "",
+   "subject": "Recorded SF-1 Step 1 landing: 33 Tier 2 rows implemented",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 60,
+   "hash": "1d55a8a08366bfc8bfd3ee7bc7a305347c82c705",
+   "short": "1d55a8a",
+   "parents": [
+    "b704b4c9b805b584a2e221c3fa889017d480ac88"
+   ],
+   "date": "2026-10-27T18:03:09-07:00",
+   "decorations": "wave4-interval",
+   "subject": "Built SF-1 Step 1c interval workload host proof: staged sphere, 9.6 box, torus bracketing",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "20bc16b"
+  },
+  {
+   "rank": 61,
+   "hash": "20bc16bc5dd44dc488093e9d310c0d2d2b8742a9",
+   "short": "20bc16b",
+   "parents": [
+    "b704b4c9b805b584a2e221c3fa889017d480ac88",
+    "1d55a8a08366bfc8bfd3ee7bc7a305347c82c705"
+   ],
+   "date": "2026-10-27T18:44:31-07:00",
+   "decorations": "",
+   "subject": "Merged wave4-interval: SF-1 Step 1c interval host proof",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 62,
+   "hash": "72c30b763e9343d2c649e1014e28ebeaa9b03b14",
+   "short": "72c30b7",
+   "parents": [
+    "20bc16bc5dd44dc488093e9d310c0d2d2b8742a9"
+   ],
+   "date": "2026-10-27T18:51:45-07:00",
+   "decorations": "",
+   "subject": "Built the Step 1c interval board firmware and ran it on silicon",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 63,
+   "hash": "e36abcc49421159a307940a9cf80e282d555c75a",
+   "short": "e36abcc",
+   "parents": [
+    "72c30b763e9343d2c649e1014e28ebeaa9b03b14"
+   ],
+   "date": "2026-10-27T18:52:00-07:00",
+   "decorations": "",
+   "subject": "Recorded SF-1 Step 1c: interval workload on silicon",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 64,
+   "hash": "a4f6fb99c7627ad52786dc9e469ab9dfbadf9b18",
+   "short": "a4f6fb9",
+   "parents": [
+    "e36abcc49421159a307940a9cf80e282d555c75a"
+   ],
+   "date": "2026-10-27T18:55:53-07:00",
+   "decorations": "",
+   "subject": "Registered the SF-1 Step 2c sinPi/cosPi surface",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 65,
+   "hash": "81b76357b357b802ebca9ba39a1e1d9005d5f485",
+   "short": "81b7635",
+   "parents": [
+    "a4f6fb99c7627ad52786dc9e469ab9dfbadf9b18"
+   ],
+   "date": "2026-10-27T23:54:14-07:00",
+   "decorations": "wave4-trig",
+   "subject": "Built SF-1 Step 2c: correctly rounded sinPi/cosPi (6 rows)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "da46f51"
+  },
+  {
+   "rank": 66,
+   "hash": "da46f5171faecb346aa44db554303091a46fde45",
+   "short": "da46f51",
+   "parents": [
+    "a4f6fb99c7627ad52786dc9e469ab9dfbadf9b18",
+    "81b76357b357b802ebca9ba39a1e1d9005d5f485"
+   ],
+   "date": "2026-10-28T02:22:59-07:00",
+   "decorations": "",
+   "subject": "Merged wave4-trig: SF-1 Step 2c sinPi/cosPi kernel",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 67,
+   "hash": "5e712cbe2a7a707e7fc91608f60f150b98c5951b",
+   "short": "5e712cb",
+   "parents": [
+    "da46f5171faecb346aa44db554303091a46fde45"
+   ],
+   "date": "2026-10-28T02:31:04-07:00",
+   "decorations": "",
+   "subject": "Made board flashing serial-targeted; recorded the Step 2c landing",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 68,
+   "hash": "d322d0791a59b02db8c451fcc546e716673d8b50",
+   "short": "d322d07",
+   "parents": [
+    "5e712cbe2a7a707e7fc91608f60f150b98c5951b"
+   ],
+   "date": "2026-10-28T02:50:59-07:00",
+   "decorations": "wave4-kissfft",
+   "subject": "Built SF-1 Step 2c workload: KissFFT Fork B runtime twiddles (host proof)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "32bbd93"
+  },
+  {
+   "rank": 69,
+   "hash": "32bbd93015d76a7c045f3ce29d7250fff5a6ff61",
+   "short": "32bbd93",
+   "parents": [
+    "5e712cbe2a7a707e7fc91608f60f150b98c5951b",
+    "d322d0791a59b02db8c451fcc546e716673d8b50"
+   ],
+   "date": "2026-10-28T03:25:29-07:00",
+   "decorations": "",
+   "subject": "Merged SF-1 Step 2c workload: KissFFT Fork B runtime twiddles",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 70,
+   "hash": "425c15dd688584f7a81ce5a0b866ee40bda5291f",
+   "short": "425c15d",
+   "parents": [
+    "32bbd93015d76a7c045f3ce29d7250fff5a6ff61"
+   ],
+   "date": "2026-10-28T03:25:29-07:00",
+   "decorations": "",
+   "subject": "Landed KissFFT fetches + plants rows at the Step 2c merge",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 71,
+   "hash": "7ebbe70001fa3a8721db8848cdacb568374ee2d7",
+   "short": "7ebbe70",
+   "parents": [
+    "425c15dd688584f7a81ce5a0b866ee40bda5291f"
+   ],
+   "date": "2026-10-28T03:29:51-07:00",
+   "decorations": "",
+   "subject": "Recorded the Step 2c KissFFT board landing",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 72,
+   "hash": "1d09359fb1863b4aea6681876f92b77c98bb6957",
+   "short": "1d09359",
+   "parents": [
+    "7ebbe70001fa3a8721db8848cdacb568374ee2d7"
+   ],
+   "date": "2026-10-28T03:50:24-07:00",
+   "decorations": "",
+   "subject": "Brought the README to the post-Tier-2 state",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "3a12b71"
+  },
+  {
+   "rank": 73,
+   "hash": "d87c87caf0f0ff885336d2430cb721e1ee014541",
+   "short": "d87c87c",
+   "parents": [
+    "1d09359fb1863b4aea6681876f92b77c98bb6957"
+   ],
+   "date": "2026-10-28T05:15:55-07:00",
+   "decorations": "lead-readme",
+   "subject": "Fixed verifier-readme findings; landed its plant grades",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "3a12b71"
+  },
+  {
+   "rank": 74,
+   "hash": "3a12b71c9aa93f1493de61727abbd4bd49bfcc0a",
+   "short": "3a12b71",
+   "parents": [
+    "7ebbe70001fa3a8721db8848cdacb568374ee2d7",
+    "d87c87caf0f0ff885336d2430cb721e1ee014541"
+   ],
+   "date": "2026-10-28T05:16:01-07:00",
+   "decorations": "",
+   "subject": "Merged the post-Tier-2 README update (planted-verified)",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 75,
+   "hash": "dc9c9861ab3a9e225639347dd53e0354f4f910ec",
+   "short": "dc9c986",
+   "parents": [
+    "3a12b71c9aa93f1493de61727abbd4bd49bfcc0a"
+   ],
+   "date": "2026-10-28T05:19:56-07:00",
+   "decorations": "",
+   "subject": "Drafted SF-2: Tier 2 expansion, second prefix",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "889ec2e"
+  },
+  {
+   "rank": 76,
+   "hash": "f3eea917535245cef707d06db182ed432e22c77a",
+   "short": "f3eea91",
+   "parents": [
+    "dc9c9861ab3a9e225639347dd53e0354f4f910ec"
+   ],
+   "date": "2026-10-28T05:24:09-07:00",
+   "decorations": "lead-sf2",
+   "subject": "Folded verifier-sf2 findings into SF-2 (approved)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "889ec2e"
+  },
+  {
+   "rank": 77,
+   "hash": "889ec2ef2dcaf579e6e3fd52d8e31ec61450d921",
+   "short": "889ec2e",
+   "parents": [
+    "3a12b71c9aa93f1493de61727abbd4bd49bfcc0a",
+    "f3eea917535245cef707d06db182ed432e22c77a"
+   ],
+   "date": "2026-10-28T05:24:09-07:00",
+   "decorations": "",
+   "subject": "Merged SF-2, the approved Wave 5 plan of record",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 78,
+   "hash": "8bfc8776929eb123bf078da76ce2676cbb9c4e7a",
+   "short": "8bfc877",
+   "parents": [
+    "889ec2ef2dcaf579e6e3fd52d8e31ec61450d921"
+   ],
+   "date": "2026-10-28T06:01:29-07:00",
+   "decorations": "wave5-attr",
+   "subject": "Landed roundTiesToAway as the fifth public rounding attribute (SF-2 Step 1)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "6e0f2f2"
+  },
+  {
+   "rank": 79,
+   "hash": "6e0f2f2847d98980c5d87e5ccbfab237e4c18127",
+   "short": "6e0f2f2",
+   "parents": [
+    "889ec2ef2dcaf579e6e3fd52d8e31ec61450d921",
+    "8bfc8776929eb123bf078da76ce2676cbb9c4e7a"
+   ],
+   "date": "2026-10-28T06:13:58-07:00",
+   "decorations": "",
+   "subject": "Merged SF-2 Step 1: roundTiesToAway, fifth public attribute",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 80,
+   "hash": "5e5591da06d44f604db1089ebe9a2f7121024b07",
+   "short": "5e5591d",
+   "parents": [
+    "6e0f2f2847d98980c5d87e5ccbfab237e4c18127"
+   ],
+   "date": "2026-10-28T06:13:58-07:00",
+   "decorations": "",
+   "subject": "Landed verifier-w5attr plant grades (5 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 81,
+   "hash": "7c3819ca5ba7d903db26c4d05d442c2d73821a4c",
+   "short": "7c3819c",
+   "parents": [
+    "5e5591da06d44f604db1089ebe9a2f7121024b07"
+   ],
+   "date": "2026-10-28T06:17:43-07:00",
+   "decorations": "",
+   "subject": "Recorded the Wave 5 Step 1 landing",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 82,
+   "hash": "628a18df23b60f919bbbb92f8c16bafade7bc775",
+   "short": "628a18d",
+   "parents": [
+    "7c3819ca5ba7d903db26c4d05d442c2d73821a4c"
+   ],
+   "date": "2026-10-28T06:25:53-07:00",
+   "decorations": "",
+   "subject": "Landed the SF-2 Step 2a algebraic seam: math_bin signature, rSqrt + hypot rows",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "0de6a30"
+  },
+  {
+   "rank": 83,
+   "hash": "ef23f4d941d9f839d62eb5d85b3d003912f01e6d",
+   "short": "ef23f4d",
+   "parents": [
+    "7c3819ca5ba7d903db26c4d05d442c2d73821a4c"
+   ],
+   "date": "2026-10-28T06:29:47-07:00",
+   "decorations": "",
+   "subject": "Restated README status for Wave 5 (auditor finding)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "0918eac"
+  },
+  {
+   "rank": 84,
+   "hash": "68e1bc96e57ddcae017726f21def29e417d44f1c",
+   "short": "68e1bc9",
+   "parents": [
+    "ef23f4d941d9f839d62eb5d85b3d003912f01e6d"
+   ],
+   "date": "2026-10-28T06:34:20-07:00",
+   "decorations": "lead-readme2",
+   "subject": "Landed verifier-readme2 plant grades (5 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "0918eac"
+  },
+  {
+   "rank": 85,
+   "hash": "0918eac1560b10f15be68ba400fe514383a23f9f",
+   "short": "0918eac",
+   "parents": [
+    "7c3819ca5ba7d903db26c4d05d442c2d73821a4c",
+    "68e1bc96e57ddcae017726f21def29e417d44f1c"
+   ],
+   "date": "2026-10-28T06:34:20-07:00",
+   "decorations": "",
+   "subject": "Merged the Wave 5 README restatement (planted-verified)",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 86,
+   "hash": "b886e038d095bfad643ccb937f44abd03bcaaa7f",
+   "short": "b886e03",
+   "parents": [
+    "628a18df23b60f919bbbb92f8c16bafade7bc775"
+   ],
+   "date": "2026-10-28T06:35:14-07:00",
+   "decorations": "wave5-alg1",
+   "subject": "Built SF-2 Step 2a: correctly rounded rSqrt at binary16/32/64 (3 rows)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "0de6a30"
+  },
+  {
+   "rank": 87,
+   "hash": "0de6a30c8b0d0bf8bf0c0733bce3288a9e82ed26",
+   "short": "0de6a30",
+   "parents": [
+    "0918eac1560b10f15be68ba400fe514383a23f9f",
+    "b886e038d095bfad643ccb937f44abd03bcaaa7f"
+   ],
+   "date": "2026-10-28T06:59:35-07:00",
+   "decorations": "",
+   "subject": "Merged SF-2 Step 2a: algebraic seam + correctly rounded rSqrt",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 88,
+   "hash": "109b81431047e4329167d2d236a04a8fdb19ea5f",
+   "short": "109b814",
+   "parents": [
+    "0de6a30c8b0d0bf8bf0c0733bce3288a9e82ed26"
+   ],
+   "date": "2026-10-28T06:59:35-07:00",
+   "decorations": "",
+   "subject": "Wired msf_alg.c into the board builds (Step 2a escalation)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 89,
+   "hash": "b9ab48936cd9a692729a2ddc1cdc148135aee424",
+   "short": "b9ab489",
+   "parents": [
+    "109b81431047e4329167d2d236a04a8fdb19ea5f"
+   ],
+   "date": "2026-10-28T06:59:36-07:00",
+   "decorations": "",
+   "subject": "Landed verifier-w5alg1 plant grades (4 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 90,
+   "hash": "0f08aa39c94d5682711138956b7a8a4c3e898e0b",
+   "short": "0f08aa3",
+   "parents": [
+    "b9ab48936cd9a692729a2ddc1cdc148135aee424"
+   ],
+   "date": "2026-10-28T07:01:53-07:00",
+   "decorations": "",
+   "subject": "Recorded the Wave 5 Step 2a landing",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 91,
+   "hash": "656660493b122e248569cbb84f571e8e2c20dca5",
+   "short": "6566604",
+   "parents": [
+    "0f08aa39c94d5682711138956b7a8a4c3e898e0b"
+   ],
+   "date": "2026-10-28T07:48:07-07:00",
+   "decorations": "",
+   "subject": "Built SF-2 Step 2b kernel: correctly rounded hypot at binary16/32/64",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "4a80126"
+  },
+  {
+   "rank": 92,
+   "hash": "e858498242967f2ef4713e96521253dd6c7a088d",
+   "short": "e858498",
+   "parents": [
+    "656660493b122e248569cbb84f571e8e2c20dca5"
+   ],
+   "date": "2026-10-28T07:48:07-07:00",
+   "decorations": "wave5-alg2",
+   "subject": "Built SF-2 Step 2b hypot evidence: decider, generator, 7,500 committed lines",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "4a80126"
+  },
+  {
+   "rank": 93,
+   "hash": "4a8012636d5b2c5785935dc64bc137a39d4556d6",
+   "short": "4a80126",
+   "parents": [
+    "0f08aa39c94d5682711138956b7a8a4c3e898e0b",
+    "e858498242967f2ef4713e96521253dd6c7a088d"
+   ],
+   "date": "2026-10-28T08:55:25-07:00",
+   "decorations": "",
+   "subject": "Merged SF-2 Step 2b: correctly rounded hypot",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 94,
+   "hash": "53d226526aa8fa37eea1a33176132ed1124683d0",
+   "short": "53d2265",
+   "parents": [
+    "4a8012636d5b2c5785935dc64bc137a39d4556d6"
+   ],
+   "date": "2026-10-28T08:55:26-07:00",
+   "decorations": "",
+   "subject": "Generalised the mpfr-alg tag wording to rSqrt+hypot",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 95,
+   "hash": "187541a3ec614c01fa22eab8bec42385aa87d33e",
+   "short": "187541a",
+   "parents": [
+    "53d226526aa8fa37eea1a33176132ed1124683d0"
+   ],
+   "date": "2026-10-28T08:55:26-07:00",
+   "decorations": "",
+   "subject": "Landed verifier-w5alg2 plant grades (5 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 96,
+   "hash": "b576ddc1bd55298a81059534f9c115f5cea59694",
+   "short": "b576ddc",
+   "parents": [
+    "187541a3ec614c01fa22eab8bec42385aa87d33e"
+   ],
+   "date": "2026-10-28T08:57:15-07:00",
+   "decorations": "",
+   "subject": "Initialized hypot_core's out for the -O3 target build",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 97,
+   "hash": "a0acf2a4a26c65dadb713d9f6fecb3dda7625238",
+   "short": "a0acf2a",
+   "parents": [
+    "b576ddc1bd55298a81059534f9c115f5cea59694"
+   ],
+   "date": "2026-10-28T08:58:10-07:00",
+   "decorations": "",
+   "subject": "Recorded the Wave 5 Step 2b landing",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 98,
+   "hash": "87d00d2a3d20cc5051b279a44eec7c58bd1399dd",
+   "short": "87d00d2",
+   "parents": [
+    "a0acf2a4a26c65dadb713d9f6fecb3dda7625238"
+   ],
+   "date": "2026-10-28T09:25:27-07:00",
+   "decorations": "",
+   "subject": "Landed SF-2 Step 3a kernel: correctly rounded exp2/exp2m1 at binary16/32/64",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "7772da7"
+  },
+  {
+   "rank": 99,
+   "hash": "048aa29d51242f68ee4009516c72bb8a62898d11",
+   "short": "048aa29",
+   "parents": [
+    "87d00d2a3d20cc5051b279a44eec7c58bd1399dd"
+   ],
+   "date": "2026-10-28T09:35:59-07:00",
+   "decorations": "",
+   "subject": "Fixed the delta series shape and the exp2 near-1 attractor; hardened the decider",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "7772da7"
+  },
+  {
+   "rank": 100,
+   "hash": "2618b3454a5e439dd7b23531256ccb000c669128",
+   "short": "2618b34",
+   "parents": [
+    "048aa29d51242f68ee4009516c72bb8a62898d11"
+   ],
+   "date": "2026-10-28T09:49:18-07:00",
+   "decorations": "wave5-exp2",
+   "subject": "Added committed exp2/exp2m1 vectors and width/vector provenance rows",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "7772da7"
+  },
+  {
+   "rank": 101,
+   "hash": "36f12c628f1546519f70fdc3bb5d2999304e6911",
+   "short": "36f12c6",
+   "parents": [
+    "a0acf2a4a26c65dadb713d9f6fecb3dda7625238"
+   ],
+   "date": "2026-10-28T15:10:24-07:00",
+   "decorations": "",
+   "subject": "Added the static demo site with the real library in WebAssembly",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "3a09c76"
+  },
+  {
+   "rank": 102,
+   "hash": "cd0970032fa1f4c7ada0f20d5721c7d35564fa6d",
+   "short": "cd09700",
+   "parents": [
+    "36f12c628f1546519f70fdc3bb5d2999304e6911"
+   ],
+   "date": "2026-10-28T15:10:24-07:00",
+   "decorations": "wave5-site",
+   "subject": "Linked the demo site from the README and ledgered the brief",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "3a09c76"
+  },
+  {
+   "rank": 103,
+   "hash": "3a09c7640a5b4e6dad2b3f0597db63152485c310",
+   "short": "3a09c76",
+   "parents": [
+    "a0acf2a4a26c65dadb713d9f6fecb3dda7625238",
+    "cd0970032fa1f4c7ada0f20d5721c7d35564fa6d"
+   ],
+   "date": "2026-10-28T15:20:50-07:00",
+   "decorations": "",
+   "subject": "Merged the web demo page: the real library in WebAssembly",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 104,
+   "hash": "71714596d604237f860543558b4991e0bf4eb450",
+   "short": "7171459",
+   "parents": [
+    "3a09c7640a5b4e6dad2b3f0597db63152485c310"
+   ],
+   "date": "2026-10-28T15:20:51-07:00",
+   "decorations": "",
+   "subject": "Landed verifier-w5site plant grades (5 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 105,
+   "hash": "26e86ce11aa517e8f50dfe01fade4128a209e559",
+   "short": "26e86ce",
+   "parents": [
+    "71714596d604237f860543558b4991e0bf4eb450"
+   ],
+   "date": "2026-10-28T15:23:02-07:00",
+   "decorations": "",
+   "subject": "Noted the live demo page in RECORD",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 106,
+   "hash": "094538a599eecf3cc5ddf726a8e69e3fced176f4",
+   "short": "094538a",
+   "parents": [
+    "26e86ce11aa517e8f50dfe01fade4128a209e559"
+   ],
+   "date": "2026-10-28T15:58:58-07:00",
+   "decorations": "",
+   "subject": "Added the demo fetch and regeneration layer (pinned archives, IAS15 extract, Fork B tree)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "eac88b0"
+  },
+  {
+   "rank": 107,
+   "hash": "3d3bfc0cc07f62cae5bb7a47b63720b3564eda92",
+   "short": "3d3bfc0",
+   "parents": [
+    "094538a599eecf3cc5ddf726a8e69e3fced176f4"
+   ],
+   "date": "2026-10-28T15:58:58-07:00",
+   "decorations": "",
+   "subject": "Added the demo host proofs and committed expected hashes",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "eac88b0"
+  },
+  {
+   "rank": 108,
+   "hash": "3feebb976d4df2b4da972fa2810d4e25c0ba13d6",
+   "short": "3feebb9",
+   "parents": [
+    "3d3bfc0cc07f62cae5bb7a47b63720b3564eda92"
+   ],
+   "date": "2026-10-28T15:58:58-07:00",
+   "decorations": "wave5-demo",
+   "subject": "Wired the one-command workload demo with board orchestration",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "eac88b0"
+  },
+  {
+   "rank": 109,
+   "hash": "eac88b0d5417c8bf13ecc77440f8920224971121",
+   "short": "eac88b0",
+   "parents": [
+    "26e86ce11aa517e8f50dfe01fade4128a209e559",
+    "3feebb976d4df2b4da972fa2810d4e25c0ba13d6"
+   ],
+   "date": "2026-10-28T16:17:03-07:00",
+   "decorations": "",
+   "subject": "Merged demo/: one-script reproduction of the workloads",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 110,
+   "hash": "15ed8f7a085b2b2cc54ebfffd1f1c0be727c750d",
+   "short": "15ed8f7",
+   "parents": [
+    "eac88b0d5417c8bf13ecc77440f8920224971121"
+   ],
+   "date": "2026-10-28T16:17:03-07:00",
+   "decorations": "",
+   "subject": "Landed verifier-w5demo plant grades (5 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 111,
+   "hash": "a51f31e0c8f51a8d4a8081cb53cc65b621974c52",
+   "short": "a51f31e",
+   "parents": [
+    "15ed8f7a085b2b2cc54ebfffd1f1c0be727c750d"
+   ],
+   "date": "2026-10-28T16:52:22-07:00",
+   "decorations": "",
+   "subject": "Raised the IAS15 step-rate capture idle timeout to 1200 s",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 112,
+   "hash": "0ad7bcacd19acbdb3be30db85de56c395c30e776",
+   "short": "0ad7bca",
+   "parents": [
+    "a51f31e0c8f51a8d4a8081cb53cc65b621974c52"
+   ],
+   "date": "2026-10-28T17:56:38-07:00",
+   "decorations": "",
+   "subject": "Retain the Fork B twiddle-provenance derivation in docs/TWIDDLES.md",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "97d1cbe"
+  },
+  {
+   "rank": 113,
+   "hash": "0cad04332adfd2a22bbed5ffff04cfdc840eb274",
+   "short": "0cad043",
+   "parents": [
+    "0ad7bcacd19acbdb3be30db85de56c395c30e776"
+   ],
+   "date": "2026-10-28T17:56:42-07:00",
+   "decorations": "",
+   "subject": "Point the Fork B entry, demo README, and briefs ledger at TWIDDLES.md",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "97d1cbe"
+  },
+  {
+   "rank": 114,
+   "hash": "a41f026bf3e6b4b742d511179d12c837ec776e75",
+   "short": "a41f026",
+   "parents": [
+    "0cad04332adfd2a22bbed5ffff04cfdc840eb274"
+   ],
+   "date": "2026-10-28T18:06:16-07:00",
+   "decorations": "wave5-twiddledoc",
+   "subject": "Fix kiss_fftr.c patched-file SHA-256 in docs/TWIDDLES.md (verifier finding F2)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "97d1cbe"
+  },
+  {
+   "rank": 115,
+   "hash": "97d1cbeaf6c6994d88e40b6d621436387e5f11d3",
+   "short": "97d1cbe",
+   "parents": [
+    "a51f31e0c8f51a8d4a8081cb53cc65b621974c52",
+    "a41f026bf3e6b4b742d511179d12c837ec776e75"
+   ],
+   "date": "2026-10-28T18:06:45-07:00",
+   "decorations": "",
+   "subject": "Merged docs/TWIDDLES.md: retained Fork B twiddle-provenance derivation",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 116,
+   "hash": "b4bf2b46c80d06694ee590ac750b540ff93d9c5d",
+   "short": "b4bf2b4",
+   "parents": [
+    "97d1cbeaf6c6994d88e40b6d621436387e5f11d3"
+   ],
+   "date": "2026-10-28T18:07:25-07:00",
+   "decorations": "",
+   "subject": "Landed verifier-w5twiddledoc plant grades (5 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 117,
+   "hash": "bc1559395355dfba9994fc381f15e3d5755cb98b",
+   "short": "bc15593",
+   "parents": [
+    "b4bf2b46c80d06694ee590ac750b540ff93d9c5d"
+   ],
+   "date": "2026-10-28T18:27:48-07:00",
+   "decorations": "",
+   "subject": "Blink the onboard LED while board firmware is working",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 118,
+   "hash": "5f308c4343de61cd48e65939f28e97ea3ab68b62",
+   "short": "5f308c4",
+   "parents": [
+    "bc1559395355dfba9994fc381f15e3d5755cb98b"
+   ],
+   "date": "2026-10-28T18:45:45-07:00",
+   "decorations": "",
+   "subject": "Drive the RP2040-Zero WS2812 (GP16) alongside the Pico LED",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 119,
+   "hash": "7772da717a7388ce5cf10b1ea2fce61de1f34b7b",
+   "short": "7772da7",
+   "parents": [
+    "5f308c4343de61cd48e65939f28e97ea3ab68b62",
+    "2618b3454a5e439dd7b23531256ccb000c669128"
+   ],
+   "date": "2026-10-28T19:23:24-07:00",
+   "decorations": "",
+   "subject": "Merged SF-2 Step 3a: exp2/exp2m1 (binary16/32/64, correctly rounded)",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 120,
+   "hash": "b408e8993280ea9b7a1d5b7dbefb8e27d0c5c7f7",
+   "short": "b408e89",
+   "parents": [
+    "7772da717a7388ce5cf10b1ea2fce61de1f34b7b"
+   ],
+   "date": "2026-10-28T19:23:54-07:00",
+   "decorations": "",
+   "subject": "Landed verifier-w5exp2 plant grades (5 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 121,
+   "hash": "54ac1bb0edd472d8acd6c53e1cb8fdf01b727765",
+   "short": "54ac1bb",
+   "parents": [
+    "b408e8993280ea9b7a1d5b7dbefb8e27d0c5c7f7"
+   ],
+   "date": "2026-10-28T19:26:56-07:00",
+   "decorations": "",
+   "subject": "Recorded SF-2 Step 3a (exp2/exp2m1) and the six-board IAS15 sweep",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 122,
+   "hash": "56780d85a842a08c762689e603f272ffa61c9ca0",
+   "short": "56780d8",
+   "parents": [
+    "54ac1bb0edd472d8acd6c53e1cb8fdf01b727765"
+   ],
+   "date": "2026-10-28T20:13:13-07:00",
+   "decorations": "",
+   "subject": "SF-2 Step 3b: log2/log2p1 kernel, generator Ek, decider extension",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "cf81644"
+  },
+  {
+   "rank": 123,
+   "hash": "826f836c8b7c55a0e0ee0cf52666451a8f2aa4a1",
+   "short": "826f836",
+   "parents": [
+    "56780d85a842a08c762689e603f272ffa61c9ca0"
+   ],
+   "date": "2026-10-28T20:13:13-07:00",
+   "decorations": "wave5-log2",
+   "subject": "SF-2 Step 3b: committed log2/log2p1 vectors + doc rows",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "cf81644"
+  },
+  {
+   "rank": 124,
+   "hash": "cf816448d3b6e7890ff1c833d2c3a67424e71ede",
+   "short": "cf81644",
+   "parents": [
+    "54ac1bb0edd472d8acd6c53e1cb8fdf01b727765",
+    "826f836c8b7c55a0e0ee0cf52666451a8f2aa4a1"
+   ],
+   "date": "2026-10-29T08:47:39-07:00",
+   "decorations": "",
+   "subject": "Merged SF-2 Step 3b: log2/log2p1 (binary16/32/64, correctly rounded)",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 125,
+   "hash": "6078e7348f6853c04eba0df4022fe42f651a2c4c",
+   "short": "6078e73",
+   "parents": [
+    "cf816448d3b6e7890ff1c833d2c3a67424e71ede"
+   ],
+   "date": "2026-10-29T08:48:00-07:00",
+   "decorations": "",
+   "subject": "Landed verifier-w5log2 plant grades (5 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 126,
+   "hash": "bce49e0fc5c0b357253fa41b0a6e5d9ad8815176",
+   "short": "bce49e0",
+   "parents": [
+    "6078e7348f6853c04eba0df4022fe42f651a2c4c"
+   ],
+   "date": "2026-10-29T08:50:28-07:00",
+   "decorations": "",
+   "subject": "Recorded SF-2 Step 3b (log2/log2p1): Tier 2 closes at 57/57",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 127,
+   "hash": "2c89edd6bdb3ddf7d3d7c4d44461286cdf0700e4",
+   "short": "2c89edd",
+   "parents": [
+    "bce49e0fc5c0b357253fa41b0a6e5d9ad8815176"
+   ],
+   "date": "2026-10-29T09:29:43-07:00",
+   "decorations": "",
+   "subject": "SF-2 Step 4 seam: aug_pair signature for Clause 9.5",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "4a0b0d4"
+  },
+  {
+   "rank": 128,
+   "hash": "0ecdd11d62d0e62059b5c65b7b417ea151d2b431",
+   "short": "0ecdd11",
+   "parents": [
+    "2c89edd6bdb3ddf7d3d7c4d44461286cdf0700e4"
+   ],
+   "date": "2026-10-29T09:48:52-07:00",
+   "decorations": "",
+   "subject": "SF-2 Step 4 kernel: Clause 9.5 augmented arithmetic",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "4a0b0d4"
+  },
+  {
+   "rank": 129,
+   "hash": "37414532b82262dbdfdc54c67a7dcf49a5744194",
+   "short": "3741453",
+   "parents": [
+    "0ecdd11d62d0e62059b5c65b7b417ea151d2b431"
+   ],
+   "date": "2026-10-29T09:53:53-07:00",
+   "decorations": "wave5-aug",
+   "subject": "SF-2 Step 4 evidence: augmented vectors and f16 harness",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "4a0b0d4"
+  },
+  {
+   "rank": 130,
+   "hash": "4a0b0d4c53d5f43c382b55030cf16ef6d73b06db",
+   "short": "4a0b0d4",
+   "parents": [
+    "bce49e0fc5c0b357253fa41b0a6e5d9ad8815176",
+    "37414532b82262dbdfdc54c67a7dcf49a5744194"
+   ],
+   "date": "2026-10-29T11:37:16-07:00",
+   "decorations": "",
+   "subject": "Merged SF-2 Step 4: Clause 9.5 augmented arithmetic (binary16/32/64)",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 131,
+   "hash": "7d0ed811c5a36d4cb2d8acf5c9751d712b1ca5fe",
+   "short": "7d0ed81",
+   "parents": [
+    "4a0b0d4c53d5f43c382b55030cf16ef6d73b06db"
+   ],
+   "date": "2026-10-29T11:37:40-07:00",
+   "decorations": "",
+   "subject": "Landed verifier-w5aug plant grades (5 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 132,
+   "hash": "5142594f1f70be997de3cb5c28b7bf4d8ea80bc5",
+   "short": "5142594",
+   "parents": [
+    "7d0ed811c5a36d4cb2d8acf5c9751d712b1ca5fe"
+   ],
+   "date": "2026-10-29T11:39:55-07:00",
+   "decorations": "",
+   "subject": "Recorded SF-2 Step 4 (augmented arithmetic): SF-2 complete, 849 instantiations",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 133,
+   "hash": "3f29682ef1bff6af263ba0f722af8aa65875499c",
+   "short": "3f29682",
+   "parents": [
+    "5142594f1f70be997de3cb5c28b7bf4d8ea80bc5"
+   ],
+   "date": "2026-10-29T12:26:33-07:00",
+   "decorations": "wave5-metrics",
+   "subject": "Brought docs/metrics current through SF-2 close (Wave 5 metrics refresh)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "a1a888f"
+  },
+  {
+   "rank": 134,
+   "hash": "a1a888f0cd8d903e7b17390eb2818ca0c9bce034",
+   "short": "a1a888f",
+   "parents": [
+    "5142594f1f70be997de3cb5c28b7bf4d8ea80bc5",
+    "3f29682ef1bff6af263ba0f722af8aa65875499c"
+   ],
+   "date": "2026-10-29T12:57:33-07:00",
+   "decorations": "",
+   "subject": "Merged Wave 5 close (1/3): metrics refresh through SF-2 close",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 135,
+   "hash": "e9c57fb8c100913502d67242cad0d0729b7ce46a",
+   "short": "e9c57fb",
+   "parents": [
+    "a1a888f0cd8d903e7b17390eb2818ca0c9bce034"
+   ],
+   "date": "2026-10-29T12:57:43-07:00",
+   "decorations": "",
+   "subject": "Landed verifier-w5metrics plant grades (4 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 136,
+   "hash": "4f39357bf2783553068cff2c257624bf725d4674",
+   "short": "4f39357",
+   "parents": [
+    "e9c57fb8c100913502d67242cad0d0729b7ce46a"
+   ],
+   "date": "2026-10-29T13:33:42-07:00",
+   "decorations": "",
+   "subject": "Refreshed the demo site at SF-2 close (849 instantiations)",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "5a387e5"
+  },
+  {
+   "rank": 137,
+   "hash": "498a91667984a374c211ad2ef746618a012c570d",
+   "short": "498a916",
+   "parents": [
+    "4f39357bf2783553068cff2c257624bf725d4674"
+   ],
+   "date": "2026-10-29T13:33:43-07:00",
+   "decorations": "wave5-readme3",
+   "subject": "Audited the README at SF-2 close and ledgered the brief",
+   "is_merge": false,
+   "on_main_first_parent": false,
+   "lane_merge": "5a387e5"
+  },
+  {
+   "rank": 138,
+   "hash": "5a387e5569e7d2577f6e2c4861a2710e6a5ddbe2",
+   "short": "5a387e5",
+   "parents": [
+    "e9c57fb8c100913502d67242cad0d0729b7ce46a",
+    "498a91667984a374c211ad2ef746618a012c570d"
+   ],
+   "date": "2026-10-29T13:53:13-07:00",
+   "decorations": "",
+   "subject": "Merged Wave 5 close (2/3): README + live site refreshed to SF-2 close",
+   "is_merge": true,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 139,
+   "hash": "bc807e64590080c565ea8153c5fcd28f7ab7d99b",
+   "short": "bc807e6",
+   "parents": [
+    "5a387e5569e7d2577f6e2c4861a2710e6a5ddbe2"
+   ],
+   "date": "2026-10-29T13:53:14-07:00",
+   "decorations": "",
+   "subject": "Landed verifier-w5readme3 plant grades (5 of 5)",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  },
+  {
+   "rank": 140,
+   "hash": "a73e97dfc882cd1318e10e0dcaed27108cbbfcf7",
+   "short": "a73e97d",
+   "parents": [
+    "bc807e64590080c565ea8153c5fcd28f7ab7d99b"
+   ],
+   "date": "2026-10-29T14:21:21-07:00",
+   "decorations": "HEAD -> main, origin/main",
+   "subject": "Wave 5 close (3/3): audit errata, corrections, false universals restated",
+   "is_merge": false,
+   "on_main_first_parent": true,
+   "lane_merge": ""
+  }
+ ],
+ "merges": [
+  {
+   "hash": "9bb872382ea85a47627755af18637a49eb0ec0eb",
+   "short": "9bb8723",
+   "date": "2026-10-27T05:04:16-07:00",
+   "subject": "Merge lead kernel fix b37fb12 into w1-f32 for re-gate",
+   "rank": 12,
+   "first_parent": "6c1bc010b80a17629b180cd0280a20aedbd48960",
+   "second_parent": "b37fb1253f4ac33cb6309abd28b74d05ed6649f2",
+   "second_parent_short": "b37fb12",
+   "merge_base": "4cdb912dbd5ebda4fa2bc29168883dc4527d4091",
+   "merge_base_short": "4cdb912",
+   "merge_base_rank": 7,
+   "target": "(branch)",
+   "target_branch": "w1-f32",
+   "branch": "lead-fix -> w1-f32",
+   "exclusive_commits": [
+    "53acb1a7a2b5b07d0ec03e857367b82ebcf22fa7",
+    "b37fb1253f4ac33cb6309abd28b74d05ed6649f2"
+   ],
+   "exclusive_ranks": [
+    10,
+    11
+   ]
+  },
+  {
+   "hash": "80cbc97b25e0ff2766e95bf52be447bab11a4ba1",
+   "short": "80cbc97",
+   "date": "2026-10-27T05:04:40-07:00",
+   "subject": "Merged lead Wave 1 fixes (b37fb12) into w1-f64 for the re-gate",
+   "rank": 13,
+   "first_parent": "51533243a29e3a026493b8e3e04d2b2711ac4b4a",
+   "second_parent": "b37fb1253f4ac33cb6309abd28b74d05ed6649f2",
+   "second_parent_short": "b37fb12",
+   "merge_base": "4cdb912dbd5ebda4fa2bc29168883dc4527d4091",
+   "merge_base_short": "4cdb912",
+   "merge_base_rank": 7,
+   "target": "(branch)",
+   "target_branch": "w1-f64",
+   "branch": "lead-fix -> w1-f64",
+   "exclusive_commits": [
+    "53acb1a7a2b5b07d0ec03e857367b82ebcf22fa7",
+    "b37fb1253f4ac33cb6309abd28b74d05ed6649f2"
+   ],
+   "exclusive_ranks": [
+    10,
+    11
+   ]
+  },
+  {
+   "hash": "28437923f641f4eacd9e72ed1b80c0fbef88ce10",
+   "short": "2843792",
+   "date": "2026-10-27T05:17:07-07:00",
+   "subject": "Merged Wave 1 binary32 parcel (173 instantiations, READY 26c76aa)",
+   "rank": 17,
+   "first_parent": "52a6715077ef4033aa29a88e270c35892d855733",
+   "second_parent": "26c76aafae1daad27fade6e19df2764d96980dc8",
+   "second_parent_short": "26c76aa",
+   "merge_base": "b37fb1253f4ac33cb6309abd28b74d05ed6649f2",
+   "merge_base_short": "b37fb12",
+   "merge_base_rank": 11,
+   "target": "main",
+   "target_branch": "",
+   "branch": "w1-f32",
+   "exclusive_commits": [
+    "6c1bc010b80a17629b180cd0280a20aedbd48960",
+    "9bb872382ea85a47627755af18637a49eb0ec0eb",
+    "26c76aafae1daad27fade6e19df2764d96980dc8"
+   ],
+   "exclusive_ranks": [
+    8,
+    12,
+    15
+   ]
+  },
+  {
+   "hash": "06fdec89ca18a6b2367d19b615c3a9dab1aa4103",
+   "short": "06fdec8",
+   "date": "2026-10-27T05:18:44-07:00",
+   "subject": "Merged Wave 1 binary64 parcel (173 instantiations, READY cb10ee2)",
+   "rank": 19,
+   "first_parent": "704cf0ccfbd5e946adee40fbe2d390446a7f29e5",
+   "second_parent": "cb10ee298a25d92c4ab3da26d4d2f2d7a74f702a",
+   "second_parent_short": "cb10ee2",
+   "merge_base": "b37fb1253f4ac33cb6309abd28b74d05ed6649f2",
+   "merge_base_short": "b37fb12",
+   "merge_base_rank": 11,
+   "target": "main",
+   "target_branch": "",
+   "branch": "w1-f64",
+   "exclusive_commits": [
+    "51533243a29e3a026493b8e3e04d2b2711ac4b4a",
+    "80cbc97b25e0ff2766e95bf52be447bab11a4ba1",
+    "cb10ee298a25d92c4ab3da26d4d2f2d7a74f702a"
+   ],
+   "exclusive_ranks": [
+    9,
+    13,
+    14
+   ]
+  },
+  {
+   "hash": "a05412fa57e42ea4dd78165368df15e07212700e",
+   "short": "a05412f",
+   "date": "2026-10-27T08:12:45-07:00",
+   "subject": "Merged Wave 2 binary16 parcel (236 instantiations, READY 44c770c)",
+   "rank": 29,
+   "first_parent": "e393bb0bd563cba829415118560d1c5937224174",
+   "second_parent": "44c770c7c57a394685f9a9a9bc3069ccd98af78a",
+   "second_parent_short": "44c770c",
+   "merge_base": "dd48b08c7cb2f1aa957d15972d919c6d3051ad78",
+   "merge_base_short": "dd48b08",
+   "merge_base_rank": 22,
+   "target": "main",
+   "target_branch": "",
+   "branch": "w2-f16",
+   "exclusive_commits": [
+    "44c770c7c57a394685f9a9a9bc3069ccd98af78a"
+   ],
+   "exclusive_ranks": [
+    25
+   ]
+  },
+  {
+   "hash": "71fbd5392af603687a4561de8fb42ca38bbc3a11",
+   "short": "71fbd53",
+   "date": "2026-10-27T08:14:27-07:00",
+   "subject": "Merged Wave 2 cross-format parcel (126 instantiations, READY 7935fab)",
+   "rank": 31,
+   "first_parent": "6720f9a882c49639e219909b7e868e50f7cfaddf",
+   "second_parent": "7935fabe737e387b39f6eebb224c19d8074d4498",
+   "second_parent_short": "7935fab",
+   "merge_base": "dd48b08c7cb2f1aa957d15972d919c6d3051ad78",
+   "merge_base_short": "dd48b08",
+   "merge_base_rank": 22,
+   "target": "main",
+   "target_branch": "",
+   "branch": "w2-xf",
+   "exclusive_commits": [
+    "09c0acd6b4003b713e6bbc9ca6b8d55adb4a6792",
+    "7935fabe737e387b39f6eebb224c19d8074d4498"
+   ],
+   "exclusive_ranks": [
+    24,
+    26
+   ]
+  },
+  {
+   "hash": "d9718cf5f518b4cd8c1d818ee6411efe312787d3",
+   "short": "d9718cf",
+   "date": "2026-10-27T09:45:02-07:00",
+   "subject": "Merged IAS15 Pico firmware + AEABI compat surface (ias15-pico, READY 361bf05)",
+   "rank": 44,
+   "first_parent": "83622cf18fb98319a4c60f8058395b71c53e7e05",
+   "second_parent": "361bf05e39fd559f997a476d1f451909f53a3661",
+   "second_parent_short": "361bf05",
+   "merge_base": "548a1b9aa7e71ab988cea77d9f2a1591ca84328e",
+   "merge_base_short": "548a1b9",
+   "merge_base_rank": 33,
+   "target": "main",
+   "target_branch": "",
+   "branch": "w-ias15",
+   "exclusive_commits": [
+    "049361553fc90fa24b563c883ff82ffb7a93e2d3",
+    "b09e572b7dad80520c31145948bddd9d69e55a4b",
+    "361bf05e39fd559f997a476d1f451909f53a3661"
+   ],
+   "exclusive_ranks": [
+    39,
+    40,
+    41
+   ]
+  },
+  {
+   "hash": "13578637f69717be8519140bddb44d483bf3482c",
+   "short": "1357863",
+   "date": "2026-10-27T10:28:56-07:00",
+   "subject": "Merged Wave 3 string conversions (12 instantiations, READY 8712ec1)",
+   "rank": 45,
+   "first_parent": "d9718cf5f518b4cd8c1d818ee6411efe312787d3",
+   "second_parent": "8712ec1fccdf25b1dc12c3cfa9c18de5e8de5869",
+   "second_parent_short": "8712ec1",
+   "merge_base": "83622cf18fb98319a4c60f8058395b71c53e7e05",
+   "merge_base_short": "83622cf",
+   "merge_base_rank": 38,
+   "target": "main",
+   "target_branch": "",
+   "branch": "w3-str",
+   "exclusive_commits": [
+    "945217c0b1800662577d40c3d4a001d1cada3d27",
+    "8712ec1fccdf25b1dc12c3cfa9c18de5e8de5869"
+   ],
+   "exclusive_ranks": [
+    42,
+    43
+   ]
+  },
+  {
+   "hash": "b576c1357a315f23913ae5fb7de7c400ab49a031",
+   "short": "b576c13",
+   "date": "2026-10-27T16:32:00-07:00",
+   "subject": "Merged wave4-seam: SF-1 Step 0a Tier 2 seam",
+   "rank": 54,
+   "first_parent": "fe213fd256b54da2a73c57cc02c23e5030cfef3d",
+   "second_parent": "722172eac628d8a4fe6f6579d0c217e9446a7840",
+   "second_parent_short": "722172e",
+   "merge_base": "fe213fd256b54da2a73c57cc02c23e5030cfef3d",
+   "merge_base_short": "fe213fd",
+   "merge_base_rank": 52,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave4-seam",
+   "exclusive_commits": [
+    "722172eac628d8a4fe6f6579d0c217e9446a7840"
+   ],
+   "exclusive_ranks": [
+    53
+   ]
+  },
+  {
+   "hash": "75309d4580c8e2e42c4cbb2b32d379da32e18c66",
+   "short": "75309d4",
+   "date": "2026-10-27T17:41:34-07:00",
+   "subject": "Merged wave4-minmax: SF-1 Step 1 min/max + payloads",
+   "rank": 58,
+   "first_parent": "8578114a8bfce73173e484f0d345a87a8ba6d532",
+   "second_parent": "128e577e694bebacf11e0cb04548093e61366469",
+   "second_parent_short": "128e577",
+   "merge_base": "8578114a8bfce73173e484f0d345a87a8ba6d532",
+   "merge_base_short": "8578114",
+   "merge_base_rank": 56,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave4-minmax",
+   "exclusive_commits": [
+    "128e577e694bebacf11e0cb04548093e61366469"
+   ],
+   "exclusive_ranks": [
+    57
+   ]
+  },
+  {
+   "hash": "20bc16bc5dd44dc488093e9d310c0d2d2b8742a9",
+   "short": "20bc16b",
+   "date": "2026-10-27T18:44:31-07:00",
+   "subject": "Merged wave4-interval: SF-1 Step 1c interval host proof",
+   "rank": 61,
+   "first_parent": "b704b4c9b805b584a2e221c3fa889017d480ac88",
+   "second_parent": "1d55a8a08366bfc8bfd3ee7bc7a305347c82c705",
+   "second_parent_short": "1d55a8a",
+   "merge_base": "b704b4c9b805b584a2e221c3fa889017d480ac88",
+   "merge_base_short": "b704b4c",
+   "merge_base_rank": 59,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave4-interval",
+   "exclusive_commits": [
+    "1d55a8a08366bfc8bfd3ee7bc7a305347c82c705"
+   ],
+   "exclusive_ranks": [
+    60
+   ]
+  },
+  {
+   "hash": "da46f5171faecb346aa44db554303091a46fde45",
+   "short": "da46f51",
+   "date": "2026-10-28T02:22:59-07:00",
+   "subject": "Merged wave4-trig: SF-1 Step 2c sinPi/cosPi kernel",
+   "rank": 66,
+   "first_parent": "a4f6fb99c7627ad52786dc9e469ab9dfbadf9b18",
+   "second_parent": "81b76357b357b802ebca9ba39a1e1d9005d5f485",
+   "second_parent_short": "81b7635",
+   "merge_base": "a4f6fb99c7627ad52786dc9e469ab9dfbadf9b18",
+   "merge_base_short": "a4f6fb9",
+   "merge_base_rank": 64,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave4-trig",
+   "exclusive_commits": [
+    "81b76357b357b802ebca9ba39a1e1d9005d5f485"
+   ],
+   "exclusive_ranks": [
+    65
+   ]
+  },
+  {
+   "hash": "32bbd93015d76a7c045f3ce29d7250fff5a6ff61",
+   "short": "32bbd93",
+   "date": "2026-10-28T03:25:29-07:00",
+   "subject": "Merged SF-1 Step 2c workload: KissFFT Fork B runtime twiddles",
+   "rank": 69,
+   "first_parent": "5e712cbe2a7a707e7fc91608f60f150b98c5951b",
+   "second_parent": "d322d0791a59b02db8c451fcc546e716673d8b50",
+   "second_parent_short": "d322d07",
+   "merge_base": "5e712cbe2a7a707e7fc91608f60f150b98c5951b",
+   "merge_base_short": "5e712cb",
+   "merge_base_rank": 67,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave4-kissfft",
+   "exclusive_commits": [
+    "d322d0791a59b02db8c451fcc546e716673d8b50"
+   ],
+   "exclusive_ranks": [
+    68
+   ]
+  },
+  {
+   "hash": "3a12b71c9aa93f1493de61727abbd4bd49bfcc0a",
+   "short": "3a12b71",
+   "date": "2026-10-28T05:16:01-07:00",
+   "subject": "Merged the post-Tier-2 README update (planted-verified)",
+   "rank": 74,
+   "first_parent": "7ebbe70001fa3a8721db8848cdacb568374ee2d7",
+   "second_parent": "d87c87caf0f0ff885336d2430cb721e1ee014541",
+   "second_parent_short": "d87c87c",
+   "merge_base": "7ebbe70001fa3a8721db8848cdacb568374ee2d7",
+   "merge_base_short": "7ebbe70",
+   "merge_base_rank": 71,
+   "target": "main",
+   "target_branch": "",
+   "branch": "lead-readme",
+   "exclusive_commits": [
+    "1d09359fb1863b4aea6681876f92b77c98bb6957",
+    "d87c87caf0f0ff885336d2430cb721e1ee014541"
+   ],
+   "exclusive_ranks": [
+    72,
+    73
+   ]
+  },
+  {
+   "hash": "889ec2ef2dcaf579e6e3fd52d8e31ec61450d921",
+   "short": "889ec2e",
+   "date": "2026-10-28T05:24:09-07:00",
+   "subject": "Merged SF-2, the approved Wave 5 plan of record",
+   "rank": 77,
+   "first_parent": "3a12b71c9aa93f1493de61727abbd4bd49bfcc0a",
+   "second_parent": "f3eea917535245cef707d06db182ed432e22c77a",
+   "second_parent_short": "f3eea91",
+   "merge_base": "3a12b71c9aa93f1493de61727abbd4bd49bfcc0a",
+   "merge_base_short": "3a12b71",
+   "merge_base_rank": 74,
+   "target": "main",
+   "target_branch": "",
+   "branch": "lead-sf2",
+   "exclusive_commits": [
+    "dc9c9861ab3a9e225639347dd53e0354f4f910ec",
+    "f3eea917535245cef707d06db182ed432e22c77a"
+   ],
+   "exclusive_ranks": [
+    75,
+    76
+   ]
+  },
+  {
+   "hash": "6e0f2f2847d98980c5d87e5ccbfab237e4c18127",
+   "short": "6e0f2f2",
+   "date": "2026-10-28T06:13:58-07:00",
+   "subject": "Merged SF-2 Step 1: roundTiesToAway, fifth public attribute",
+   "rank": 79,
+   "first_parent": "889ec2ef2dcaf579e6e3fd52d8e31ec61450d921",
+   "second_parent": "8bfc8776929eb123bf078da76ce2676cbb9c4e7a",
+   "second_parent_short": "8bfc877",
+   "merge_base": "889ec2ef2dcaf579e6e3fd52d8e31ec61450d921",
+   "merge_base_short": "889ec2e",
+   "merge_base_rank": 77,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave5-attr",
+   "exclusive_commits": [
+    "8bfc8776929eb123bf078da76ce2676cbb9c4e7a"
+   ],
+   "exclusive_ranks": [
+    78
+   ]
+  },
+  {
+   "hash": "0918eac1560b10f15be68ba400fe514383a23f9f",
+   "short": "0918eac",
+   "date": "2026-10-28T06:34:20-07:00",
+   "subject": "Merged the Wave 5 README restatement (planted-verified)",
+   "rank": 85,
+   "first_parent": "7c3819ca5ba7d903db26c4d05d442c2d73821a4c",
+   "second_parent": "68e1bc96e57ddcae017726f21def29e417d44f1c",
+   "second_parent_short": "68e1bc9",
+   "merge_base": "7c3819ca5ba7d903db26c4d05d442c2d73821a4c",
+   "merge_base_short": "7c3819c",
+   "merge_base_rank": 81,
+   "target": "main",
+   "target_branch": "",
+   "branch": "lead-readme2",
+   "exclusive_commits": [
+    "ef23f4d941d9f839d62eb5d85b3d003912f01e6d",
+    "68e1bc96e57ddcae017726f21def29e417d44f1c"
+   ],
+   "exclusive_ranks": [
+    83,
+    84
+   ]
+  },
+  {
+   "hash": "0de6a30c8b0d0bf8bf0c0733bce3288a9e82ed26",
+   "short": "0de6a30",
+   "date": "2026-10-28T06:59:35-07:00",
+   "subject": "Merged SF-2 Step 2a: algebraic seam + correctly rounded rSqrt",
+   "rank": 87,
+   "first_parent": "0918eac1560b10f15be68ba400fe514383a23f9f",
+   "second_parent": "b886e038d095bfad643ccb937f44abd03bcaaa7f",
+   "second_parent_short": "b886e03",
+   "merge_base": "7c3819ca5ba7d903db26c4d05d442c2d73821a4c",
+   "merge_base_short": "7c3819c",
+   "merge_base_rank": 81,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave5-alg1",
+   "exclusive_commits": [
+    "628a18df23b60f919bbbb92f8c16bafade7bc775",
+    "b886e038d095bfad643ccb937f44abd03bcaaa7f"
+   ],
+   "exclusive_ranks": [
+    82,
+    86
+   ]
+  },
+  {
+   "hash": "4a8012636d5b2c5785935dc64bc137a39d4556d6",
+   "short": "4a80126",
+   "date": "2026-10-28T08:55:25-07:00",
+   "subject": "Merged SF-2 Step 2b: correctly rounded hypot",
+   "rank": 93,
+   "first_parent": "0f08aa39c94d5682711138956b7a8a4c3e898e0b",
+   "second_parent": "e858498242967f2ef4713e96521253dd6c7a088d",
+   "second_parent_short": "e858498",
+   "merge_base": "0f08aa39c94d5682711138956b7a8a4c3e898e0b",
+   "merge_base_short": "0f08aa3",
+   "merge_base_rank": 90,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave5-alg2",
+   "exclusive_commits": [
+    "656660493b122e248569cbb84f571e8e2c20dca5",
+    "e858498242967f2ef4713e96521253dd6c7a088d"
+   ],
+   "exclusive_ranks": [
+    91,
+    92
+   ]
+  },
+  {
+   "hash": "3a09c7640a5b4e6dad2b3f0597db63152485c310",
+   "short": "3a09c76",
+   "date": "2026-10-28T15:20:50-07:00",
+   "subject": "Merged the web demo page: the real library in WebAssembly",
+   "rank": 103,
+   "first_parent": "a0acf2a4a26c65dadb713d9f6fecb3dda7625238",
+   "second_parent": "cd0970032fa1f4c7ada0f20d5721c7d35564fa6d",
+   "second_parent_short": "cd09700",
+   "merge_base": "a0acf2a4a26c65dadb713d9f6fecb3dda7625238",
+   "merge_base_short": "a0acf2a",
+   "merge_base_rank": 97,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave5-site",
+   "exclusive_commits": [
+    "36f12c628f1546519f70fdc3bb5d2999304e6911",
+    "cd0970032fa1f4c7ada0f20d5721c7d35564fa6d"
+   ],
+   "exclusive_ranks": [
+    101,
+    102
+   ]
+  },
+  {
+   "hash": "eac88b0d5417c8bf13ecc77440f8920224971121",
+   "short": "eac88b0",
+   "date": "2026-10-28T16:17:03-07:00",
+   "subject": "Merged demo/: one-script reproduction of the workloads",
+   "rank": 109,
+   "first_parent": "26e86ce11aa517e8f50dfe01fade4128a209e559",
+   "second_parent": "3feebb976d4df2b4da972fa2810d4e25c0ba13d6",
+   "second_parent_short": "3feebb9",
+   "merge_base": "26e86ce11aa517e8f50dfe01fade4128a209e559",
+   "merge_base_short": "26e86ce",
+   "merge_base_rank": 105,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave5-demo",
+   "exclusive_commits": [
+    "094538a599eecf3cc5ddf726a8e69e3fced176f4",
+    "3d3bfc0cc07f62cae5bb7a47b63720b3564eda92",
+    "3feebb976d4df2b4da972fa2810d4e25c0ba13d6"
+   ],
+   "exclusive_ranks": [
+    106,
+    107,
+    108
+   ]
+  },
+  {
+   "hash": "97d1cbeaf6c6994d88e40b6d621436387e5f11d3",
+   "short": "97d1cbe",
+   "date": "2026-10-28T18:06:45-07:00",
+   "subject": "Merged docs/TWIDDLES.md: retained Fork B twiddle-provenance derivation",
+   "rank": 115,
+   "first_parent": "a51f31e0c8f51a8d4a8081cb53cc65b621974c52",
+   "second_parent": "a41f026bf3e6b4b742d511179d12c837ec776e75",
+   "second_parent_short": "a41f026",
+   "merge_base": "a51f31e0c8f51a8d4a8081cb53cc65b621974c52",
+   "merge_base_short": "a51f31e",
+   "merge_base_rank": 111,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave5-twiddledoc",
+   "exclusive_commits": [
+    "0ad7bcacd19acbdb3be30db85de56c395c30e776",
+    "0cad04332adfd2a22bbed5ffff04cfdc840eb274",
+    "a41f026bf3e6b4b742d511179d12c837ec776e75"
+   ],
+   "exclusive_ranks": [
+    112,
+    113,
+    114
+   ]
+  },
+  {
+   "hash": "7772da717a7388ce5cf10b1ea2fce61de1f34b7b",
+   "short": "7772da7",
+   "date": "2026-10-28T19:23:24-07:00",
+   "subject": "Merged SF-2 Step 3a: exp2/exp2m1 (binary16/32/64, correctly rounded)",
+   "rank": 119,
+   "first_parent": "5f308c4343de61cd48e65939f28e97ea3ab68b62",
+   "second_parent": "2618b3454a5e439dd7b23531256ccb000c669128",
+   "second_parent_short": "2618b34",
+   "merge_base": "a0acf2a4a26c65dadb713d9f6fecb3dda7625238",
+   "merge_base_short": "a0acf2a",
+   "merge_base_rank": 97,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave5-exp2",
+   "exclusive_commits": [
+    "87d00d2a3d20cc5051b279a44eec7c58bd1399dd",
+    "048aa29d51242f68ee4009516c72bb8a62898d11",
+    "2618b3454a5e439dd7b23531256ccb000c669128"
+   ],
+   "exclusive_ranks": [
+    98,
+    99,
+    100
+   ]
+  },
+  {
+   "hash": "cf816448d3b6e7890ff1c833d2c3a67424e71ede",
+   "short": "cf81644",
+   "date": "2026-10-29T08:47:39-07:00",
+   "subject": "Merged SF-2 Step 3b: log2/log2p1 (binary16/32/64, correctly rounded)",
+   "rank": 124,
+   "first_parent": "54ac1bb0edd472d8acd6c53e1cb8fdf01b727765",
+   "second_parent": "826f836c8b7c55a0e0ee0cf52666451a8f2aa4a1",
+   "second_parent_short": "826f836",
+   "merge_base": "54ac1bb0edd472d8acd6c53e1cb8fdf01b727765",
+   "merge_base_short": "54ac1bb",
+   "merge_base_rank": 121,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave5-log2",
+   "exclusive_commits": [
+    "56780d85a842a08c762689e603f272ffa61c9ca0",
+    "826f836c8b7c55a0e0ee0cf52666451a8f2aa4a1"
+   ],
+   "exclusive_ranks": [
+    122,
+    123
+   ]
+  },
+  {
+   "hash": "4a0b0d4c53d5f43c382b55030cf16ef6d73b06db",
+   "short": "4a0b0d4",
+   "date": "2026-10-29T11:37:16-07:00",
+   "subject": "Merged SF-2 Step 4: Clause 9.5 augmented arithmetic (binary16/32/64)",
+   "rank": 130,
+   "first_parent": "bce49e0fc5c0b357253fa41b0a6e5d9ad8815176",
+   "second_parent": "37414532b82262dbdfdc54c67a7dcf49a5744194",
+   "second_parent_short": "3741453",
+   "merge_base": "bce49e0fc5c0b357253fa41b0a6e5d9ad8815176",
+   "merge_base_short": "bce49e0",
+   "merge_base_rank": 126,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave5-aug",
+   "exclusive_commits": [
+    "2c89edd6bdb3ddf7d3d7c4d44461286cdf0700e4",
+    "0ecdd11d62d0e62059b5c65b7b417ea151d2b431",
+    "37414532b82262dbdfdc54c67a7dcf49a5744194"
+   ],
+   "exclusive_ranks": [
+    127,
+    128,
+    129
+   ]
+  },
+  {
+   "hash": "a1a888f0cd8d903e7b17390eb2818ca0c9bce034",
+   "short": "a1a888f",
+   "date": "2026-10-29T12:57:33-07:00",
+   "subject": "Merged Wave 5 close (1/3): metrics refresh through SF-2 close",
+   "rank": 134,
+   "first_parent": "5142594f1f70be997de3cb5c28b7bf4d8ea80bc5",
+   "second_parent": "3f29682ef1bff6af263ba0f722af8aa65875499c",
+   "second_parent_short": "3f29682",
+   "merge_base": "5142594f1f70be997de3cb5c28b7bf4d8ea80bc5",
+   "merge_base_short": "5142594",
+   "merge_base_rank": 132,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave5-metrics",
+   "exclusive_commits": [
+    "3f29682ef1bff6af263ba0f722af8aa65875499c"
+   ],
+   "exclusive_ranks": [
+    133
+   ]
+  },
+  {
+   "hash": "5a387e5569e7d2577f6e2c4861a2710e6a5ddbe2",
+   "short": "5a387e5",
+   "date": "2026-10-29T13:53:13-07:00",
+   "subject": "Merged Wave 5 close (2/3): README + live site refreshed to SF-2 close",
+   "rank": 138,
+   "first_parent": "e9c57fb8c100913502d67242cad0d0729b7ce46a",
+   "second_parent": "498a91667984a374c211ad2ef746618a012c570d",
+   "second_parent_short": "498a916",
+   "merge_base": "e9c57fb8c100913502d67242cad0d0729b7ce46a",
+   "merge_base_short": "e9c57fb",
+   "merge_base_rank": 135,
+   "target": "main",
+   "target_branch": "",
+   "branch": "wave5-readme3",
+   "exclusive_commits": [
+    "4f39357bf2783553068cff2c257624bf725d4674",
+    "498a91667984a374c211ad2ef746618a012c570d"
+   ],
+   "exclusive_ranks": [
+    136,
+    137
+   ]
+  }
+ ],
+ "gate_anchors": {
+  "gate1_kissfft_merge": "32bbd93",
+  "gate2_metrics_merge": "a1a888f"
+ },
+ "node_events": [
+  {
+   "id": "parcel",
+   "system": "parcels",
+   "title": "PARCEL",
+   "lines": [
+    "parcel-f32: 173 binary32 instantiations",
+    "owns src/msf32.c only - shared kernels stay lead-owned"
+   ],
+   "source": "muse-softfloat/docs/RECORD.md Wave 1 entry (lines 323-332)"
+  },
+  {
+   "id": "escalation",
+   "system": "escalations",
+   "title": "ESCALATION",
+   "lines": [
+    "parcel-f32 escalates: pack tininess is wrong (Clause 7.5)",
+    "Berkeley disagreed; every self-consistent gate had passed",
+    "ruled for the parcel - lead fixes 53acb1a / b37fb12"
+   ],
+   "source": "RECORD.md Wave 1 (lines 334-347); docs/metrics/escalations.jsonl wave1 parcel-f32 2026-10-26T22:11:37-07:00 -> answered 22:14:00"
+  },
+  {
+   "id": "verifier",
+   "system": "verifiers",
+   "title": "VERIFIER - SENDBACK",
+   "lines": [
+    "verifier-w5twiddledoc: NOT READY",
+    "printed SHA-256 is 56 hex chars - truncated, invalid",
+    "measured 64-char value is what the demo tooling enforces"
+   ],
+   "source": "ledger/verifier-w5twiddledoc.md (blocking findings); fix landed as commit a41f026 on wave5-twiddledoc"
+  },
+  {
+   "id": "plants",
+   "system": "plants",
+   "title": "PLANTS GRADED",
+   "lines": [
+    "Wave 1: 9 of 10 planted defects caught",
+    "the miss: weakened generator boundary, filed benign",
+    "detection without the byte-identity norm"
+   ],
+   "source": "RECORD.md Wave 1 (lines 348-363); docs/metrics/plants.jsonl wave1 verifier-w1f32 plant 5 grade=missed"
+  },
+  {
+   "id": "gates",
+   "system": "gates",
+   "title": "GATES",
+   "lines": [
+    "smoke 52,168 vectors - standard adds 1,117,504",
+    "9/9 negative controls refused",
+    "board: 2,767 sampled vectors, host == RP2040 hash"
+   ],
+   "source": "RECORD.md Wave 1 (lines 364-374; whole-run SHA-256 4d7c2a28... identical host/board, board ID e66440a2cb6f5c2b)"
+  },
+  {
+   "id": "study",
+   "system": "studies",
+   "title": "STUDY",
+   "lines": [
+    "feasibility first, read-only, in scratch",
+    "two study visuals wait ahead - as gates"
+   ],
+   "source": "scratch/study-kissfft-visual/report.md + scratch/study-tokens-visual/report.md (both FEASIBLE WITH WORK); Wave 0 surveys S1-S4 in RECORD.md lines 13, 64-67"
+  },
+  {
+   "id": "lead_merge",
+   "system": "lead / main",
+   "title": "LEAD MERGE",
+   "lines": [
+    "only READY work rejoins the main line",
+    "2843792 - Merged Wave 1 binary32 parcel (READY 26c76aa)"
+   ],
+   "source": "git -C muse-softfloat log: merge 2843792 (2026-10-27 05:17:07 -0700), parents 52a6715 + 26c76aa (w1-f32 tip)"
+  }
+ ],
+ "legend": [
+  {
+   "system": "lead / main",
+   "meaning": "the lead's main line; only READY work merges here"
+  },
+  {
+   "system": "parcels",
+   "meaning": "boxed work parcels on their own branches/worktrees"
+  },
+  {
+   "system": "verifiers",
+   "meaning": "independent disconfirm-only checks; NOT READY = sendback"
+  },
+  {
+   "system": "plants",
+   "meaning": "planted defects grading the verifiers (caught / missed)"
+  },
+  {
+   "system": "gates",
+   "meaning": "smoke / standard / board gates a merge must pass"
+  },
+  {
+   "system": "studies",
+   "meaning": "read-only feasibility studies in scratch, before parcels"
+  },
+  {
+   "system": "escalations",
+   "meaning": "a parcel stops and asks the lead to rule (fence working)"
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+{
+  "real_tip": "44c770c7c57a394685f9a9a9bc3069ccd98af78a",
+  "plants": [
+    {
+      "file": "src/msf16.c",
+      "old": "    if (b.cls == MSF_VC_ZERO) {\n        *flags |= MSF_FLAG_DIVISION_BY_ZERO;\n        return INF16(sign);",
+      "new": "    if (b.cls == MSF_VC_ZERO) {\n        return INF16(sign);",
+      "shape": "a mandatory exception flag dropped on one path"
+    },
+    {
+      "file": "src/msf16.c",
+      "old": "        return INF16(effb);",
+      "new": "        return INF16(b.sign);",
+      "shape": "the effective (negated) sign ignored on an infinity fast path"
+    },
+    {
+      "file": "src/msf16.c",
+      "old": "a.exp - b.exp + (la - lb) - 63",
+      "new": "a.exp - b.exp + (la - lb) - 62",
+      "shape": "exponent bookkeeping off by one"
+    },
+    {
+      "file": "tests/vectors/arith-f16.vec",
+      "old": "msf16_add te 0 3c00 -> 3c00 00",
+      "new": "msf16_add te 0 3c00 -> bc00 00",
+      "shape": "a committed vector expectation corrupted"
+    },
+    {
+      "file": "tests/gen_vectors_f16.py",
+      "old": "4095, 4096, 8192, 16384, 32752, 65504 - 16,",
+      "new": "4095, 4096, 8192, 16384, 32752, 65504 - 32,",
+      "shape": "a boundary value quietly weakened in the generator pool"
+    }
+  ]
+}

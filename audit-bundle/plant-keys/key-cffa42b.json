@@ -1,0 +1,36 @@
+{
+  "real_tip": "d322d0791a59b02db8c451fcc546e716673d8b50",
+  "copy_commit": "cffa42bc5a1d3eb8eeb0da2ade1c6dcea91be886",
+  "plants": [
+    {
+      "file": "compat/msf_aeabi.c",
+      "old": "double __wrap_sinpi(double a)\n{\n    msf_wrap_state_t *s = st();\n    return msf64_to_double(msf64_sin_pi(msf64_from_double(a),",
+      "new": "double __wrap_sinpi(double a)\n{\n    msf_wrap_state_t *s = st();\n    return msf64_to_double(msf64_cos_pi(msf64_from_double(a),",
+      "shape": "sinpi wrapper calls the cosine core entry"
+    },
+    {
+      "file": "board/kissfft_main.c",
+      "old": "    kf_lcg = kf_lcg * 6364136223846793005ULL + 1442695040888963407ULL;",
+      "new": "    kf_lcg = kf_lcg * 6364136223846793005ULL + 1442695040888963406ULL;",
+      "shape": "firmware input generator constant differs from the host by one"
+    },
+    {
+      "file": "board/CMakeLists.txt",
+      "old": "if(DEFINED MSF_KISSFFT_DIR)",
+      "new": "if(TRUE)",
+      "shape": "guarded KissFFT target builds without its scratch tree"
+    },
+    {
+      "file": "docs/BOARD.md",
+      "old": "    `KISSFFT-DONE`. At these gated power-of-two sizes the",
+      "new": "    `KISSFFT-DONE`. At every transform size the",
+      "shape": "exact-angle twiddle claim widened beyond the gated sizes"
+    },
+    {
+      "file": "board/kissfft_host.py",
+      "old": "    if missing or extra or len(got) != len(expect):",
+      "new": "    if len(got) != len(expect):",
+      "shape": "board host compares row counts but not hash contents"
+    }
+  ]
+}

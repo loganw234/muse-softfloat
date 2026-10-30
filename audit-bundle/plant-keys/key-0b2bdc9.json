@@ -1,0 +1,36 @@
+{
+  "real_tip": "722172eac628d8a4fe6f6579d0c217e9446a7840",
+  "copy_commit": "0b2bdc92d522965e2ae4eda4ff25b49fe734ad1d",
+  "plants": [
+    {
+      "file": "tools/gen_tables.py",
+      "old": "CLAIM_BY_TIER = {\"1\": {\"required\"}, \"2\": {\"C-754\"}}",
+      "new": "CLAIM_BY_TIER = {\"1\": {\"required\"}, \"2\": {\"C-754\", \"C-ULP\"}}",
+      "shape": "a reserved claim token admitted before its gate exists"
+    },
+    {
+      "file": "tables/operations.tsv",
+      "old": "maximum\tmaximum\t9.6\tminmax\tnone\tyes\t4\tproject-exact",
+      "new": "maximum\tmaximum\t9.6\tminmax\tnone\tno\t4\tproject-exact",
+      "shape": "one minmax family loses its flags pointer in the table"
+    },
+    {
+      "file": "tools/run.sh",
+      "old": "            exit !(hdr && t1 == t1exp && t1i == t1exp && t2 == t2exp && bad == 0)",
+      "new": "            exit !(hdr && t1 == t1exp && t1i == t1exp && t2 >= t2exp && bad == 0)",
+      "shape": "registered Tier 2 freeze weakened from equality to a floor"
+    },
+    {
+      "file": "docs/COVERAGE.tsv",
+      "old": "msf16_round_to_integral_ties_to_even\troundToIntegralTiesToEven\t5.3.1,5.9\tf16\tf16\tnamed\tyes\t2\timplemented\tberkeley\ttestfloat-l2\texact\t1\trequired",
+      "new": "msf16_round_to_integral_ties_to_even\troundToIntegralTiesToEven\t5.3.1,5.9\tf16\tf16\tnamed\tyes\t2\timplemented\tmpfr-exact\ttestfloat-l2\texact\t1\trequired",
+      "shape": "one generated coverage authority altered by hand"
+    },
+    {
+      "file": "tests/VECTORS.md",
+      "old": "at `MAX_PROV` 128 and refuses rather than undercount.",
+      "new": "at `MAX_PROV` 256 and refuses rather than undercount.",
+      "shape": "documented provenance cap disagrees with the runner"
+    }
+  ]
+}

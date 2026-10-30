@@ -1,0 +1,36 @@
+{
+  "real_tip": "8712ec1fccdf25b1dc12c3cfa9c18de5e8de5869",
+  "copy_commit": "f58f29990ba1959b0f92dde9cd655b87bb9d287b",
+  "plants": [
+    {
+      "file": "src/msf_string.c",
+      "old": "        return gt_half || (eq_half && (last_kept & 1));",
+      "new": "        return gt_half || eq_half;",
+      "shape": "decimal ties always round away from zero"
+    },
+    {
+      "file": "src/msf_string.c",
+      "old": "    if (match_ci(s + i, \"snan\")) {\n        *consumed = i + 4u;",
+      "new": "    if (match_ci(s + i, \"snan\")) {\n        *consumed = i + 3u;",
+      "shape": "consumed undercounts one accepted spelling"
+    },
+    {
+      "file": "src/msf_string.c",
+      "old": "exp2 = (int64_t)pexp - 4 * frac_digits + extra_exp;",
+      "new": "exp2 = (int64_t)pexp - 2 * frac_digits + extra_exp;",
+      "shape": "hex fraction scaled by the wrong power of two"
+    },
+    {
+      "file": "tests/vectors/from-decimal-str.vec",
+      "old": "msf16_from_decimal te IN=snan -> 7c01 00 C=4",
+      "new": "msf16_from_decimal te IN=snan -> 7e00 00 C=4",
+      "shape": "a committed vector expectation corrupted"
+    },
+    {
+      "file": "tests/gen_vectors_str.py",
+      "old": "\"0xabcdefp10\"",
+      "new": "\"0xabcdeeep10\"",
+      "shape": "a directed-pool literal altered in the generator"
+    }
+  ]
+}

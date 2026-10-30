@@ -1,0 +1,35 @@
+{
+  "real_tip": "3f29682ef1bff6af263ba0f722af8aa65875499c",
+  "plants": [
+    {
+      "file": "docs/metrics/usage.jsonl",
+      "old": "{\"wave\":\"wave0\",\"agent\":\"verifier-extractor\",\"model\":\"muse-spark-1.3\",\"output_tokens\":34350",
+      "new": "{\"wave\":\"wave0\",\"agent\":\"verifier-extractor\",\"model\":\"muse-spark-1.3\",\"output_tokens\":84350",
+      "shape": "session output tokens inflated by 50000"
+    },
+    {
+      "file": "docs/metrics/usage.jsonl",
+      "old": "{\"wave\":\"wave5\",\"agent\":\"verifier-w5exp2\",\"model\":\"muse-spark-1.3\"",
+      "new": "{\"wave\":\"wave5\",\"agent\":\"verifier-w5exp2\",\"model\":\"muse-wonder-full-1.0\"",
+      "shape": "spark verifier relabeled to the lead model"
+    },
+    {
+      "file": "docs/metrics/passes.jsonl",
+      "old": "6592be82d377; restated by w5-metrics fold from ledger/RECORD/git (extractor role_for gap)\",\"a\":5,\"b\":1,\"verdict\":\"NOT READY\",\"sent_back\":false}",
+      "new": "6592be82d377; restated by w5-metrics fold from ledger/RECORD/git (extractor role_for gap)\",\"a\":5,\"b\":1,\"verdict\":\"NOT READY\",\"sent_back\":true}",
+      "shape": "planted-copy verdict misrecorded as a send-back"
+    },
+    {
+      "file": "docs/metrics/escalations.jsonl",
+      "old": "{\"wave\": \"wave3\", \"from\": \"video-final\", \"to\": \"lead\", \"sent\": \"2026-10-27T10:37:11-07:00\", \"means\": \"file\", \"test\": true}",
+      "new": "{\"wave\": \"wave3\", \"from\": \"video-final\", \"to\": \"lead\", \"sent\": \"2026-10-27T10:37:11-07:00\", \"means\": \"file\", \"test\": true, \"answered\": \"2026-10-27T10:37:11-07:00\"}",
+      "shape": "answered stamp fabricated where none was sourced"
+    },
+    {
+      "file": "docs/metrics/briefs.jsonl",
+      "old": "\"author\": \"parcel-w5exp2\", \"base\": \"4a8012636d5b2c5785935dc64bc137a39d4556d6\"",
+      "new": "\"author\": \"parcel-w5exp2\", \"base\": \"5a8012636d5b2c5785935dc64bc137a39d4556d6\"",
+      "shape": "restored briefs row cites a nonexistent base commit"
+    }
+  ]
+}

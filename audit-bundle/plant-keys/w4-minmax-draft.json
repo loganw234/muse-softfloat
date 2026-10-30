@@ -1,0 +1,35 @@
+{
+  "real_tip": "128e577e694bebacf11e0cb04548093e61366469",
+  "plants": [
+    {
+      "file": "src/msf_performat.inc",
+      "old": "        if ((an ? da.cls : db.cls) == MSF_VC_SIGNALING_NAN) {\n            *flags |= MSF_FLAG_INVALID;\n        }",
+      "new": "        if ((an ? da.cls : db.cls) == MSF_VC_QUIET_NAN) {\n            *flags |= MSF_FLAG_INVALID;\n        }",
+      "shape": "Number forms signal invalid for the wrong NaN class"
+    },
+    {
+      "file": "src/msf_performat.inc",
+      "old": "        return a->sign ? -1 : 1; /* -0 below +0 (9.6) */",
+      "new": "        return a->sign ? 1 : -1; /* -0 below +0 (9.6) */",
+      "shape": "signed-zero ordering reversed in value comparison"
+    },
+    {
+      "file": "src/msf_performat.inc",
+      "old": "                      | (signaling ? 0u : MSF_PF_C(QUIET_BIT)) | k);",
+      "new": "                      | (signaling ? MSF_PF_C(QUIET_BIT) : 0u) | k);",
+      "shape": "payload setters swap the quiet and signaling encodings"
+    },
+    {
+      "file": "tests/gen_vectors_tier2.py",
+      "old": "    if k > q[\"paymax\"] or (signaling and k == 0):",
+      "new": "    if k >= q[\"paymax\"] or (signaling and k == 0):",
+      "shape": "reference generator rejects the maximum admissible payload"
+    },
+    {
+      "file": "tests/vectors/payload-f16.vec",
+      "old": "msf16_get_payload - 0 -> bc00 -- exact-py-t2:directed-payload",
+      "new": "msf16_get_payload - 0 -> 0 -- exact-py-t2:directed-payload",
+      "shape": "one committed getPayload expectation corrupted"
+    }
+  ]
+}

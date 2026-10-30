@@ -1,0 +1,144 @@
+{
+ "period": {
+  "raster_centroid": [
+   1170.49,
+   272.0
+  ],
+  "ink": {
+   "w": 2,
+   "h": 3,
+   "bbox": [
+    1170,
+    271,
+    1171,
+    273
+   ],
+   "px": 6
+  },
+  "n_dot_components": 4,
+  "metrics_centroid": [
+   1171.0,
+   272.5
+  ],
+  "v1_formula": [
+   1171.0,
+   259.0
+  ],
+  "raster_minus_metrics": [
+   -0.51,
+   -0.5
+  ],
+  "raster_minus_v1": [
+   -0.51,
+   13.0
+  ],
+  "final_crop_w": 1.2,
+  "target_cont": [
+   1170.99,
+   272.5
+  ],
+  "intro_clamp_max_px": 0.0
+ },
+ "proof": {
+  "t": 3.4,
+  "crop_w": 95.4,
+  "measured_centroid": [
+   959.1,
+   539.6
+  ],
+  "frame_center": [
+   959.5,
+   539.5
+  ],
+  "error_px": [
+   -0.4,
+   0.1
+  ],
+  "error_abs": 0.4,
+  "component_px": 1781
+ },
+ "dots": {
+  "layout_centroid": [
+   990,
+   410
+  ],
+  "raster_centroid": [
+   990.0,
+   409.3
+  ],
+  "bubble": [
+   914,
+   380,
+   1064,
+   440
+  ],
+  "target_cont": [
+   990.5,
+   409.8
+  ],
+  "outro_clamp_max_px": 0.101
+ },
+ "smooth": {
+  "max_abs_dlog_step_per_frame": 0.01182,
+  "first_log_step": -0.00033,
+  "last_log_step": -0.00226,
+  "peak_center_speed_px_s": 709.1,
+  "first_center_speed_px_s": 4.9,
+  "last_center_speed_px_s": 0.0
+ },
+ "cam_samples": [
+  {
+   "t": 2.5,
+   "crop_w": 1920.0,
+   "center": [
+    960.0,
+    540.0
+   ]
+  },
+  {
+   "t": 2.83,
+   "crop_w": 1477.7,
+   "center": [
+    1016.5,
+    468.4
+   ]
+  },
+  {
+   "t": 3.17,
+   "crop_w": 408.2,
+   "center": [
+    1147.0,
+    302.9
+   ]
+  },
+  {
+   "t": 3.5,
+   "crop_w": 48.0,
+   "center": [
+    1171.0,
+    272.5
+   ]
+  },
+  {
+   "t": 3.83,
+   "crop_w": 5.6,
+   "center": [
+    1171.0,
+    272.5
+   ]
+  },
+  {
+   "t": 4.17,
+   "crop_w": 1.6,
+   "center": [
+    1171.0,
+    272.5
+   ]
+  }
+ ],
+ "reply_chars": {
+  "r1": 18,
+  "r2": 140,
+  "total": 158
+ }
+}

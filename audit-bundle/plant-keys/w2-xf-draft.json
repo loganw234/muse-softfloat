@@ -1,0 +1,35 @@
+{
+  "real_tip": "7935fabe737e387b39f6eebb224c19d8074d4498",
+  "plants": [
+    {
+      "file": "src/msf32.c",
+      "old": "DEF_ADD(msf32_add_f16_f64, msf16_t, FMT16, msf64_t, FMT64)",
+      "new": "DEF_ADD(msf32_add_f16_f64, msf16_t, FMT16, msf64_t, FMT32)",
+      "shape": "a wrapper decodes a source in the wrong format"
+    },
+    {
+      "file": "src/msf32.c",
+      "old": "DEF_FMA(msf32_fma_f16_f32_f64, msf16_t, FMT16, msf32_t, FMT32, msf64_t, FMT64)",
+      "new": "DEF_FMA(msf32_fma_f16_f32_f64, msf16_t, FMT16, msf32_t, FMT32, msf64_t, FMT32)",
+      "shape": "the addend of one fused operation decoded in the wrong format"
+    },
+    {
+      "file": "src/msf64.c",
+      "old": "DEF_CMP_F16(signaling_less, PRED_LT, 1)",
+      "new": "DEF_CMP_F16(signaling_less, PRED_LT, 0)",
+      "shape": "a signaling predicate made quiet"
+    },
+    {
+      "file": "tests/vectors/arith-xf.vec",
+      "old": "msf32_add_f16_f16 te 0 3c00 -> 3f800000 00",
+      "new": "msf32_add_f16_f16 te 0 3c00 -> 3f800001 00",
+      "shape": "a committed vector expectation corrupted"
+    },
+    {
+      "file": "tests/gen_vectors_xf.py",
+      "old": "(0x12345 & c[\"fracmask\"])",
+      "new": "(0x12344 & c[\"fracmask\"])",
+      "shape": "a directed-pool payload constant altered in the generator"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "real_tip": "498a91667984a374c211ad2ef746618a012c570d",
+  "copy_commit": "5986b5d8771809ea6922aeb281a56949c442d662",
+  "plants": [
+    {
+      "file": "README.md",
+      "old": "**Tier 1 and Tier 2 complete: 849 of 849 instantiations,",
+      "new": "**Tier 1 and Tier 2 complete: 859 of 859 instantiations,",
+      "shape": "headline instantiation count inflated by ten"
+    },
+    {
+      "file": "README.md",
+      "old": "remains a study model, not a shipped",
+      "new": "is realized in the shipped workload, not a study-model",
+      "shape": "augmented op-count benefit claimed as shipped"
+    },
+    {
+      "file": "site/data.json",
+      "old": "  \"caught\": 109,",
+      "new": "  \"caught\": 115,",
+      "shape": "site claims every plant ever caught"
+    },
+    {
+      "file": "site/data.json",
+      "old": "\"ops_pair_excluded\": 9,",
+      "new": "\"ops_pair_excluded\": 0,",
+      "shape": "augmented pair exclusion erased from the numbers table"
+    },
+    {
+      "file": "site/vectors-sample.json",
+      "old": "  \"op\": \"msf64_exp2\",\n  \"rm\": \"te\",\n  \"args\": [\n   \"0\"\n  ],\n  \"result\": \"3ff0000000000000\",",
+      "new": "  \"op\": \"msf64_exp2\",\n  \"rm\": \"te\",\n  \"args\": [\n   \"0\"\n  ],\n  \"result\": \"3ff0000000000001\",",
+      "shape": "site sample exp2(0) expectation off by one ulp"
+    }
+  ]
+}

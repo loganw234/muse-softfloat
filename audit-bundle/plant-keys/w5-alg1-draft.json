@@ -1,0 +1,35 @@
+{
+  "real_tip": "b886e038d095bfad643ccb937f44abd03bcaaa7f",
+  "plants": [
+    {
+      "file": "src/msf_alg.c",
+      "old": "        return (d.sign ? fp->sign_mask : 0u) | fp->infinity;",
+      "new": "        return fp->infinity;",
+      "shape": "rSqrt(-0) pole delivers +inf instead of -inf"
+    },
+    {
+      "file": "src/msf_alg.c",
+      "old": "            return prod[i] > tv ? 1 : -1;",
+      "new": "            return prod[i] > tv ? -1 : 1;",
+      "shape": "exact square comparison result inverted"
+    },
+    {
+      "file": "tests/gen_vectors_alg.py",
+      "old": "    if unbiased >= emin:",
+      "new": "    if unbiased > emin:",
+      "shape": "exact decider drops smallest-normal boundary results"
+    },
+    {
+      "file": "tables/operations.tsv",
+      "old": "r_sqrt\trSqrt\t9.2\tmath_un\tattr\tyes\t5\tmpfr-exact\tdirected-alg;ties;seeded-random\texact\t2\tC-754",
+      "new": "r_sqrt\trSqrt\t9.2\tmath_un\tattr\tyes\t5\tmpfr-exact\tdirected-alg;ties;seeded-random\texact\t2\tC-ULP",
+      "shape": "refused claim token admitted for a Tier 2 row"
+    },
+    {
+      "file": "tests/vectors/alg-f64.vec",
+      "old": "msf64_r_sqrt te 0 -> 7ff0000000000000 02 mpfr-alg:specials",
+      "new": "msf64_r_sqrt te 0 -> 7ff0000000000000 00 mpfr-alg:specials",
+      "shape": "divideByZero flag stripped from a specials vector"
+    }
+  ]
+}

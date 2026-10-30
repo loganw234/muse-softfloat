@@ -1,0 +1,35 @@
+{
+  "real_tip": "1d55a8a08366bfc8bfd3ee7bc7a305347c82c705",
+  "plants": [
+    {
+      "file": "board/interval_workload.c",
+      "old": "#define IW_RM_LO MSF_ROUND_TOWARD_NEGATIVE",
+      "new": "#define IW_RM_LO MSF_ROUND_TIES_TO_EVEN",
+      "shape": "lower endpoints rounded to nearest instead of downward"
+    },
+    {
+      "file": "board/interval_workload.c",
+      "old": "    return (fl & (MSF_FLAG_OVERFLOW | MSF_FLAG_UNDERFLOW |\n                  MSF_FLAG_INVALID)) != 0;",
+      "new": "    return (fl & (MSF_FLAG_UNDERFLOW |\n                  MSF_FLAG_INVALID)) != 0;",
+      "shape": "stage-3 proof guard no longer trips on overflow"
+    },
+    {
+      "file": "board/interval_workload.c",
+      "old": "{ c->ops++; return msf64_minimum(x, y, fl); }",
+      "new": "{ c->ops++; return msf64_minimum_number(x, y, fl); }",
+      "shape": "a banned Number form enters the containment path"
+    },
+    {
+      "file": "tests/gen_interval_catalogue.py",
+      "old": "    return b * b - a * c",
+      "new": "    return b * b + a * c",
+      "shape": "exact discriminant oracle adds instead of subtracts"
+    },
+    {
+      "file": "tests/interval_catalogue.tsv",
+      "old": "2\ttangent400\tsphere\ttangent-by-construction seed=4242 trial=2 k=12 eps_ulps=-3\t0000000000000000\t0000000000000000\t0000000000000000\t3ff0000000000000\t0000000000000000\t0000000000000000\t40b3f62e80000000\tbfefd90980000000\tbfb8f01c00000000\t3ff0000000000000\t0000000000000000\t0000000000000000\tHIT\tTANGENT0\t3155251/8796093022208",
+      "new": "2\ttangent400\tsphere\ttangent-by-construction seed=4242 trial=2 k=12 eps_ulps=-3\t0000000000000000\t0000000000000000\t0000000000000000\t3ff0000000000000\t0000000000000000\t0000000000000000\t40b3f62e80000000\tbfefd90980000000\tbfb8f01c00000000\t3ff0000000000000\t0000000000000000\t0000000000000000\tMISS\tTANGENT0\t3155251/8796093022208",
+      "shape": "one frozen catalogue exact decision corrupted"
+    }
+  ]
+}

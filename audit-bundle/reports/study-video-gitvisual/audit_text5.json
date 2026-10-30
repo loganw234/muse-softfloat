@@ -1,0 +1,732 @@
+{
+ "rule": "smallest 0.5s multiple >= max(1.5, 0.5 + words/2.5)",
+ "totals_words": {
+  "v4": 633,
+  "v5": 335
+ },
+ "cut_pct": 47.1,
+ "blocks": [
+  {
+   "scene": "chase",
+   "block": "popup 0 parcel",
+   "text": "PARCEL 173 binary32 routines one file: msf32.c",
+   "words": 7,
+   "dwell_given_s": 3.5,
+   "rule_min_s": 3.5,
+   "ok": true,
+   "note": "v4: 17w @2.3s (rule 7.5s)"
+  },
+  {
+   "scene": "chase",
+   "block": "popup 1 escalation",
+   "text": "ESCALATION tiny results packed wrong fixes: 53acb1a / b37fb12",
+   "words": 9,
+   "dwell_given_s": 4.5,
+   "rule_min_s": 4.5,
+   "ok": true,
+   "note": "v4: 32w @2.3s (rule 13.5s)"
+  },
+  {
+   "scene": "chase",
+   "block": "popup 2 verifier",
+   "text": "VERIFIER SHA-256 too short 56 characters, needs 64",
+   "words": 8,
+   "dwell_given_s": 4.0,
+   "rule_min_s": 4.0,
+   "ok": true,
+   "note": "v4: 26w @2.3s (rule 11.0s)"
+  },
+  {
+   "scene": "chase",
+   "block": "popup 3 plants",
+   "text": "PLANTS 9/10 planted bugs caught one miss, harmless",
+   "words": 8,
+   "dwell_given_s": 4.0,
+   "rule_min_s": 4.0,
+   "ok": true,
+   "note": "v4: 28w @2.3s (rule 12.0s)"
+  },
+  {
+   "scene": "chase",
+   "block": "popup 4 gates",
+   "text": "GATES 52,168 quick + 1,117,504 standard tests chip matches computer exactly",
+   "words": 11,
+   "dwell_given_s": 5.0,
+   "rule_min_s": 5.0,
+   "ok": true,
+   "note": "v4: 24w @2.3s (rule 10.5s)"
+  },
+  {
+   "scene": "chase",
+   "block": "popup 5 study",
+   "text": "STUDY try in scratch first two studies wait ahead",
+   "words": 9,
+   "dwell_given_s": 4.5,
+   "rule_min_s": 4.5,
+   "ok": true,
+   "note": "v4: 17w @2.3s (rule 7.5s)"
+  },
+  {
+   "scene": "chase",
+   "block": "popup 6 lead_merge",
+   "text": "LEAD MERGE finished work joins main first merge: 2843792",
+   "words": 9,
+   "dwell_given_s": 4.5,
+   "rule_min_s": 4.5,
+   "ok": true,
+   "note": "v4: 22w @2.3s (rule 9.5s)"
+  },
+  {
+   "scene": "chase",
+   "block": "legend (unchanged)",
+   "text": "LEGEND - SYSTEMS lead / main parcels verifiers plants gates studies escalations",
+   "words": 12,
+   "dwell_given_s": 41.5,
+   "rule_min_s": 5.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "scene": "chase",
+   "block": "bottom strip",
+   "text": "1 - THE CHASE | marbles split at branches",
+   "words": 9,
+   "dwell_given_s": 36.0,
+   "rule_min_s": 4.5,
+   "ok": true,
+   "note": "phase word swaps at lift; longest phase shown"
+  },
+  {
+   "scene": "chase",
+   "block": "scene src tag",
+   "text": "src: project RECORD + git log",
+   "words": 6,
+   "dwell_given_s": 41.5,
+   "rule_min_s": 3.0,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "scene": "replay",
+   "block": "sendback rank 7",
+   "text": "SENDBACK FIX 4cdb912 error-value branch fixed",
+   "words": 6,
+   "dwell_given_s": 1.78,
+   "rule_min_s": 3.0,
+   "ok": false,
+   "note": "visible apex->rank+18 (readable then dimmed, gate overlap removed); v4: 18w @0.48s (rule 8.0s)"
+  },
+  {
+   "scene": "replay",
+   "block": "sendback badge rank 7",
+   "text": "FIXED - REJOINS",
+   "words": 3,
+   "dwell_given_s": 1.78,
+   "rule_min_s": 2.0,
+   "ok": false,
+   "note": ""
+  },
+  {
+   "scene": "replay",
+   "block": "sendback rank 12",
+   "text": "TININESS FIX RETURNS both rechecked: READY",
+   "words": 6,
+   "dwell_given_s": 1.7,
+   "rule_min_s": 3.0,
+   "ok": false,
+   "note": "visible apex->rank+18 (readable then dimmed, gate overlap removed); v4: 27w @0.42s (rule 11.5s)"
+  },
+  {
+   "scene": "replay",
+   "block": "sendback badge rank 12",
+   "text": "FIXED - REJOINS",
+   "words": 3,
+   "dwell_given_s": 1.7,
+   "rule_min_s": 2.0,
+   "ok": false,
+   "note": ""
+  },
+  {
+   "scene": "replay",
+   "block": "sendback rank 38",
+   "text": "LEAD FIX 83622cf runner width fixed",
+   "words": 6,
+   "dwell_given_s": 4.53,
+   "rule_min_s": 3.0,
+   "ok": true,
+   "note": "visible apex->rank+18 (readable then dimmed, gate overlap removed); v4: 23w @0.95s (rule 10.0s)"
+  },
+  {
+   "scene": "replay",
+   "block": "sendback badge rank 38",
+   "text": "FIXED - REJOINS",
+   "words": 3,
+   "dwell_given_s": 4.53,
+   "rule_min_s": 2.0,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "scene": "replay",
+   "block": "sendback rank 99",
+   "text": "DEFECT FIX 048aa29 exp2 edges hardened",
+   "words": 6,
+   "dwell_given_s": 1.02,
+   "rule_min_s": 3.0,
+   "ok": false,
+   "note": "visible apex->rank+18 (readable then dimmed, gate overlap removed); v4: 19w @0.23s (rule 8.5s)"
+  },
+  {
+   "scene": "replay",
+   "block": "sendback badge rank 99",
+   "text": "FIXED - REJOINS",
+   "words": 3,
+   "dwell_given_s": 1.02,
+   "rule_min_s": 2.0,
+   "ok": false,
+   "note": ""
+  },
+  {
+   "scene": "replay",
+   "block": "sendback rank 114",
+   "text": "VERIFIER SENDBACK a41f026 now 64 characters",
+   "words": 6,
+   "dwell_given_s": 1.59,
+   "rule_min_s": 3.0,
+   "ok": false,
+   "note": "visible apex->rank+18 (readable then dimmed, gate overlap removed); v4: 26w @0.27s (rule 11.0s)"
+  },
+  {
+   "scene": "replay",
+   "block": "sendback badge rank 114",
+   "text": "FIXED - REJOINS",
+   "words": 3,
+   "dwell_given_s": 1.59,
+   "rule_min_s": 2.0,
+   "ok": false,
+   "note": ""
+  },
+  {
+   "scene": "replay",
+   "block": "branch labels x25 (worst lane)",
+   "text": "wave5-alg2",
+   "words": 1,
+   "dwell_given_s": 1.11,
+   "rule_min_s": 1.5,
+   "ok": false,
+   "note": "1-token data labels; dwell = lane label window"
+  },
+  {
+   "scene": "replay",
+   "block": "day separators",
+   "text": "10-27",
+   "words": 1,
+   "dwell_given_s": 8.0,
+   "rule_min_s": 1.5,
+   "ok": true,
+   "note": "1 token; on screen while its rank crosses the 66-rank window (>=8 s worst leg)"
+  },
+  {
+   "scene": "ias15",
+   "block": "title+sub",
+   "text": "IAS15 RUNS ON THE CHIP merge d9718cf - the stream waits",
+   "words": 11,
+   "dwell_given_s": 7.2,
+   "rule_min_s": 5.0,
+   "ok": true,
+   "note": "appear lt=0.0; v4: 16w @7.2s (rule 7.0s)"
+  },
+  {
+   "scene": "ias15",
+   "block": "scene src tag",
+   "text": "src: project record, Wave 3",
+   "words": 5,
+   "dwell_given_s": 7.2,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "scene": "kissfft",
+   "block": "title+sub",
+   "text": "KISSFFT STUDY merge 32bbd93 - the stream waits",
+   "words": 8,
+   "dwell_given_s": 7.2,
+   "rule_min_s": 4.0,
+   "ok": true,
+   "note": "appear lt=0.0; v4: 12w @7.2s (rule 5.5s)"
+  },
+  {
+   "scene": "kissfft",
+   "block": "scene src tag",
+   "text": "src: KissFFT study report",
+   "words": 4,
+   "dwell_given_s": 7.2,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "scene": "tokens",
+   "block": "title+sub",
+   "text": "TOKENS, RECOUNTED metrics merge a1a888f (chosen anchor)",
+   "words": 7,
+   "dwell_given_s": 7.2,
+   "rule_min_s": 3.5,
+   "ok": true,
+   "note": "appear lt=0.0; v4: 12w @7.2s (rule 5.5s)"
+  },
+  {
+   "scene": "tokens",
+   "block": "scene src tag",
+   "text": "src: usage.jsonl @ a73e97d",
+   "words": 4,
+   "dwell_given_s": 7.2,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "scene": "window",
+   "block": "boards header",
+   "text": "SIX BOARDS (mockup)",
+   "words": 3,
+   "dwell_given_s": 6.4,
+   "rule_min_s": 2.0,
+   "ok": true,
+   "note": "appear lt=0.8; v4: 9w @7.2s (rule 4.5s)"
+  },
+  {
+   "scene": "window",
+   "block": "board labels (names)",
+   "text": "Pico - GP25 LED",
+   "words": 4,
+   "dwell_given_s": 7.2,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": ""
+  },
+  {
+   "scene": "window",
+   "block": "PASS",
+   "text": "PASS",
+   "words": 1,
+   "dwell_given_s": 1.5,
+   "rule_min_s": 1.5,
+   "ok": true,
+   "note": "specified 1.5 s hold, 6.5->8.0"
+  },
+  {
+   "scene": "ias15",
+   "block": "orbit caption",
+   "text": "figure-8 orbit (picture)",
+   "words": 3,
+   "dwell_given_s": 7.2,
+   "rule_min_s": 2.0,
+   "ok": true,
+   "note": "appear lt=0.0; v4: 3w @7.2s (rule 2.0s)"
+  },
+  {
+   "scene": "ias15",
+   "block": "orbit sub",
+   "text": "real start, drawn on desktop",
+   "words": 5,
+   "dwell_given_s": 6.7,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": "appear lt=0.5; v4: 5w @7.2s (rule 2.5s)"
+  },
+  {
+   "scene": "ias15",
+   "block": "hash title",
+   "text": "state check-values: desktop == chip",
+   "words": 5,
+   "dwell_given_s": 6.8,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": "appear lt=0.4; v4: 5w @7.2s (rule 2.5s)"
+  },
+  {
+   "scene": "ias15",
+   "block": "hash row step 0",
+   "text": "STEP 0 <64-hex> desktop == RP2040",
+   "words": 6,
+   "dwell_given_s": 6.0,
+   "rule_min_s": 3.0,
+   "ok": true,
+   "note": "hash = 1 token"
+  },
+  {
+   "scene": "ias15",
+   "block": "hash row step 944",
+   "text": "STEP 944 <64-hex> desktop == RP2040",
+   "words": 6,
+   "dwell_given_s": 5.0,
+   "rule_min_s": 3.0,
+   "ok": true,
+   "note": "hash = 1 token"
+  },
+  {
+   "scene": "ias15",
+   "block": "hash row step 2000",
+   "text": "STEP 2,000 <64-hex> desktop == RP2040",
+   "words": 6,
+   "dwell_given_s": 4.0,
+   "rule_min_s": 3.0,
+   "ok": true,
+   "note": "hash = 1 token"
+  },
+  {
+   "scene": "ias15",
+   "block": "proof line",
+   "text": "check-values at right are the proof",
+   "words": 6,
+   "dwell_given_s": 5.6,
+   "rule_min_s": 3.0,
+   "ok": true,
+   "note": "appear lt=1.6; v4: 15w @7.2s (rule 6.5s)"
+  },
+  {
+   "scene": "ias15",
+   "block": "stamp",
+   "text": "2,001 / 2,001 IDENTICAL desktop == chip",
+   "words": 7,
+   "dwell_given_s": 3.7,
+   "rule_min_s": 3.5,
+   "ok": true,
+   "note": "appear lt=3.5; v4: 7w @2.0s (rule 3.5s)"
+  },
+  {
+   "scene": "ias15",
+   "block": "chip line",
+   "text": "IAS15 on the chip, via muse-softfloat",
+   "words": 6,
+   "dwell_given_s": 3.2,
+   "rule_min_s": 3.0,
+   "ok": true,
+   "note": "appear lt=4.0; v4: 13w @7.2s (rule 6.0s)"
+  },
+  {
+   "scene": "kissfft",
+   "block": "caption",
+   "text": "sound wave in, spectrum out",
+   "words": 5,
+   "dwell_given_s": 7.2,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": "appear lt=0.0; v4: 5w @7.2s (rule 2.5s)"
+  },
+  {
+   "scene": "kissfft",
+   "block": "honesty line",
+   "text": "(picture only - not KissFFT output)",
+   "words": 6,
+   "dwell_given_s": 7.2,
+   "rule_min_s": 3.0,
+   "ok": true,
+   "note": "appear lt=0.0; v4: 8w @7.2s (rule 4.0s)"
+  },
+  {
+   "scene": "kissfft",
+   "block": "twiddle caption",
+   "text": "exact twiddle factors",
+   "words": 3,
+   "dwell_given_s": 4.5,
+   "rule_min_s": 2.0,
+   "ok": true,
+   "note": "appear lt=2.7; v4: 3w @7.2s (rule 2.0s)"
+  },
+  {
+   "scene": "kissfft",
+   "block": "stamp",
+   "text": "12 / 12 SETUPS CHECKED check-values recorded",
+   "words": 7,
+   "dwell_given_s": 3.6,
+   "rule_min_s": 3.5,
+   "ok": true,
+   "note": "appear lt=3.6; v4: 9w @0.9s (rule 4.5s)"
+  },
+  {
+   "scene": "kissfft",
+   "block": "spectrum caption",
+   "text": "spectrum, bin by bin",
+   "words": 4,
+   "dwell_given_s": 2.7,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": "appear lt=4.5; v4: 6w @7.2s (rule 3.0s)"
+  },
+  {
+   "scene": "tokens",
+   "block": "top line",
+   "text": "recounted at a73e97d",
+   "words": 3,
+   "dwell_given_s": 7.2,
+   "rule_min_s": 2.0,
+   "ok": true,
+   "note": "appear lt=0.0; v4: 10w @7.2s (rule 4.5s)"
+  },
+  {
+   "scene": "tokens",
+   "block": "big number",
+   "text": "1,196,128,770",
+   "words": 1,
+   "dwell_given_s": 4.8,
+   "rule_min_s": 1.5,
+   "ok": true,
+   "note": "counts up 0->2.4, then holds"
+  },
+  {
+   "scene": "tokens",
+   "block": "definition",
+   "text": "billed = input + output (93 rows)",
+   "words": 7,
+   "dwell_given_s": 6.6,
+   "rule_min_s": 3.5,
+   "ok": true,
+   "note": "appear lt=0.6; v4: 10w @7.2s (rule 4.5s)"
+  },
+  {
+   "scene": "tokens",
+   "block": "in/out lines",
+   "text": "input 1,190,490,305 + output 5,638,465 cached 1,165,653,139 sits inside input",
+   "words": 10,
+   "dwell_given_s": 6.0,
+   "rule_min_s": 4.5,
+   "ok": true,
+   "note": "appear lt=1.2; v4: 9w @7.2s (rule 4.5s)"
+  },
+  {
+   "scene": "tokens",
+   "block": "owner caption",
+   "text": "you typed ~1,928 tokens (amber, to scale)",
+   "words": 7,
+   "dwell_given_s": 5.4,
+   "rule_min_s": 3.5,
+   "ok": true,
+   "note": "appear lt=1.8; v4: 13w @7.2s (rule 6.0s)"
+  },
+  {
+   "scene": "tokens",
+   "block": "final lines",
+   "text": "~1 : 620,399 - 7,756 messages your share: 0.00016%",
+   "words": 9,
+   "dwell_given_s": 4.6,
+   "rule_min_s": 4.5,
+   "ok": true,
+   "note": "appear lt=2.6; v4: 19w @2.4s (rule 8.5s)"
+  },
+  {
+   "scene": "tokens",
+   "block": "zoom head",
+   "text": "x500,000 ZOOM YOU: ~1,928 tokens",
+   "words": 5,
+   "dwell_given_s": 4.0,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": "appear lt=3.2; v4: 8w @4.0s (rule 4.0s)"
+  },
+  {
+   "scene": "tokens",
+   "block": "zoom line 3",
+   "text": "40 prompts, 7,713 characters",
+   "words": 4,
+   "dwell_given_s": 3.0,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": "appear lt=4.2; v4: 8w @4.0s (rule 4.0s)"
+  },
+  {
+   "scene": "replay",
+   "block": "HUD title/key/src",
+   "text": "2 - AS IT HAPPENED next: IAS15 window NEWEST ^ OLDEST v src: git log @ a73e97d | green = merge | red loop = fix",
+   "words": 26,
+   "dwell_given_s": 48.0,
+   "rule_min_s": 11.0,
+   "ok": true,
+   "note": "persistent; commit ticker excluded (data readout, see report)"
+  },
+  {
+   "scene": "box",
+   "block": "box title",
+   "text": "3 - BOXED",
+   "words": 3,
+   "dwell_given_s": 7.0,
+   "rule_min_s": 2.0,
+   "ok": true,
+   "note": "visible until dim"
+  },
+  {
+   "scene": "box",
+   "block": "box sub",
+   "text": "every system packed away",
+   "words": 4,
+   "dwell_given_s": 7.0,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": "visible until dim"
+  },
+  {
+   "scene": "box",
+   "block": "box counter",
+   "text": "marbles in: 7 / 7",
+   "words": 5,
+   "dwell_given_s": 7.0,
+   "rule_min_s": 2.5,
+   "ok": true,
+   "note": "visible until dim"
+  },
+  {
+   "scene": "box",
+   "block": "box front name",
+   "text": "muse-softfloat",
+   "words": 1,
+   "dwell_given_s": 7.0,
+   "rule_min_s": 1.5,
+   "ok": true,
+   "note": "visible until dim"
+  },
+  {
+   "scene": "box",
+   "block": "marble labels (worst)",
+   "text": "lead / main",
+   "words": 3,
+   "dwell_given_s": 2.6,
+   "rule_min_s": 2.0,
+   "ok": true,
+   "note": "travel time"
+  },
+  {
+   "scene": "box",
+   "block": "stamp RECORD",
+   "text": "RECORD",
+   "words": 1,
+   "dwell_given_s": 2.0,
+   "rule_min_s": 1.5,
+   "ok": true,
+   "note": ">=2 s before dim; last stamp worst case"
+  },
+  {
+   "scene": "box",
+   "block": "stamp LEDGERS",
+   "text": "LEDGERS",
+   "words": 1,
+   "dwell_given_s": 2.0,
+   "rule_min_s": 1.5,
+   "ok": true,
+   "note": ">=2 s before dim; last stamp worst case"
+  },
+  {
+   "scene": "box",
+   "block": "stamp VECTORS",
+   "text": "VECTORS",
+   "words": 1,
+   "dwell_given_s": 2.0,
+   "rule_min_s": 1.5,
+   "ok": true,
+   "note": ">=2 s before dim; last stamp worst case"
+  },
+  {
+   "scene": "box",
+   "block": "stamp METRICS",
+   "text": "METRICS",
+   "words": 1,
+   "dwell_given_s": 2.0,
+   "rule_min_s": 1.5,
+   "ok": true,
+   "note": ">=2 s before dim; last stamp worst case"
+  }
+ ],
+ "violations": [
+  {
+   "scene": "replay",
+   "block": "sendback rank 7",
+   "text": "SENDBACK FIX 4cdb912 error-value branch fixed",
+   "words": 6,
+   "dwell_given_s": 1.78,
+   "rule_min_s": 3.0,
+   "ok": false,
+   "note": "visible apex->rank+18 (readable then dimmed, gate overlap removed); v4: 18w @0.48s (rule 8.0s)"
+  },
+  {
+   "scene": "replay",
+   "block": "sendback badge rank 7",
+   "text": "FIXED - REJOINS",
+   "words": 3,
+   "dwell_given_s": 1.78,
+   "rule_min_s": 2.0,
+   "ok": false,
+   "note": ""
+  },
+  {
+   "scene": "replay",
+   "block": "sendback rank 12",
+   "text": "TININESS FIX RETURNS both rechecked: READY",
+   "words": 6,
+   "dwell_given_s": 1.7,
+   "rule_min_s": 3.0,
+   "ok": false,
+   "note": "visible apex->rank+18 (readable then dimmed, gate overlap removed); v4: 27w @0.42s (rule 11.5s)"
+  },
+  {
+   "scene": "replay",
+   "block": "sendback badge rank 12",
+   "text": "FIXED - REJOINS",
+   "words": 3,
+   "dwell_given_s": 1.7,
+   "rule_min_s": 2.0,
+   "ok": false,
+   "note": ""
+  },
+  {
+   "scene": "replay",
+   "block": "sendback rank 99",
+   "text": "DEFECT FIX 048aa29 exp2 edges hardened",
+   "words": 6,
+   "dwell_given_s": 1.02,
+   "rule_min_s": 3.0,
+   "ok": false,
+   "note": "visible apex->rank+18 (readable then dimmed, gate overlap removed); v4: 19w @0.23s (rule 8.5s)"
+  },
+  {
+   "scene": "replay",
+   "block": "sendback badge rank 99",
+   "text": "FIXED - REJOINS",
+   "words": 3,
+   "dwell_given_s": 1.02,
+   "rule_min_s": 2.0,
+   "ok": false,
+   "note": ""
+  },
+  {
+   "scene": "replay",
+   "block": "sendback rank 114",
+   "text": "VERIFIER SENDBACK a41f026 now 64 characters",
+   "words": 6,
+   "dwell_given_s": 1.59,
+   "rule_min_s": 3.0,
+   "ok": false,
+   "note": "visible apex->rank+18 (readable then dimmed, gate overlap removed); v4: 26w @0.27s (rule 11.0s)"
+  },
+  {
+   "scene": "replay",
+   "block": "sendback badge rank 114",
+   "text": "FIXED - REJOINS",
+   "words": 3,
+   "dwell_given_s": 1.59,
+   "rule_min_s": 2.0,
+   "ok": false,
+   "note": ""
+  },
+  {
+   "scene": "replay",
+   "block": "branch labels x25 (worst lane)",
+   "text": "wave5-alg2",
+   "words": 1,
+   "dwell_given_s": 1.11,
+   "rule_min_s": 1.5,
+   "ok": false,
+   "note": "1-token data labels; dwell = lane label window"
+  }
+ ]
+}

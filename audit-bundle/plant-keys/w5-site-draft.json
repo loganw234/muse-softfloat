@@ -1,0 +1,35 @@
+{
+  "real_tip": "cd0970032fa1f4c7ada0f20d5721c7d35564fa6d",
+  "plants": [
+    {
+      "file": "site/data.json",
+      "old": " \"plants\": {\n  \"caught\": 75,",
+      "new": " \"plants\": {\n  \"caught\": 80,",
+      "shape": "plant score inflated to perfect"
+    },
+    {
+      "file": "site/app.js",
+      "old": "[0x08, \"underflow\"], [0x10, \"inexact\"],",
+      "new": "[0x08, \"inexact\"], [0x10, \"underflow\"],",
+      "shape": "underflow and inexact flag labels swapped"
+    },
+    {
+      "file": "site/index.html",
+      "old": "    <dd>KissFFT 131.2.0 (BSD-3, scratch only) with one named change: its setup phases hand exact",
+      "new": "    <dd>KissFFT 131.2.0 (BSD-3, scratch only), unmodified: its setup phases hand exact",
+      "shape": "Fork B patch erased toward unmodified-KissFFT claim"
+    },
+    {
+      "file": "README.md",
+      "old": "**Live demo:** [loganw234.github.io/muse-softfloat](https://loganw234.github.io/muse-softfloat/)",
+      "new": "**Live demo:** [loganw234.github.io/muse-softfloat](https://loganw234.github.io/muse_softfloat/)",
+      "shape": "Pages URL path wrong (underscore project name)"
+    },
+    {
+      "file": "site/index.html",
+      "old": "  Still in progress, and labelled as such wherever they appear: the\n  <code>exp2</code>/<code>log2</code> pairs and Clause&nbsp;9.5 augmented arithmetic.",
+      "new": "  Now also landed: the\n  <code>exp2</code>/<code>log2</code> pairs and Clause&nbsp;9.5 augmented arithmetic.",
+      "shape": "in-progress steps claimed landed"
+    }
+  ]
+}

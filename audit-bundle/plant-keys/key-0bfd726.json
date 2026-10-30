@@ -1,0 +1,36 @@
+{
+  "real_tip": "81b76357b357b802ebca9ba39a1e1d9005d5f485",
+  "copy_commit": "0bfd726d76d9f40ea2281ded013f4c4f4dc567c3",
+  "plants": [
+    {
+      "file": "src/msf_math.c",
+      "old": "        if (is_cos) {\n            return msf_pack_generic(fp, 0, 0, msf_u128_from_u64(0u), 0,\n                                    rm, flags);",
+      "new": "        if (is_cos) {\n            return msf_pack_generic(fp, d.sign, 0, msf_u128_from_u64(0u), 0,\n                                    rm, flags);",
+      "shape": "cosPi half-integer zero takes the sign of x"
+    },
+    {
+      "file": "src/msf_math.c",
+      "old": "        result_sign = d.sign ^ parity ^ r_neg;",
+      "new": "        result_sign = d.sign ^ parity;",
+      "shape": "nearest-integer remainder sign dropped from sinPi result sign"
+    },
+    {
+      "file": "src/msf_trig_tables.h",
+      "old": "static const int MSF_TRIG_EK_EXP[3] = { 146, 242, 370 };",
+      "new": "static const int MSF_TRIG_EK_EXP[3] = { 200, 242, 370 };",
+      "shape": "stage-1 error interval narrowed far inside its proven bound"
+    },
+    {
+      "file": "tools/gen_trig_tables.py",
+      "old": "    sin_entries = [floor_entry(Fraction(1, math.factorial(2 * k + 1)))",
+      "new": "    sin_entries = [floor_entry(Fraction(1, math.factorial(2 * k + 3)))",
+      "shape": "sine coefficient generator uses the wrong factorial"
+    },
+    {
+      "file": "tests/vectors/trig-f64.vec",
+      "old": "msf64_sin_pi te 0 -> 0 00 mpfr640-trig:specials",
+      "new": "msf64_sin_pi te 0 -> 0 10 mpfr640-trig:specials",
+      "shape": "one committed special-case flag expectation corrupted"
+    }
+  ]
+}

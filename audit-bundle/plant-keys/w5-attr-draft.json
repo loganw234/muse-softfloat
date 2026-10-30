@@ -1,0 +1,35 @@
+{
+  "real_tip": "8bfc8776929eb123bf078da76ce2676cbb9c4e7a",
+  "plants": [
+    {
+      "file": "src/msf_string.c",
+      "old": "    case MSF_IROUND_TIES_TO_AWAY:\n        return gt_half || eq_half;",
+      "new": "    case MSF_IROUND_TIES_TO_AWAY:\n        return gt_half;",
+      "shape": "decimal ties-to-away drops exact ties"
+    },
+    {
+      "file": "tools/gen_tables.py",
+      "old": "MSF_ROUND_TIES_TO_AWAY = 4",
+      "new": "MSF_ROUND_TIES_TO_AWAY = 5",
+      "shape": "public attribute value no longer matches internal mode 4"
+    },
+    {
+      "file": "tests/gen_vectors_str.py",
+      "old": "    elif rm == \"ta\":\n        inc = 2 * r >= den",
+      "new": "    elif rm == \"ta\":\n        inc = 2 * r > den",
+      "shape": "string reference ties-to-away arm drops ties"
+    },
+    {
+      "file": "tests/vectors/trig-f64.vec",
+      "old": "msf64_sin_pi ta 0 -> 0 00 mpfr640-trig:specials-ta-relabel",
+      "new": "msf64_sin_pi ta 0 -> 0 01 mpfr640-trig:specials-ta-relabel",
+      "shape": "one relabeled trig flag expectation corrupted"
+    },
+    {
+      "file": "tools/run.sh",
+      "old": "[ $? -ne 0 ] && grep -q 'VERDICT: FAIL' \"$C/wrongrm-ta.log\" && control_ok wrong-rounding-mode-te-ta || control_bad wrong-rounding-mode-te-ta",
+      "new": "[ $? -ne 0 ] && grep -q 'VERDICT: FAIL' \"$C/wrongrm-ta.log\" && control_ok wrong-rounding-mode-te-ta || control_ok wrong-rounding-mode-te-ta",
+      "shape": "te/ta wrong-mode control can no longer fail"
+    }
+  ]
+}

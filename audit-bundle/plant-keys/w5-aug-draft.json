@@ -1,0 +1,35 @@
+{
+  "real_tip": "37414532b82262dbdfdc54c67a7dcf49a5744194",
+  "plants": [
+    {
+      "file": "src/msf_roundpack.c",
+      "old": "    case MSF_IROUND_RTTZ:\n        /* strictly above the midpoint only; an exact tie\n         * keeps the candidate, which is the smaller\n         * magnitude of the two neighbours */\n        return guard && (round_bit || stick);",
+      "new": "    case MSF_IROUND_RTTZ:\n        /* strictly above the midpoint only; an exact tie\n         * keeps the candidate, which is the smaller\n         * magnitude of the two neighbours */\n        return guard && (round_bit || stick || (cand & 1u));",
+      "shape": "RTTZ arm rounds ties to even"
+    },
+    {
+      "file": "src/msf_aug.c",
+      "old": "    *tail = aug_pack_tail(fp, r.sign, r.exp, r.mag);\n    *flags |= MSF_FLAG_UNDERFLOW | MSF_FLAG_INEXACT;",
+      "new": "    *tail = aug_pack_tail(fp, r.sign, r.exp, r.mag);\n    *flags |= MSF_FLAG_INEXACT;",
+      "shape": "underflow dropped in the one inexact mul cell"
+    },
+    {
+      "file": "src/msf_aug.c",
+      "old": "        int zs = da->sign && eff_b;",
+      "new": "        int zs = da->sign || eff_b;",
+      "shape": "exact-zero sum sign takes either operand"
+    },
+    {
+      "file": "tables/operations.tsv",
+      "old": "augmented_mul\taugmentedMultiplication\t9.5\taug_pair\tfixed\tyes",
+      "new": "augmented_mul\taugmentedMultiplication\t9.5\taug_pair\tattr\tyes",
+      "shape": "caller rounding attribute claimed for a fixed-rounding op"
+    },
+    {
+      "file": "tests/vectors/aug-f64.vec",
+      "old": "msf64_augmented_add - 3ff0000000000000 0000000000000001 -> 3ff0000000000000 0000000000000001 00 exact-py-t2:augmented-directed",
+      "new": "msf64_augmented_add - 3ff0000000000000 0000000000000001 -> 3ff0000000000000 0000000000000001 18 exact-py-t2:augmented-directed",
+      "shape": "R1 flags fabricated on an exact tiny residual"
+    }
+  ]
+}

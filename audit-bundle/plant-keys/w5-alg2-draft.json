@@ -1,0 +1,35 @@
+{
+  "real_tip": "e858498242967f2ef4713e96521253dd6c7a088d",
+  "plants": [
+    {
+      "file": "src/msf_alg.c",
+      "old": "        return 0u; /* hypot(+-0, +-0) = +0 */",
+      "new": "        return da.sign ? fp->sign_mask : 0u; /* hypot(+-0, +-0) = +0 */",
+      "shape": "hypot(-0,-0) delivers -0 instead of +0"
+    },
+    {
+      "file": "src/msf_alg.c",
+      "old": "    rem = msf_u128_sub(rad, msf_u128_mul_u64_u64(q, q), 0);\n    sticky = tail || pdrop || !msf_u128_is_zero(rem);",
+      "new": "    rem = msf_u128_sub(rad, msf_u128_mul_u64_u64(q, q), 0);\n    sticky = !msf_u128_is_zero(rem);",
+      "shape": "tail and parity sticky dropped from the pack input"
+    },
+    {
+      "file": "tests/gen_vectors_alg.py",
+      "old": "        if val_d * val_d != S:",
+      "new": "        if val_d * val_d > S:",
+      "shape": "exact decider drops inexact below the midpoint"
+    },
+    {
+      "file": "tables/implemented.tsv",
+      "old": "msf16_hypot\t5\nmsf32_hypot\t5\nmsf64_hypot\t5",
+      "new": "msf16_hypot\t5\nmsf64_hypot\t5",
+      "shape": "binary32 hypot silently unimplemented (parity break)"
+    },
+    {
+      "file": "tests/vectors/alg-f16.vec",
+      "old": "msf16_hypot te 0 8000 -> 0 00 mpfr-alg:specials",
+      "new": "msf16_hypot te 0 8000 -> 8000 00 mpfr-alg:specials",
+      "shape": "one specials expectation sign-flipped"
+    }
+  ]
+}
