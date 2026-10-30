@@ -22,7 +22,10 @@ cd "$(dirname "$0")/.." || exit 9
 BUDGET="${1:-}"
 case "$BUDGET" in smoke|standard|board|bench) ;; *) echo "usage: tools/run.sh smoke|standard|board|bench"; exit 2;; esac
 
-export PATH="/c/msys64/mingw64/bin:/c/msys64/usr/bin:$PATH"
+# MSYS2 toolchain first on the Windows host; those directories do
+# not exist on Linux (CI), where the compilers come from the
+# system PATH, so only prepend when they are actually there.
+[ -d /c/msys64/mingw64/bin ] && export PATH="/c/msys64/mingw64/bin:/c/msys64/usr/bin:$PATH"
 BUILD=build/$BUDGET
 mkdir -p "$BUILD/tmp"
 export TMPDIR=$PWD/$BUILD/tmp
@@ -30,6 +33,10 @@ export TMP="$(cygpath -w "$TMPDIR" 2>/dev/null || echo "$TMPDIR")"
 export TEMP="$TMP"
 PY="${MSF_PYTHON:-}"
 [ -z "$PY" ] && [ -x ../.venv/Scripts/python.exe ] && PY=../.venv/Scripts/python.exe
+# Ubuntu provides python3, not python (CI also pins MSF_PYTHON);
+# only reached when the two resolutions above both missed, so the
+# Windows host resolution is unchanged.
+[ -z "$PY" ] && ! command -v python >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1 && PY=python3
 [ -z "$PY" ] && PY=python
 HOST_CC="${MSF_HOST_CC:-gcc}"
 ARM_CC="${MSF_ARM_CC:-arm-none-eabi-gcc}"
@@ -116,7 +123,11 @@ write_manifest() { # $1 = manifest file; rest = files
 
 write_expect_counts() { # $1 = out file; rest = vector files
     local out="$1"; shift
-    awk '!/^#/ && NF>0 {print $NF}' "$@" | sort | uniq -c | awk '{print $2, $1}' > "$out"
+    # Provenance tag printed CR-stripped (on a copy): some committed
+    # vector files are CRLF and Linux awk leaves the CR on $NF, which
+    # would embed CRs in the tags here and split a tag shared by
+    # CRLF and LF files into two count groups.
+    awk '!/^#/ && NF>0 {t=$NF; if (substr(t,length(t))=="\r") t=substr(t,1,length(t)-1); print t}' "$@" | sort | uniq -c | awk '{print $2, $1}' > "$out"
     echo "expect-counts: $out ($(wc -l < "$out") provenance tags)"
 }
 
@@ -167,8 +178,12 @@ controls() {
         tests/vectors/encodings-f16.vec > "$C/corrupt.vec"
     "$R" verify "$C/corrupt.vec" > "$C/corrupt.log" 2>&1
     [ $? -ne 0 ] && grep -q 'VERDICT: FAIL' "$C/corrupt.log" && control_ok corrupted-expected-bit || control_bad corrupted-expected-bit
-    # 2. wrong NaN polarity expectation: swap signaling<->quiet class ids
-    awk 'BEGIN{d=0} /^msf32_class/ && !d && $NF=="exact-py:directed-encodings" {for(i=1;i<=NF;i++) if($i=="->" && ($(i+1)=="0"||$(i+1)=="1")) {$(i+1)=($(i+1)=="0"?"1":"0"); d=1}} {print}' \
+    # 2. wrong NaN polarity expectation: swap signaling<->quiet class ids.
+    # Last field compared CR-stripped (on a copy): encodings-f32.vec
+    # is CRLF and Linux awk leaves the CR on $NF, so the bare compare
+    # matched nothing there and the mutant passed (Actions run
+    # 41052508849); MSYS text mode masked it on Windows.
+    awk 'BEGIN{d=0} {t=$NF; if (substr(t,length(t))=="\r") t=substr(t,1,length(t)-1)} /^msf32_class/ && !d && t=="exact-py:directed-encodings" {for(i=1;i<=NF;i++) if($i=="->" && ($(i+1)=="0"||$(i+1)=="1")) {$(i+1)=($(i+1)=="0"?"1":"0"); d=1}} {print}' \
         tests/vectors/encodings-f32.vec > "$C/nanpol.vec"
     "$R" verify "$C/nanpol.vec" > "$C/nanpol.log" 2>&1
     [ $? -ne 0 ] && control_ok wrong-nan-expectation || control_bad wrong-nan-expectation

@@ -1,0 +1,87 @@
+name: Library CI (Linux gate)
+
+# Runs the library gate (tools/run.sh) on Ubuntu so the verdicts
+# are not specific to the owner's Windows host. smoke is the fast
+# budget; standard is the merge gate (smoke plus the exhaustive
+# binary16 sweeps and the seeded pack64 sweep). The gate prints
+# its full inventory before any verdict; the build logs are kept
+# as artifacts for every run, green or red. The board and bench
+# budgets stay lead-run on the Windows host (physical RP2040) and
+# are not part of CI.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+      - name: Install toolchains
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc libc6-dev python3 gcc-arm-none-eabi
+      - name: Toolchain inventory
+        run: |
+          set -eo pipefail
+          gcc --version | head -n 1
+          gcc -dumpmachine
+          python3 --version
+          arm-none-eabi-gcc --version | head -n 1
+          arm-none-eabi-nm --version | head -n 1
+      - name: Run smoke gate
+        run: MSF_PYTHON=python3 bash tools/run.sh smoke
+      - name: Upload smoke logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-logs
+          path: |
+            build/smoke/*.log
+            build/smoke/*.txt
+            build/smoke/*.out
+            build/smoke/controls/*.log
+          if-no-files-found: warn
+
+  standard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+      - name: Install toolchains
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc libc6-dev python3 gcc-arm-none-eabi
+      - name: Toolchain inventory
+        run: |
+          set -eo pipefail
+          gcc --version | head -n 1
+          gcc -dumpmachine
+          python3 --version
+          arm-none-eabi-gcc --version | head -n 1
+          arm-none-eabi-nm --version | head -n 1
+      - name: Run standard gate (merge gate)
+        run: MSF_PYTHON=python3 bash tools/run.sh standard
+      - name: Upload standard logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: standard-logs
+          path: |
+            build/standard/*.log
+            build/standard/*.txt
+            build/standard/*.out
+            build/standard/controls/*.log
+          if-no-files-found: warn
