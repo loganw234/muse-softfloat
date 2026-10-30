@@ -93,18 +93,20 @@ STUDY_LABELS = {e["id"] for e in LANE_EPS if e["role"] == "surveyor" and (
 
 # ---------- v5 text/pacing: popup copy + THE RULE ----------
 # Popup copy overrides history.json node_events title/lines on screen
-# only (history.json stays the shared v1-v4 data file; its full
-# per-popup sources live in polish5-report.md now). Same seven real
-# examples, same numbers, plain register: title + <=2 short lines.
+# only (history.json stays the shared v1-v4 data file). w6-popups:
+# general descriptions instead of one real example each (the replay
+# that follows shows the specifics), each card carrying its project
+# total; plain register: title + <=2 short lines.
 POPUP5 = [
-    ("PARCEL", ["173 binary32 routines", "one file: msf32.c"]),
-    ("ESCALATION", ["tiny results packed wrong", "fixes: 53acb1a / b37fb12"]),
-    ("VERIFIER", ["SHA-256 too short", "56 characters, needs 64"]),
-    ("PLANTS", ["9/10 planted bugs caught", "one miss, harmless"]),
-    ("GATES", ["52,168 quick + 1,117,504 standard tests",
-               "chip matches computer exactly"]),
-    ("STUDY", ["try in scratch first", "two studies wait ahead"]),
-    ("LEAD MERGE", ["finished work joins main", "first merge: 2843792"]),
+    ("PARCELS", ["work is divided", "20 parcels total"]),
+    ("ESCALATIONS", ["questions go up to lead", "3 escalations total"]),
+    ("VERIFIERS", ["recheck every parcel independently",
+                   "36 verifiers total"]),
+    ("PLANTS", ["traps test the checkers", "150 planted bugs"]),
+    ("GATES", ["nothing merges unless all green",
+               "411,213 smoke + 1,117,504 standard"]),
+    ("STUDIES", ["scout the ground before building", "35 studies total"]),
+    ("MAIN", ["finished work joins here", "25 merges to main"]),
 ]
 # One short source tag per scene (full sourcing in the report).
 SRC_CHASE = "src: project RECORD + git log"
