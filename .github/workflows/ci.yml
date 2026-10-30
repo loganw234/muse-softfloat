@@ -7,7 +7,11 @@ name: Library CI (Linux gate)
 # its full inventory before any verdict; the build logs are kept
 # as artifacts for every run, green or red. The board and bench
 # budgets stay lead-run on the Windows host (physical RP2040) and
-# are not part of CI.
+# are not part of CI. The sanitize job runs the full flavour
+# (-fsanitize=address,undefined), which the Windows host cannot
+# link today; there the same budget runs the trap flavour and
+# full SKIPs-BY-NAME. Its canaries run first in both flavours, so
+# a green sanitize job proves the instrumentation was live.
 
 on:
   push:
@@ -84,4 +88,37 @@ jobs:
             build/standard/*.txt
             build/standard/*.out
             build/standard/controls/*.log
+          if-no-files-found: warn
+
+  sanitize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+      - name: Install toolchains
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc libc6-dev python3 gcc-arm-none-eabi
+      - name: Toolchain inventory
+        run: |
+          set -eo pipefail
+          gcc --version | head -n 1
+          gcc -dumpmachine
+          python3 --version
+          arm-none-eabi-gcc --version | head -n 1
+          arm-none-eabi-nm --version | head -n 1
+      - name: Run sanitize gate (full flavour, ASan+UBSan)
+        run: MSF_PYTHON=python3 MSF_SANITIZE=full bash tools/run.sh sanitize
+      - name: Upload sanitize logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sanitize-logs
+          path: |
+            build/sanitize-full/*.log
+            build/sanitize-full/*.txt
+            build/sanitize-full/*.out
+            build/sanitize-full/canaries/*.log
+            build/sanitize-full/perfile/*.log
           if-no-files-found: warn

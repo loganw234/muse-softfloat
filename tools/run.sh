@@ -2,7 +2,7 @@
 # tools/run.sh - the one front door (SF-0 Section 5.1). Run from the
 # repository root under Git Bash on this host:
 #
-#   tools/run.sh smoke|standard|board|bench
+#   tools/run.sh smoke|standard|board|bench|sanitize
 #
 #   smoke    minutes: drift check, host+target builds, symbol/type
 #            scans, unit tests, committed vector sets, the P0 negative
@@ -13,6 +13,14 @@
 #   board    lead-run under <ledger>/board.lock: delegates to
 #            board/run_board.sh (same sampled vectors on the RP2040)
 #   bench    never a correctness verdict: board/run_bench.sh
+#   sanitize ~44-56 s measured 2026-10-30 on this host (trap
+#            flavour): host runners under sanitizer instrumentation
+#            (MSF_SANITIZE=trap|full, default trap); canaries first
+#            (deliberate UB watched trapping/reporting, so a green
+#            run proves instrumentation was live), then unit, the
+#            committed vectors per file, the standard extras, and
+#            the augmented pool. A flavour whose runtime is absent
+#            SKIPs-BY-NAME with no PASS verdict. See sanitize().
 #
 # Every budget prints its inventory BEFORE results: compilers, oracle
 # and semantics choices, what ran by category, vectors by provenance,
@@ -20,13 +28,42 @@
 set -u
 cd "$(dirname "$0")/.." || exit 9
 BUDGET="${1:-}"
-case "$BUDGET" in smoke|standard|board|bench) ;; *) echo "usage: tools/run.sh smoke|standard|board|bench"; exit 2;; esac
+case "$BUDGET" in smoke|standard|board|bench|sanitize) ;; *) echo "usage: tools/run.sh smoke|standard|board|bench|sanitize"; exit 2;; esac
+
+# Sanitizer flavour (sanitize budget only; study-w6sanitize Sec. 2).
+# MSF_SANITIZE unset = today's behaviour byte-for-byte for every
+# other budget. It is refused with any other budget so it can never
+# silently re-flavour the merge gate. trap needs no sanitizer
+# runtime library (the only flavour that links on this Windows
+# host); full needs -lasan/-lubsan (Linux/CI) and SKIPs-BY-NAME
+# where that runtime is absent.
+SAN_FLAVOUR=""
+SANFLAGS=""
+SAN_ID_SUFFIX=""
+SAN_SKIP=0
+if [ -n "${MSF_SANITIZE:-}" ] && [ "$BUDGET" != sanitize ]; then
+    echo "MSF_SANITIZE=$MSF_SANITIZE REFUSED: only valid with the sanitize budget (other budgets are never re-flavoured)"
+    exit 2
+fi
+if [ "$BUDGET" = sanitize ]; then
+    SAN_FLAVOUR="${MSF_SANITIZE:-trap}"
+    case "$SAN_FLAVOUR" in
+        trap) SANFLAGS="-fsanitize=undefined -fsanitize-undefined-trap-on-error -fno-sanitize-recover=all"; SAN_ID_SUFFIX="-trapubsan" ;;
+        full) SANFLAGS="-fsanitize=address,undefined -fno-sanitize-recover=all"; SAN_ID_SUFFIX="-asanubsan"
+              export ASAN_OPTIONS="${ASAN_OPTIONS:-halt_on_error=1}"
+              export UBSAN_OPTIONS="${UBSAN_OPTIONS:-halt_on_error=1:print_stacktrace=1}" ;;
+        *) echo "MSF_SANITIZE=$SAN_FLAVOUR REFUSED: need trap or full"; exit 2 ;;
+    esac
+fi
 
 # MSYS2 toolchain first on the Windows host; those directories do
 # not exist on Linux (CI), where the compilers come from the
 # system PATH, so only prepend when they are actually there.
 [ -d /c/msys64/mingw64/bin ] && export PATH="/c/msys64/mingw64/bin:/c/msys64/usr/bin:$PATH"
 BUILD=build/$BUDGET
+# Sanitized artifacts are namespaced per flavour so a sanitized
+# binary can never be mistaken for a gate binary.
+[ "$BUDGET" = sanitize ] && BUILD=build/sanitize-$SAN_FLAVOUR
 mkdir -p "$BUILD/tmp"
 export TMPDIR=$PWD/$BUILD/tmp
 export TMP="$(cygpath -w "$TMPDIR" 2>/dev/null || echo "$TMPDIR")"
@@ -77,7 +114,10 @@ drift_check() {
 
 build_host() { # $1 = output exe, $2.. = extra flags
     local out="$1"; shift
-    local id="host-$($HOST_CC -dumpmachine)-gcc$($HOST_CC -dumpversion)"
+    # SAN_ID_SUFFIX is empty outside the sanitize budget, so gate
+    # build ids are unchanged; inside it, the flavour rides in the
+    # id a sanitized binary reports.
+    local id="host-$($HOST_CC -dumpmachine)-gcc$($HOST_CC -dumpversion)$SAN_ID_SUFFIX"
     $HOST_CC $CFLAGS "$@" -DMSF_BUILD_ID="\"$id\"" $SRC tests/runner.c tests/sha256.c -o "$out" > "$BUILD/build.log" 2>&1 \
         || { cat "$BUILD/build.log"; fail "host build failed"; }
     echo "built $out ($id)"
@@ -277,6 +317,124 @@ standard() {
     grep -E '^(aug_exhaustive|  kind|VERDICT)' "$BUILD/aug-pool.log"
 }
 
+# ---- sanitize budget (study-w6sanitize S1+S3) ----
+# Instrumentation enters only through build_host's extra flags and
+# the aug harness build below: never the check_host_compiler probe
+# (it certifies the plain compiler) and never symbol_scan's ARM
+# objects. Any real finding traps (trap flavour: illegal
+# instruction, no diagnostics) or reports+halts (full flavour) with
+# a nonzero exit, which fails the budget through the same || fail
+# wiring as every other set - nothing here may print PASS over a
+# finding. A real finding is a STOP for whoever runs this: record a
+# minimal repro; the fix is its own briefed work, not this budget.
+CAN_FAIL=0
+canary_must_catch() { # $1 = name, $2 = source, $3.. = run args
+    local name="$1" src="$2" rc=0; shift 2
+    $HOST_CC $CFLAGS $SANFLAGS "$src" -o "$BUILD/canaries/$name.exe" > "$BUILD/canaries/$name-build.log" 2>&1 \
+        || { cat "$BUILD/canaries/$name-build.log"; fail "sanitize canary $name build failed"; }
+    "$BUILD/canaries/$name.exe" "$@" > "$BUILD/canaries/$name.log" 2>&1; rc=$?
+    if [ $rc -ne 0 ]; then
+        echo "canary $name: caught as required (exit $rc) - instrumentation live"
+    else
+        echo "canary $name: NOT CAUGHT (exit 0)"; cat "$BUILD/canaries/$name.log"; CAN_FAIL=1
+    fi
+}
+
+sanitize_canaries() {
+    local D="$BUILD/canaries" rc=0
+    mkdir -p "$D"
+    # Runtime probe: the clean canary must compile, link, and exit
+    # 0. A link failure naming the sanitizer runtime is the named
+    # absence (e.g. full on this Windows host: cannot find -lasan)
+    # and SKIPs-BY-NAME; any other failure is a broken build.
+    if ! $HOST_CC $CFLAGS $SANFLAGS tests/sanitize_canary_clean.c -o "$D/clean.exe" > "$D/clean-build.log" 2>&1; then
+        if grep -Eq 'cannot find -l(asan|ubsan)|lib(asan|ubsan)' "$D/clean-build.log"; then
+            echo "sanitize flavour $SAN_FLAVOUR: SKIP-BY-NAME sanitizer runtime absent for $HOST_CC ($($HOST_CC -dumpmachine 2>/dev/null)) - clean canary would not link:"
+            cat "$D/clean-build.log"
+            echo "sanitize: SKIP-BY-NAME flavour=$SAN_FLAVOUR flags=[$SANFLAGS] - no sets run, zero findings NOT claimed, no PASS verdict for this flavour"
+            SAN_SKIP=1
+            return 0
+        fi
+        cat "$D/clean-build.log"
+        fail "sanitize canary clean build failed (not a named runtime absence)"
+    fi
+    "$D/clean.exe" > "$D/clean.log" 2>&1; rc=$?
+    [ $rc -eq 0 ] && grep -q 'CLEAN-OK' "$D/clean.log" \
+        || { cat "$D/clean.log"; fail "sanitize canary clean did not exit 0 (exit $rc) - instrumentation broken, not a library finding"; }
+    echo "canary clean: exit 0 as required ($(cat "$D/clean.log"))"
+    canary_must_catch ub tests/sanitize_canary_ub.c
+    canary_must_catch ub_shift tests/sanitize_canary_ub_shift.c 40
+    canary_must_catch heap tests/sanitize_canary_heap.c 64
+    if [ "$SAN_FLAVOUR" = full ]; then
+        canary_must_catch heap_far tests/sanitize_canary_heap_far.c 8 64
+    else
+        $HOST_CC $CFLAGS $SANFLAGS tests/sanitize_canary_heap_far.c -o "$D/heap_far.exe" > "$D/heap_far-build.log" 2>&1 \
+            || { cat "$D/heap_far-build.log"; fail "sanitize canary heap_far build failed"; }
+        "$D/heap_far.exe" 8 64 > "$D/heap_far.log" 2>&1; rc=$?
+        if [ $rc -eq 0 ]; then
+            echo "canary heap_far: NOT CAUGHT under trap (exit 0) - known boundary, stated not hidden: object size lost across a call; trap has no redzones, no use-after-free or leak detection, and prints no diagnostics"
+        else
+            echo "canary heap_far: caught under trap (exit $rc) - beyond the study's measured boundary on this compiler"
+        fi
+    fi
+    [ "$CAN_FAIL" -eq 0 ] || fail "a sanitize canary was not caught - instrumentation not live, no set result would mean anything"
+    echo "sanitize canaries: all required violations caught under flavour $SAN_FLAVOUR"
+}
+
+sanitize() {
+    echo "sanitizer flavour: $SAN_FLAVOUR (MSF_SANITIZE=${MSF_SANITIZE:-<unset, default trap>}) flags: $SANFLAGS"
+    echo "sanitizer seam: host runners only (build_host + aug harness); compiler probe stays plain; ARM objects never instrumented"
+    echo "sanitizer sets: canaries; unit; committed VECS per-file then all-files (manifest+expect-counts); standard extras (f16-exhaustive + pack-sweep); aug pool; corrupt-vector control on the sanitized twin"
+    echo "not in this budget: drift/type/symbol scans and the smoke negative controls (smoke/standard own those); board/ARM execution"
+    if [ "$SAN_FLAVOUR" = trap ]; then
+        echo "trap boundary (study-w6sanitize 1.2): full undefined group + known-object-size OOB only; no redzones/use-after-free/leak detection; a violation is a bare trap with no diagnostics - the per-file verify below is what names the file"
+    else
+        echo "full options: ASAN_OPTIONS=$ASAN_OPTIONS UBSAN_OPTIONS=$UBSAN_OPTIONS (halt-on-error, so recoverable UBSan cannot print and exit 0)"
+    fi
+    check_host_compiler "$HOST_CC" || fail "host compiler refused"
+    sanitize_canaries
+    [ "$SAN_SKIP" -eq 1 ] && return 0
+    build_host "$BUILD/msf_runner.exe" $SANFLAGS
+    "$BUILD/msf_runner.exe" unit > "$BUILD/unit.log" 2>&1 \
+        || { cat "$BUILD/unit.log"; fail "sanitized unit tests (a trap/report here is a finding: STOP, minimal repro, no fix inside this budget)"; }
+    grep -E 'unit (sha256|flags|versions|wide)|unit:' "$BUILD/unit.log"
+    write_manifest "$BUILD/manifest.txt" $SRC tests/runner.c tests/sha256.c include/muse_softfloat.h src/msf_formats.h tests/msf_dispatch.h $VECS
+    write_expect_counts "$BUILD/expect.txt" $VECS
+    mkdir -p "$BUILD/perfile"
+    local f n=0 log
+    for f in $VECS; do
+        n=$((n+1))
+        log="$BUILD/perfile/$(basename "$f" .vec).log"
+        "$BUILD/msf_runner.exe" verify "$f" > "$log" 2>&1 \
+            || { echo "sanitize: nonzero in $f (sanitizer trap/report or vector failure) - STOP: minimal repro from $log, no library fix inside this budget"; tail -30 "$log"; fail "sanitized verify: $f"; }
+    done
+    echo "sanitized committed vectors: $n files verified per-file, zero sanitizer findings (per-file logs in $BUILD/perfile/)"
+    "$BUILD/msf_runner.exe" verify --manifest "$BUILD/manifest.txt" --expect-counts "$BUILD/expect.txt" $VECS > "$BUILD/verify.log" 2>&1 \
+        || { tail -30 "$BUILD/verify.log"; fail "sanitized all-files verify"; }
+    grep -E '^(total|VERDICT|manifest)' "$BUILD/verify.log"
+    $PY tests/gen_vectors.py f16-exhaustive "$BUILD/f16-exhaustive.vec" > "$BUILD/gen-f16.log" 2>&1 || fail "f16 exhaustive generation"
+    $PY tests/gen_vectors.py pack-sweep "$BUILD/pack-sweep.vec" 200000 > "$BUILD/gen-sweep.log" 2>&1 || fail "pack sweep generation"
+    grep -h . "$BUILD/gen-f16.log" "$BUILD/gen-sweep.log" | grep -E 'wrote|dropped'
+    "$BUILD/msf_runner.exe" verify "$BUILD/f16-exhaustive.vec" "$BUILD/pack-sweep.vec" > "$BUILD/verify-extras.log" 2>&1 \
+        || { tail -30 "$BUILD/verify-extras.log"; fail "sanitized standard-extra verify"; }
+    grep -E '^(total|VERDICT)' "$BUILD/verify-extras.log"
+    $HOST_CC -std=c11 -O2 -Wall -Wextra -Werror -ffp-contract=off $SANFLAGS $SRC tests/aug_exhaustive.c -o "$BUILD/aug_exhaustive.exe" > "$BUILD/build-aug.log" 2>&1 \
+        || { cat "$BUILD/build-aug.log"; fail "sanitized aug harness build"; }
+    echo "built $BUILD/aug_exhaustive.exe (sanitized, flavour $SAN_FLAVOUR)"
+    "$BUILD/aug_exhaustive.exe" pool > "$BUILD/aug-pool.log" 2>&1 \
+        || { tail -30 "$BUILD/aug-pool.log"; fail "sanitized aug f16 pool differential"; }
+    grep -E '^(aug_exhaustive|  kind|VERDICT)' "$BUILD/aug-pool.log"
+    # Control: the sanitized twin must still refuse a corrupted
+    # expected bit (smoke control 1 on the instrumented binary).
+    awk 'BEGIN{d=0} /^msf16_is_signaling/ && !d {for(i=1;i<=NF;i++) if($i=="->") $(i+1)=($(i+1)=="1"?"0":"1"); d=1} {print}' \
+        tests/vectors/encodings-f16.vec > "$BUILD/corrupt.vec"
+    "$BUILD/msf_runner.exe" verify "$BUILD/corrupt.vec" > "$BUILD/corrupt.log" 2>&1; n=$?
+    [ $n -ne 0 ] && grep -q 'VERDICT: FAIL' "$BUILD/corrupt.log" \
+        && echo "control corrupted-expected-bit (sanitized twin): refused as required" \
+        || fail "sanitized twin did not refuse the corrupted vector"
+    echo "sanitize totals: committed + extras + aug totals above, all with zero sanitizer findings under flavour $SAN_FLAVOUR (canaries above prove the instrumentation was live)"
+}
+
 case "$BUDGET" in
     smoke) smoke ;;
     standard) standard ;;
@@ -290,6 +448,11 @@ case "$BUDGET" in
     bench)
         [ -x board/run_bench.sh ] || fail "bench budget: board/run_bench.sh missing"
         "$BASH" board/run_bench.sh || fail "bench budget (see output above)" ;;
+    sanitize) sanitize ;;
 esac
+if [ "$SAN_SKIP" -eq 1 ]; then
+    echo "budget sanitize: SKIP-BY-NAME flavour=$SAN_FLAVOUR in $(( $(date +%s) - START ))s (no PASS verdict; logs in $BUILD/)"
+    exit 0
+fi
 echo "budget $BUDGET: PASS in $(( $(date +%s) - START ))s (logs in $BUILD/)"
 exit 0
