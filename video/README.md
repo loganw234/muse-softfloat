@@ -1,15 +1,17 @@
 # video/ — programmatic demo-video tooling
 
 Frame-render pipeline for the Muse-Softfloat hackathon film: Python draws
-1920x1080 frames, pipes them raw to ffmpeg, gets an H.264 MP4. The
-3-minute final cut is rendered: `out/final.mp4` (180.0 s, silent),
+frames, pipes them raw to ffmpeg, gets an H.264 MP4. Two cuts exist:
+`out/final.mp4` (180.0 s, 1920x1080, silent — the original 3-minute cut,
 documented as-built in [STORYBOARD.md](STORYBOARD.md) with a source per
-on-screen number. The 26.5 s proof (`out/proof.mp4`) remains as the
-machinery proof. Music options (owner decision, nothing downloaded):
-[MUSIC.md](MUSIC.md).
+on-screen number) and `out/assembly_v5.mp4` (169.0 s, 2560x1440, silent —
+the current segment-based cut, assembled by `assemble.py` from the
+renderers in `segments/`; storyboarded in STORYBOARD.md's v5 section).
+The 26.5 s proof (`out/proof.mp4`) remains as the machinery proof. Music
+options (owner decision, nothing downloaded): [MUSIC.md](MUSIC.md).
 
 Zero new installs. The stack is whatever this machine already has — run
-`inventory.py` to see it; at first render: the workspace `.venv` Python 3.12.15,
+`inventory.py` to see it; at first render: workspace `.venv` Python 3.12.15,
 Pillow 13.0.0, numpy 2.5.4, and the ffmpeg 7.1 binary bundled with
 imageio-ffmpeg 0.6.0 (no ffmpeg/ffprobe on PATH; fonts are the Windows
 system Arial/Segoe/Consolas).
@@ -19,7 +21,7 @@ system Arial/Segoe/Consolas).
 | File | What it owns |
 |---|---|
 | `style.py` | Palette, type scale, fonts, beat grid (120 BPM / 0.5 s), easing. The only style file. |
-| `data.py` | Read-only loaders for real project data: `docs/metrics/{passes,usage,plants}.jsonl`, `git log`, IAS15 hash files in `data/`, plus headline constants traced to `docs/RECORD.md` / `tools/run.sh` (`SOURCES` says where each was read; the board-vs-desktop hash comparison is asserted at load). |
+| `data.py` | Read-only loaders for real project data: `muse-softfloat/docs/metrics/{passes,usage,plants}.jsonl`, `git log`, IAS15 hash files, plus headline constants traced to `docs/RECORD.md` / `tools/run.sh` (`SOURCES` says where each was read; the board-vs-desktop hash comparison is asserted at load). |
 | `scenes.py` | Scene primitives + registry: `kinetic, counter, barchart, linechart, ticker, orbit, stat, hash, hashlock`. Each draws one frame given a scene dict and absolute time. |
 | `timeline.py` | Timelines **as data** (`PROOF`, `FINAL` = the 180 s cut) + validation (contiguous, cuts on the beat grid). |
 | `proof.timeline.json` / `final.timeline.json` | JSON exports of the timelines; edit these to re-cut without touching Python. |
@@ -28,26 +30,29 @@ system Arial/Segoe/Consolas).
 | `inventory.py` | Prints exact versions/paths of the render stack found on this machine. |
 | `STORYBOARD.md` | The as-built 3-minute record; every number names its repo source. |
 | `MUSIC.md` | Licence-checked music options + cue sheet (final is silent by brief). |
+| `segments/` | The v5 segment renderers + data: `intro_outro.py`, `idea.py`, `why.py` (+ `render_why.py` base), `gitvisual.py` (+ `history.json`, `gate2_numbers.json`, spectrum/twiddle JSONs). Production copies of the study scripts in `scratch/study-video-*` (paths repointed HERE-local); each writes its MP4 beside itself. |
+| `assemble.py` | Renders any missing segment, concatenates intro → idea → why → git → outro at 2560x1440 into `out/assembly_v5.mp4`, pixel-checks the joins. `--force` re-renders. |
 | `out/proof.mp4` | The rendered proof (26.5 s, 1920x1080, H.264, silent). |
-| `out/final.mp4` | The final cut (180.0 s, 1920x1080, H.264, silent) + `out/stills/` (12 MP4 grabs). |
+| `out/final.mp4` | The original final cut (180.0 s, 1920x1080, H.264, silent) + `out/stills/` (12 MP4 grabs). |
+| `out/assembly_v5.mp4` | The current segment-based cut (169.0 s, 2560x1440, H.264, silent). |
 
 ## Render
 
-From the repository root, using a Python environment with Pillow, numpy,
-and imageio-ffmpeg installed (PowerShell examples):
+From the workspace root, with the project venv (PowerShell):
 
 ```powershell
-python video\inventory.py          # what renders here
-python video\data.py               # real numbers the charts will show
-python video\timeline.py           # validate both timelines
-python video\render.py             # -> video\out\proof.mp4
-python video\render.py --which final --out video\out\final.mp4
-python video\probe.py video\out\final.mp4 --stills video\out\stills --at 2.5 13.0 34.5 66.0 102.0 108.5 120.0 128.0 141.5 160.0 172.5 178.0
+.\.venv\Scripts\python.exe video\inventory.py          # what renders here
+.\.venv\Scripts\python.exe video\data.py               # real numbers the charts will show
+.\.venv\Scripts\python.exe video\timeline.py           # validate both timelines
+.\.venv\Scripts\python.exe video\render.py             # -> video\out\proof.mp4
+.\.venv\Scripts\python.exe video\render.py --which final --out video\out\final.mp4
+.\.venv\Scripts\python.exe video\assemble.py           # -> video\out\assembly_v5.mp4 (segments + joins)
+.\.venv\Scripts\python.exe video\probe.py video\out\final.mp4 --stills video\out\stills --at 2.5 13.0 34.5 66.0 102.0 108.5 120.0 128.0 141.5 160.0 172.5 178.0
 ```
 
-The final render reads live data (metrics jsonl, git log, and the
-published desktop/board IAS15 captures in `data/`) and asserts the
-2,001-record hash identity before drawing a frame.
+The final render reads live data (metrics jsonl, git log, IAS15 hash
+files incl. the board capture under `worktrees/w-ias15/` when present)
+and asserts the 2,001-record hash identity before drawing a frame.
 
 Re-cut without code: copy `proof.timeline.json`, edit times/text/params,
 then `render.py --timeline your.json --out out\your.mp4`. The same JSON
@@ -103,9 +108,9 @@ Final (2026-10-27): `probe.py` on `out/final.mp4`: 180.0 s, h264,
 1920x1080, 30.0 fps, **5,400/5,400 frames decoded, rc 0**, 17,014,776
 bytes, one video stream and no audio stream (silent by design). Twelve
 stills grabbed from the MP4 into `out/stills/` and visually inspected,
-plus 39 pre-render scene stills retained in the lead's working scratch.
+plus 39 pre-render scene stills in `scratch/video/final-stills/`.
 Render wall 327.7 s on a loaded machine - not a rate claim. Full
-number-by-number trace: [STORYBOARD.md](STORYBOARD.md), with `data.SOURCES`.
+number-by-number trace: `scratch/video/final-report.md`.
 
 ## Known limits
 

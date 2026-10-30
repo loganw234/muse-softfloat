@@ -219,3 +219,26 @@ All repo paths are relative to `muse-softfloat/` unless stated.
    on screen change with them - by design.
 4. **Render wall time:** 327.7 s (render.py DONE line, scratch/video/render-final.log) (5,400 frames on a
    loaded machine; a fact about this run, not a rate).
+
+## The v5 segment cut (2026-10-29, `out/assembly_v5.mp4`, 169.0 s, 2560x1440, silent)
+
+Owner-directed redesign assembled from standalone segment renderers in
+`segments/` (production copies of the study scripts; study reports in
+`scratch/study-video-*/` carry the per-claim sources). Order:
+
+| Time | Segment | What |
+|---|---|---|
+| 0.0–7.0 | `intro_outro.py` → intro | Messenger-style phone; "Hey Muse, I've got an idea..."; eased camera dives into the final period (ink centroid measured, 0.6 px error at 1440p) to pure white. |
+| 7.0–29.5 | `idea.py` | Idea breakdown: software IEEE 754 for the FPU-less RP2040; what "correct" means on a number line (labelled illustrative); the three proof workloads; method teaser; poses "why not use what already ships?" |
+| 29.5–58.5 | `why.py` | The defaults vs the job spec: bootrom flavour, libgcc fall-through (shown "not measured" - SF-0 gated none of it), `none` flavour; settles on the custom build. (Its original workloads scene duplicated the idea segment's cards and was trimmed 2026-10-29.) Claims: `scratch/study-video-why/options-facts.md` (SF-0 pointers). |
+| 58.5–160.5 | `gitvisual.py` | Marble-track replay of the real history (141 commits / 25 merges into main at a73e97d): teaching chase with sourced popups, upward flow, 5 sourced sendback loops, three gate windows (IAS15 at d9718cf with real hash rows, KissFFT at 32bbd93 labelled illustration, tokens at a1a888f with refreshed billed total 1,196,128,770 and its definition on frame), box packaging of the retained artefacts (RECORD/ledgers/vectors/metrics). |
+| 160.5–169.0 | `intro_outro.py` → outro | Exit through the typing dots; trimmed reply; side cards (human:AI split, deliverable stats). |
+
+Text pacing rule (owner-directed, all segments): dwell = smallest 0.5 s
+multiple ≥ max(1.5 s, 0.5 + words/2.5); headlines ≤6 words, body ≤10,
+≤2 new lines per beat; word counts cut 39–49% vs first drafts. Named
+residual deviations: four cursor-paced sendback labels sit at 1.0–1.8 s
+(welded to replay speed); Agent A's dwell is persistence-from-reveal.
+Render: `..\.venv\Scripts\python.exe assemble.py` from `video/`
+(re-renders missing segments, concatenates, pixel-checks joins).
+Silent; music per MUSIC.md is still an owner decision.
