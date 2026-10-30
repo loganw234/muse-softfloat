@@ -39,7 +39,7 @@ CACHE=demo/cache
 B=$CACHE/build
 EX=$CACHE/ias15-extract
 KFTREE=$CACHE/kissfft-tree
-SRC="src/msf16.c src/msf32.c src/msf64.c src/msf_flags.c src/msf_wide.c src/msf_roundpack.c src/msf_string.c src/msf_math.c src/msf_alg.c"
+SRC="src/msf16.c src/msf32.c src/msf64.c src/msf_flags.c src/msf_wide.c src/msf_roundpack.c src/msf_string.c src/msf_math.c src/msf_alg.c src/msf_aug.c"
 mkdir -p "$B/tmp"
 export TMPDIR=$PWD/$B/tmp
 export TMP="$(cygpath -w "$TMPDIR" 2>/dev/null || echo "$TMPDIR")"
