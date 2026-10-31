@@ -1,0 +1,22 @@
+--- a/tests/trig_exhaustive.c
++++ b/tests/trig_exhaustive.c
+@@ -300,7 +300,7 @@
+             mpfr_init2(yhi, (mpfr_prec_t)prec);
+             cur_prec = prec;
+         }
+-        mpfr_set_ui(x, (unsigned long)sig, MPFR_RNDN);
++        mpfr_set_ui(x, (unsigned long)(sig & 0xffffffffULL), MPFR_RNDN);
+         if (sig >> 32) {
+             /* set_ui took only the low word on 32-bit ulong */
+             mpfr_set_ui(ylo, (unsigned long)(sig >> 32), MPFR_RNDN);
+--- a/tests/explog_decider.c
++++ b/tests/explog_decider.c
+@@ -572,7 +572,7 @@
+             mpfr_init2(yhi, (mpfr_prec_t)prec);
+             cur_prec = prec;
+         }
+-        mpfr_set_ui(x, (unsigned long)sig, MPFR_RNDN);
++        mpfr_set_ui(x, (unsigned long)(sig & 0xffffffffULL), MPFR_RNDN);
+         if (sig >> 32) {
+             mpfr_set_ui(ylo, (unsigned long)(sig >> 32), MPFR_RNDN);
+             mpfr_mul_2si(ylo, ylo, 32, MPFR_RNDN);

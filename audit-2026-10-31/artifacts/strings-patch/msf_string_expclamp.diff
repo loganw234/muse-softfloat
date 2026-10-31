@@ -1,0 +1,50 @@
+--- repo/src/msf_string.c	2026-10-31 00:43:15.000000000 +0000
++++ patched/src/msf_string.c	2026-10-31 16:59:40.303924841 +0000
+@@ -378,9 +378,9 @@
+  * present; returns 0 and leaves *pi unchanged otherwise. The
+  * magnitude clamps at EXP_CLAMP, far beyond every early-out band
+  * threshold, while all digits are still consumed. */
+-#define EXP_CLAMP 100000
++#define EXP_CLAMP ((int64_t)1 << 56)  /* far above any possible digit count */
+ 
+-static int parse_exponent(const char *s, size_t *pi, int32_t *out)
++static int parse_exponent(const char *s, size_t *pi, int64_t *out)
+ {
+     size_t i = *pi;
+     int neg = 0;
+@@ -399,7 +399,7 @@
+         }
+         i++;
+     }
+-    *out = (int32_t)(neg ? -v : v);
++    *out = neg ? -v : v;
+     *pi = i;
+     return 1;
+ }
+@@ -475,7 +475,7 @@
+     int rest_nonzero = 0;              /* nonzero beyond sig[] + 1     */
+     int any_digit = 0;
+     int64_t frac_digits = 0;
+-    int32_t exp10 = 0;
++    int64_t exp10 = 0;
+     int step1_inexact = 0;
+     big_t d_big;
+     int d_digits;                      /* decimal digits in d_big      */
+@@ -541,7 +541,7 @@
+     /* Optional exponent; an incomplete suffix is not consumed. */
+     if (s[i] == 'e' || s[i] == 'E') {
+         size_t ei = i + 1u;
+-        int32_t ev = 0;
++        int64_t ev = 0;
+         if (parse_exponent(s, &ei, &ev)) {
+             exp10 = ev;
+             i = ei;
+@@ -661,7 +661,7 @@
+     int64_t extra_exp = 0; /* bits dropped below sig's low end        */
+     int64_t frac_digits = 0;
+     int any_digit = 0, seen_dot = 0;
+-    int32_t pexp = 0;
++    int64_t pexp = 0;
+     int64_t exp2;
+ 
+     if (consumed != NULL) {
