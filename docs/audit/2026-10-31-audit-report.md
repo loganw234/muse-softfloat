@@ -33,7 +33,7 @@ check against x86-64 hardware, glibc and MPFR came back clean:
 |---|---|
 | Randomized and structured differential (lead) | about 388 million checks |
 | Review agents' own differentials | roughly another 1.1 billion (core, character-conversion and Tier 2 agents) |
-| Exhaustive binary16 add and mul, ties-to-even | 2 × 2³² operand pairs |
+| Exhaustive binary16 add, mul and div, ties-to-even | 3 × 2³² operand pairs |
 | Berkeley TestFloat 3e cases (an agent's run) | 8.4 million |
 | Mutation probes of the source (two agents' runs) | 21 + 199 mutants; the survivors were mostly equivalent, plus three genuine blind-spot classes (L8) |
 
@@ -180,7 +180,7 @@ SF-0 §2.5 matrix.
 | `hwdiff2` (10× scale) | all 198 comparison predicates incl. mixed formats; the 24 Clause 9.6 min/max operations; totalOrder/Mag; payload ops; remainder; nextUp/Down; logB; scaleB (5 modes); class, predicates and sign ops (binary16 exhaustive) | 130,259,840 | **0** (setPayload(−0) differences excluded; see I1) |
 | `mpta` | binary64 ties-to-away for FMA, tiny products and subnormal quotients (the cases `hwdiff` skips) | 1,189,965 (117,447 exact ties) | **0** |
 | `mpt2` (MPFR 4.2, emulated formats with subnormals) | Tier 2: sinPi, cosPi, exp2, exp2m1, log2, log2p1, rSqrt, hypot; binary32 and binary64; te/tz/tp/tn; finite non-special inputs biased to hard regions (near integers and half-integers, near 1, tiny, overflow/underflow edges) | 8,401,260 | **0** |
-| `f16exh` | binary16 add and mul, every ordered operand pair, ties-to-even | 2 × 4,294,967,296 | **0** |
+| `f16exh` | binary16 add, mul and div, every ordered operand pair, ties-to-even | 3 × 4,294,967,296 | **0** |
 
 Two negative controls show the oracle can fail:
 
@@ -228,7 +228,7 @@ below was obtained.
 | Evidence | Source | Result |
 |---|---|---|
 | Hardware/glibc/MPFR differential, all Tier 1 arithmetic, conversion and comparison families, all formats and modes | lead, §2.3 | about 388 M checks, 0 mismatches |
-| Exhaustive binary16 add/mul (RNE) | lead | 8.6 G checks, 0 mismatches |
+| Exhaustive binary16 add/mul/div (RNE) | lead | 12.9 G checks, 0 mismatches |
 | Berkeley TestFloat 3e via the repo's ingest tool (8086-SSE specialization, tininess after rounding): add/sub/mul/div/sqrt (5 modes), mulAdd, 6 compare kinds, remainder, roundToInt, float↔int, format conversions | agent [A*] | 276 jobs, 8,368,464 cases, 0 mismatches |
 | The project's Python reference helpers vs Berkeley (5 modes), vs host FPU (4 modes), vs MPFR | agent [A*] | 2,038,160 / 240,000 / 120,000 cases; the only differences are the documented fma(0×∞, qNaN) project ruling |
 | Mutation probe: 21 mutants of a scratch copy of `src/` | agent [A*] | 20 caught by committed vectors; 1 equivalent mutant |
@@ -1270,10 +1270,9 @@ makes the claim robust in practice; the gate is not (M9).
 - **Correct rounding of the Tier 2 transcendental functions** (sinPi,
   cosPi, exp2/exp2m1, log2/log2p1) at binary64 cannot be established by
   testing alone. See §4.5 for what the code's argument rests on.
-- **Exhaustive binary16** was run for add and mul in ties-to-even only.
-  A div run was stopped by the session's one-hour background limit
-  before it finished. The other modes, sub and div are covered by the
-  randomized/structured differential.
+- **Exhaustive binary16** was run for add, mul and div in ties-to-even
+  only (div took 3,832 s on 3 threads). The other modes and sub are
+  covered by the randomized/structured differential.
 - **Agent results marked [A*]** were not personally re-run by the lead.
 - **The full history scan** relied on a fresh clone of the public
   remote, because the local checkout is shallow.
@@ -1327,8 +1326,8 @@ bash docs/audit/oracle/run.sh
 ```
 
 - `SCALE=25` reproduces the 248 M-check run.
-- `F16EXH=1` adds the exhaustive binary16 sweeps (about 11 minutes each
-  for add and mul on 3 threads; div takes much longer).
+- `F16EXH=1` adds the exhaustive binary16 sweeps (on 3 threads: about
+  11 minutes each for add and mul, and about 64 minutes for div).
 
 Outputs go to `build/audit-oracle/`, which is gitignored. The script
 also builds the tininess-before-rounding mutant and requires the oracle

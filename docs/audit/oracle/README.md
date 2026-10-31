@@ -24,7 +24,7 @@ bash docs/audit/oracle/run.sh
 |---|---|
 | `SCALE=1` (default) | about 1 minute |
 | `SCALE=25` | about 250 M checks for `hwdiff` |
-| `F16EXH=1` | adds the exhaustive binary16 add/mul/div sweeps (11 minutes or more per operation on 3 threads; div is the slowest) |
+| `F16EXH=1` | adds the exhaustive binary16 add/mul/div sweeps (on 3 threads: about 11 minutes each for add and mul, about 64 minutes for div) |
 
 Requirements: x86-64 Linux with SSE4.1, FMA3, F16C and AVX-512F, gcc,
 python3, and `libmpfr-dev`. Build outputs go to `build/audit-oracle/`,
