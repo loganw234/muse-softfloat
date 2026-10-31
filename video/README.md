@@ -41,6 +41,7 @@ system Arial/Segoe/Consolas).
 | `out/final.mp4` | The original final cut (180.0 s, 1920x1080, H.264, silent) + `out/stills/` (12 MP4 grabs). |
 | `out/assembly_v5.mp4` | The previous segment-based cut (169.0 s, 2560x1440, H.264, silent). |
 | `out/assembly_v6.mp4` | The current cut (179.0 s at 124 BPM, 2560x1440, H.264, silent). |
+| `captions.py` | Derives caption cues from the segment audit tables into `out/assembly_v6.srt`/`.vtt`, plus `out/stills_v6/` (one still per scene beat + `INDEX.md`); `--validate --stills` re-proves. |
 
 ## Render
 
