@@ -1,0 +1,1 @@
+mathdiff f16 EXHAUSTIVE x 5 modes: sinpi=0/235520 cospi=0/235520 rsqrt=0/158715 hypot=0/0 exp2=0/317430 exp2m1=0/317430 log2=0/158715 log2p1=0/235510 -> total mismatches 0 of 1658840 (oracle-undecided skipped: 0)

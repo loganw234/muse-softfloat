@@ -1,0 +1,1 @@
+f32->f16 narrow mode=tn range=[0,0x100000000) n=4294967296 mismatches=0 -> ALL AGREE

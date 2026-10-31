@@ -1,0 +1,191 @@
+== budget: smoke ==
+date: 2026-10-31 16:05:39 +0000
+python: python3 (Python 3.13.18)
+semantics: IEEE 754-2019; tininess after rounding (SF-0 2.5); H=20
+host compiler: gcc dumpmachine=x86_64-linux-gnu 13 FLT_EVAL_METHOD=0
+drift check: 4 generated files byte-identical to tables/
+built build/smoke/msf_runner.exe (host-x86_64-linux-gnu-gcc13)
+unit sha256: 3 known-answer tests
+unit flags: 1024 exhaustive state/group cases
+unit versions: global + per-format predicates
+unit wide: mul/add/sub/jam/clz spot identities
+unit: PASS (0 failures)
+manifest: build/smoke/manifest.txt (66 entries)
+expect-counts: build/smoke/expect.txt (77 provenance tags)
+manifest build/smoke/manifest.txt: all entries match
+file tests/vectors/encodings-f16.vec: 2352 vectors compare=exact
+file tests/vectors/encodings-f32.vec: 2352 vectors compare=exact
+file tests/vectors/encodings-f64.vec: 2352 vectors compare=exact
+file tests/vectors/copysign.vec: 4336 vectors compare=exact
+file tests/vectors/pack64.vec: 6270 vectors compare=exact
+file tests/vectors/pack32.vec: 6160 vectors compare=exact
+file tests/vectors/pack16.vec: 6160 vectors compare=exact
+file tests/vectors/arith-f32.vec: 4240 vectors compare=exact
+file tests/vectors/fma-sqrt-f32.vec: 1172 vectors compare=exact
+file tests/vectors/conv-int-f32.vec: 1115 vectors compare=exact
+file tests/vectors/toint-f32.vec: 2640 vectors compare=exact
+file tests/vectors/rint-misc-f32.vec: 1143 vectors compare=exact
+file tests/vectors/compare-f32.vec: 2362 vectors compare=exact
+file tests/vectors/arith-f64.vec: 4355 vectors compare=exact
+file tests/vectors/conv-f64.vec: 3480 vectors compare=exact
+file tests/vectors/misc-f64.vec: 1467 vectors compare=exact
+file tests/vectors/compare-f64.vec: 2302 vectors compare=exact
+file tests/vectors/nan-f64.vec: 285 vectors compare=exact
+file tests/vectors/arith-f16.vec: 5364 vectors compare=exact
+file tests/vectors/fma-sqrt-f16.vec: 2334 vectors compare=exact
+file tests/vectors/conv-int-f16.vec: 1745 vectors compare=exact
+file tests/vectors/toint-f16.vec: 1840 vectors compare=exact
+file tests/vectors/rint-misc-f16.vec: 1133 vectors compare=exact
+file tests/vectors/compare-f16.vec: 2802 vectors compare=exact
+file tests/vectors/arith-xf.vec: 6959 vectors compare=exact
+file tests/vectors/fma-sqrt-xf.vec: 3566 vectors compare=exact
+file tests/vectors/conv-xf.vec: 460 vectors compare=exact
+file tests/vectors/compare-xf.vec: 1980 vectors compare=exact
+file tests/vectors/traps-xf.vec: 114 vectors compare=exact
+file tests/vectors/from-decimal-str.vec: 4290 vectors compare=exact
+file tests/vectors/from-hex-str.vec: 1959 vectors compare=exact
+file tests/vectors/to-decimal-str.vec: 7506 vectors compare=exact
+file tests/vectors/to-hex-str.vec: 2661 vectors compare=exact
+file tests/vectors/minmax-f16.vec: 5832 vectors compare=exact
+file tests/vectors/minmax-f32.vec: 5832 vectors compare=exact
+file tests/vectors/minmax-f64.vec: 5832 vectors compare=exact
+file tests/vectors/payload-f16.vec: 102 vectors compare=exact
+file tests/vectors/payload-f32.vec: 102 vectors compare=exact
+file tests/vectors/payload-f64.vec: 102 vectors compare=exact
+file tests/vectors/trig-f16.vec: 13955 vectors compare=exact
+file tests/vectors/trig-f32.vec: 17800 vectors compare=exact
+file tests/vectors/trig-f64.vec: 22610 vectors compare=exact
+file tests/vectors/alg-f16.vec: 3695 vectors compare=exact
+file tests/vectors/alg-f32.vec: 3700 vectors compare=exact
+file tests/vectors/alg-f64.vec: 3700 vectors compare=exact
+file tests/vectors/explog-f16.vec: 29090 vectors compare=exact
+file tests/vectors/explog-f32.vec: 29175 vectors compare=exact
+file tests/vectors/explog-f64.vec: 32050 vectors compare=exact
+file tests/vectors/aug-f16.vec: 46088 vectors compare=exact
+file tests/vectors/aug-f32.vec: 46146 vectors compare=exact
+file tests/vectors/aug-f64.vec: 46146 vectors compare=exact
+prov exact-py:directed-encodings 7056
+prov exact-py:copysign-sample 4336
+prov exact-py:pack64-directed 6270
+prov exact-py:pack32-directed 6160
+prov exact-py:pack16-directed 6160
+prov exact-py-f32:directed-arith 4240
+prov exact-py-f32:directed-fma-sqrt 1172
+prov exact-py-f32:directed-conv-int 1115
+prov exact-py-f32:directed-toint 2640
+prov exact-py-f32:directed-rint-misc 1143
+prov exact-py-f32:directed-compare 2362
+prov exact-f64:directed-arith 4355
+prov exact-f64:directed-conv 3480
+prov exact-f64:directed-misc 1467
+prov exact-f64:directed-compare 2302
+prov exact-f64:directed-nan 285
+prov exact-py-f16:dir-arith 5364
+prov exact-py-f16:dir-fma-sqrt 2334
+prov exact-py-f16:dir-conv-int 1745
+prov exact-py-f16:dir-toint 1840
+prov exact-py-f16:dir-rint-misc 1133
+prov exact-py-f16:dir-compare 2802
+prov exact-py-xf:directed-arith 6959
+prov exact-py-xf:directed-fma-sqrt 3566
+prov exact-py-xf:directed-conv 460
+prov exact-py-xf:directed-compare 1980
+prov exact-py-xf:trap-convert-first 48
+prov exact-py-xf:trap-unfused 25
+prov exact-py-xf:trap-via-f32 41
+prov exact-str:grammar-dec 372
+prov exact-str:grammar-dec-modes 1128
+prov exact-str:from-dec-ties 2300
+prov exact-str:beyond-h 490
+prov exact-str:grammar-hex 174
+prov exact-str:grammar-hex-modes 690
+prov exact-str:from-hex-ties 720
+prov exact-str:from-hex-boundary 375
+prov exact-str:to-dec-directed 1620
+prov exact-str:to-dec-modes 5700
+prov exact-str:to-dec-buffer 186
+prov exact-str:to-hex-directed 864
+prov exact-str:to-hex-modes 1650
+prov exact-str:to-hex-buffer 147
+prov exact-py-t2:directed-minmax 17496
+prov exact-py-t2:directed-payload 306
+prov mpfr640-trig:specials 600
+prov mpfr640-trig:specials-ta-relabel 150
+prov mpfr640-trig:anchors 8632
+prov mpfr640-trig:anchors-ta-relabel 2158
+prov mpfr640-trig:lattice 26528
+prov mpfr640-trig:lattice-ta-relabel 6632
+prov mpfr640-trig:tiny 984
+prov mpfr640-trig:tiny-ta-relabel 246
+prov mpfr640-trig:hardest 4584
+prov mpfr640-trig:hardest-ta-relabel 1146
+prov mpfr640-trig:seeded 2164
+prov mpfr640-trig:seeded-ta-relabel 541
+prov mpfr-alg:specials 1935
+prov mpfr-alg:directed 5420
+prov mpfr-alg:ties 2775
+prov mpfr-alg:seeded 965
+prov mpfr-explog:specials 1500
+prov mpfr-explog:integers 2640
+prov mpfr-explog:cuts 480
+prov mpfr-explog:lattice 48840
+prov mpfr-explog:tiny 7605
+prov mpfr-explog:strips 7155
+prov mpfr-explog:seeded 12230
+prov mpfr-explog:powers 7080
+prov mpfr-explog:sqrt2 1950
+prov mpfr-explog:near1 300
+prov mpfr-explog:domain 210
+prov mpfr-explog:pole 75
+prov mpfr-explog:sticky 150
+prov mpfr-explog:hardest 100
+prov exact-py-t2:augmented-directed 130580
+prov exact-py-t2:augmented-seeded 7800
+total 411213 passed 411213 failed 0 malformed 0 skipped-planned 0
+VERDICT: PASS
+type scan: clean (no float/double words in src/ include/)
+target compiler: arm-none-eabi-gcc (15:13.2.rel1-2) 13.2.1 20231009
+target undefined symbols (26):
+         U MSF_FMT_PARAMS
+         U __aeabi_llsl
+         U __aeabi_llsr
+         U __aeabi_lmul
+         U __aeabi_uidiv
+         U __aeabi_uidivmod
+         U __aeabi_uldivmod
+         U __gnu_thumb1_case_sqi
+         U __gnu_thumb1_case_uqi
+         U memcpy
+         U msf_pack_f16
+         U msf_pack_f32
+         U msf_pack_f64
+         U msf_pack_generic
+         U msf_u128_add
+         U msf_u128_add_u32
+         U msf_u128_clz
+         U msf_u128_cmp
+         U msf_u128_from_u64
+         U msf_u128_is_zero
+         U msf_u128_mul_u64_u64
+         U msf_u128_shl
+         U msf_u128_shr
+         U msf_u128_shr_jam
+         U msf_u128_sub
+         U msf_u128_to_u64_trunc
+symbol scan: clean
+control corrupted-expected-bit: refused as required
+control wrong-nan-expectation: refused as required
+control wrong-rounding-mode: refused as required
+control wrong-rounding-mode-te-ta: refused as required
+control wrong-flag-bit: refused as required
+control stale-manifest: refused as required
+control count-mismatch: refused as required
+built build/smoke/controls/msf_runner_tininess_before.exe (host-x86_64-linux-gnu-gcc13)
+control wrong-tininess-polarity: refused as required
+control x87-compiler-refusal: SKIP-BY-NAME /c/msys64/mingw32 absent on this host
+control tier-inventory: refused as required
+inventory: tier1 783 implemented of 783; tier2 66 implemented, 0 planned, 66 registered; bad rows 0
+control tier1-planned-flip: refused as required
+control tier2-row-deleted: refused as required
+negative controls: all refused
+budget smoke: PASS in 20s (logs in build/smoke/)

@@ -1,0 +1,1 @@
+mathdiff f32 N=4000/op x 5 modes: sinpi=0/20000 cospi=0/20000 rsqrt=0/20000 hypot=0/20000 exp2=0/20000 exp2m1=0/20000 log2=0/20000 log2p1=0/20000 -> total mismatches 0 of 160000 (oracle-undecided skipped: 0)

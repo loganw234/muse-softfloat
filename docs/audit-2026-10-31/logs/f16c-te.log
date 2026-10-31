@@ -1,0 +1,2 @@
+f16->f32 widen: n=65536 mismatches=0
+f32->f16 narrow mode=te range=[0,0x100000000) n=4294967296 mismatches=0 -> ALL AGREE

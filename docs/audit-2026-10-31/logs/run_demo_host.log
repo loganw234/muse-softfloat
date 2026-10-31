@@ -1,0 +1,19 @@
+== muse-softfloat workload demo: host (network allowed) ==
+date: 2026-10-31 16:04:19 +0000
+host compiler: gcc x86_64-linux-gnu 13 FLT_EVAL_METHOD=0
+python: python3 (Python 3.13.18)
+== fetch (pinned REBOUND + KissFFT only) ==
+fetch: downloading REBOUND (https://github.com/hannorein/rebound/archive/262a9cce102c69ca2cf7f3c6c1264e5e60002b7d.tar.gz)
+fetch: FAIL - download of https://github.com/hannorein/rebound/archive/262a9cce102c69ca2cf7f3c6c1264e5e60002b7d.tar.gz failed: HTTP Error 403: Forbidden
+== interval host run (frozen catalogue, IW1 hash) ==
+rows=710 IW1 sha256 identical
+== summary (host) ==
+  IAS15      FAIL (no extract)
+  KissFFT    FAIL (no patched tree)
+  interval   PASS
+demo host: FAIL
+
+real	0m7.961s
+user	0m6.793s
+sys	0m0.711s
+demo exit=1

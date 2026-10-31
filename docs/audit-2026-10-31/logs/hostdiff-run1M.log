@@ -1,0 +1,214 @@
+hostdiff: FLT_EVAL_METHOD=0 n_per_op_mode=1000000 seed=1234567887654321
+f64 add                      te n=1000000 mismatches=0
+f64 add                      tz n=1000000 mismatches=0
+f64 add                      tp n=1000000 mismatches=0
+f64 add                      tn n=1000000 mismatches=0
+f64 sub                      te n=1000000 mismatches=0
+f64 sub                      tz n=1000000 mismatches=0
+f64 sub                      tp n=1000000 mismatches=0
+f64 sub                      tn n=1000000 mismatches=0
+f64 mul                      te n=1000000 mismatches=0
+f64 mul                      tz n=1000000 mismatches=0
+f64 mul                      tp n=1000000 mismatches=0
+f64 mul                      tn n=1000000 mismatches=0
+f64 div                      te n=1000000 mismatches=0
+f64 div                      tz n=1000000 mismatches=0
+f64 div                      tp n=1000000 mismatches=0
+f64 div                      tn n=1000000 mismatches=0
+f64 sqrt                     te n=1000000 mismatches=0
+f64 sqrt                     tz n=1000000 mismatches=0
+f64 sqrt                     tp n=1000000 mismatches=0
+f64 sqrt                     tn n=1000000 mismatches=0
+  MISMATCH f64 fma te a=fff0000000000000 b=0000000000000000 c=fff8000000000000 host=fff8000000000000/00 msf=fff8000000000000/01
+  MISMATCH f64 fma te a=8000000000000000 b=7ff0000000000000 c=7ff8000000000000 host=7ff8000000000000/00 msf=7ff8000000000000/01
+  MISMATCH f64 fma te a=fff0000000000000 b=0000000000000000 c=7ff8000000000000 host=7ff8000000000000/00 msf=7ff8000000000000/01
+  MISMATCH f64 fma te a=8000000000000000 b=7ff0000000000000 c=7ff8000000000000 host=7ff8000000000000/00 msf=7ff8000000000000/01
+  MISMATCH f64 fma te a=8000000000000000 b=fff0000000000000 c=fff8000000000000 host=fff8000000000000/00 msf=fff8000000000000/01
+  MISMATCH f64 fma te a=fff0000000000000 b=0000000000000000 c=fff8000000000000 host=fff8000000000000/00 msf=fff8000000000000/01
+f64 fma                      te n=1000000 mismatches=13
+  MISMATCH f64 fma tz a=7ff0000000000000 b=8000000000000000 c=7ff8000000000000 host=7ff8000000000000/00 msf=7ff8000000000000/01
+  MISMATCH f64 fma tz a=0000000000000000 b=fff0000000000000 c=fff8000000000000 host=fff8000000000000/00 msf=fff8000000000000/01
+  MISMATCH f64 fma tz a=fff0000000000000 b=0000000000000000 c=fff8000000000000 host=fff8000000000000/00 msf=fff8000000000000/01
+  MISMATCH f64 fma tz a=8000000000000000 b=7ff0000000000000 c=7ff8000000000000 host=7ff8000000000000/00 msf=7ff8000000000000/01
+  MISMATCH f64 fma tz a=fff0000000000000 b=0000000000000000 c=fff8000000000000 host=fff8000000000000/00 msf=fff8000000000000/01
+  MISMATCH f64 fma tz a=8000000000000000 b=7ff0000000000000 c=fffd81b5ac3a2f95 host=fffd81b5ac3a2f95/00 msf=fffd81b5ac3a2f95/01
+f64 fma                      tz n=1000000 mismatches=14
+  MISMATCH f64 fma tp a=fff0000000000000 b=8000000000000000 c=fff8000000000000 host=fff8000000000000/00 msf=fff8000000000000/01
+  MISMATCH f64 fma tp a=0000000000000000 b=7ff0000000000000 c=7ff8000000000000 host=7ff8000000000000/00 msf=7ff8000000000000/01
+  MISMATCH f64 fma tp a=fff0000000000000 b=8000000000000000 c=fff8000000000000 host=fff8000000000000/00 msf=fff8000000000000/01
+  MISMATCH f64 fma tp a=0000000000000000 b=7ff0000000000000 c=fff8000000000000 host=fff8000000000000/00 msf=fff8000000000000/01
+  MISMATCH f64 fma tp a=7ff0000000000000 b=0000000000000000 c=fff8000000000000 host=fff8000000000000/00 msf=fff8000000000000/01
+  MISMATCH f64 fma tp a=7ff0000000000000 b=0000000000000000 c=7ff8000000000000 host=7ff8000000000000/00 msf=7ff8000000000000/01
+f64 fma                      tp n=1000000 mismatches=8
+  MISMATCH f64 fma tn a=fff0000000000000 b=0000000000000000 c=fff8000000000000 host=fff8000000000000/00 msf=fff8000000000000/01
+  MISMATCH f64 fma tn a=0000000000000000 b=fff0000000000000 c=7ff8000000000000 host=7ff8000000000000/00 msf=7ff8000000000000/01
+  MISMATCH f64 fma tn a=8000000000000000 b=7ff0000000000000 c=7ff8000000000000 host=7ff8000000000000/00 msf=7ff8000000000000/01
+  MISMATCH f64 fma tn a=fff0000000000000 b=0000000000000000 c=7ff8000000000000 host=7ff8000000000000/00 msf=7ff8000000000000/01
+  MISMATCH f64 fma tn a=0000000000000000 b=7ff0000000000000 c=7ff8000000000000 host=7ff8000000000000/00 msf=7ff8000000000000/01
+f64 fma                      tn n=1000000 mismatches=5
+f64 round_to_integral_exact  te n=1000000 mismatches=0
+f64 round_to_integral_exact  tz n=1000000 mismatches=0
+f64 round_to_integral_exact  tp n=1000000 mismatches=0
+f64 round_to_integral_exact  tn n=1000000 mismatches=0
+f64 from_f64(narrow)         te n=1000000 mismatches=0
+f64 from_f64(narrow)         tz n=1000000 mismatches=0
+f64 from_f64(narrow)         tp n=1000000 mismatches=0
+f64 from_f64(narrow)         tn n=1000000 mismatches=0
+f64 from_i32                 te n=1000000 mismatches=0
+f64 from_i32                 tz n=1000000 mismatches=0
+f64 from_i32                 tp n=1000000 mismatches=0
+f64 from_i32                 tn n=1000000 mismatches=0
+f64 from_u32                 te n=1000000 mismatches=0
+f64 from_u32                 tz n=1000000 mismatches=0
+f64 from_u32                 tp n=1000000 mismatches=0
+f64 from_u32                 tn n=1000000 mismatches=0
+f64 from_i64                 te n=1000000 mismatches=0
+f64 from_i64                 tz n=1000000 mismatches=0
+f64 from_i64                 tp n=1000000 mismatches=0
+f64 from_i64                 tn n=1000000 mismatches=0
+f64 from_u64                 te n=1000000 mismatches=0
+f64 from_u64                 tz n=1000000 mismatches=0
+f64 from_u64                 tp n=1000000 mismatches=0
+f64 from_u64                 tn n=1000000 mismatches=0
+f64 to_i32_exact_toward_zero te n=1000000 mismatches=0
+f64 to_i32_exact_toward_zero tz n=1000000 mismatches=0
+f64 to_i32_exact_toward_zero tp n=1000000 mismatches=0
+f64 to_i32_exact_toward_zero tn n=1000000 mismatches=0
+f64 to_i64_exact_toward_zero te n=1000000 mismatches=0
+f64 to_i64_exact_toward_zero tz n=1000000 mismatches=0
+f64 to_i64_exact_toward_zero tp n=1000000 mismatches=0
+f64 to_i64_exact_toward_zero tn n=1000000 mismatches=0
+f64 to_u32_exact_toward_zero te n=1000000 mismatches=0
+f64 to_u32_exact_toward_zero tz n=1000000 mismatches=0
+f64 to_u32_exact_toward_zero tp n=1000000 mismatches=0
+f64 to_u32_exact_toward_zero tn n=1000000 mismatches=0
+f64 to_u64_exact_toward_zero te n=1000000 mismatches=0
+f64 to_u64_exact_toward_zero tz n=1000000 mismatches=0
+f64 to_u64_exact_toward_zero tp n=1000000 mismatches=0
+f64 to_u64_exact_toward_zero tn n=1000000 mismatches=0
+f64 compare_quiet_less       te n=1000000 mismatches=0
+f64 compare_quiet_less       tz n=1000000 mismatches=0
+f64 compare_quiet_less       tp n=1000000 mismatches=0
+f64 compare_quiet_less       tn n=1000000 mismatches=0
+f64 compare_quiet_equal      te n=1000000 mismatches=0
+f64 compare_quiet_equal      tz n=1000000 mismatches=0
+f64 compare_quiet_equal      tp n=1000000 mismatches=0
+f64 compare_quiet_equal      tn n=1000000 mismatches=0
+f64 compare_signaling_less   te n=1000000 mismatches=0
+f64 compare_signaling_less   tz n=1000000 mismatches=0
+f64 compare_signaling_less   tp n=1000000 mismatches=0
+f64 compare_signaling_less   tn n=1000000 mismatches=0
+f64 compare_signaling_less_equal te n=1000000 mismatches=0
+f64 compare_signaling_less_equal tz n=1000000 mismatches=0
+f64 compare_signaling_less_equal tp n=1000000 mismatches=0
+f64 compare_signaling_less_equal tn n=1000000 mismatches=0
+f32 add                      te n=1000000 mismatches=0
+f32 add                      tz n=1000000 mismatches=0
+f32 add                      tp n=1000000 mismatches=0
+f32 add                      tn n=1000000 mismatches=0
+f32 sub                      te n=1000000 mismatches=0
+f32 sub                      tz n=1000000 mismatches=0
+f32 sub                      tp n=1000000 mismatches=0
+f32 sub                      tn n=1000000 mismatches=0
+f32 mul                      te n=1000000 mismatches=0
+f32 mul                      tz n=1000000 mismatches=0
+f32 mul                      tp n=1000000 mismatches=0
+f32 mul                      tn n=1000000 mismatches=0
+f32 div                      te n=1000000 mismatches=0
+f32 div                      tz n=1000000 mismatches=0
+f32 div                      tp n=1000000 mismatches=0
+f32 div                      tn n=1000000 mismatches=0
+f32 sqrt                     te n=1000000 mismatches=0
+f32 sqrt                     tz n=1000000 mismatches=0
+f32 sqrt                     tp n=1000000 mismatches=0
+f32 sqrt                     tn n=1000000 mismatches=0
+  MISMATCH f32 fma te a=ff800000 b=80000000 c=7fc00000 host=7fc00000/00 msf=7fc00000/01
+  MISMATCH f32 fma te a=7f800000 b=00000000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma te a=80000000 b=ff800000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma te a=80000000 b=ff800000 c=7fc00000 host=7fc00000/00 msf=7fc00000/01
+  MISMATCH f32 fma te a=ff800000 b=80000000 c=7fc00000 host=7fc00000/00 msf=7fc00000/01
+  MISMATCH f32 fma te a=ff800000 b=00000000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+f32 fma                      te n=1000000 mismatches=11
+  MISMATCH f32 fma tz a=ff800000 b=80000000 c=7fc00000 host=7fc00000/00 msf=7fc00000/01
+  MISMATCH f32 fma tz a=80000000 b=7f800000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma tz a=00000000 b=7f800000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma tz a=7f800000 b=80000000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma tz a=7f800000 b=80000000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma tz a=00000000 b=7f800000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+f32 fma                      tz n=1000000 mismatches=8
+  MISMATCH f32 fma tp a=80000000 b=ff800000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma tp a=7f800000 b=80000000 c=7fc00000 host=7fc00000/00 msf=7fc00000/01
+  MISMATCH f32 fma tp a=00000000 b=7f800000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma tp a=7f800000 b=80000000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma tp a=80000000 b=ff800000 c=7fc00000 host=7fc00000/00 msf=7fc00000/01
+  MISMATCH f32 fma tp a=00000000 b=7f800000 c=7fc00000 host=7fc00000/00 msf=7fc00000/01
+f32 fma                      tp n=1000000 mismatches=9
+  MISMATCH f32 fma tn a=ff800000 b=80000000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma tn a=ff800000 b=80000000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma tn a=80000000 b=7f800000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma tn a=7f800000 b=80000000 c=7fc00000 host=7fc00000/00 msf=7fc00000/01
+  MISMATCH f32 fma tn a=00000000 b=ff800000 c=ffc00000 host=ffc00000/00 msf=ffc00000/01
+  MISMATCH f32 fma tn a=7f800000 b=00000000 c=7fc00000 host=7fc00000/00 msf=7fc00000/01
+f32 fma                      tn n=1000000 mismatches=10
+f32 round_to_integral_exact  te n=1000000 mismatches=0
+f32 round_to_integral_exact  tz n=1000000 mismatches=0
+f32 round_to_integral_exact  tp n=1000000 mismatches=0
+f32 round_to_integral_exact  tn n=1000000 mismatches=0
+f32 from_f32(widen)          te n=1000000 mismatches=0
+f32 from_f32(widen)          tz n=1000000 mismatches=0
+f32 from_f32(widen)          tp n=1000000 mismatches=0
+f32 from_f32(widen)          tn n=1000000 mismatches=0
+f32 from_i32                 te n=1000000 mismatches=0
+f32 from_i32                 tz n=1000000 mismatches=0
+f32 from_i32                 tp n=1000000 mismatches=0
+f32 from_i32                 tn n=1000000 mismatches=0
+f32 from_u32                 te n=1000000 mismatches=0
+f32 from_u32                 tz n=1000000 mismatches=0
+f32 from_u32                 tp n=1000000 mismatches=0
+f32 from_u32                 tn n=1000000 mismatches=0
+f32 from_i64                 te n=1000000 mismatches=0
+f32 from_i64                 tz n=1000000 mismatches=0
+f32 from_i64                 tp n=1000000 mismatches=0
+f32 from_i64                 tn n=1000000 mismatches=0
+f32 from_u64                 te n=1000000 mismatches=0
+f32 from_u64                 tz n=1000000 mismatches=0
+f32 from_u64                 tp n=1000000 mismatches=0
+f32 from_u64                 tn n=1000000 mismatches=0
+f32 to_i32_exact_toward_zero te n=1000000 mismatches=0
+f32 to_i32_exact_toward_zero tz n=1000000 mismatches=0
+f32 to_i32_exact_toward_zero tp n=1000000 mismatches=0
+f32 to_i32_exact_toward_zero tn n=1000000 mismatches=0
+f32 to_i64_exact_toward_zero te n=1000000 mismatches=0
+f32 to_i64_exact_toward_zero tz n=1000000 mismatches=0
+f32 to_i64_exact_toward_zero tp n=1000000 mismatches=0
+f32 to_i64_exact_toward_zero tn n=1000000 mismatches=0
+f32 to_u32_exact_toward_zero te n=1000000 mismatches=0
+f32 to_u32_exact_toward_zero tz n=1000000 mismatches=0
+f32 to_u32_exact_toward_zero tp n=1000000 mismatches=0
+f32 to_u32_exact_toward_zero tn n=1000000 mismatches=0
+f32 to_u64_exact_toward_zero te n=1000000 mismatches=0
+f32 to_u64_exact_toward_zero tz n=1000000 mismatches=0
+f32 to_u64_exact_toward_zero tp n=1000000 mismatches=0
+f32 to_u64_exact_toward_zero tn n=1000000 mismatches=0
+f32 compare_quiet_less       te n=1000000 mismatches=0
+f32 compare_quiet_less       tz n=1000000 mismatches=0
+f32 compare_quiet_less       tp n=1000000 mismatches=0
+f32 compare_quiet_less       tn n=1000000 mismatches=0
+f32 compare_quiet_equal      te n=1000000 mismatches=0
+f32 compare_quiet_equal      tz n=1000000 mismatches=0
+f32 compare_quiet_equal      tp n=1000000 mismatches=0
+f32 compare_quiet_equal      tn n=1000000 mismatches=0
+f32 compare_signaling_less   te n=1000000 mismatches=0
+f32 compare_signaling_less   tz n=1000000 mismatches=0
+f32 compare_signaling_less   tp n=1000000 mismatches=0
+f32 compare_signaling_less   tn n=1000000 mismatches=0
+f32 compare_signaling_less_equal te n=1000000 mismatches=0
+f32 compare_signaling_less_equal tz n=1000000 mismatches=0
+f32 compare_signaling_less_equal tp n=1000000 mismatches=0
+f32 compare_signaling_less_equal tn n=1000000 mismatches=0
+hostdiff TOTAL cases=160000000 mismatches=78 -> MISMATCHES
+
+real	1m13.396s
+user	1m11.434s
+sys	0m0.119s
+exit=1
