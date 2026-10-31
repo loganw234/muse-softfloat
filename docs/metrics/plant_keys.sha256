@@ -9,3 +9,5 @@ be4c5af07de882e421f343a52c590f633446a8ee48a0d2a686c4d01179718d35  w6-sanitize (v
 4dcf5c2af438bbdb36a859747d2038a351dc27d2449838c288877efa9e4ba6bd  w6-judgemap (verifier-w6judgemap, copy ee0c8b9, base af36464, 2026-10-30)
 e3314462d753744df7c4757b305a360a4e9fda37f0bc0aa9c60a26f34e72a777  w6-filmretime (verifier-w6filmretime, copy a1e83d9, base 101b4aa, 2026-10-30)
 9e0d129db51ecbda7dcd120afc713a6984d1b4a2237a5ca033dd6f64e087af8a  w6-popups (verifier-w6popups, copy 8507695, base f01dc96, 2026-10-30)
+339c61fca3d49459655fae3b1aaf9f3970db96fe0cfdc2e0b5b086c471377d97  w6-captions (verifier-w6captions, copy c537e0d, base cdc40ae, 2026-10-30)
+beff2b211d7a16f3afb7c0d98b0b36598e70a1a5785c185b77ebf1ba4e09e01b  w6-metrics (verifier-w6metrics, copy fe04000, base cdc40ae, 2026-10-30)
