@@ -1,5 +1,6 @@
 /* bench_main.c - measured bench record set (SF-0 Section 6 item 9,
- * post-seal parcel-psbench).
+ * post-seal parcel-psbench; stock-SDK baseline rows added by
+ * parcel-psbench2).
  *
  * Placement/clock-labelled cycle and size records for a representative
  * operation matrix plus the SDK-harness baselines (bootrom via the
@@ -31,7 +32,17 @@
  *   retained under their original names; the exemplars now also draw
  *   operands from the common LCG, and the SDK rows keep their
  *   original volatile accumulator bodies (reset per repetition).
+ * - The sdk32_/sdk64_ baseline rows (parcel-psbench2) run the stock
+ *   SDK float/double routines (native operators, fmaf/fma,
+ *   sqrtf/sqrt, casts - whatever the build flavour routes them to)
+ *   in the same loop-body shape as the library rows: operands are
+ *   regenerated from the same LCG on every iteration (same per-row
+ *   seeding and exponent ranges as the matching library rows) and
+ *   result bit patterns accumulate into the printed 64-bit row
+ *   sink. They are labelled baseline rows recorded under the same
+ *   labels; no ranking is made from them.
  */
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include "pico/stdlib.h"
@@ -125,6 +136,37 @@ static msf64_t gen64_pos(uint32_t *s)
     uint32_t m2 = lcg_next(s);
     uint64_t mant = (((uint64_t)m1 << 20) | (m2 >> 12)) & 0xFFFFFFFFFFFFFULL;
     return ((uint64_t)(1022u + ((r >> 16) % 4u)) << 52) | mant;
+}
+
+/* Bitcasts between the library's raw patterns and native float/
+ * double, for the stock-SDK baseline rows: the same generated bit
+ * patterns feed the native operations. */
+static float f32_of(msf32_t bits)
+{
+    float f;
+    memcpy(&f, &bits, sizeof f);
+    return f;
+}
+
+static double f64_of(msf64_t bits)
+{
+    double d;
+    memcpy(&d, &bits, sizeof d);
+    return d;
+}
+
+static uint32_t bits32_of(float f)
+{
+    uint32_t b;
+    memcpy(&b, &f, sizeof b);
+    return b;
+}
+
+static uint64_t bits64_of(double d)
+{
+    uint64_t b;
+    memcpy(&b, &d, sizeof b);
+    return b;
 }
 
 static uint64_t cycles_x100(uint64_t us, uint32_t iters)
@@ -328,6 +370,55 @@ int main(void)
                                MSF_IROUND_TIES_TO_EVEN, &pfl_);
         rsink_ += pfl_;
     }, NOP_FINISH);
+
+    /* Stock-SDK baseline rows (parcel-psbench2): native float/double
+     * operations in the same loop-body shape as the library rows -
+     * operands regenerated from the same LCG every iteration (same
+     * exponent ranges as the matching library rows; divisors never
+     * zero, sqrt operands positive normals, conversion inputs
+     * in-range), result bit patterns folded into the row sink.
+     * Labelled baseline rows, not a comparison or ranking. */
+    BENCH_ROW("sdk32_add", 200000u, 1, NOP_SETUP,
+              rsink_ += bits32_of(f32_of(gen32(&s_, 0)) + f32_of(gen32(&s_, 0))),
+              NOP_FINISH);
+    BENCH_ROW("sdk32_mul", 215000u, 1, NOP_SETUP,
+              rsink_ += bits32_of(f32_of(gen32(&s_, 0)) * f32_of(gen32(&s_, 0))),
+              NOP_FINISH);
+    BENCH_ROW("sdk32_fma", 65000u, 1, NOP_SETUP,
+              rsink_ += bits32_of(fmaf(f32_of(gen32(&s_, 0)), f32_of(gen32(&s_, 0)),
+                                        f32_of(gen32(&s_, 0)))),
+              NOP_FINISH);
+    BENCH_ROW("sdk32_div", 195000u, 1, NOP_SETUP,
+              rsink_ += bits32_of(f32_of(gen32(&s_, 0)) / f32_of(gen32(&s_, 0))),
+              NOP_FINISH);
+    BENCH_ROW("sdk32_sqrt", 300000u, 1, NOP_SETUP,
+              rsink_ += bits32_of(sqrtf(f32_of(gen32(&s_, 1)))),
+              NOP_FINISH);
+    BENCH_ROW("sdk64_add", 155000u, 1, NOP_SETUP,
+              rsink_ += bits64_of(f64_of(gen64(&s_, 0)) + f64_of(gen64(&s_, 0))),
+              NOP_FINISH);
+    BENCH_ROW("sdk64_mul", 125000u, 1, NOP_SETUP,
+              rsink_ += bits64_of(f64_of(gen64(&s_, 0)) * f64_of(gen64(&s_, 0))),
+              NOP_FINISH);
+    BENCH_ROW("sdk64_fma", 75000u, 1, NOP_SETUP,
+              rsink_ += bits64_of(fma(f64_of(gen64(&s_, 0)), f64_of(gen64(&s_, 0)),
+                                       f64_of(gen64(&s_, 0)))),
+              NOP_FINISH);
+    BENCH_ROW("sdk64_div", 110000u, 1, NOP_SETUP,
+              rsink_ += bits64_of(f64_of(gen64(&s_, 0)) / f64_of(gen64(&s_, 0))),
+              NOP_FINISH);
+    BENCH_ROW("sdk64_sqrt", 150000u, 1, NOP_SETUP,
+              rsink_ += bits64_of(sqrt(f64_of(gen64(&s_, 1)))),
+              NOP_FINISH);
+    BENCH_ROW("sdk32_from_i32", 560000u, 1, NOP_SETUP,
+              rsink_ += bits32_of((float)(int32_t)lcg_next(&s_)),
+              NOP_FINISH);
+    BENCH_ROW("sdk64_to_i32", 340000u, 1, NOP_SETUP,
+              rsink_ += (uint64_t)(uint32_t)(int32_t)f64_of(gen64(&s_, 0)),
+              NOP_FINISH);
+    BENCH_ROW("sdk32_from_f64", 305000u, 1, NOP_SETUP,
+              rsink_ += bits32_of((float)f64_of(gen64(&s_, 0))),
+              NOP_FINISH);
 
     /* Retained SDK-flavour baselines: original volatile bodies; the
      * accumulator is reset per repetition and its final bits form
