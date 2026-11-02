@@ -14,11 +14,18 @@ name: Library CI
 # a green sanitize job proves the instrumentation was live.
 #
 # The windows smoke job runs the same front door under MSYS2
-# MINGW64 on windows-latest, so the portability claim is tested
-# on a second OS/toolchain instead of only asserted: the MINGW64
-# host gcc, the MSYS2 arm-none-eabi cross gcc (the symbol scan
-# runs, not SKIP-BY-NAME), and MSYS2 python. run.sh is used
-# unmodified; everything Windows-specific lives in this file.
+# UCRT64 on windows-latest, so the portability claim is tested
+# on a second OS/toolchain instead of only asserted: the UCRT64
+# host gcc (x86_64-w64-mingw32, same dumpmachine family the
+# owner's host MINGW64 gcc reports), the MSYS2 arm-none-eabi
+# cross gcc (the symbol scan runs, not SKIP-BY-NAME), and MSYS2
+# python. UCRT64 rather than MINGW64 because MSYS2 has
+# deprecated the MINGW64 environment and removed its
+# arm-none-eabi-gcc package; the first push of this job
+# (MINGW64, Actions run 41372791984) failed in pacman with
+# "error: target not found: mingw-w64-x86_64-arm-none-eabi-gcc".
+# run.sh is used unmodified; everything Windows-specific lives
+# in this file.
 
 on:
   push:
@@ -151,15 +158,15 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v4
-      - name: Install toolchains (MSYS2 MINGW64)
+      - name: Install toolchains (MSYS2 UCRT64)
         uses: msys2/setup-msys2@v2
         with:
-          msystem: MINGW64
+          msystem: UCRT64
           update: true
           install: >-
-            mingw-w64-x86_64-gcc
-            mingw-w64-x86_64-python
-            mingw-w64-x86_64-arm-none-eabi-gcc
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-python
+            mingw-w64-ucrt-x86_64-arm-none-eabi-gcc
             diffutils gawk grep sed
       - name: Toolchain inventory
         run: |
