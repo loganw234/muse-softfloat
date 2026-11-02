@@ -11,3 +11,5 @@ e3314462d753744df7c4757b305a360a4e9fda37f0bc0aa9c60a26f34e72a777  w6-filmretime 
 9e0d129db51ecbda7dcd120afc713a6984d1b4a2237a5ca033dd6f64e087af8a  w6-popups (verifier-w6popups, copy 8507695, base f01dc96, 2026-10-30)
 339c61fca3d49459655fae3b1aaf9f3970db96fe0cfdc2e0b5b086c471377d97  w6-captions (verifier-w6captions, copy c537e0d, base cdc40ae, 2026-10-30)
 beff2b211d7a16f3afb7c0d98b0b36598e70a1a5785c185b77ebf1ba4e09e01b  w6-metrics (verifier-w6metrics, copy fe04000, base cdc40ae, 2026-10-30)
+c7e98cc5a1e2d462b96573ac6efd63cc5e684b49b63f716ba60dfdc132b26207  ps-bench (verifier-psbench, copy a4f500d, base c615ae9, 2026-11-01)
+c8464f514e791519e9957aa85b9ef02c4c27b263e0924c4da5d644db415b8cf6  ps-ciwindows (verifier-psciwindows, copy 6a59d2a, base c615ae9, 2026-11-01)
