@@ -1223,3 +1223,27 @@ muxes re-made from it (owner re-uploads).
 Remaining seal: YouTube link, captions/stills,
 metrics refresh, adherence audit, audit-bundle
 v2, release tag.
+
+**Seal parcels landed (appended 2026-10-30):**
+captions + stills and the final metrics refresh.
+Captions: `video/captions.py` derives 77 cues from
+the segments' BLOCKS audit data (scaled 120/124);
+`assembly_v6.srt`/`.vtt` byte-stable, 15/15 sampled
+frames match in verification; 30 stills with a
+recomputed index. Metrics: append-only refresh
+through Wave 6 close (usage 93->128, passes
+94->131, briefs 39->44, escalations unchanged);
+refreshed billed total 1,418,065,198 at the
+`cdc40ae` cutoff supersedes the frozen
+1,196,128,770 in docs (the film's outro card keeps
+its freeze-time figure). verifier-w6captions
+caught 5 of 5 plants on copy `c537e0d`;
+verifier-w6metrics caught 4 of 5 on copy `fe04000`
+(the wave-label plant was missed — coverage counted
+agents by expected list without checking per-row
+wave fields; key hashes for both recorded on main
+before dispatch). Cumulative plants 162/170,
+Wave 6 44/45. The soundtrack version is published
+as the owner's unlisted YouTube video (README
+links it). Remaining seal: final adherence audit,
+audit-bundle v2, release tag.

@@ -110,8 +110,8 @@ enough.
    work merged, an independent verifier checked it against
    a copy carrying deliberate hidden defects. Counting the
    rows in [docs/metrics/plants.jsonl](docs/metrics/plants.jsonl)
-   in this tree gives 153 caught of 160 (the latest round
-   of work, Wave 6: 35 of 35) — recount it yourself; there is one
+   in this tree gives 162 caught of 170 (the latest round
+   of work, Wave 6: 44 of 45) — recount it yourself; there is one
    line per plant.
 
 ## Status
@@ -143,10 +143,11 @@ its authority names (411,213 committed vectors;
 `standard` adds 1,117,504 generated checks plus a
 5,505,024-check binary16 augmented-pool differential),
 and verified wave by wave on planted copies by
-independent verifiers (153 of 160 plants caught, as
+independent verifiers (162 of 170 plants caught, as
 counted from `docs/metrics/plants.jsonl` in this tree;
-earlier text here pinned 148 of 155 and 138 of 145 at
-earlier Wave 6 landings and 114 of 120 at `bc807e6`).
+earlier text here pinned 153 of 160, 148 of 155 and
+138 of 145 at earlier Wave 6 landings and 114 of 120
+at `bc807e6`).
 Recorded one-time evidence beyond the budgets: binary32 exhaustive for each of the `exp2` and
 `log2` pairs (42,949,672,960 mode-checks each, zero
 mismatches) and binary16 augmented pairs exhaustive
@@ -246,6 +247,12 @@ cut exactly, and that soundtrack version is hosted as an
 Pro licence covers his channels, not redistribution from
 this repo, and the raw track is never committed here
 ([video/MUSIC.md](video/MUSIC.md) has the licensing record).
+Captions for either version:
+[video/out/assembly_v6.srt](video/out/assembly_v6.srt)
+(+ `.vtt`), generated from the segments' own audit tables
+by [video/captions.py](video/captions.py); a still per
+scene beat is indexed in
+[video/out/stills_v6/](video/out/stills_v6/INDEX.md).
 
 ## Where things live
 
