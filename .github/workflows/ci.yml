@@ -13,9 +13,11 @@ name: Library CI
 # full SKIPs-BY-NAME. Its canaries run first in both flavours, so
 # a green sanitize job proves the instrumentation was live.
 #
-# The windows smoke job runs the same front door under MSYS2
-# UCRT64 on windows-latest, so the portability claim is tested
-# on a second OS/toolchain instead of only asserted: the UCRT64
+# The windows job runs the same front door under MSYS2
+# UCRT64 on windows-latest - smoke first as its own verdict,
+# then standard, the merge gate - so the portability claim is
+# tested on a second OS/toolchain instead of only asserted:
+# the UCRT64
 # host gcc (x86_64-w64-mingw32, same dumpmachine family the
 # owner's host MINGW64 gcc reports), the MSYS2 arm-none-eabi
 # cross gcc (the symbol scan runs, not SKIP-BY-NAME), and MSYS2
@@ -149,7 +151,7 @@ jobs:
             build/sanitize-full/perfile/*.log
           if-no-files-found: warn
 
-  windows-smoke:
+  windows:
     runs-on: windows-latest
     timeout-minutes: 30
     defaults:
@@ -179,6 +181,8 @@ jobs:
           arm-none-eabi-nm --version | head -n 1
       - name: Run smoke gate
         run: MSF_PYTHON=python bash tools/run.sh smoke
+      - name: Run standard gate (merge gate)
+        run: MSF_PYTHON=python bash tools/run.sh standard
       - name: Upload windows smoke logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -189,4 +193,15 @@ jobs:
             build/smoke/*.txt
             build/smoke/*.out
             build/smoke/controls/*.log
+          if-no-files-found: warn
+      - name: Upload windows standard logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-standard-logs
+          path: |
+            build/standard/*.log
+            build/standard/*.txt
+            build/standard/*.out
+            build/standard/controls/*.log
           if-no-files-found: warn
