@@ -1374,3 +1374,27 @@ recorded claim scopes) - both fixed and spot-verified
 before merge. Cumulative plants 177/185 (post-seal
 15/15). Library sources remain byte-identical to the
 v1.0.0 tag.
+
+
+**Post-seal comparison bench (appended 2026-11-01):**
+parcel-psbench2 extended the bench firmware with 13
+stock-SDK baseline rows sharing the library rows'
+loop-body shape and re-measured the full 44-row suite
+fresh on the genuine Pico under both SDK flavours.
+`docs/BENCH.md` regenerated from the retained raw logs
+with a comparison reading note (ratios as arithmetic on
+the recorded medians); `tools/bench_graphs.py` draws
+`docs/img/bench_compare.png` and `bench_library.png`
+from the same logs, and the README bench block carries
+the comparison graph as built-for-exactness-not-speed.
+First verifier attempt void: its retained scripts and
+logs prove it verified the real branch worktree instead
+of the planted copy (remeasure labelled with the real
+tip and true seed), so its clean verdict grades
+nothing; the misdirected run did independently
+re-measure the real branch on silicon with exact
+sinks. Valid attempt verifier-psbench2b, provenance-
+gated to the copy, caught 5 of 5 plants. Cumulative
+plants 182/190 (post-seal 20/20). Records only, as
+ever; library sources remain byte-identical to the
+v1.0.0 tag.

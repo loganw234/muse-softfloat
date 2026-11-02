@@ -1,5 +1,5 @@
 {
- "base": "25aed6c",
+ "base": "610ee45",
  "instantiations": {
   "total": 849,
   "tier1": 783,
@@ -65,8 +65,8 @@
   "source": "tests/vectors/*.vec (counted lines)"
  },
  "plants": {
-  "caught": 177,
-  "total": 185,
+  "caught": 182,
+  "total": 190,
   "by_wave": [
    {
     "wave": "wave1",
@@ -105,8 +105,8 @@
    },
    {
     "wave": "postseal",
-    "caught": 15,
-    "total": 15
+    "caught": 20,
+    "total": 20
    },
    {
     "wave": "site",
