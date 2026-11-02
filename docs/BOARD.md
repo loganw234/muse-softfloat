@@ -22,6 +22,9 @@ name its artifact is not evidence.
   the board's own earlier result.
 - **Long runs are the lead's**, at hours that do not load a machine someone
   else is using (owner rules 2 and 9).
+- **Bench records** measured under this lock are published in
+  [docs/BENCH.md](BENCH.md), generated from retained raw logs (records only,
+  never performance claims).
 
 ## The details (2026-10-26)
 
