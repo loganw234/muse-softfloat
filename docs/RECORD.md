@@ -1312,3 +1312,18 @@ were pruned from the reports pass by signature, so
 no bundle-in-bundle copies are carried. v1 remains
 beside it, unedited. Remaining: release tag, then
 submission.
+
+**Submission seal (appended 2026-11-01):** this
+tree is tagged `v1.0.0` — the hackathon submission
+state. Final tallies at the tag: library 849/849
+(783 Tier 1 + 66 Tier 2), 411,213 committed
+vectors, `standard` +1,117,504 extras and the
+5,505,024 augmented pool, plants 162/170 caught
+(Wave 6 44/45), IAS15 2,001/2,001 identical on all
+six boards, film 179.03 s silent in-repo with the
+soundtrack version on the owner's YouTube (README
+links it), metrics refreshed to billed
+1,418,065,198 at the seal-parcel cutoff, adherence
+ADHERENT WITH SLIPS with the standing slips named
+in the entry above. Anything after this entry is
+post-submission work.
