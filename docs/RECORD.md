@@ -1327,3 +1327,35 @@ links it), metrics refreshed to billed
 ADHERENT WITH SLIPS with the standing slips named
 in the entry above. Anything after this entry is
 post-submission work.
+
+**Post-seal round (appended 2026-11-01):** after
+the tag, owner elected three additions (a `pow`
+study was offered and declined for now): a cold
+judge-map dry run, measured bench records, a
+Windows CI job, then repo presentation. Dry run:
+every Start-here step passed from a fresh public
+clone (film probe, example, smoke 22 s, all three
+demo workload legs from fresh pinned downloads,
+plant recount, bundle manifest). Bench:
+parcel-psbench extended the skeleton to a 29-row
+labelled matrix on the genuine Pico (125 MHz,
+5 repetitions, seeded inputs, sinks printed);
+`docs/BENCH.md` medians include f32 add/mul/div
+3573/2048/48700 and f64 add/mul/div 2659/2122/56413
+cycles/op (bench-pico flavour; loop bodies as
+written, generator included — records, never
+performance claims). CI: parcel-psciwindows added
+a windows-latest MSYS2 UCRT64 job running `smoke`
+then `standard` (MINGW64's arm-none-eabi package
+no longer exists upstream; first-push failure run
+records it), green on its tip run with the four
+Linux jobs unchanged. verifier-psbench and
+verifier-psciwindows each caught 5 of 5 plants on
+planted copies (bench re-measured on silicon;
+medians reproduced within 2% on 61/62 rows).
+Cumulative plants 172/180 (post-seal 10/10).
+README restated for the new job, the bench records,
+and one stale metrics-recency paragraph the refresh
+had outdated. The v1.0.0 tag does not move: it is
+the sealed submission state, this round is recorded
+post-submission work behind it.

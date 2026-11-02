@@ -115,8 +115,8 @@ enough.
    work merged, an independent verifier checked it against
    a copy carrying deliberate hidden defects. Counting the
    rows in [docs/metrics/plants.jsonl](docs/metrics/plants.jsonl)
-   in this tree gives 162 caught of 170 (the latest round
-   of work, Wave 6: 44 of 45) — recount it yourself; there is one
+   in this tree gives 172 caught of 180 (Wave 6: 44 of 45;
+   post-seal: 10 of 10) — recount it yourself; there is one
    line per plant.
 
 ## Status
@@ -149,11 +149,11 @@ its authority names (411,213 committed vectors;
 `standard` adds 1,117,504 generated checks plus a
 5,505,024-check binary16 augmented-pool differential),
 and verified wave by wave on planted copies by
-independent verifiers (162 of 170 plants caught, as
+independent verifiers (172 of 180 plants caught, as
 counted from `docs/metrics/plants.jsonl` in this tree;
-earlier text here pinned 153 of 160, 148 of 155 and
-138 of 145 at earlier Wave 6 landings and 114 of 120
-at `bc807e6`).
+earlier text here pinned 162 of 170 at the seal and
+153 of 160, 148 of 155 and 138 of 145 at earlier
+Wave 6 landings and 114 of 120 at `bc807e6`).
 Recorded one-time evidence beyond the budgets: binary32 exhaustive for each of the `exp2` and
 `log2` pairs (42,949,672,960 mode-checks each, zero
 mismatches) and binary16 augmented pairs exhaustive
@@ -200,22 +200,28 @@ Windows host, the full ASan+UBSan flavour on Linux —
 with deliberate-violation canaries watched first so a
 green run proves the instrumentation was live; a flavour
 whose runtime is absent skips by name and prints no PASS
-verdict. Linux CI
+verdict. CI
 ([.github/workflows/ci.yml](.github/workflows/ci.yml))
 runs four Ubuntu jobs on every push and pull request —
 `smoke`, `standard`, `example-host` (the host example's
 output diff enforced there too), and `sanitize` at the
-full flavour — and keeps each job's gate logs as
-artifacts; `board` and `bench` stay lead-run against the
-physical RP2040 and are not part of CI.
+full flavour — plus a Windows (MSYS2 UCRT64) job running
+`smoke` then `standard`, and keeps each job's gate logs
+as artifacts; `board` and `bench` stay lead-run against
+the physical RP2040 and are not part of CI. Measured
+bench records (cycles/op medians under both SDK
+flavours, records only) live in
+[docs/BENCH.md](docs/BENCH.md).
 
 The metrics ledgers in [docs/metrics/](docs/metrics/README.md)
-split by recency: usage, passes and escalations still end
-at the SF-2 close (93 usage rows, 94 pass rows, 20
-escalations counted in this tree, all Wave 5 or
-earlier); briefs and plants are append-only through
-Wave 6, and the plant score above is counted from
-`docs/metrics/plants.jsonl` as it stands in this tree.
+were refreshed through the Wave 6 close at the seal
+(usage 128 rows, passes 131, escalations 23 after three
+late audit rows, briefs 47, plants 180 counted in this
+tree); the refreshed billed total is 1,418,065,198
+tokens at that cutoff, and the handful of seal sessions
+after it are named unrowed in RECORD. The plant score
+above is counted from `docs/metrics/plants.jsonl` as it
+stands in this tree.
 
 SF-2 is complete: its four steps (fifth attribute,
 `rSqrt`/`hypot`, `exp2`/`log2` pairs, augmented
@@ -283,7 +289,7 @@ scene beat is indexed in
 | `demo/` | one-script reproduction of the three workload proofs from a fresh clone |
 | `site/` | the live demo page: the library in WebAssembly over the committed vectors |
 | `audit-bundle-v2/` (+ `audit-bundle/`) | frozen method evidence for external auditing: kit, ledgers, plant keys, reports, with hash manifests (v2 current at the seal, v1 retained unedited) |
-| `.github/workflows/` | Linux CI (`ci.yml`: smoke, standard, example-host, sanitize) and the Pages publish workflow |
+| `.github/workflows/` | CI (`ci.yml`: Ubuntu smoke, standard, example-host, sanitize + Windows smoke/standard) and the Pages publish workflow |
 | `tools/` | the front door (`run.sh`: smoke, standard, board, bench, sanitize), table generator, metrics extractor |
 | `video/` | programmatic demo-video pipeline, IAS15 hash captures, storyboard, rendered cuts |
 | `docs/metrics/` | the metrics inputs (usage, passes, briefs, fetches, …) |
