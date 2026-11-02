@@ -2,19 +2,21 @@
 
 An IEEE 754 softfloat library for the RP2040 — binary16, binary32 and binary64 —
 built with Meta's Muse models under two working methods,
-[HonestFramework](https://github.com/loganw234/HonestFramework) and ParcelRound
-(the owner's methods, carried in the hackathon bootstrap kit, not in this
-repository), for the
+[HonestFramework](https://github.com/loganw234/HonestFramework) and
+[ParcelRound](https://github.com/loganw234/ParcelRound)
+(the owner's methods, carried in the
+[hackathon bootstrap kit](https://github.com/loganw234/softfloat-bootstrap),
+not in this repository), for the
 Meta Global AI Developer Hackathon, 2026-10-26 to 2026-11-04.
 
-The workload that proves it in public: **REBOUND's IAS15 integrator running on a
+The workload that proves it in public: **[REBOUND](https://github.com/hannorein/rebound)'s IAS15 integrator running on a
 Raspberry Pi Pico through this library, bit-identical to the unmodified desktop
 run** — same integrator source, same bits out, on a chip with no FPU. The demo
 is a 179-second programmatic video; this repository is the library, the video
 pipeline and rendered cut, and the record that stands beside them.
 
 **Live demo:** [loganw234.github.io/muse-softfloat](https://loganw234.github.io/muse-softfloat/) — the actual library compiled to WebAssembly, runnable against the committed test vectors ([site/](site/README.md)).
-**Reproduce the workloads:** `bash demo/run_demo.sh host` ([demo/](demo/README.md)) — fetches the pinned REBOUND/KissFFT archives into a gitignored cache and re-proves all three workload hashes on your machine.
+**Reproduce the workloads:** `bash demo/run_demo.sh host` ([demo/](demo/README.md)) — fetches the pinned REBOUND/[KissFFT](https://github.com/mborgerding/kissfft) archives into a gitignored cache and re-proves all three workload hashes on your machine.
 
 ## Start here
 
@@ -139,8 +141,9 @@ clause-fixed roundTiesTowardZero (no caller attribute),
 with pin P1 = R2: an exact tiny residual signals
 underflow but raises no flag, and only the
 unrepresentable multiplication residual raises
-underflow+inexact. Each row is gated against Berkeley
-TestFloat 3e, MPFR, or an exact reference at the volume
+underflow+inexact. Each row is gated against
+[Berkeley TestFloat 3e](https://www.jhauser.us/arithmetic/TestFloat-3e.zip),
+[MPFR](https://www.mpfr.org/), or an exact reference at the volume
 its authority names (411,213 committed vectors;
 `standard` adds 1,117,504 generated checks plus a
 5,505,024-check binary16 augmented-pool differential),
@@ -241,8 +244,9 @@ frame-rendering pipeline, data loaders, timelines, and
 source-traced storyboard live in [video/](video/README.md).
 The repo copy is silent for music licensing. Segments are
 built on a 120 BPM grid and the assembly is tempo-scaled to
-124 BPM; the chosen track ("Sunflower Dance" by Helmut
-Schenker, courtesy of Epidemic Sound; natively 124 BPM,
+124 BPM; the chosen track
+(["Sunflower Dance" by Helmut Schenker](https://www.epidemicsound.com/music/tracks/5002d052-2046-4b83-b126-5f4de70ea97e/),
+courtesy of Epidemic Sound; natively 124 BPM,
 183.9 s) was time-compressed ~2.7% to fit the 179.0-second
 cut exactly, and that soundtrack version is hosted as an
 [unlisted video on the owner's YouTube account](https://www.youtube.com/watch?v=IzLtd2_OIFo) — the owner's
@@ -276,7 +280,7 @@ scene beat is indexed in
 | `examples/` | the on-ramp: the same small public-API program on host (one-command build/run/diff) and on the Pico |
 | `demo/` | one-script reproduction of the three workload proofs from a fresh clone |
 | `site/` | the live demo page: the library in WebAssembly over the committed vectors |
-| `audit-bundle/` | frozen method evidence for external auditing: kit, ledgers, plant keys, reports, with a hash manifest |
+| `audit-bundle-v2/` (+ `audit-bundle/`) | frozen method evidence for external auditing: kit, ledgers, plant keys, reports, with hash manifests (v2 current at the seal, v1 retained unedited) |
 | `.github/workflows/` | Linux CI (`ci.yml`: smoke, standard, example-host, sanitize) and the Pages publish workflow |
 | `tools/` | the front door (`run.sh`: smoke, standard, board, bench, sanitize), table generator, metrics extractor |
 | `video/` | programmatic demo-video pipeline, IAS15 hash captures, storyboard, rendered cuts |
