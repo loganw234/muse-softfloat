@@ -1,6 +1,6 @@
 # muse-softfloat
 
-Correctly rounded IEEE 754 softfloat (binary16, binary32 and binary64) for the RP2040 — the same bits out as the desktop, on a chip with no FPU.
+An IEEE 754 softfloat library (binary16, binary32 and binary64) for the RP2040 whose proof workloads run bit-identical to their desktop runs, on a chip with no FPU.
 
 [![Library CI](https://github.com/loganw234/muse-softfloat/actions/workflows/ci.yml/badge.svg)](https://github.com/loganw234/muse-softfloat/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Release v1.0.0](https://img.shields.io/badge/release-v1.0.0-blue.svg)](https://github.com/loganw234/muse-softfloat/releases/tag/v1.0.0) [![Instantiations 849](https://img.shields.io/badge/instantiations-849-blue.svg)](#at-a-glance) [![Plant score 172/180](https://img.shields.io/badge/plants-172%2F180-blue.svg)](#at-a-glance)
 
@@ -42,7 +42,7 @@ bash tools/run.sh smoke
 bash demo/run_demo.sh host
 ```
 
-The second is the fast test gate (a passing run ends `budget smoke: PASS`); the third reproduces the three workload proofs and needs the network once. The guided tour below explains what each step shows.
+`bash tools/run.sh smoke` is the fast test gate (a passing run ends `budget smoke: PASS`); `bash demo/run_demo.sh host` reproduces the three workload proofs and needs the network once. The guided tour below explains what each step shows.
 
 ## Start here
 
