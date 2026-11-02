@@ -1,0 +1,36 @@
+{
+  "real_tip": "dc9c9861ab3a9e225639347dd53e0354f4f910ec",
+  "copy_commit": "e8122b013209259c093a7b971f87c2cabbba201a",
+  "plants": [
+    {
+      "file": "docs/studies/SF-2.md",
+      "old": "Inventory at closure: 822 + 27 = **849** instantiations.",
+      "new": "Inventory at closure: 822 + 27 = **855** instantiations.",
+      "shape": "closure inventory arithmetic inflated"
+    },
+    {
+      "file": "docs/studies/SF-2.md",
+      "old": "The pack is already correct under ties-to-away\n(internal mode 4; proven by the study on 6.28M Berkeley",
+      "new": "The pack has no ties-to-away mode yet; one is added\n(internal mode 4; the study prices it against 6.28M Berkeley",
+      "shape": "existing internal mode denied, kernel bill mis-stated"
+    },
+    {
+      "file": "docs/studies/SF-2.md",
+      "old": "underflow-flag cell takes the study's R2 reading\n(underflow raised), confirmed by an independent second",
+      "new": "underflow-flag cell takes the study's R1 reading\n(underflow not raised), confirmed by an independent second",
+      "shape": "owner pin P1 flipped to the other reading"
+    },
+    {
+      "file": "docs/studies/SF-2.md",
+      "old": "the frozen catalogue drops from 616,754 to 394,666",
+      "new": "the frozen catalogue drops from 616,754 to 594,666",
+      "shape": "augmented op-count evidence inflated"
+    },
+    {
+      "file": "docs/studies/SF-2.md",
+      "old": "`pow`/`powr` (refused), Clause 9.4 reductions (NO-GO,",
+      "new": "`pow`/`powr` (deferred, priced GO), Clause 9.4 reductions (NO-GO,",
+      "shape": "refused pair softened to a priced deferral"
+    }
+  ]
+}

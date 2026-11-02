@@ -1,0 +1,35 @@
+{
+  "real_tip_note": "fill from branch tip at build time (wave6-popups after fixer ef0215b)",
+  "plants": [
+    {
+      "file": "video/segments/gitvisual.py",
+      "old": "\"19 parcels total\"",
+      "new": "\"20 parcels total\"",
+      "shape": "parcels card counts the lead spine pass as a parcel"
+    },
+    {
+      "file": "video/segments/gitvisual.py",
+      "old": "\"36 verifiers total\"",
+      "new": "\"35 verifiers total\"",
+      "shape": "verifiers card carries the studies count"
+    },
+    {
+      "file": "video/segments/gitvisual.py",
+      "old": "\"150 planted bugs\"",
+      "new": "\"155 planted bugs\"",
+      "shape": "plants card uses the post-freeze HEAD total"
+    },
+    {
+      "file": "video/segments/gitvisual.py",
+      "old": "\"411,213 smoke + 1,117,504 standard\"",
+      "new": "\"411,213 smoke + 1,171,504 standard\"",
+      "shape": "gates card transposes digits in the standard extras total"
+    },
+    {
+      "file": "video/segments/gitvisual.py",
+      "old": "\"scout the ground before building\"",
+      "new": "\"scout the ground very carefully before building\"",
+      "shape": "studies card breaks its word budget; dwell and downstream timings move"
+    }
+  ]
+}

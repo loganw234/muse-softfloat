@@ -1,0 +1,36 @@
+{
+  "real_tip": "bb86f3b694d9bedfd89ffae1e2deaecde1b1b8c0",
+  "copy_commit": "c537e0d84410b5c6d7d6a5c01e776bd0523d4519",
+  "plants": [
+    {
+      "file": "video/captions.py",
+      "old": "SCALE = 120.0 / 124.0",
+      "new": "SCALE = 124.0 / 120.0",
+      "shape": "tempo scale inverted; regenerated cues drift and overrun the film"
+    },
+    {
+      "file": "video/out/assembly_v6.srt",
+      "old": "Hey Muse, I've got an idea...",
+      "new": "Hey Muse, I have an idea...",
+      "shape": "caption text differs from the on-screen message"
+    },
+    {
+      "file": "video/out/stills_v6/INDEX.md",
+      "old": "`25_t152.42_git-gate-augint.png` | 152.42 |",
+      "new": "`25_t152.42_git-gate-augint.png` | 162.42 |",
+      "shape": "INDEX still time disagrees with filename and recomputation"
+    },
+    {
+      "file": "video/out/assembly_v6.vtt",
+      "old": "00:00:01.452 --> 00:00:04.355",
+      "new": "00:00:01,452 --> 00:00:04,355",
+      "shape": "VTT timestamps use SRT commas"
+    },
+    {
+      "file": "video/out/assembly_v6.srt",
+      "old": "00:00:07,258 --> 00:00:07,742",
+      "new": "00:00:07,258 --> 00:00:08,742",
+      "shape": "one cue overruns into the following beats"
+    }
+  ]
+}

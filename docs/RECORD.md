@@ -1295,3 +1295,20 @@ passes file; plants 150 is that graph's accounting
 1,418,065,198 in metrics); vectors and escalation
 totals are live at render. Remaining: audit-bundle
 v2 + release tag, then submission.
+
+**Audit-bundle v2 frozen (appended 2026-11-01):**
+`audit-bundle-v2/` built from `2e298ff` by
+`scratch/lead/build_audit_bundle_v2.py` (retained
+inside as a lead script): full seal-era ledger,
+plant keys with a generated `COPIES.txt` pinning
+every planted-copy commit, reports with their
+evidence scripts, lead scripts, and the kit
+byte-identical to v1. 1,841 files, 8.6 MB; the
+manifest is LF and verifies literally:
+`sha256sum -c MANIFEST.sha256` under Git Bash,
+rc=0, zero non-OK lines (v1's CRLF manifest could
+not). Verifier duplicate repo trees inside scratch
+were pruned from the reports pass by signature, so
+no bundle-in-bundle copies are carried. v1 remains
+beside it, unedited. Remaining: release tag, then
+submission.

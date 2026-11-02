@@ -1,0 +1,36 @@
+{
+  "real_tip": "1cfed360d2a456199810a605bcdb078fa731af19",
+  "copy_commit": "a1e83d9357578cd0fcc6e546997b7f314db3b776",
+  "plants": [
+    {
+      "file": "video/assemble.py",
+      "old": "(\"why.py\", \"why3-1440p.mp4\", 32.0)",
+      "new": "(\"why.py\", \"why3-1440p.mp4\", 29.0)",
+      "shape": "assembly duration table keeps the pre-retime why length"
+    },
+    {
+      "file": "video/assemble.py",
+      "old": "tempo = 120.0 / 124.0",
+      "new": "tempo = 120.0 / 120.0",
+      "shape": "assembly tempo scale is a no-op; cut would run 185 s over the cap"
+    },
+    {
+      "file": "video/segments/idea.py",
+      "old": "\"method\": T_Q, \"question\": FADE_T}",
+      "new": "\"method\": T_Q, \"question\": T_Q}",
+      "shape": "idea BLOCKS audit ends the question beat at its own start"
+    },
+    {
+      "file": "video/segments/intro_outro.py",
+      "old": "os.environ.get(\"MSF_SS\", \"2\")",
+      "new": "os.environ.get(\"MSF_SS\", \"1\")",
+      "shape": "phone-camera supersampling defaults off despite the SS=2 record"
+    },
+    {
+      "file": "video/segments/gitvisual.py",
+      "old": "{\"id\": \"kissfft\", \"rank\": float(G1_RANK),",
+      "new": "{\"id\": \"kissfft\", \"rank\": float(G1_RANK) + 1.0,",
+      "shape": "kissfft gate holds one rank past its merge"
+    }
+  ]
+}

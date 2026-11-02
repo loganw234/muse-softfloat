@@ -1,0 +1,20 @@
+{
+ "source": "muse-softfloat/docs/metrics/usage.jsonl at HEAD a73e97d",
+ "definition": "LABELED rows only (wave+agent present); project billed = input_tokens + output_tokens; cached_tokens are inside input_tokens (not added again)",
+ "labeled_rows": 93,
+ "total_rows": 93,
+ "input_tokens": 1190490305,
+ "output_tokens": 5638465,
+ "cached_tokens_inside_input": 1165653139,
+ "project_billed_in_plus_out": 1196128770,
+ "messages": 7756,
+ "owner_est_tokens_chars_over_4_frozen_study": 1928,
+ "owner_band": [
+  1350,
+  2507
+ ],
+ "owner_prompts": 40,
+ "owner_chars": 7713,
+ "ratio_billed_per_owner_token": 620399,
+ "human_share_pct": 0.00016118665885780844
+}

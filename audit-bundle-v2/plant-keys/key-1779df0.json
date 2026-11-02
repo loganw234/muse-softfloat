@@ -1,0 +1,36 @@
+{
+  "real_tip": "26c76aafae1daad27fade6e19df2764d96980dc8",
+  "copy_commit": "1779df0b1395d34d388e1340c5e239896432460b",
+  "plants": [
+    {
+      "file": "src/msf32.c",
+      "old": "    if (b.cls == MSF_VC_ZERO) {\n        *flags |= MSF_FLAG_DIVISION_BY_ZERO;\n        return INF32(sign);",
+      "new": "    if (b.cls == MSF_VC_ZERO) {\n        return INF32(sign);",
+      "shape": "a mandatory exception flag dropped on one path"
+    },
+    {
+      "file": "src/msf32.c",
+      "old": "    if (b.cls == MSF_VC_INFINITY) {\n        return INF32(effb);",
+      "new": "    if (b.cls == MSF_VC_INFINITY) {\n        return INF32(b.sign);",
+      "shape": "the effective (negated) sign ignored on an infinity fast path"
+    },
+    {
+      "file": "src/msf32.c",
+      "old": "a.exp - b.exp + (la - lb) - 63",
+      "new": "a.exp - b.exp + (la - lb) - 62",
+      "shape": "exponent bookkeeping off by one"
+    },
+    {
+      "file": "tests/vectors/arith-f32.vec",
+      "old": "msf32_add te 0 80000001 -> 80000001 00",
+      "new": "msf32_add te 0 80000001 -> 80000000 00",
+      "shape": "a committed vector expectation corrupted"
+    },
+    {
+      "file": "tests/gen_vectors_f32.py",
+      "old": "-(1 << 24), (1 << 31) - 1, -(1 << 31), (1 << 32) - 1,",
+      "new": "-(1 << 24), (1 << 31) - 2, -(1 << 31), (1 << 32) - 1,",
+      "shape": "a boundary value quietly weakened in the generator pool"
+    }
+  ]
+}

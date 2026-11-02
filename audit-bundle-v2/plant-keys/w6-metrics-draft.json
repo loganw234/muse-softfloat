@@ -1,0 +1,35 @@
+{
+  "real_tip": "e7087dc37001dcdf9640355e63d9c40838cb6d18",
+  "plants": [
+    {
+      "file": "docs/metrics/usage.jsonl",
+      "old": "\"agent\":\"lead\",\"model\":\"muse-wonder-full-1.0\",\"output_tokens\":116106",
+      "new": "\"agent\":\"lead\",\"model\":\"muse-wonder-full-1.0\",\"output_tokens\":1161060",
+      "shape": "frozen wave0 usage row edited; append-only prefix broken"
+    },
+    {
+      "file": "docs/metrics/usage.jsonl",
+      "old": "\"agent\":\"verifier-w6popups\",\"model\":\"muse-spark-1.3\",\"output_tokens\":33692",
+      "new": "\"agent\":\"verifier-w6popups\",\"model\":\"muse-spark-1.3\",\"output_tokens\":336920",
+      "shape": "appended usage row inflated; totals no longer reconcile"
+    },
+    {
+      "file": "docs/metrics/passes.jsonl",
+      "old": "\"commit\":\"ef0215b140a0eeb12ea3d4e64113a4ea0421b052\"",
+      "new": "\"commit\":\"ef0215b140a0eeb12ea3d4e64113a4ea0421b053\"",
+      "shape": "passes row cites a commit that does not exist"
+    },
+    {
+      "file": "docs/metrics/briefs.jsonl",
+      "old": "\"author\": \"parcel-w6metrics\", \"base\": \"cdc40aec9b11eeab61ab3c6cc9940b5dbbac4a67\"",
+      "new": "\"author\": \"parcel-w6metrics\", \"base\": \"f01dc96055f24b4aa5450bdadabf44fa5308abb9\"",
+      "shape": "briefs row base disagrees with its brief"
+    },
+    {
+      "file": "docs/metrics/passes.jsonl",
+      "old": "{\"wave\":\"wave6\",\"agent\":\"verifier-w6filmretime\"",
+      "new": "{\"wave\":\"wave5\",\"agent\":\"verifier-w6filmretime\"",
+      "shape": "wave6 verifier pass mislabelled wave5; per-wave tables break"
+    }
+  ]
+}

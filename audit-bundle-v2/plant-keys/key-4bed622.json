@@ -1,0 +1,36 @@
+{
+  "real_tip": "b6e08fd2a1fa555c561c33b0c20c2fca5b3d970b",
+  "copy_commit": "4bed622a77fe190d36cbc40591fcc6eaf69c86ee",
+  "plants": [
+    {
+      "file": "examples/host/main.c",
+      "old": "UINT64_C(0x3fb999999999999a)",
+      "new": "UINT64_C(0x3fb999999999999b)",
+      "shape": "host example pinned 1/10 expectation off by one ulp"
+    },
+    {
+      "file": "examples/host/expected.txt",
+      "old": "f64 mul 1.5*2 TE bits=4008000000000000",
+      "new": "f64 mul 1.5*2 TE bits=4008000000000001",
+      "shape": "committed expected output wrong on an exact product"
+    },
+    {
+      "file": "examples/host/build.sh",
+      "old": "|| { cat \"$BUILD/diff.log\"; fail \"stdout differs from examples/host/expected.txt\"; }",
+      "new": "|| { cat \"$BUILD/diff.log\"; echo \"host example: diff noted\"; }",
+      "shape": "host build passes even when stdout differs"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "old": "run: bash examples/host/build.sh",
+      "new": "run: bash examples/host/build.sh regen",
+      "shape": "CI regenerates the expectation instead of enforcing it"
+    },
+    {
+      "file": "examples/pico/main.c",
+      "old": "UINT64_C(0x3fb999999999999a)",
+      "new": "UINT64_C(0x3fb999999999999b)",
+      "shape": "pico example expectation diverges from the host mirror"
+    }
+  ]
+}

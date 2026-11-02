@@ -1,0 +1,35 @@
+{
+  "real_tip": "6aa720e80f43db12c089ad33553192a72b7359cd",
+  "plants": [
+    {
+      "file": "README.md",
+      "old": "The current silent cut is the 169-second, 2560x1440",
+      "new": "The current silent cut is the 180-second, 1920x1080",
+      "shape": "current video master specs reverted to the old cut"
+    },
+    {
+      "file": "site/data.json",
+      "old": " \"caught\": 114,",
+      "new": " \"caught\": 120,",
+      "shape": "site claims every plant ever caught"
+    },
+    {
+      "file": "docs/BOARD.md",
+      "old": "[docs/TWIDDLES.md](TWIDDLES.md)",
+      "new": "[docs/TWIDDLES.md](../TWIDDLES.md)",
+      "shape": "broken same-directory link reintroduced"
+    },
+    {
+      "file": "src/msf_math.c",
+      "old": "all five attributes at binary16/32/64",
+      "new": "all four attributes at binary16/32/64",
+      "shape": "rounding attribute count reverted to four"
+    },
+    {
+      "file": "docs/BOARD.md",
+      "old": "activity LED is a PIO-driven WS2812 on GP16 (the Pico uses GP25);",
+      "new": "activity LED is a PIO-driven WS2812 on GP25 (the Pico uses GP16);",
+      "shape": "clone and Pico LED pins swapped"
+    }
+  ]
+}

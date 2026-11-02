@@ -1,0 +1,35 @@
+{
+  "real_tip": "3feebb976d4df2b4da972fa2810d4e25c0ba13d6",
+  "plants": [
+    {
+      "file": "demo/fetch.py",
+      "old": "    if licence_sha != row[\"licence_sha256\"]:",
+      "new": "    if False:",
+      "shape": "licence hash verification bypassed"
+    },
+    {
+      "file": "demo/run_demo.sh",
+      "old": "[ \"$R_IAS15\" = \"PASS\" ] && [ \"$R_KISSFFT\" = \"PASS\" ] && [ \"$R_INTERVAL\" = \"PASS\" ] || host_ok=0",
+      "new": "[ \"$R_IAS15\" = \"PASS\" ] && [ \"$R_KISSFFT\" = \"PASS\" ] && [ \"$R_INTERVAL\" = \"PASS\" ] || true",
+      "shape": "summary PASS regardless of workload results"
+    },
+    {
+      "file": "demo/expected-ias15.txt",
+      "old": "2000 4d4530a668d360897477a63f90dfb0f7c86b33eb3e462f5a464028d083f48abb",
+      "new": "2000 5d4530a668d360897477a63f90dfb0f7c86b33eb3e462f5a464028d083f48abb",
+      "shape": "final IAS15 state hash corrupted"
+    },
+    {
+      "file": "demo/expected-kissfft.txt",
+      "old": "KF 256 complex fwd 27f34c36d864da235da695fcc5778ce0e4f9212f7852882eaefc8be09e36067d",
+      "new": "KF 256 complex fwd 27f34c36d864da235da695fcc5778ce0e4f9212f7852882eaefc8be09e36067e",
+      "shape": "one expected KissFFT hash corrupted"
+    },
+    {
+      "file": ".gitignore",
+      "old": "demo/cache/",
+      "new": "demo/cache2/",
+      "shape": "download cache no longer ignored (tracking guard)"
+    }
+  ]
+}

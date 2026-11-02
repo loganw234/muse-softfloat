@@ -1,0 +1,36 @@
+{
+  "real_tip": "cb10ee298a25d92c4ab3da26d4d2f2d7a74f702a",
+  "copy_commit": "d1e9442b8f454886e23a00d4629d81d5b9d2ad62",
+  "plants": [
+    {
+      "file": "src/msf64.c",
+      "old": "    if (b.cls == MSF_VC_ZERO) {\n        *flags |= MSF_FLAG_DIVISION_BY_ZERO;\n        return inf_bits(sign);",
+      "new": "    if (b.cls == MSF_VC_ZERO) {\n        return inf_bits(sign);",
+      "shape": "a mandatory exception flag dropped on one path"
+    },
+    {
+      "file": "src/msf64.c",
+      "old": "int s = (s1 == s2) ? s1 : (rm == MSF_IROUND_TOWARD_NEGATIVE);",
+      "new": "int s = (s1 == s2) ? s1 : (rm == MSF_IROUND_TOWARD_POSITIVE);",
+      "shape": "the signed-zero rule inverted"
+    },
+    {
+      "file": "src/msf64.c",
+      "old": "|| (prod_inf && c.cls == MSF_VC_INFINITY && c.sign != psign);",
+      "new": "|| (prod_inf && c.cls == MSF_VC_INFINITY && c.sign == psign);",
+      "shape": "an opposite-infinities invalid test inverted"
+    },
+    {
+      "file": "tests/vectors/arith-f64.vec",
+      "old": "msf64_div_f32_f32 te 0 80000000 -> 7ff8000000000000 01",
+      "new": "msf64_div_f32_f32 te 0 80000000 -> 7ff8000000000000 00",
+      "shape": "a committed vector flag expectation corrupted"
+    },
+    {
+      "file": "tests/gen_vectors_f64.py",
+      "old": "F_UNF = 0x08",
+      "new": "F_UNF = 0x04",
+      "shape": "a flag-bit constant wrong in the reference generator"
+    }
+  ]
+}

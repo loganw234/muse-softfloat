@@ -1,0 +1,150 @@
+{
+ "clips": {
+  "intro3.mp4": {
+   "file": "C:\\Users\\logan\\source\\repos\\Muse-Softfloat\\scratch\\study-video-intro\\intro3.mp4",
+   "bytes": 863260,
+   "duration_s": 7.0,
+   "codec": "h264",
+   "width": 2560,
+   "height": 1440,
+   "fps": 30.0,
+   "decoded_frames": 210,
+   "decode_rc": 0,
+   "expected_frames": 210,
+   "handoff": {
+    "white_6.8s": {
+     "nonwhite_px": 0,
+     "total_px": 3686400
+    }
+   },
+   "stills": [
+    "scratch\\study-video-intro\\stills3\\intro\\still_000.2s.png",
+    "scratch\\study-video-intro\\stills3\\intro\\still_001.2s.png",
+    "scratch\\study-video-intro\\stills3\\intro\\still_004.4s.png",
+    "scratch\\study-video-intro\\stills3\\intro\\still_005.4s.png",
+    "scratch\\study-video-intro\\stills3\\intro\\still_006.8s.png"
+   ]
+  },
+  "outro3.mp4": {
+   "file": "C:\\Users\\logan\\source\\repos\\Muse-Softfloat\\scratch\\study-video-intro\\outro3.mp4",
+   "bytes": 732530,
+   "duration_s": 8.5,
+   "codec": "h264",
+   "width": 2560,
+   "height": 1440,
+   "fps": 30.0,
+   "decoded_frames": 255,
+   "decode_rc": 0,
+   "expected_frames": 255,
+   "handoff": {
+    "first_frame": {
+     "min": 2,
+     "max": 8,
+     "dominant_sampled": [
+      [
+       [
+        2,
+        3,
+        8
+       ],
+       99633
+      ]
+     ]
+    }
+   },
+   "stills": [
+    "scratch\\study-video-intro\\stills3\\outro\\still_000.0s.png",
+    "scratch\\study-video-intro\\stills3\\outro\\still_001.0s.png",
+    "scratch\\study-video-intro\\stills3\\outro\\still_002.8s.png",
+    "scratch\\study-video-intro\\stills3\\outro\\still_004.2s.png",
+    "scratch\\study-video-intro\\stills3\\outro\\still_008.3s.png"
+   ]
+  },
+  "idea2-1440p.mp4": {
+   "file": "C:\\Users\\logan\\source\\repos\\Muse-Softfloat\\scratch\\study-video-idea\\idea2-1440p.mp4",
+   "bytes": 881976,
+   "duration_s": 22.5,
+   "codec": "h264",
+   "width": 2560,
+   "height": 1440,
+   "fps": 30.0,
+   "decoded_frames": 675,
+   "decode_rc": 0,
+   "expected_frames": 675,
+   "handoff": {
+    "white_0.2s": {
+     "nonwhite_px": 0,
+     "total_px": 3686400
+    },
+    "white_22.3s": {
+     "nonwhite_px": 0,
+     "total_px": 3686400
+    }
+   },
+   "stills": [
+    "scratch\\study-video-idea\\stills-idea2\\still_000.2s.png",
+    "scratch\\study-video-idea\\stills-idea2\\still_004.4s.png",
+    "scratch\\study-video-idea\\stills-idea2\\still_009.4s.png",
+    "scratch\\study-video-idea\\stills-idea2\\still_014.4s.png",
+    "scratch\\study-video-idea\\stills-idea2\\still_018.4s.png",
+    "scratch\\study-video-idea\\stills-idea2\\still_021.4s.png",
+    "scratch\\study-video-idea\\stills-idea2\\still_022.3s.png"
+   ]
+  },
+  "why3-1440p.mp4": {
+   "file": "C:\\Users\\logan\\source\\repos\\Muse-Softfloat\\scratch\\study-video-why\\why3-1440p.mp4",
+   "bytes": 1574914,
+   "duration_s": 33.5,
+   "codec": "h264",
+   "width": 2560,
+   "height": 1440,
+   "fps": 30.0,
+   "decoded_frames": 1005,
+   "decode_rc": 0,
+   "expected_frames": 1005,
+   "handoff": {
+    "white_0.2s": {
+     "nonwhite_px": 0,
+     "total_px": 3686400
+    },
+    "white_33.3s": {
+     "nonwhite_px": 0,
+     "total_px": 3686400
+    }
+   },
+   "stills": [
+    "scratch\\study-video-why\\stills3\\still_000.2s.png",
+    "scratch\\study-video-why\\stills3\\still_003.4s.png",
+    "scratch\\study-video-why\\stills3\\still_007.9s.png",
+    "scratch\\study-video-why\\stills3\\still_013.4s.png",
+    "scratch\\study-video-why\\stills3\\still_018.4s.png",
+    "scratch\\study-video-why\\stills3\\still_023.9s.png",
+    "scratch\\study-video-why\\stills3\\still_027.9s.png",
+    "scratch\\study-video-why\\stills3\\still_032.4s.png",
+    "scratch\\study-video-why\\stills3\\still_033.3s.png"
+   ]
+  }
+ },
+ "priors": {
+  "intro2.mp4": {
+   "bytes": 643997,
+   "expected": 643997,
+   "unchanged": true
+  },
+  "outro2.mp4": {
+   "bytes": 536110,
+   "expected": 536110,
+   "unchanged": true
+  },
+  "idea-1440p.mp4": {
+   "bytes": 1051203,
+   "expected": 1051203,
+   "unchanged": true
+  },
+  "why2-1440p.mp4": {
+   "bytes": 2453116,
+   "expected": 2453116,
+   "unchanged": true
+  }
+ }
+}

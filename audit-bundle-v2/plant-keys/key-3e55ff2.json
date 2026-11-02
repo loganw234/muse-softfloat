@@ -1,0 +1,36 @@
+{
+  "real_tip": "0cad04332adfd2a22bbed5ffff04cfdc840eb274",
+  "copy_commit": "3e55ff2912ef16970cec1c0563055a315234f6b9",
+  "plants": [
+    {
+      "file": "docs/TWIDDLES.md",
+      "old": "N=1024 and N=4096; at N=256 the gate ran forward plans only",
+      "new": "N=1024 and N=4096; at N=256 the gate ran forward and inverse plans",
+      "shape": "ungated N=256 inverse coverage claimed"
+    },
+    {
+      "file": "docs/TWIDDLES.md",
+      "old": "| Total | | **8856** |",
+      "new": "| Total | | **8956** |",
+      "shape": "field census total inflated"
+    },
+    {
+      "file": "docs/TWIDDLES.md",
+      "old": "\"Unmodified KissFFT\" is never claimed; the patch is named in",
+      "new": "\"Unmodified KissFFT\" is claimed wherever convenient; the patch is named in",
+      "shape": "never-unmodified rule inverted"
+    },
+    {
+      "file": "docs/TWIDDLES.md",
+      "old": "is the 256-bit choice plus 0 mismatches over the 8,856",
+      "new": "is the 128-bit choice plus 0 mismatches over the 8,856",
+      "shape": "decider precision halved in the record"
+    },
+    {
+      "file": "docs/BOARD.md",
+      "old": "[docs/TWIDDLES.md](../TWIDDLES.md).",
+      "new": "[docs/TWIDDLES.md](../TWIDDLE.md).",
+      "shape": "retained-derivation link broken"
+    }
+  ]
+}

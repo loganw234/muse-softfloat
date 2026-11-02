@@ -103,10 +103,12 @@ enough.
    any line of it, then the planted-defect grades against
    their keys, then the method rules and the final
    adherence report, then re-run the gates from step 3.
-   The bundle's manifest lists 576 frozen files with their
-   hashes; it was frozen when the library was completed,
-   and later work is appended in RECORD and the git
-   history. The planted-defect score: before each piece of
+   The current bundle is
+   [audit-bundle-v2/](audit-bundle-v2/README.md): 1,841
+   frozen files with an LF SHA-256 manifest, frozen at
+   the submission seal (the v1 bundle, 576 files frozen
+   when the library was completed, is retained beside it
+   unedited). The planted-defect score: before each piece of
    work merged, an independent verifier checked it against
    a copy carrying deliberate hidden defects. Counting the
    rows in [docs/metrics/plants.jsonl](docs/metrics/plants.jsonl)

@@ -1,0 +1,36 @@
+{
+  "real_tip": "5b53bf3db94100b401eb6f7bef516472d9d28dc1",
+  "copy_commit": "3cec27cb5b76ebf6a268cf03391bbd12f32b3918",
+  "plants": [
+    {
+      "file": ".github/workflows/ci.yml",
+      "old": "      - name: Run standard gate (merge gate)\n        run: MSF_PYTHON=python3 bash tools/run.sh standard",
+      "new": "      - name: Run standard gate (merge gate)\n        run: MSF_PYTHON=python3 bash tools/run.sh smoke",
+      "shape": "standard CI job silently runs only the smoke budget"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "old": "  standard:\n    runs-on: ubuntu-latest\n    timeout-minutes: 60",
+      "new": "  standard:\n    runs-on: windows-latest\n    timeout-minutes: 60",
+      "shape": "standard job moved off Linux, defeating the parcel purpose"
+    },
+    {
+      "file": "tools/run.sh",
+      "old": "[ -d /c/msys64/mingw64/bin ] && export PATH=",
+      "new": "[ ! -d /c/msys64/mingw64/bin ] && export PATH=",
+      "shape": "MSYS2 PATH guard inverted"
+    },
+    {
+      "file": "tools/run.sh",
+      "old": "t==\"exact-py:directed-encodings\"",
+      "new": "$NF==\"exact-py:directed-encodings\"",
+      "shape": "CRLF last-field bug reintroduced in the nan control"
+    },
+    {
+      "file": "tools/run.sh",
+      "old": "print t}",
+      "new": "print $NF}",
+      "shape": "expect-count provenance tags printed CR-carrying again"
+    }
+  ]
+}

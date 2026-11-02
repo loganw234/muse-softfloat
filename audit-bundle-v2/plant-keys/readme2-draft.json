@@ -1,0 +1,35 @@
+{
+  "real_tip": "ef23f4d941d9f839d62eb5d85b3d003912f01e6d",
+  "plants": [
+    {
+      "file": "README.md",
+      "old": "names (171,423 committed vectors; `standard` adds 1,117,504),",
+      "new": "names (196,404 committed vectors; `standard` adds 1,117,504),",
+      "shape": "committed vector total inflated"
+    },
+    {
+      "file": "README.md",
+      "old": "Spark verifiers (61 of 65 plants caught to date).",
+      "new": "Spark verifiers (65 of 65 plants caught to date).",
+      "shape": "plant score rounded up to perfect"
+    },
+    {
+      "file": "README.md",
+      "old": "pairs, and Clause 9.5 augmented arithmetic follow in SF-2's",
+      "new": "pairs, and Clause 9.5 augmented arithmetic have landed in SF-2's",
+      "shape": "unlanded steps claimed as landed"
+    },
+    {
+      "file": "README.md",
+      "old": "the fifth public rounding attribute across all 255",
+      "new": "the fifth public rounding attribute across all 822",
+      "shape": "attribute row census inflated to whole inventory"
+    },
+    {
+      "file": "README.md",
+      "old": "9.2 functions (`pow`/`powr` refused in any first sequence),",
+      "new": "9.2 functions (`pow`/`powr` priced for a later wave),",
+      "shape": "pow refusal softened to a pricing"
+    }
+  ]
+}

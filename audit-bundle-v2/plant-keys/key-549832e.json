@@ -1,0 +1,36 @@
+{
+  "real_tip": "77e6e647cac519a35975b1adadecfb157e0c93b5",
+  "copy_commit": "549832e1d505248963f783897525fd9616a24efa",
+  "plants": [
+    {
+      "file": "tools/run.sh",
+      "old": "SANFLAGS=\"-fsanitize=undefined -fsanitize-undefined-trap-on-error -fno-sanitize-recover=all\"",
+      "new": "SANFLAGS=\"-fsanitize=undefined\"",
+      "shape": "trap flavour made recoverable: findings print and exit 0"
+    },
+    {
+      "file": "tests/sanitize_canary_ub.c",
+      "old": "volatile int x = INT_MAX;",
+      "new": "volatile int x = INT_MAX - 100;",
+      "shape": "UB canary no longer overflows"
+    },
+    {
+      "file": "tools/run.sh",
+      "old": "no sets run, zero findings NOT claimed, no PASS verdict for this flavour",
+      "new": "all sets clean, zero findings, PASS for this flavour",
+      "shape": "runtime-absent skip claims a clean PASS"
+    },
+    {
+      "file": "tools/run.sh",
+      "old": "[ -n \"${MSF_SANITIZE:-}\" ] && [ \"$BUDGET\" != sanitize ]",
+      "new": "[ -n \"${MSF_SANITIZE:-}\" ] && [ \"$BUDGET\" = sanitize ]",
+      "shape": "flavour refusal inverted: sanitize budget itself refused when set"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "old": "run: MSF_PYTHON=python3 MSF_SANITIZE=full bash tools/run.sh sanitize",
+      "new": "run: MSF_PYTHON=python3 MSF_SANITIZE=trap bash tools/run.sh sanitize",
+      "shape": "CI sanitize job never runs the address flavour"
+    }
+  ]
+}

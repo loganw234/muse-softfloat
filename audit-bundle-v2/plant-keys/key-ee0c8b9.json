@@ -1,0 +1,36 @@
+{
+  "real_tip": "e1b0b4675f0ad4927152c1142933ee7002f20a99",
+  "copy_commit": "ee0c8b90f45a138d707ae92a6254df34afb4534e",
+  "plants": [
+    {
+      "file": "README.md",
+      "old": "runs 169 seconds at 2560x1440",
+      "new": "runs 180 seconds at 1920x1080",
+      "shape": "judge map gives the old cut's specs for the current film"
+    },
+    {
+      "file": "README.md",
+      "old": "gives 138 caught of 145 (the latest round",
+      "new": "gives 145 caught of 145 (the latest round",
+      "shape": "map claims every plant ever caught"
+    },
+    {
+      "file": "README.md",
+      "old": "   ```\n   bash demo/run_demo.sh host\n   ```",
+      "new": "   ```\n   bash demo/run_demo.sh board\n   ```",
+      "shape": "judge reproduction step demands the physical board"
+    },
+    {
+      "file": "README.md",
+      "old": "interval-geometry catalogue (hash `ae04caf0…c1422`;",
+      "new": "interval-geometry catalogue (hash `ce81d66e…a9aec`;",
+      "shape": "map quotes the pre-augint interval hash as current"
+    },
+    {
+      "file": "demo/expected-interval.txt",
+      "old": "HOST_SHA256 ae04caf012294919c432aedd6d80f2a04e6416010291ca83110e4757a66c1422",
+      "new": "HOST_SHA256 ae04caf012294919c432aedd6d80f2a04e6416010291ca83110e4757a66c1423",
+      "shape": "demo interval expectation off by one hex digit"
+    }
+  ]
+}

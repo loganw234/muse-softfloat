@@ -1,0 +1,36 @@
+{
+  "real_tip": "2618b3454a5e439dd7b23531256ccb000c669128",
+  "copy_commit": "9fffbb1c2bbad8f9a0e15d40f31ca79789185135",
+  "plants": [
+    {
+      "file": "src/msf_math.c",
+      "old": "        if (explog_cmp_int(&d, e_tie) < 0) {",
+      "new": "        if (explog_cmp_int(&d, e_tie) <= 0) {",
+      "shape": "underflow cut swallows the exact tie input"
+    },
+    {
+      "file": "src/msf_explog_tables.h",
+      "old": "static const int MSF_EXPLOG_EK_EXP[3] = { 147, 243, 371 };",
+      "new": "static const int MSF_EXPLOG_EK_EXP[3] = { 147, 243, 200 };",
+      "shape": "stage-3 error bound narrowed past its proof"
+    },
+    {
+      "file": "tests/gen_vectors_explog.py",
+      "old": "INEXACT = 0x10",
+      "new": "INEXACT = 0x08",
+      "shape": "generator inexact flag bit wrong"
+    },
+    {
+      "file": "tables/operations.tsv",
+      "old": "exp2m1\texp2m1\t9.2\tmath_un\tattr\tyes\t5\tmpfr-exact\tdirected-cuts;ties;wc-mpfr;seeded-random\texact\t2\tC-754",
+      "new": "exp2m1\texp2m1\t9.2\tmath_un\tattr\tno\t5\tmpfr-exact\tdirected-cuts;ties;wc-mpfr;seeded-random\texact\t2\tC-754",
+      "shape": "exp2m1 row claims no exception flags"
+    },
+    {
+      "file": "tests/vectors/explog-f64.vec",
+      "old": "msf64_exp2 te 0 -> 3ff0000000000000 00 mpfr-explog:specials",
+      "new": "msf64_exp2 te 0 -> 3ff0000000000000 10 mpfr-explog:specials",
+      "shape": "inexact fabricated on an exact specials vector"
+    }
+  ]
+}

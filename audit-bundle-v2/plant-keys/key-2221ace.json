@@ -1,0 +1,36 @@
+{
+  "real_tip": "93886a82a5af527d916bb1fded8c8b75bab3986e",
+  "copy_commit": "2221ace0f795e16259e2db369d46cddb9d18cb57",
+  "plants": [
+    {
+      "file": "board/interval_workload.c",
+      "old": "MSF_FLAG_INVALID | MSF_FLAG_INEXACT)) != 0;",
+      "new": "MSF_FLAG_INVALID)) != 0;",
+      "shape": "guard no longer trips on inexact augmented pairs"
+    },
+    {
+      "file": "board/interval_workload.c",
+      "old": "*p_out = pr.head;",
+      "new": "*p_out = pr.tail;",
+      "shape": "product head replaced by its tail in aug_prod"
+    },
+    {
+      "file": "board/interval_workload.c",
+      "old": "aug_prod(c, a, b, &p, &e, fl);",
+      "new": "aug_prod(c, a, b, &e, &p, fl);",
+      "shape": "product head and tail swapped at the call site"
+    },
+    {
+      "file": "board/interval_run.sh",
+      "old": "src/msf_string.c src/msf_aug.c tests/sha256.c",
+      "new": "src/msf_string.c tests/sha256.c",
+      "shape": "msf_aug.c dropped from the interval host build list"
+    },
+    {
+      "file": "board/interval_workload.h",
+      "old": "An exact tiny residual is an exact expansion term.",
+      "new": "An exact tiny residual trips the guard like any inexact pair.",
+      "shape": "header states the opposite of the P1=R2 guard semantics"
+    }
+  ]
+}

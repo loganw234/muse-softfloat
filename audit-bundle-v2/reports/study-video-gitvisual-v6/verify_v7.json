@@ -1,0 +1,247 @@
+{
+ "bridge_frame_diff": {
+  "window_s": [
+   44.5,
+   45.6
+  ],
+  "seam_diff_44.967_to_45.000": 2.2777,
+  "seam_diff_45.000_to_45.033": 0.8656,
+  "max_diff_in_window": 2.8338,
+  "median_diff_in_window": 1.0304,
+  "world_only_seam_diff_44.967_to_45.000": 1.1094,
+  "world_only_seam_diff_45.000_to_45.033": 0.9469,
+  "world_only_max_diff_in_window": 2.9245,
+  "world_only_median_diff_in_window": 1.1123,
+  "diffs": [
+   2.8338,
+   2.648,
+   2.3942,
+   2.5735,
+   1.6508,
+   1.6628,
+   1.7028,
+   1.6426,
+   0.8107,
+   1.6648,
+   0.8165,
+   0.8253,
+   0.7965,
+   0.7677,
+   2.2777,
+   0.8656,
+   0.8605,
+   0.8666,
+   0.8101,
+   0.7669,
+   0.8807,
+   0.7302,
+   0.8726,
+   0.8861,
+   1.0223,
+   1.0304,
+   1.0172,
+   1.1373,
+   1.1356,
+   1.3925,
+   1.3758,
+   1.3595,
+   1.4847
+  ],
+  "world_only_diffs": [
+   2.9245,
+   2.7227,
+   2.4476,
+   2.6672,
+   1.7189,
+   1.7322,
+   1.7753,
+   1.7098,
+   0.8606,
+   1.7605,
+   0.8934,
+   0.9029,
+   0.8709,
+   0.8399,
+   1.1094,
+   0.9469,
+   0.9372,
+   0.9484,
+   0.886,
+   0.8388,
+   0.9635,
+   0.7985,
+   0.954,
+   0.9692,
+   1.1075,
+   1.1233,
+   1.1123,
+   1.2442,
+   1.2425,
+   1.5236,
+   1.5055,
+   1.4794,
+   1.6248
+  ]
+ },
+ "spine": {
+  "50.0": {
+   "cursor": 31.89,
+   "lit": {
+    "hits": 6,
+    "samples": 8,
+    "frac": 0.75
+   },
+   "ghost": {
+    "hits": 13,
+    "samples": 13,
+    "frac": 1.0
+   }
+  },
+  "65.0": {
+   "cursor": 67.55,
+   "lit": {
+    "hits": 7,
+    "samples": 8,
+    "frac": 0.875
+   },
+   "ghost": {
+    "hits": 13,
+    "samples": 13,
+    "frac": 1.0
+   }
+  },
+  "80.0": {
+   "cursor": 138.35,
+   "lit": {
+    "hits": 7,
+    "samples": 8,
+    "frac": 0.875
+   },
+   "ghost": {
+    "hits": 13,
+    "samples": 13,
+    "frac": 1.0
+   }
+  }
+ },
+ "red_loop_rank38_at_62s": {
+  "hits": 27,
+  "samples": 31,
+  "frac": 0.871
+ },
+ "role_lane_pixels": [
+  {
+   "t": 48.0,
+   "cursor": 12.11,
+   "per_role": {
+    "surveyor": {
+     "hits": 0,
+     "samples": 0,
+     "episodes": 1,
+     "frac": null
+    },
+    "verifier": {
+     "hits": 8,
+     "samples": 12,
+     "episodes": 3,
+     "frac": 0.667
+    },
+    "author": {
+     "hits": 10,
+     "samples": 12,
+     "episodes": 2,
+     "frac": 0.833
+    }
+   }
+  },
+  {
+   "t": 75.8,
+   "cursor": 76.89,
+   "per_role": {
+    "author": {
+     "hits": 0,
+     "samples": 0,
+     "episodes": 2,
+     "frac": null
+    },
+    "verifier": {
+     "hits": 6,
+     "samples": 6,
+     "episodes": 3,
+     "frac": 1.0
+    },
+    "surveyor": {
+     "hits": 6,
+     "samples": 12,
+     "episodes": 2,
+     "frac": 0.5
+    }
+   }
+  },
+  {
+   "t": 78.6,
+   "cursor": 124.08,
+   "per_role": {
+    "author": {
+     "hits": 7,
+     "samples": 7,
+     "episodes": 3,
+     "frac": 1.0
+    },
+    "verifier": {
+     "hits": 0,
+     "samples": 0,
+     "episodes": 2,
+     "frac": null
+    },
+    "fixer": {
+     "hits": 0,
+     "samples": 0,
+     "episodes": 1,
+     "frac": null
+    },
+    "surveyor": {
+     "hits": 5,
+     "samples": 6,
+     "episodes": 1,
+     "frac": 0.833
+    }
+   }
+  }
+ ],
+ "plant_ticks_verifier_sf2_75.8s": [
+  {
+   "plant": 1,
+   "grade": "missed",
+   "orange_px_near": 416
+  },
+  {
+   "plant": 2,
+   "grade": "caught",
+   "orange_px_near": 734
+  },
+  {
+   "plant": 3,
+   "grade": "caught",
+   "orange_px_near": 735
+  },
+  {
+   "plant": 4,
+   "grade": "caught",
+   "orange_px_near": 717
+  },
+  {
+   "plant": 5,
+   "grade": "missed",
+   "orange_px_near": 408
+  }
+ ],
+ "replay_legend_chips_65s": {
+  "lead": 1043,
+  "author": 1043,
+  "verifier": 1043,
+  "surveyor": 1043,
+  "fixer": 1043,
+  "plants_orange": 670
+ }
+}

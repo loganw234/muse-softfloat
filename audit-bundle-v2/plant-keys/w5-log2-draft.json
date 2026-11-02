@@ -1,0 +1,35 @@
+{
+  "real_tip": "826f836c8b7c55a0e0ee0cf52666451a8f2aa4a1",
+  "plants": [
+    {
+      "file": "src/msf_math.c",
+      "old": "    return big_top_bit(sq, 2 * nu) > bit2;",
+      "new": "    return big_top_bit(sq, 2 * nu) >= bit2;",
+      "shape": "recentring compare widened past the exact square boundary"
+    },
+    {
+      "file": "src/msf_explog_tables.h",
+      "old": "static const int MSF_EXPLOG_EK_LOG[3] = { 146, 242, 370 };",
+      "new": "static const int MSF_EXPLOG_EK_LOG[3] = { 146, 242, 300 };",
+      "shape": "binary64 log error bound narrowed past its proof"
+    },
+    {
+      "file": "tests/gen_vectors_explog.py",
+      "old": "UNDERFLOW = 0x08",
+      "new": "UNDERFLOW = 0x04",
+      "shape": "generator underflow flag bit wrong"
+    },
+    {
+      "file": "tables/implemented.tsv",
+      "old": "msf64_log2p1\t5",
+      "new": "msf64_log2p1\t4",
+      "shape": "implemented row drops the fifth attribute"
+    },
+    {
+      "file": "tests/vectors/explog-f64.vec",
+      "old": "msf64_log2p1 te bff0000000000000 -> fff0000000000000 02 mpfr-explog:powers",
+      "new": "msf64_log2p1 te bff0000000000000 -> fff0000000000000 00 mpfr-explog:powers",
+      "shape": "pole divide-by-zero stripped from committed vector"
+    }
+  ]
+}

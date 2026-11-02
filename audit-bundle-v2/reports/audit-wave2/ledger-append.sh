@@ -1,0 +1,1 @@
+bash softfloat-bootstrap-kit/tools/ledger.sh append ledger auditor-wave2 "Wave 2 audit filed: verify-then-merge held, 1 false record sentence, unbriefed parallel work" < scratch/audit-wave2/ledger-body.txt
