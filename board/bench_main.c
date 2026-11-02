@@ -247,7 +247,7 @@ int main(void)
     BENCH_ROW("msf16_mul", 16000u, 0, NOP_SETUP,
               rsink_ += msf16_mul(gen16(&s_, 0), gen16(&s_, 0), RNE, &fl_),
               NOP_FINISH);
-    BENCH_ROW("msf16_fma", 4500u, 0, NOP_SETUP,
+    BENCH_ROW("msf16_fma", 9000u, 0, NOP_SETUP,
               rsink_ += msf16_fma(gen16(&s_, 0), gen16(&s_, 0), gen16(&s_, 0), RNE, &fl_),
               NOP_FINISH);
     BENCH_ROW("msf16_div", 650u, 0, NOP_SETUP,
@@ -306,10 +306,10 @@ int main(void)
     BENCH_ROW("msf32_from_i32", 37000u, 0, NOP_SETUP,
               rsink_ += msf32_from_i32((int32_t)lcg_next(&s_), RNE, &fl_),
               NOP_FINISH);
-    BENCH_ROW("msf64_to_i32_ties_to_even", 15000u, 0, NOP_SETUP,
+    BENCH_ROW("msf64_to_i32_ties_to_even", 28000u, 0, NOP_SETUP,
               rsink_ += (uint64_t)(uint32_t)msf64_to_i32_ties_to_even(gen64(&s_, 0), &fl_),
               NOP_FINISH);
-    BENCH_ROW("msf32_from_f64", 23000u, 0, NOP_SETUP,
+    BENCH_ROW("msf32_from_f64", 28000u, 0, NOP_SETUP,
               rsink_ += msf32_from_f64(gen64(&s_, 0), RNE, &fl_), NOP_FINISH);
 
     /* Retained P0 exemplar rows (original names; LCG operands) */
