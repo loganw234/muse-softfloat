@@ -1,4 +1,4 @@
-name: Library CI (Linux gate)
+name: Library CI
 
 # Runs the library gate (tools/run.sh) on Ubuntu so the verdicts
 # are not specific to the owner's Windows host. smoke is the fast
@@ -12,6 +12,22 @@ name: Library CI (Linux gate)
 # link today; there the same budget runs the trap flavour and
 # full SKIPs-BY-NAME. Its canaries run first in both flavours, so
 # a green sanitize job proves the instrumentation was live.
+#
+# The windows job runs the same front door under MSYS2
+# UCRT64 on windows-latest - smoke first as its own verdict,
+# then standard, the merge gate - so the portability claim is
+# tested on a second OS/toolchain instead of only asserted:
+# the UCRT64
+# host gcc (x86_64-w64-mingw32, same dumpmachine family the
+# owner's host MINGW64 gcc reports), the MSYS2 arm-none-eabi
+# cross gcc (the symbol scan runs, not SKIP-BY-NAME), and MSYS2
+# python. UCRT64 rather than MINGW64 because MSYS2 has
+# deprecated the MINGW64 environment and removed its
+# arm-none-eabi-gcc package; the first push of this job
+# (MINGW64, Actions run 41372791984) failed in pacman with
+# "error: target not found: mingw-w64-x86_64-arm-none-eabi-gcc".
+# run.sh is used unmodified; everything Windows-specific lives
+# in this file.
 
 on:
   push:
@@ -133,4 +149,59 @@ jobs:
             build/sanitize-full/*.out
             build/sanitize-full/canaries/*.log
             build/sanitize-full/perfile/*.log
+          if-no-files-found: warn
+
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+      - name: Install toolchains (MSYS2 UCRT64)
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-python
+            mingw-w64-ucrt-x86_64-arm-none-eabi-gcc
+            diffutils gawk grep sed
+      - name: Toolchain inventory
+        run: |
+          set -eo pipefail
+          command -v gcc python arm-none-eabi-gcc arm-none-eabi-nm
+          gcc --version | head -n 1
+          gcc -dumpmachine
+          python --version
+          arm-none-eabi-gcc --version | head -n 1
+          arm-none-eabi-nm --version | head -n 1
+      - name: Run smoke gate
+        run: MSF_PYTHON=python bash tools/run.sh smoke
+      - name: Run standard gate (merge gate)
+        run: MSF_PYTHON=python bash tools/run.sh standard
+      - name: Upload windows smoke logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-smoke-logs
+          path: |
+            build/smoke/*.log
+            build/smoke/*.txt
+            build/smoke/*.out
+            build/smoke/controls/*.log
+          if-no-files-found: warn
+      - name: Upload windows standard logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-standard-logs
+          path: |
+            build/standard/*.log
+            build/standard/*.txt
+            build/standard/*.out
+            build/standard/controls/*.log
           if-no-files-found: warn
