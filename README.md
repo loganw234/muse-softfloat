@@ -75,7 +75,8 @@ enough.
    on Linux for every push
    ([.github/workflows/ci.yml](.github/workflows/ci.yml),
    four jobs: `smoke`, `standard`, `example-host`, and
-   `sanitize`). `standard` is the bigger gate a merge must
+   `sanitize`), and a fifth job runs `smoke` then `standard`
+   on Windows (MSYS2 UCRT64). `standard` is the bigger gate a merge must
    pass, and `example-host` re-runs the example above. The
    full `sanitize` flavour runs only in that CI job; the
    project Windows host runs its lighter trap flavour.
