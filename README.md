@@ -2,7 +2,7 @@
 
 An IEEE 754 softfloat library (binary16, binary32 and binary64) for the RP2040 whose proof workloads run bit-identical to their desktop runs, on a chip with no FPU.
 
-[![Library CI](https://github.com/loganw234/muse-softfloat/actions/workflows/ci.yml/badge.svg)](https://github.com/loganw234/muse-softfloat/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Release v1.0.0](https://img.shields.io/badge/release-v1.0.0-blue.svg)](https://github.com/loganw234/muse-softfloat/releases/tag/v1.0.0) [![Instantiations 849](https://img.shields.io/badge/instantiations-849-blue.svg)](#at-a-glance) [![Plant score 172/180](https://img.shields.io/badge/plants-172%2F180-blue.svg)](#at-a-glance)
+[![Library CI](https://github.com/loganw234/muse-softfloat/actions/workflows/ci.yml/badge.svg)](https://github.com/loganw234/muse-softfloat/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Release v1.0.0](https://img.shields.io/badge/release-v1.0.0-blue.svg)](https://github.com/loganw234/muse-softfloat/releases/tag/v1.0.0) [![Instantiations 849](https://img.shields.io/badge/instantiations-849-blue.svg)](#at-a-glance) [![Plant score 177/185](https://img.shields.io/badge/plants-177%2F185-blue.svg)](#at-a-glance)
 
 [Watch the 3-min film](https://www.youtube.com/watch?v=IzLtd2_OIFo) · [Try the live demo](https://loganw234.github.io/muse-softfloat/) · [v1.0.0 release](https://github.com/loganw234/muse-softfloat/releases/tag/v1.0.0)
 
@@ -28,7 +28,7 @@ The workload that proves it in public: **[REBOUND](https://github.com/hannorein/
 | Committed test vectors | **411,213** |
 | IAS15 on silicon | **2,001/2,001** step records on each of 6 chips; step-2000 hash `4d4530a668d360897477a63f90dfb0f7c86b33eb3e462f5a464028d083f48abb` (board == native) |
 | Library since the v1.0.0 tag | `git diff v1.0.0..HEAD -- include src compat tables` is empty in this tree |
-| Planted-defect score | **172/180** caught (recount it yourself — see step 5 below) |
+| Planted-defect score | **177/185** caught (recount it yourself — see step 5 below) |
 | Live demo | [loganw234.github.io/muse-softfloat](https://loganw234.github.io/muse-softfloat/) |
 
 ## Quickstart
@@ -70,7 +70,7 @@ Five steps, in order: watch, click, run, reproduce, audit. Each step stands on i
    ```
 
    This downloads two pinned archives, checks their hashes before opening them, and re-runs the three public workloads on your machine: the orbit integrator for 2,000 steps (2,001 step records compared), KissFFT with its one named change (12 configurations compared; the change is described in [demo/README.md](demo/README.md) and [docs/TWIDDLES.md](docs/TWIDDLES.md)), and a 710-row interval-geometry catalogue (hash `ae04caf0…c1422`; counted library calls are part of that hash). All three legs passed when this map was written.
-5. **Audit how it was made (as deep as you like).** Start with [docs/RECORD.md](docs/RECORD.md), the dated history of what was claimed and when — failures stay in it. Then follow the reading order under "How to audit" in [audit-bundle/README.md](audit-bundle/README.md): the record first, then the frozen briefs and ledgers behind any line of it, then the planted-defect grades against their keys, then the method rules and the final adherence report, then re-run the gates from step 3. The current bundle is [audit-bundle-v2/](audit-bundle-v2/README.md): 1,841 frozen files with an LF SHA-256 manifest, frozen at the submission seal (the v1 bundle, 576 files frozen when the library was completed, is retained beside it unedited). The planted-defect score: before each piece of work merged, an independent verifier checked it against a copy carrying deliberate hidden defects. Counting the rows in [docs/metrics/plants.jsonl](docs/metrics/plants.jsonl) in this tree gives 172 caught of 180 (Wave 6: 44 of 45; post-seal: 10 of 10) — recount it yourself; there is one line per plant.
+5. **Audit how it was made (as deep as you like).** Start with [docs/RECORD.md](docs/RECORD.md), the dated history of what was claimed and when — failures stay in it. Then follow the reading order under "How to audit" in [audit-bundle/README.md](audit-bundle/README.md): the record first, then the frozen briefs and ledgers behind any line of it, then the planted-defect grades against their keys, then the method rules and the final adherence report, then re-run the gates from step 3. The current bundle is [audit-bundle-v2/](audit-bundle-v2/README.md): 1,841 frozen files with an LF SHA-256 manifest, frozen at the submission seal (the v1 bundle, 576 files frozen when the library was completed, is retained beside it unedited). The planted-defect score: before each piece of work merged, an independent verifier checked it against a copy carrying deliberate hidden defects. Counting the rows in [docs/metrics/plants.jsonl](docs/metrics/plants.jsonl) in this tree gives 177 caught of 185 (Wave 6: 44 of 45; post-seal: 15 of 15) — recount it yourself; there is one line per plant.
 
 ## Status
 
@@ -117,14 +117,14 @@ From the labelled `bench-pico` run in [docs/BENCH.md](docs/BENCH.md) (median cyc
 
 ### Process
 
-- Verified wave by wave on planted copies by independent verifiers (172 of 180 plants caught, as counted from `docs/metrics/plants.jsonl` in this tree).
+- Verified wave by wave on planted copies by independent verifiers (177 of 185 plants caught, as counted from `docs/metrics/plants.jsonl` in this tree).
 - Wave 6 also landed the on-ramp in [examples/](examples/README.md) (the same small program over the public API on host and Pico, its host output pinned and diff-enforced by `examples/host/build.sh`; the Pico program printed every host-expected line on the genuine board at its merge gate, a RECORD entry), Linux CI, and a `sanitize` gate budget (both described under Proof above).
 - SF-2 is complete: its four steps (fifth attribute, `rSqrt`/`hypot`, `exp2`/`log2` pairs, augmented arithmetic) are all merged, and Wave 6 queue items 1–4 (augmented consumption, Linux CI, the sanitize budget, the examples on-ramp) have landed since; submission packaging, including the map above, follows.
 
 <details>
 <summary>Earlier plant-score pins and the metrics cutoff</summary>
 
-Earlier text here pinned 162 of 170 at the seal and 153 of 160, 148 of 155 and 138 of 145 at earlier Wave 6 landings and 114 of 120 at `bc807e6`. The metrics ledgers in [docs/metrics/](docs/metrics/README.md) were refreshed through the Wave 6 close at the seal (usage 128 rows, passes 131, escalations 23 after three late audit rows, briefs 47, plants 180 counted in this tree); the refreshed billed total is 1,418,065,198 tokens at that cutoff, and the handful of seal sessions after it are named unrowed in RECORD. The plant score above is counted from `docs/metrics/plants.jsonl` as it stands in this tree.
+Earlier text here pinned 172 of 180 at the post-seal bench/CI landing, 162 of 170 at the seal and 153 of 160, 148 of 155 and 138 of 145 at earlier Wave 6 landings and 114 of 120 at `bc807e6`. The metrics ledgers in [docs/metrics/](docs/metrics/README.md) were refreshed through the Wave 6 close at the seal (usage 128 rows, passes 131, escalations 23 after three late audit rows, briefs 48, plants 185 counted in this tree); the refreshed billed total is 1,418,065,198 tokens at that cutoff, and the handful of seal sessions after it are named unrowed in RECORD. The plant score above is counted from `docs/metrics/plants.jsonl` as it stands in this tree.
 
 </details>
 

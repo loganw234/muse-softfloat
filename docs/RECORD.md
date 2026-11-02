@@ -1359,3 +1359,18 @@ and one stale metrics-recency paragraph the refresh
 had outdated. The v1.0.0 tag does not move: it is
 the sealed submission state, this round is recorded
 post-submission work behind it.
+
+
+**Post-seal README redesign (appended 2026-11-01):** the
+main README was restructured for the presentation phase
+(hero block with badges, At-a-glance table, Quickstart,
+Status split into Library / Proof / Process with
+<details> blocks; the Start here judge map is preserved
+verbatim) by parcel-psreadme. verifier-psreadme caught
+5 of 5 plants on the planted copy and two genuine
+findings in the real text (Quickstart commands
+misidentified by ordinal; hero line outrunning the
+recorded claim scopes) - both fixed and spot-verified
+before merge. Cumulative plants 177/185 (post-seal
+15/15). Library sources remain byte-identical to the
+v1.0.0 tag.
