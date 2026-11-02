@@ -267,6 +267,7 @@ scene beat is indexed in
 | `docs/KICKOFF.md` | the owner's words verbatim, the lead's readings, open questions |
 | `docs/HARNESS.md` | how the methods' mechanisms map onto Muse, measured |
 | `docs/BOARD.md` | the Pico: protocol and filled details |
+| `docs/BENCH.md` | measured bench records on the Pico: labelled runs generated from retained raw logs (records, never claims) |
 | `docs/studies/` | SF-0, SF-1 and SF-2, the approved plans of record |
 | `docs/RECORD.md` | dated run entries, the project's record |
 | `docs/COVERAGE.tsv` | per-instantiation coverage ledger: status, deciding authority, vector set (generated) |
