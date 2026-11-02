@@ -1247,3 +1247,51 @@ Wave 6 44/45. The soundtrack version is published
 as the owner's unlisted YouTube video (README
 links it). Remaining seal: final adherence audit,
 audit-bundle v2, release tag.
+
+**Adherence seal audit + dispositions (appended
+2026-11-01):** auditor-adherence-seal graded the
+SF-2-close -> seal span **ADHERENT WITH SLIPS**
+(`scratch/audit-adherence-seal/report.md`, frozen
+into audit-bundle v2). Key-hash pre-commitment is
+now timestamp-proven (8/8 key commits precede
+verifier session starts; the two seal rounds
+structural), append-only prefixes intact, public
+tallies recount exact. Dispositions applied at the
+seal: corrections rows appended for C5 (twiddledoc
+hash, carried since Wave 5) and NC1 (the seal
+entry above says briefs 39->44 for the metrics
+branch alone; the union merge actually added 6
+rows — captions 1 + metrics 5 — for **45** nonempty
+briefs rows in the merged tree; merge bodies are
+immutable, this line is the correction). Three
+late escalation rows appended (w6ci F3, polish
+twiddle_gate, judgemap interval restamp — stamps
+from git/passes). NC2 was checked and is not
+present: the w6metrics ledger span-end already
+reads 2026-10-30, so no correction row was made.
+Standing, disclosed, not repaired: two post-copy
+genuine fixes merged without re-verification
+(w6ci `caf00b0`, polish `8751b11`, both CI-reproven
+and disclosed at the time); three brief-directed
+parcel branches on origin at merged tips; the
+kit HARNESS line "only after a verifier READY" is
+restated for this project as: parcel merges only
+after planted verification, lead wiring/record/
+grade landings gated by `standard` + named here;
+`sent_back` is absent on 85 passes rows (the older
+erratum said 58 — count grew, semantics unchanged:
+absent means not sent back); `board.lock` has no
+ledger citation yet (next silicon run owes
+lock-holder + serial in its parcel ledger); the
+seal sessions after the metrics cutoff (the two
+seal parcels, their two verifiers, this auditor)
+are unrowed in usage/passes by design and named
+here. Film-number freeze stamps, so no card
+is read as live: merges 25 and episodes 93 are the
+process graph frozen at `a73e97d` over the 94-row
+passes file; plants 150 is that graph's accounting
+(162/170 at seal); the outro token figure
+1,196,128,770 is the Wave 5 freeze (refreshed
+1,418,065,198 in metrics); vectors and escalation
+totals are live at render. Remaining: audit-bundle
+v2 + release tag, then submission.
