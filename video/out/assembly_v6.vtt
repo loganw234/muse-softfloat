@@ -1,0 +1,274 @@
+WEBVTT
+
+00:00:01.452 --> 00:00:04.355
+Hey Muse, I've got an idea...
+
+00:00:07.258 --> 00:00:07.742
+THE IDEA
+for the RP2040 chip
+
+00:00:07.742 --> 00:00:08.226
+Precise number maths in software (IEEE 754)
+
+00:00:08.226 --> 00:00:08.710
+for a chip without maths hardware
+
+00:00:08.710 --> 00:00:09.194
+All maths there is software.
+
+00:00:09.194 --> 00:00:11.613
+Same answer everywhere.
+
+00:00:11.613 --> 00:00:12.097
+WHAT “CORRECT” MEANS
+the nearest answer, every time
+
+00:00:12.097 --> 00:00:13.065
+value A
+the next number the chip can hold
+
+00:00:13.065 --> 00:00:13.548
+exact answer
+(no rounding yet)
+
+00:00:13.548 --> 00:00:14.032
+correctly rounded → A
+
+00:00:14.032 --> 00:00:14.516
+A neighbour is wrong.
+(illustrative)
+
+00:00:14.516 --> 00:00:17.419
+Exact, not close.
+
+00:00:17.419 --> 00:00:17.903
+WHAT WILL PROVE IT
+three real jobs on the chip
+
+00:00:17.903 --> 00:00:18.387
+IAS15
+tracks planets
+
+00:00:18.387 --> 00:00:18.871
+Desktop bits, every step
+(binary64)
+
+00:00:18.871 --> 00:00:19.355
+INTERVAL GEOMETRY
+answers with guarantees
+
+00:00:19.355 --> 00:00:19.839
+Down one end,
+up the other
+
+00:00:19.839 --> 00:00:20.323
+KISSFFT — FORK B
+live signals
+
+00:00:20.323 --> 00:00:23.226
+Correctly rounded
+sinPi/cosPi
+
+00:00:23.226 --> 00:00:23.710
+HOW IT GETS BUILT
+the short version
+
+00:00:23.710 --> 00:00:24.194
+1
+Agents build it piece by piece
+
+00:00:24.194 --> 00:00:24.677
+2
+Each piece checked independently
+
+00:00:24.677 --> 00:00:25.161
+3
+Verifiers try disproving it
+
+00:00:25.161 --> 00:00:27.581
+Watch it land.
+
+00:00:27.581 --> 00:00:28.065
+BUT FIRST —
+WHY NOT USE WHAT
+
+00:00:28.065 --> 00:00:30.968
+ALREADY SHIPS?
+
+00:00:32.419 --> 00:00:32.903
+TOGETHER: A JOB SPEC
+what the three jobs need (IEEE 754-2019)
+
+00:00:32.903 --> 00:00:33.387
+All five rounding choices
+
+00:00:33.387 --> 00:00:33.871
+Five warning flags, always exact
+
+00:00:33.871 --> 00:00:34.355
+Tiny numbers never zeroed (subnormals)
+
+00:00:34.355 --> 00:00:34.839
+Error values keep their details
+
+00:00:34.839 --> 00:00:35.323
+Three number sizes (binary16/32/64)
+
+00:00:35.323 --> 00:00:35.806
+Correctly rounded, even hard cases
+
+00:00:35.806 --> 00:00:38.710
+Exact leftovers (augmented)
+
+00:00:38.710 --> 00:00:39.194
+OPTION 1 — THE DEFAULT
+SDK ‘pico’ flavour → bootrom
+
+00:00:39.194 --> 00:00:39.677
+Five basic sums correctly rounded
+
+00:00:39.677 --> 00:00:40.161
+Tiny results silently become zero
+
+00:00:40.161 --> 00:00:40.645
+Error values turn into infinity
+
+00:00:40.645 --> 00:00:41.129
+One rounding choice only (ties-to-even)
+
+00:00:41.129 --> 00:00:42.097
+No warning flags exist
+
+00:00:42.097 --> 00:00:45.000
+ELIMINATED
+
+00:00:45.000 --> 00:00:45.484
+OPTION 2 — THE FALL-THROUGH
+SDK ‘compiler’ flavour → libgcc
+
+00:00:45.484 --> 00:00:45.968
+Rounding directions? Not measured
+
+00:00:45.968 --> 00:00:46.452
+Warning flags? Not measured
+
+00:00:46.452 --> 00:00:46.935
+Errors, tiny numbers, small size? Unmeasured
+
+00:00:46.935 --> 00:00:47.419
+Same code, different bits per target
+
+00:00:47.419 --> 00:00:47.903
+e.g. a×b+c differs by target.
+
+00:00:47.903 --> 00:00:48.871
+Unmeasured proves nothing (SF-0)
+
+00:00:48.871 --> 00:00:51.774
+NOT MEASURED
+
+00:00:51.774 --> 00:00:52.258
+OPTION 3
+SDK ‘none’ flavour
+
+00:00:52.258 --> 00:00:52.742
+panic("float support is disabled")
+
+00:00:52.742 --> 00:00:53.226
+Every number call stops here
+
+00:00:53.226 --> 00:00:56.613
+NO FLOATS AT ALL
+
+00:00:56.613 --> 00:00:57.097
+SO BUILD THE FOURTH OPTION
+MUSE-SOFTFLOAT
+
+00:00:57.097 --> 00:00:57.581
+Three sizes · 849 versions (IEEE 754-2019)
+
+00:00:57.581 --> 00:00:58.065
+Five roundings, five exact warnings
+
+00:00:58.065 --> 00:00:58.548
+Tiny kept · leftovers exact · correctly rounded
+
+00:00:58.548 --> 00:01:01.935
+Proven bit-identical on the chip
+
+00:01:09.194 --> 00:01:13.065
+PARCELS
+work is divided
+19 parcels total
+
+00:01:14.032 --> 00:01:18.871
+ESCALATIONS
+questions go to lead
+20 filed, 3 fixes
+
+00:01:19.839 --> 00:01:24.194
+VERIFIERS
+recheck every parcel independently
+36 verifiers total
+
+00:01:25.161 --> 00:01:29.516
+PLANTS
+traps test the checkers
+150 planted bugs
+
+00:01:30.484 --> 00:01:35.806
+GATES
+nothing merges unless all green
+411,213 smoke + 1,117,504 standard
+
+00:01:36.774 --> 00:01:41.613
+STUDIES
+scout the ground before building
+35 studies total
+
+00:01:42.581 --> 00:01:47.419
+MAIN
+finished work joins here
+25 merges to main
+
+00:01:58.355 --> 00:02:05.516
+IAS15 RUNS ON THE CHIP
+
+00:02:11.903 --> 00:02:19.065
+KISSFFT STUDY
+
+00:02:27.387 --> 00:02:34.065
+AUGMENTED INTERVALS
+
+00:02:36.290 --> 00:02:44.090
+every system drops in, kept
+
+00:02:49.839 --> 00:02:51.290
+Done — it held up.
+
+00:02:51.290 --> 00:02:51.774
+Identical on all 6 boards.
+
+00:02:51.774 --> 00:02:52.742
+HUMAN : AI SPLIT
+PROJECT 1,196,128,770 tokens
+
+00:02:52.742 --> 00:02:53.710
+OWNER ~1,928 typed (est.)
+true bar &lt;1 px wide
+
+00:02:53.710 --> 00:02:54.677
+≈ 1 : 620,000
+Billed vs typed tokens (est.)
+
+00:02:54.677 --> 00:02:55.645
+849 / 849
+versions across 3 sizes
+
+00:02:55.645 --> 00:02:56.613
+411,213
+checks before merging
+
+00:02:56.613 --> 00:02:59.030
+6 boards
+IAS15 · 2,001/2,001 checks
