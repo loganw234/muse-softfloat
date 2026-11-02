@@ -6,7 +6,7 @@ An IEEE 754 softfloat library (binary16, binary32 and binary64) for the RP2040 w
 
 [Watch the 3-min film](https://www.youtube.com/watch?v=IzLtd2_OIFo) · [Try the live demo](https://loganw234.github.io/muse-softfloat/) · [v1.0.0 release](https://github.com/loganw234/muse-softfloat/releases/tag/v1.0.0)
 
-![Still from the demo film: all system marbles in, over the muse-softfloat plate with its kept stamps](video/out/stills_v6/27_t164.03_git-opening-plate.png)
+![Still from the demo film: IAS15 runs on the chip, with desktop and RP2040 check-values matching beside a mockup drawing of the six boards](video/out/stills_v6/22_t123.39_git-gate-ias15.png)
 
 *One still per scene beat is indexed in [video/out/stills_v6/](video/out/stills_v6/INDEX.md).*
 
