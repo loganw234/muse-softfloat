@@ -1398,3 +1398,21 @@ gated to the copy, caught 5 of 5 plants. Cumulative
 plants 182/190 (post-seal 20/20). Records only, as
 ever; library sources remain byte-identical to the
 v1.0.0 tag.
+
+
+**Post-seal edge-case dealer (appended 2026-11-02):**
+the web demo instrument gained a "Deal me an edge
+case" button serving a curated 19-entry deck of
+interesting cases (subnormal underflow, halfway ties,
+signaling-NaN payloads, FMA single rounding, hypot
+past the square's overflow, totalOrder on signed
+zeros), each run live through the WASM build with a
+caption stating what to notice; every caption claim
+machine-checked against the WASM under Node, plus a
+headless-browser smoke. verifier-psedge caught 5 of
+5 plants on the provenance-gated copy (its sixth
+finding, the brief row's all-pass wording, is the
+plants' consequence in the copy and true on the real
+branch). Cumulative plants 187/195 (post-seal
+25/25). Library sources remain byte-identical to the
+v1.0.0 tag.
