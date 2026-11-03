@@ -33,7 +33,8 @@
   <p>Pick a format and an operation, type operands as bit patterns or decimal values, and run.
   The hex bits are what actually execute; the decimal fields are a display convenience that
   converts through the format. Or deal a real line out of the repository's committed test
-  vectors and watch the build reproduce it.</p>
+  vectors and watch the build reproduce it, or deal a curated edge case to see a corner
+  where exact semantics show, computed live.</p>
 
   <div class="panel">
     <div class="controls">
@@ -63,6 +64,7 @@
     <div class="actions">
       <button id="run" type="button">Run</button>
       <button id="deal" type="button" class="secondary">Deal me a committed vector</button>
+      <button id="deal-edge" type="button" class="secondary" disabled>Deal me an edge case</button>
     </div>
     <div id="dealt" class="dealt" hidden></div>
     <div id="result" class="result" hidden>

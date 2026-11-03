@@ -14,6 +14,56 @@ const FLAG_DEFS = [
 ];
 const FLOAT_KIND = { F16: { w: 16, e: 5, t: 10 }, F32: { w: 32, e: 8, t: 23 }, F64: { w: 64, e: 11, t: 52 } };
 
+/* Curated edge cases, computed live only (no recorded expectations in
+ * the page). Every result/flag claim in a note was checked against
+ * msf.wasm during development. rm is present only where the operation
+ * takes a rounding attribute; args are width-correct operand hex. */
+const EDGE_DECK = [
+  { op: "msf32_div", rm: "te", args: ["00800000", "40400000"], title: "A subnormal result, flagged twice",
+    note: "The smallest normal binary32 divided by 3 falls below the normal range. The result is an inexact subnormal (exponent field 0), raising both underflow and inexact." },
+  { op: "msf16_mul", rm: "te", args: ["7bff", "4000"], title: "Overflow to infinity",
+    note: "The largest finite binary16 times 2 has no finite rounding, so ties-to-even delivers +∞. Overflow and inexact are raised together." },
+  { op: "msf32_add", rm: "te", args: ["3f800000", "33800000"], title: "An exact halfway tie",
+    note: "1 + 2^-24 sits exactly halfway between 1 and the next binary32 up, so ties-to-even keeps 1 and raises only inexact.",
+    try: "switch Rounding to ties to away and Run again - the same operands then round up to 0x3f800001." },
+  { op: "msf32_add", rm: "te", args: ["7f800001", "3f800000"], title: "A signaling NaN input",
+    note: "Operand a is a signaling NaN with payload bit 0 set. The addition quiets it to 0x7fc00001 - the payload is still visible in the low bit - and raises only invalid." },
+  { op: "msf32_mul", rm: "te", args: ["00000000", "7f800000"], title: "Zero times infinity",
+    note: "0 × ∞ is an invalid operation: no value is arguable, so the result is the quiet NaN 0x7fc00000 with only the invalid flag raised." },
+  { op: "msf32_div", rm: "te", args: ["3f800000", "00000000"], title: "A finite value over zero",
+    note: "1 / +0 is not invalid: it delivers +∞ exactly in sign, raising division by zero and no other flag." },
+  { op: "msf32_fma", rm: "te", args: ["3f800800", "3f800800", "30800000"], title: "FMA rounds only once",
+    note: "The exact product of a and b is a halfway tie, and adding c (2^-30) tips the exact sum just above it, so the fused result is 0x3f801001. Rounding the product first would give 0x3f801000 and the tiny c would then be lost - one rounding is not the same as two." },
+  { op: "msf32_to_i8_ties_to_even", args: ["447a0000"], title: "Integer conversion saturates",
+    note: "1000 has no int8 value, so the conversion saturates to 127, the largest int8, and raises invalid rather than wrapping." },
+  { op: "msf32_sin_pi", rm: "te", args: ["3f000000"], title: "sinPi is exact at a half-integer",
+    note: "sinPi(0.5) is exactly 1 with no flags: the argument is given in cycles, and at a half-integer the exact sine is a representable value.",
+    try: "set operand a's decimal field to 1 and Run again - sinPi(1) is exactly +0." },
+  { op: "msf32_log2", rm: "te", args: ["00000001"], title: "log2 of the smallest subnormal",
+    note: "The operand is the smallest positive subnormal, exactly 2^-149, so log2 returns exactly -149 with no flags, subnormal input notwithstanding." },
+  { op: "msf32_exp2", rm: "te", args: ["c3150000"], title: "exp2 lands exactly on a subnormal",
+    note: "2^-149 is representable as the smallest positive subnormal, so exp2(-149) returns it exactly (0x00000001) with no flags." },
+  { op: "msf32_hypot", rm: "te", args: ["71800000", "71800000"], title: "hypot where squaring overflows",
+    note: "Each operand is 2^100, whose square alone overflows binary32 to +∞ (check with multiplication). hypot still returns the finite value 0x71b504f3, raising only inexact - it delivers the correctly rounded root of the exact sum of squares, overflow of an intermediate square notwithstanding.",
+    try: "switch the operation to multiplication, set both operand hex fields back to 71800000 and Run - the intermediate square is +∞." },
+  { op: "msf32_total_order", args: ["80000000", "00000000"], title: "totalOrder distinguishes -0 from +0",
+    note: "Although -0 and +0 compare equal numerically, totalOrder(-0, +0) is true: the encoding order places -0 below +0.",
+    try: "swap the two operands and Run again - totalOrder(+0, -0) is false." },
+  { op: "msf16_class", args: ["7c01"], title: "The class of a signaling NaN",
+    note: "The operand is a binary16 signaling NaN. class reports it as class 0, signaling NaN, and this operation reports no flags." },
+  { op: "msf64_next_up", args: ["7fefffffffffffff"], title: "nextUp past the largest finite",
+    note: "There is no finite binary64 above the largest finite value, so nextUp steps straight to +∞ with no flags." },
+  { op: "msf32_next_down", args: ["00000000"], title: "nextDown from zero",
+    note: "One step down from +0 is the negative smallest subnormal, 0x80000001 (about -1.4e-45), with no flags - the sign flips and a single significand bit appears." },
+  { op: "msf32_minimum", args: ["7fc00000", "3f800000"], title: "minimum propagates a NaN",
+    note: "minimum of a quiet NaN and 1 is the quiet NaN itself, with no flags: this IEEE 754 operation treats a NaN operand as a NaN result.",
+    try: "switch the operation to its sibling minimumNumber, set the operand hex fields back to 7fc00000 and 3f800000 and Run - that operation treats the NaN as missing data and returns 1." },
+  { op: "msf32_remainder", args: ["40e00000", "40000000"], title: "remainder picks the nearest quotient",
+    note: "remainder(7, 2) uses the nearest-even quotient 4, not the truncated quotient 3, so the result is exactly -1 with no flags, where truncated (fmod-style) intuition expects +1." },
+  { op: "msf32_sqrt", rm: "te", args: ["80000000"], title: "The square root of -0",
+    note: "sqrt(-0) is -0 exactly, with no flags: the sign of a zero is real information and square root preserves it." },
+];
+
 const $ = (id) => document.getElementById(id);
 const fmtInt = (n) => n.toLocaleString("en-US");
 
@@ -301,6 +351,33 @@ function doDeal() {
   }
 }
 
+function doDealEdge() {
+  if (!wasm) return; // live only: the button is disabled without WASM
+  const deck = EDGE_DECK.filter((e) => {
+    const op = OPS.find((o) => o.name === e.op);
+    return op && op.runnable;
+  });
+  if (!deck.length) return;
+  const e = deck[Math.floor(Math.random() * deck.length)];
+  const op = OPS.find((o) => o.name === e.op);
+  lastDealt = null;
+  fmtSel.value = formatGroup(op);
+  fillOps(e.op);
+  if (op.rm && e.rm && RM_TOKEN[e.rm] >= 0) rmSel.value = String(RM_TOKEN[e.rm]);
+  operandRows.forEach((row, k) => {
+    row.hex.value = hexOf(BigInt("0x" + (e.args[k] || "0")), row.width);
+    syncFromHex(row);
+  });
+  const dealt = $("dealt");
+  dealt.hidden = false;
+  dealt.innerHTML =
+    `Edge case - <b>${e.title}</b><br>${e.note}` +
+    (e.try ? `<br>Try: ${e.try}` : "");
+  const bits = [0n, 1n, 2n].map((k) => BigInt("0x" + (e.args[Number(k)] || "0")));
+  const r = runWasm(op, op.rm ? RM_TOKEN[e.rm ?? "te"] : -1, bits);
+  if (r) showResult(op, r.result, r.flags, false);
+}
+
 /* ---- generated tables ---- */
 function renderNumbers() {
   const d = DATA;
@@ -396,6 +473,7 @@ async function init() {
   opSel.addEventListener("change", syncOpUI);
   $("run").addEventListener("click", doRun);
   $("deal").addEventListener("click", doDeal);
+  $("deal-edge").addEventListener("click", doDealEdge);
   drawOrbit();
   try {
     const bytes = await fetch("msf.wasm").then((r) => {
@@ -410,14 +488,17 @@ async function init() {
       `(${fmtInt(n)} dispatch entries; ${fmtInt(OPS.filter((o) => o.runnable).length)} runnable here). ` +
       `Proven at build time by replaying ${fmtInt(SAMPLE.length)} bundled committed vectors under Node.`;
     status.className = "wasm-status ok";
+    $("deal-edge").disabled = false;
     doRun();
   } catch (e) {
     wasm = null;
     $("run").disabled = true;
+    $("deal-edge").disabled = true;
     status.textContent =
       "WebAssembly build unavailable in this browser (" + e.message + "). " +
       "Free entry is disabled; “Deal me a committed vector” shows recorded results " +
-      "from the repository's test vectors, labelled as recorded — no live computation.";
+      "from the repository's test vectors, labelled as recorded — no live computation. " +
+      "“Deal me an edge case” is live-only and stays disabled.";
     status.className = "wasm-status down";
   }
 }

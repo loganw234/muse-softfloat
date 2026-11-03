@@ -29,7 +29,9 @@ pairs also board-replayed) like everything else.
 
 If WebAssembly cannot load in a visitor's browser, free entry is
 disabled and "deal me a committed vector" shows recorded results
-from `tests/vectors/`, labelled as recorded. The page never
+from `tests/vectors/`, labelled as recorded. The live-only
+"deal me an edge case" button (a curated deck in `app.js`, with
+no recorded results in the page) stays disabled. The page never
 implies live computation it is not doing.
 
 ## Files
