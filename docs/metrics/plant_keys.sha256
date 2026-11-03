@@ -15,3 +15,4 @@ c7e98cc5a1e2d462b96573ac6efd63cc5e684b49b63f716ba60dfdc132b26207  ps-bench (veri
 c8464f514e791519e9957aa85b9ef02c4c27b263e0924c4da5d644db415b8cf6  ps-ciwindows (verifier-psciwindows, copy 6a59d2a, base c615ae9, 2026-11-01)
 f5d7b66addec63da5ae16860f44f05d5d4b0db598f9507fa80b3c1edc8e9d619  ps-readme (verifier-psreadme, copy c480c3e, base 3b31126, 2026-11-01)
 0305f97a02895bf00551bbd1f1c5f462ceb586a9bbc83573f0080676f0a3539b  ps-bench2 (verifier-psbench2, copy 2412360, base 21e9011, 2026-11-01)
+da767e454736f171c0285bd0d33b323ccf2eb1e9a154e1432eb6f9674a2206b0  ps-edge (verifier-psedge, copy 15987e1, base a49991f, 2026-11-02)
