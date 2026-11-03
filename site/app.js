@@ -104,9 +104,14 @@ function kindMask(w) { return w >= 64 ? (1n << 64n) - 1n : (1n << BigInt(w)) - 1
 function hexOf(bits, w) { return (bits & kindMask(w)).toString(16).padStart(Math.ceil(w / 4), "0"); }
 
 function bitsToDecimal(kind, bits) {
-  if (kind === "F16") return String(bitsToF16(bits));
-  if (kind === "F32") return String(bitsToF32(bits));
-  if (kind === "F64") return String(bitsToF64(bits));
+  if (Object.hasOwn(FLOAT_KIND, kind)) {
+    const v = kind === "F16" ? bitsToF16(bits)
+      : kind === "F32" ? bitsToF32(bits) : bitsToF64(bits);
+    // String(-0) is "0" in JS; the sign of a zero is the point of
+    // several edge cases, so spell it from the sign bit.
+    if (v === 0) return ((bits >> BigInt(FLOAT_KIND[kind].w - 1)) & 1n) ? "-0" : "0";
+    return String(v);
+  }
   if (kind === "BOOL") return bits === 0n ? "false" : "true";
   if (kind === "CLASS") return CLASS_NAMES[Number(bits)] ?? String(bits);
   if (kind.startsWith("I")) {
